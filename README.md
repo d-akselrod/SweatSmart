@@ -1,8 +1,8 @@
 # Project Name
 
-Developer Names:
+Developer Names: Daniel Akselrod, Sophie Fillion, Jonathan Avraham, Sam McDonald
 
-Date of project start:
+Date of project start: September 13, 2023
 
 This project is ...
 
