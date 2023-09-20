@@ -277,3 +277,9 @@ TSWLatexianTemp*
 
 # DS_Store file from Mac computers
 .DS_Store
+
+src/SweatSmart-Service/bin/
+src/SweatSmart-Service/obj/
+src/SweatSmart-Service/.idea/
+test/SweatSmart-Service/bin/
+test/SweatSmart-Service/obj/
