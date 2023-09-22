@@ -1,4 +1,4 @@
-name: Frontend CI
+name: SweatSmart-UI CI
 
 on:
   push:
