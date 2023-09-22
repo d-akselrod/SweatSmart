@@ -5,6 +5,6 @@ public class SampleTest
     [Fact]
     public void BaseTest()
     {
-        Assert.Equal(0,     0);
+        Assert.Equal(0, 0);
     }
 }
