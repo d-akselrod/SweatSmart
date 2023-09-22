@@ -1,4 +1,4 @@
-name: Backend CI
+name: SweatSmart-Service CI
 
 on:
   push:
