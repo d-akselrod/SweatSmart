@@ -34,6 +34,10 @@ jobs:
         working-directory: ./test/SweatSmart-Service
         run: dotnet test --framework net7.0
 
-      - name: Run dotnet format
+      - name: Run dotnet format on backend source
         working-directory: ./src/SweatSmart-Service
-        run: dotnet format --check
+        run: dotnet format "SweatSmart-Service.csproj"--check
+        
+      - name: Run dotnet format on backend tests
+        working-directory: ./test/SweatSmart-Service
+        run: dotnet format "SweatSmart-Service.test.csproj"--check
