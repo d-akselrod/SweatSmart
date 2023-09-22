@@ -29,7 +29,6 @@
 *.blg
 *-blx.aux
 *-blx.bib
-*.run.xml
 
 ## Build tool auxiliary files:
 *.fdb_latexmk
