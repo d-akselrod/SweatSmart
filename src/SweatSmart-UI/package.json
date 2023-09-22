@@ -8,9 +8,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint:check": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "format": "prettier --write \"**/*.ts\" \"**/*.tsx\""
+    "format:check": "prettier --check \"**/*.ts\" \"**/*.tsx\"",
+    "format:fix": "prettier --write \"**/*.ts\" \"**/*.tsx\""
   },
   "jest": {
     "preset": "jest-expo",

@@ -32,19 +32,19 @@ jobs:
 
       - name: Run source ESLint
         working-directory: ./src/SweatSmart-UI
-        run: npm run lint
+        run: npm run lint:check
 
       - name: Run test ESLint
         working-directory: ./test/SweatSmart-UI
-        run: npm run lint
+        run: npm run lint:check
 
       - name: Check source formatting with Prettier
         working-directory: ./src/SweatSmart-UI
-        run: npm run format --check
+        run: npm run format:check
         
       - name: Check test formatting with Prettier
         working-directory: ./test/SweatSmart-UI
-        run: npm run format --check
+        run: npm run format:check
 
       - name: Run Jest tests
         working-directory: ./src/SweatSmart-UI
