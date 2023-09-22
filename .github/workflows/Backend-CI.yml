@@ -5,10 +5,13 @@ on:
     paths:
       - 'src/SweatSmart-Service/**'
       - 'test/SweatSmart-Service/**'
+      - '.github.workflows/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 16
 
     steps:
       - name: Checkout code
@@ -29,7 +32,7 @@ jobs:
 
       - name: Run XUnit tests
         working-directory: ./test/SweatSmart-Service
-        run: dotnet test --no-build
+        run: dotnet test --framework net7.0
 
       - name: Run dotnet format
         working-directory: ./src/SweatSmart-Service
