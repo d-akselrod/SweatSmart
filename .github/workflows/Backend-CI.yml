@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'src/SweatSmart-Service/**'
+      - 'test/SweatSmart-Service/**'
 
 jobs:
   build:
@@ -16,7 +17,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0'
+          dotnet-version: '7.0.202'
 
       - name: Restore dependencies
         working-directory: ./src/SweatSmart-Service
