@@ -1,4 +1,4 @@
-name: .NET Core CI
+name: Backend CI
 
 on:
   push:
@@ -34,6 +34,10 @@ jobs:
         working-directory: ./test/SweatSmart-Service
         run: dotnet test --framework net7.0
 
-      - name: Run dotnet format
+      - name: Run dotnet format on Backend Source
         working-directory: ./src/SweatSmart-Service
-        run: dotnet format --check
+        run: dotnet format --verify-no-changes
+        
+      - name: Run dotnet format on Backend Tests
+        working-directory: ./test/SweatSmart-Service
+        run: dotnet format --verify-no-changes
