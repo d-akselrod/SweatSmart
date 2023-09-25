@@ -3,7 +3,7 @@
     <package-json value="$PROJECT_DIR$/src/SweatSmart-UI/package.json" />
     <command value="run" />
     <scripts>
-      <script value="test" />
+      <script value="test:check" />
     </scripts>
     <node-interpreter value="project" />
     <envs />
