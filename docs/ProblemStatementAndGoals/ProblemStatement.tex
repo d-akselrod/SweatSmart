@@ -1,56 +1,105 @@
 \documentclass{article}
 
+\usepackage[margin=1in]{geometry}
 \usepackage{tabularx}
 \usepackage{booktabs}
 
-\title{Problem Statement and Goals\\\progname}
+\title{Problem Statement and Goals AI-Driven Workout Planner App\\\progname}
 
-\author{\authname}
+\author{\authname}  % No author name was given
 
 \date{}
 
 \input{../Comments}
 \input{../Common}
+\date{}
 
 \begin{document}
 
-\maketitle
+    \maketitle
+    \begin{table}[hp]
+        \centering
+        \caption{Revision History} \label{TblRevisionHistory}
+        \begin{tabularx}{\textwidth}{lllX}
+            \toprule
+            \textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+            \midrule
+            1 & Sep 25, 2023 & Daniel, Sam, Sophie, Jonathan & First draft of Document\\
+            \bottomrule
+        \end{tabularx}
+    \end{table}
+    \section{Problem Statement}
 
-\begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
-\end{table}
+    In our current fast-paced world, it has become increasingly difficult for people of all fitness levels to maintain a healthy and active lifestyle without investing significant time into creating a plan and routine. Consequently, many individuals struggle to establish and follow personalized workout plans that match their experience, preferences, goals, and tight schedules. Market-available options often fail to provide adaptive and evolving workouts, leading to stagnation, reduced motivation, and boredom. Addressing these challenges, our team proposes the development of an AI-driven workout planner app.
 
-\section{Problem Statement}
+    \subsection{Problem}
 
-\wss{You should check your problem statement with the
-\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
-{problem statement checklist}.}
-\wss{You can change the section headings, as long as you include the required information.}
+    The prevailing issue is the absence of effective, customizable solutions that allow individuals to generate and adhere to fitness plans tailored to their unique goals, experience, preferences, and schedules. Current workout planners tend to be generic and rigid, resulting in suboptimal fitness outcomes and dwindling user motivation.
 
-\subsection{Problem}
+    \subsection{Inputs and Outputs}
+    \textbf{Inputs:}
+    \begin{itemize}
+        \item User profile information
+        \item Fitness goals
+        \item Fitness experience level
+        \item Workout preferences
+        \item Daily/weekly schedule and availability
+        \item Dietary preferences/restrictions and eating habits
+        \item Medical information
+        \item Questions/suggestions from users
+    \end{itemize}
 
-\subsection{Inputs and Outputs}
+    \noindent\textbf{Outputs:}
+    \begin{itemize}
+        \item Customized workout plans
+        \item Recommended exercises with set counts
+        \item Workout intensity and duration guidelines
+        \item Progress monitoring and user-specific workout statistics
+        \item Nutritional and dietary suggestions
+        \item Motivational features
+        \item Tailored responses to user queries
+    \end{itemize}
 
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
+    \subsection{Stakeholders}
 
-\subsection{Stakeholders}
+    \begin{itemize}
+        \item \textbf{Users:} Individuals with diverse athletic experiences seeking personalized workout strategies and specific guidance to realize their fitness aspirations.
+        \item \textbf{App Developers:} Our team, which oversees the design, development, implementation, and maintenance of the application.
+        \item \textbf{Fitness Experts:} Authorities or researchers contributing expertise in formulating the workout plans and AI algorithms.
+        \item \textbf{Medical Professionals:} Healthcare practitioners involved in ensuring that the app promotes safe and health-conscious fitness and nutritional practices, especially when users provide medical data.
+    \end{itemize}
 
-\subsection{Environment}
+    \subsection{Environment}
 
-\wss{Hardware and software}
+    \textbf{Hardware:}
+    \begin{itemize}
+        \item Primarily smartphones and tablets.
+    \end{itemize}
 
-\section{Goals}
+    \noindent \textbf{Software:}
+    \begin{itemize}
+        \item The application employs machine learning and AI algorithms for user data processing and workout plan creation.
+        \item Compatibility with Android and iOS platforms.
+        \item Database servers to securely archive user profiles and workout blueprints; certain app-specific data is saved locally.
+        \item Integration capabilities with calendar apps and third-party health and fitness trackers for enhanced features.
+    \end{itemize}
 
-\section{Stretch Goals}
+    \section{Goals}
+
+    \begin{itemize}
+        \item \textbf{Ease of Use:} Ensure a user-friendly experience with an intuitive interface, facilitating smooth navigation, effortless modification of workout plans, and a comprehensive, responsive design.
+        \item \textbf{Personalized Workout Plans:} Design an AI capable of crafting individualized workout plans considering various user profile elements like age, weight, dietary constraints, medical history, progress, etc.
+        \item \textbf{Progress Tracking:} Equip users to monitor their progress to detect areas for enhancement and, ultimately, meet their fitness objectives.
+        \item \textbf{Advanced AI Interaction:} The AI model should be able to modify existing regimens based on users' history and progression.
+        \item \textbf{Virtual Personal Trainer Interaction:} Integrate a chatbot that functions as a personal trainer, allowing users to maintain round-the-clock communication with this bot, guiding them towards their fitness milestones.
+    \end{itemize}
+
+    \section{Stretch Goals}
+
+    \begin{itemize}
+        \item \textbf{Enhanced AI User Interaction:} Venture into superior natural language processing capabilities to foster improved user engagement with the AI, simulating real-life fitness coach dynamics.
+        \item \textbf{Sharing Platform:} Architect a robust platform where users can share their unique workout plans and connect with actual personal trainers.
+        \item \textbf{Social and User Engagement:} Enrich the app with advanced social utilities, including user profiles, networking features, and challenge-posting capabilities to inspire and boost user motivation.
+    \end{itemize}
 
 \end{document}
