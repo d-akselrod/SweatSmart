@@ -1,11 +1,12 @@
 \documentclass{article}
 
-\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
 \usepackage{tabularx}
+\usepackage{booktabs}
 
 \title{Development Plan\\\progname}
 
-\author{\authname}
+\author{\authname}  % No author name was given
 
 \date{}
 
@@ -14,62 +15,314 @@
 
 \begin{document}
 
-\maketitle
+	\maketitle
+	\begin{table}[hp]
+		\centering
+		\caption{Revision History} \label{TblRevisionHistory}
+		\begin{tabularx}{\textwidth}{lllX}
+			\toprule
+			\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+			\midrule
+			1 & Sep 25, 2023 & Daniel, Sam, Sophie, Jonathan & First draft of Document\\
+			\bottomrule
+		\end{tabularx}
+	\end{table}
+	\vspace{0.5cm}
+	\maketitle
 
-\begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
-\end{table}
+	With more individuals trying to maintain a healthy and active lifestyle, embarking on or maintaining their fitness journey can be daunting and time-consuming. Creating an AI powered fitness application will revolutionize the way individuals engage with their physical health. SweatSmart aims to help individuals trying to start or maintain their fitness journey.
 
-\wss{Put your introductory blurb here.}
+	This document outlines the development plan for the entirety of the project, creating an outline that team members can refer to. Section 1 outlines the schedule and expectations for team meetings. Section 2 lists the various communication methods and their corresponding use for the team. Section 3 specifies team members’ roles and their responsibilities. Section 4 depicts the workflow plan for using GitHub. Section 5 describes the Proof Of Concept that the team hopes to complete by the described deadline noted in section 8. Section 6 notes the tech-stack that will be used for the implementation of this project. Section 7 indicates the coding standards that will be practiced throughout this project. Section 8 outlines the overall project schedule/deliverable deadlines.
 
-\section{Team Meeting Plan}
 
-\section{Team Communication Plan}
+	\section{Team Meeting Plan}
 
-\section{Team Member Roles}
+	Team meetings are scheduled semiweekly on Mondays at 3:30 pm and Wednesdays at 1:30 pm, either in person or virtually. All team members are expected to attend said meetings, unless they have given notice to the rest of the team with a valid reason. If the team decides that a team meeting is not necessary, then a meeting can be canceled. However, all team members should keep the semiweekly meeting times free and expect to have the scheduled meeting. During team meetings, members are expected to share progress updates for their assigned tasks, raise any concerning issues, and contribute to team discussions and decisions.
 
-\section{Workflow Plan}
+	Every team meeting (including lectures) will be recorded using GitHub Issues. An issue will be opened before each meeting, outlining the meeting’s agenda and attendance. All team members are expected to review the agenda beforehand and come to the meeting prepared with progress updates, concerns, and/or questions. At the end of the meeting, the issue will be closed.
 
-\begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classificaiton, etc.?
-\end{itemize}
+	The team’s project manager will act as the meeting chair, responsible for preparing the agenda, facilitating discussion and keeping the conversation focused and on-task. They will also monitor the length of the meeting, keeping meetings under an hour. Any notes, comments or concerns will be documented as comments under the GitHub Issue, which can be referred to in the future.
 
-\section{Proof of Concept Demonstration Plan}
+	\section{Team Communication Plan}
 
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
+	Daily communication for administrative tasks, questions, concerns, or reminders will be done via the group chat iMessage. All team members are responsible for checking and responding to these messages frequently to inform the team that they are up-to-date with new information.
 
-\section{Technology}
+	GitHub project boards will be used to communicate asynchronously about technical work, such as task details, project status updates, or key project documents. GitHub issues will also be used to raise concerns. These issues should be linked to the appropriate assignee(s), label(s), and project(s) on GitHub. All team members are expected to check the project boards and issues daily to stay on top of project tasks and their progress.
 
-\begin{itemize}
-\item Specific programming language
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Libraries you will likely be using?
-\item Tools you will likely be using?
-\end{itemize}
+	As previously mentioned, the team will have semi-weekly meetings, occurring in person or virtually. In-person meetings will take place in Thode Library, while virtual meetings will occur on Discord. These weekly meetings will be used for project check-ins, status updates and deliverable updates.
 
-\section{Coding Standard}
+	\section{Team Member Roles}
 
-\section{Project Scheduling}
+	On top of the specified roles specified below, all team members are responsible for coding, testing, documentation, and creating/commenting on issues. Additional roles and responsibilities may be added along the course of the project to accommodate and manage all of the tasks.
 
-\wss{How will the project be scheduled?}
+	\vspace{0.5cm}
+	\begin{tabularx}{\textwidth}{|l|l|X|}
+		\hline
+		\textbf{Team Member} & \textbf{Role} & \textbf{Responsibilities} \\
+		\hline
+		Sam & Team liaison & Emailing course instructors/TAs for any questions or concerns, replying to emails received from course instructors/TAs. Industry/research expert: Being an expert in the fitness industry, knowing needs/demand for different application features. \\
+		\hline
+		Jonny & Full-stack developer expert & Answering questions and providing support for team members regarding UI/UX design, front-end, and back-end development. \\
+		\hline
+		Daniel & GIT/CI/Tech-stack expert & Answering questions and providing support for team members regarding the tech-stack, Git, or CI workflows. \\
+		\hline
+		Sophie & Project manager & Leading meetings (creating agenda, open meeting, facilitating discussion, monitor conversation), overseeing issues, monitoring project progress through project boards, ensuring the team is staying on track with deadlines and deliverables, providing LaTeX support\\
+		\hline
+	\end{tabularx}
 
+	\section{Workflow Plan}
+
+	\subsection{GitHub Usage}
+	The following plan should be followed for the workflow:
+	\begin{enumerate}
+		\item GitHub Actions will be used to manage continuous integration workflow scripts
+		\item Pull changes from main branch
+		\item Create new branch under main branch (see section 4.1.1 for specific branches)
+		\item Implement changes/tests to relevant code or documents.
+		\item Create appropriate issues on Git for project management (see 4.1.2)
+		\item Push branch changes when needed, upon completion, branch can be merged into feature branch if CI build passes
+		\item Once build passes and another teammate approves PR, branch can be merged, the remote branch is then deleted
+		\item Production is then updated to reflect main once the core app is implemented correctly every week
+	\end{enumerate}
+
+	\subsubsection{Branch structure}
+	\begin{itemize}
+		\item main → Main dev branch, where PR’s are pulled into
+		\item prod → Production branch, updated to mirror main when changes are ready to be deployed
+		\item config → Used for updating project structure, runtime configs and environment
+		\item docs → Used for all project documentation
+		\item feat/… → High level branch per feature
+		\item user/… → A grouping of all team members, will contain 1 branch per issue in the possible format ‘user/\textless first name\textgreater/\textless ticket id\textgreater/\textless issue name\textgreater’
+	\end{itemize}
+
+	\subsubsection{Issue Types}
+	\begin{itemize}
+		\item Feature → Used for adding new/extending existing functionality of app
+		\item Fix → Used for fixing bugs
+		\item Refactor → Used for refactoring
+		\item Test → Used for adding unit tests
+	\end{itemize}
+
+	\subsubsection{Pull Requests}
+	\begin{itemize}
+		\item Naming Convention → TBD but will include name of feature
+		\item User branches are merged into feature branches, user branch is then deleted
+		\item 2 approval required before merge, depending on circumstance, CI workflow build must pass
+	\end{itemize}
+
+	\subsubsection{Commits}
+	\begin{itemize}
+		\item Possible Naming Convention → (\textless Issue Type\textgreater)-\textless description of commit\textgreater
+		\item Squash commits where applicable
+	\end{itemize}
+
+	\section{Proof of Concept Demonstration}
+
+	\subsection{Objective}
+	The objective of our Proof of Concept (POC) is to ensure our plan to use an AI algorithm for workout generation based on user input is feasible and to have an initial working demonstration of our app.
+
+	\subsection{Scope}
+	The POC demonstration will center on the following aspects:
+	\begin{itemize}
+		\item \textbf{Basic AI algorithm Validation:} Validate that the AI algorithm can generate a simple workout plan for a user based on simple parameters (e.g. age, gender, current exercise frequency).
+		\item \textbf{Simple UI:} Create a simple user interface for the web application.
+		\item \textbf{Simple database:} Create a simple database that stores user profiles and information.
+	\end{itemize}
+
+	\subsection{Algorithm Testing}
+	\begin{itemize}
+		\item Create a limited dataset of 20 or so sample users with only a few parameters (e.g. age, gender, current exercise frequency).
+		\item Run the AI algorithms against this limited dataset to validate the basic functionality of workout plan generation.
+		\item Create a simple proof-of-concept algorithm without extensive optimization.
+		\item Create a basic user profile for each team member.
+	\end{itemize}
+
+	\subsection{Success Criteria}
+	The POC will be considered a success if the following has been demonstrated:
+	\begin{itemize}
+		\item The AI algorithms can generate basic workout plans for users with limited information and with a few variations in fitness goals.
+		\item A user can create and log into their profile and generate their workout plan for a week.
+		\item Created profiles are stored in the simple database; profile information can be recovered.
+	\end{itemize}
+
+	\section{Technology}
+
+	\subsection{Programming Languages}
+	\begin{description}
+		\item[Front-end:] Typescript
+		\item[Back-end:] C\#, SQL
+	\end{description}
+
+	\subsection{Linters}
+	\begin{description}
+		\item[Front-end:] ESLint, Prettier
+		\item[Back-end:] .NET format
+	\end{description}
+
+	\subsection{Unit Testing}
+	\begin{description}
+		\item[Front-end:] Jest
+		\item[Back-end:] XUnit
+	\end{description}
+
+	\subsection{Test Coverage}
+	\begin{description}
+		\item[Front-end:] Jest provides coverage insights with \texttt{jest -coverage}.
+		\item[Back-end:] DotCovert integrated with XUnit to provide insights on test coverage.
+	\end{description}
+
+	\subsection{Continuous Integration}
+	\begin{description}
+		\item[Front-end Workflow:] Run ESLint check, Prettier check, and Jest tests.
+		\item[Back-end Workflow:] Run .NET format check, and XUnit tests.
+	\end{description}
+
+	\subsection{Tools and Libraries}
+	\begin{description}
+		\item[Front-end:] React-Native, Expo, Node.JS, Jest, React-Testing Library
+		\item[Back-end:] ASP.Net Core, ML.Net, MySQL, XUnit, AWS
+	\end{description}
+
+	\subsection{Development Tools}
+	\begin{itemize}
+		\item Jet Brains rider for both front-end and back-end development
+		\item Git for version control, GitHub for hosting remote repository
+		\item OverLeaf for LaTeX documents for all documentation
+	\end{itemize}
+
+	\section{Coding Standard}
+
+	\subsection{Naming Conventions}
+	\begin{itemize}
+		\item All variable names should be meaningful and descriptive.
+		\item Use camelCase for function and variable names (e.g. ‘userProfile’, ‘userPreferences’).
+		\item Use SCREAMING\_SNAKE\_CASE for constants (e.g. ‘MAX\_SETS’, ‘MIN\_WORKOUT\_DURATION’).
+		\item Use PascalCase for backend class and functions names (e.g. ‘WorkoutPlanner’).
+		\item Use PascalCase with ‘I’ prefix for Interfaces.
+	\end{itemize}
+
+	\subsection{Comments and Documentation}
+	\begin{itemize}
+		\item Include comments for sections of code that are not immediately interpretable.
+		\item Comments should be clear and concise.
+		\item Documentation needed for functions and methods. Documentation should include descriptions, parameters, return values, and usage examples (if applicable).
+	\end{itemize}
+
+	\subsection{Aesthetics/Formatting}
+	\begin{itemize}
+		\item Consistent indentation.
+		\item A single blank line will be used to separate logical sections of code.
+		\item Limit line lengths to 80 characters for best readability.
+	\end{itemize}
+
+	\subsection{Error Handling}
+	\begin{itemize}
+		\item Extensive error handling needed for critical sections of code.
+		\item Use meaningful error messages.
+		\item Keep track of/log errors for debugging.
+	\end{itemize}
+
+	\subsection{General Coding Practices}
+	\begin{itemize}
+		\item Create and implement reusable functions to avoid code duplication.
+		\item Break complex logical operations into smaller, more manageable sections/functions.
+	\end{itemize}
+
+	\subsection{Testing}
+	\begin{itemize}
+		\item We will use Jest for front end testing and XUnit for back end testing.
+		\item Ensure tests are maintained so they are up to date with new code and changes to existing code.
+	\end{itemize}
+
+	\subsection{Version Control}
+	\begin{itemize}
+		\item Commit messages should be descriptive and concise.
+		\item Commit messages should include a reference to a relevant issue or task (if applicable).
+	\end{itemize}
+
+	\section{Project Schedule}
+
+	Deliverables with steps needed before the final due date will have an earlier date specified, otherwise assume the date in the bolded title is the due date. These dates are subject to change based on the progress of the project but should be used as a baseline guide.
+
+	\subsection{Project Initiation (Due Sept 25)}
+	\begin{itemize}
+		\item Define scope and objectives (Sept 18)
+		\item Draft Problem Statement
+		\item POC Plan
+		\item Development Plan
+	\end{itemize}
+
+	\subsection{Requirements and Planning (Sept 26 - October 4)}
+	\begin{itemize}
+		\item Research and possibly collaborate with stakeholders to gather and document requirements for the workout app (Sept. 29)
+		\item Define use cases and functional requirements (Oct 1)
+		\item Define non-functional requirements (Oct 1)
+		\item Choose which requirements to prioritize and create a plan for future developments (Oct 3)
+	\end{itemize}
+
+	\subsection{Hazard Analysis (October 5 - 20)}
+	\begin{itemize}
+		\item Identify risks to users and our team (Oct 18)
+		\item Begin thinking about steps to address these risks
+	\end{itemize}
+
+	\subsection{V\&V Plan (October 18 - November 3)}
+	\begin{itemize}
+		\item Decide on and identify which types of testing we will conduct (e.g. unit testing) (Oct 29)
+		\item Create criteria for validating the app’s functionality, performance, and safety (Nov 2)
+	\end{itemize}
+
+	\subsection{Proof of Concept Demonstration (November 13 - 24)}
+	\begin{itemize}
+		\item Conduct internal testing to ensure all potential issues are addressed (Nov 10)
+	\end{itemize}
+
+	\subsection{Design Document (November 28 - January 17)}
+	\begin{itemize}
+		\item Architecture and system design (January 10)
+		\item User interface and User experience design (January 10)
+		\item Technical specifications (January 14)
+	\end{itemize}
+
+	\subsection{Revision 0 Demonstration (January 7 - (February 5 - February 16))}
+	\begin{itemize}
+		\item Demonstration planning (January 15)
+		\item User testing and feedback (January 22)
+		\item Bug tracking and issue resolution (January 29)
+	\end{itemize}
+
+	\subsection{Validation \& Verification Report (Feb 4 - March 6)}
+	\begin{itemize}
+		\item Summary of test methodologies (March 1)
+		\item Results of tests presented, highlighting key areas of both success and failure (March 4)
+	\end{itemize}
+
+	\subsection{Final Demonstration (March 1 - (March 18 - March 29))}
+	\begin{itemize}
+		\item Conduct testing to detect errors and issues (March 8)
+		\item Script drafted (March 14)
+		\item Final demo plan and error fixes (March 16)
+		\item Script finalized and practiced for team rehearsal (March 17)
+	\end{itemize}
+
+	\subsection{EXPO Demonstration (April TBD)}
+	\begin{itemize}
+		\item Display materials prepped (April TBD)
+		\item Talking points finalized (March 31)
+		\item Demonstration video created for review (April 1)
+	\end{itemize}
+
+	\subsection{Final Documentation (Revision 1) (April 4)}
+	\begin{itemize}
+		\item Problem statement
+		\item Dev plan
+		\item Proof of concept plan
+		\item Requirements document
+		\item Hazard Analysis
+		\item Design documentation
+		\item V\&V plan
+		\item V\&V report
+		\item User’s guide
+		\item Source code
+	\end{itemize}
 \end{document}
