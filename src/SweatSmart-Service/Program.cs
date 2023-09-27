@@ -28,7 +28,6 @@ builder.Services.AddDbContext<SweatSmartDbContext>(options =>
 
 var app = builder.Build();
 
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
