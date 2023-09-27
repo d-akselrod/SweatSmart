@@ -35,6 +35,5 @@ public class UserControllerTests : TestBase
         // Assert
         var users = result.Value as List<User>;
         Assert.Equal(3, users.Count);
-        Dispose();
     }
 }
