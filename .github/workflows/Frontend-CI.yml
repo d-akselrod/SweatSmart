@@ -1,0 +1,52 @@
+name: SweatSmart-UI CI
+
+on:
+  push:
+    paths:
+      - 'src/SweatSmart-UI/**'
+      - 'test/SweatSmart-UI/**'
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 16
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install source dependencies
+        working-directory: ./src/SweatSmart-UI
+        run: npm install
+
+      - name: Install test dependencies
+        working-directory: ./test/SweatSmart-UI
+        run: npm install
+
+      - name: Run source ESLint
+        working-directory: ./src/SweatSmart-UI
+        run: npm run lint:check
+
+      - name: Run test ESLint
+        working-directory: ./test/SweatSmart-UI
+        run: npm run lint:check
+
+      - name: Check source formatting with Prettier
+        working-directory: ./src/SweatSmart-UI
+        run: npm run format:check
+        
+      - name: Check test formatting with Prettier
+        working-directory: ./test/SweatSmart-UI
+        run: npm run format:check
+
+      - name: Run Jest tests
+        working-directory: ./src/SweatSmart-UI
+        run: npm test
+

@@ -11,7 +11,6 @@
 *.cb
 *.cb2
 .*.lb
-
 ## Intermediate documents:
 *.dvi
 *.xdv
@@ -30,7 +29,6 @@
 *.blg
 *-blx.aux
 *-blx.bib
-*.run.xml
 
 ## Build tool auxiliary files:
 *.fdb_latexmk
@@ -135,7 +133,6 @@ acs-*.bib
 
 # knitr
 *-concordance.tex
-# TODO Comment the next line if you want to keep your tikz graphics files
 *.tikz
 *-tikzDictionary
 
@@ -216,7 +213,7 @@ pythontex-files-*/
 *.hst
 *.ver
 
-# easy-todo
+# easy
 *.lod
 
 # xcolor
@@ -277,3 +274,48 @@ TSWLatexianTemp*
 
 # DS_Store file from Mac computers
 .DS_Store
+
+#JetBrains
+.idea/
+
+# React Native .gitignore contents with adjusted paths
+
+# dependencies
+src/SweatSmart-UI/node_modules/
+test/SweatSmart-UI/node_modules/
+
+# Expo
+src/SweatSmart-UI/.expo/
+src/SweatSmart-UI/dist/
+src/SweatSmart-UI/web-build/
+
+# Native
+src/SweatSmart-UI/*.orig.*
+src/SweatSmart-UI/*.jks
+src/SweatSmart-UI/*.p8
+src/SweatSmart-UI/*.p12
+src/SweatSmart-UI/*.key
+src/SweatSmart-UI/*.mobileprovision
+
+# Metro
+src/SweatSmart-UI/.metro-health-check*
+
+# debug
+src/SweatSmart-UI/npm-debug.*
+src/SweatSmart-UI/yarn-debug.*
+src/SweatSmart-UI/yarn-error.*
+
+# macOS
+src/SweatSmart-UI/.DS_Store
+src/SweatSmart-UI/*.pem
+
+# local env files
+src/SweatSmart-UI/.env*.local
+
+# typescript
+src/SweatSmart-UI/*.tsbuildinfo
+src/SweatSmart-Service/bin/
+src/SweatSmart-Service/obj/
+src/SweatSmart-Service/.idea/
+test/SweatSmart-Service/bin/
+test/SweatSmart-Service/obj/

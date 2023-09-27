@@ -1,0 +1,43 @@
+name: SweatSmart-Service CI
+
+on:
+  push:
+    paths:
+      - 'src/SweatSmart-Service/**'
+      - 'test/SweatSmart-Service/**'
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 16
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.202'
+
+      - name: Restore dependencies
+        working-directory: ./src/SweatSmart-Service
+        run: dotnet restore
+
+      - name: Build
+        working-directory: ./src/SweatSmart-Service
+        run: dotnet build --no-restore
+
+      - name: Run XUnit tests
+        working-directory: ./test/SweatSmart-Service
+        run: dotnet test --framework net7.0
+
+      - name: Run dotnet format on Backend Source
+        working-directory: ./src/SweatSmart-Service
+        run: dotnet format --verify-no-changes
+        
+      - name: Run dotnet format on Backend Tests
+        working-directory: ./test/SweatSmart-Service
+        run: dotnet format --verify-no-changes
