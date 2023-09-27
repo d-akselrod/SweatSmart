@@ -1,3 +1,5 @@
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using SweatSmart_Service.Database;
@@ -11,15 +13,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+string dbConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+if (dbConnectionString == null)
+{
+    Console.WriteLine("Fetching connection string from Azure Key Vault...");
+    var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
+    var client = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
+    dbConnectionString = client.GetSecret("DBConnectionString").Value.Value;
+}
+
 builder.Services.AddDbContext<SweatSmartDbContext>(options =>
-    options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+    options.UseSqlServer(dbConnectionString));
 
 var app = builder.Build();
 
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
 
 app.MapGet("/", context =>
 {

@@ -17,14 +17,12 @@ public class UserController : ControllerBase
     [HttpPost("/add-user")]
     public IActionResult AddUser()
     {
-        var user = new User { Id = 2, Name = "John Bass" };
+        var user = new User { Id = 1, Name = "John Doe" };
         _context.Users.Add(user);
         _context.SaveChanges();
 
         return Ok();
     }
-    
-
 
     [HttpGet("/get-user")]
     public IActionResult GetUsers()
