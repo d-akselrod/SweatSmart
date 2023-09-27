@@ -17,7 +17,7 @@ public class UserController : ControllerBase
     [HttpPost("/add-user")]
     public IActionResult AddUser()
     {
-        var user = new User { Id = 2, Name = "John Bass" };
+        var user = new User { Id = 1, Name = "John Doe" };
         _context.Users.Add(user);
         _context.SaveChanges();
 
@@ -28,7 +28,6 @@ public class UserController : ControllerBase
     public IActionResult GetUsers()
     {
         int num = 1;
-        //var evenIdUsers = _context.Users.FromSqlRaw("SELECT * FROM Users WHERE Id % " + num + " = 0").ToList();
         var users = _context.Users.ToList();
         return Ok(users);
 
