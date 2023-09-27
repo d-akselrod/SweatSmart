@@ -22,21 +22,11 @@ jobs:
         with:
           dotnet-version: '7.0.202'
 
-      - name: Restore dependencies for Service
-        working-directory: ./src/SweatSmart-Service
-        run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore SweatSmart.sln
       
-      - name: Build Service
-        working-directory: ./src/SweatSmart-Service
-        run: dotnet build --no-restore
-      
-      - name: Restore dependencies for Tests
-        working-directory: ./test/SweatSmart-Service
-        run: dotnet restore
-      
-      - name: Build Tests
-        working-directory: ./test/SweatSmart-Service
-        run: dotnet build --no-restore
+      - name: Build
+        run: dotnet build SweatSmart.sln --no-restore
 
       - name: Run XUnit tests
         working-directory: ./test/SweatSmart-Service
