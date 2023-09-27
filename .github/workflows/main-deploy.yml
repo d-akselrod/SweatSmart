@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Change directory
-        run: cd src/SweatSmart-Service
+        run: cd ${{github.workspace}}/src/SweatSmart-Service
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
