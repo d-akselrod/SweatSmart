@@ -28,7 +28,7 @@ jobs:
       
       - name: Build Service
         working-directory: ./src/SweatSmart-Service
-        run: dotnet build --no-restore
+        run: dotnet build ./src/SweatSmart-Service/SweatSmart-Service.cs --no-restore
       
       - name: Restore dependencies for Tests
         working-directory: ./test/SweatSmart-Service
@@ -36,7 +36,7 @@ jobs:
       
       - name: Build Tests
         working-directory: ./test/SweatSmart-Service
-        run: dotnet build --no-restore
+        run: dotnet build ./test/SweatSmart-Service/SweatSmart-Service.test.cs --no-restore
 
       - name: Run XUnit tests
         working-directory: ./test/SweatSmart-Service
