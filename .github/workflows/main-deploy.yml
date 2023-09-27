@@ -24,11 +24,11 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: ./src/SweatSmart-Service
+        working-directory: src/SweatSmart-Service
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{github.workspace}}/myapp
-        working-directory: ./src/SweatSmart-Service
+        working-directory: src/SweatSmart-Service
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
