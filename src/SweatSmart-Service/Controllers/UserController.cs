@@ -23,13 +23,13 @@ public class UserController : ControllerBase
 
         return Ok();
     }
-    
+
     [HttpGet("/get-user")]
     public IActionResult GetUsers()
     {
         int num = 1;
         var evenIdUsers = _context.Users.FromSqlRaw("SELECT * FROM Users WHERE Id % " + num + " = 0").ToList();
         return Ok(evenIdUsers);
-        
+
     }
 }
