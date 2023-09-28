@@ -15,12 +15,20 @@ builder.Services.AddSwaggerGen();
 
 string dbConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
-if (dbConnectionString == null)
+try
 {
-    Console.WriteLine("Fetching connection string from Azure Key Vault...");
-    var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
-    var client = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
-    dbConnectionString = client.GetSecret("DBConnectionString").Value.Value;
+    if (dbConnectionString == null)
+    {
+        Console.WriteLine("Fetching connection string from Azure Key Vault...");
+        var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
+        var client = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
+        dbConnectionString = client.GetSecret("DBConnectionString").Value.Value;
+    }
+}
+catch (Exception e)
+{
+    Console.WriteLine("Error fetching connection string from Azure Key Vault: " + e.Message);
+    dbConnectionString = "";
 }
 
 builder.Services.AddDbContext<SweatSmartDbContext>(options =>
