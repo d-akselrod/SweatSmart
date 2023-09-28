@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       NODE_VERSION: 16
 
@@ -29,13 +29,13 @@ jobs:
         run: dotnet build SweatSmart.sln --no-restore
 
       - name: Run XUnit tests
-        working-directory: ./test/SweatSmart-Service
+        working-directory: .\test\SweatSmart-Service
         run: dotnet test --framework net7.0
 
       - name: Run dotnet format on Backend Source
-        working-directory: ./src/SweatSmart-Service
+        working-directory: .\src\SweatSmart-Service
         run: dotnet format --verify-no-changes
         
       - name: Run dotnet format on Backend Tests
-        working-directory: ./test/SweatSmart-Service
+        working-directory: .\test\SweatSmart-Service
         run: dotnet format --verify-no-changes
