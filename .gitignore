@@ -275,6 +275,10 @@ TSWLatexianTemp*
 # DS_Store file from Mac computers
 .DS_Store
 
+*.idea/*
+
+*.env
+
 #JetBrains
 .idea/
 
@@ -314,8 +318,17 @@ src/SweatSmart-UI/.env*.local
 
 # typescript
 src/SweatSmart-UI/*.tsbuildinfo
+*.idea/*
+
+*.env
+
 src/SweatSmart-Service/bin/
 src/SweatSmart-Service/obj/
 src/SweatSmart-Service/.idea/
 test/SweatSmart-Service/bin/
 test/SweatSmart-Service/obj/
+
+/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/.gitignore
+/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/encodings.xml
+/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/indexLayout.xml
+/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/vcs.xml
