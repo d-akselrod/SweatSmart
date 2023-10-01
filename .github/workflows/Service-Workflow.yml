@@ -3,9 +3,9 @@ name: Service Workflow
 on:
   push:
     paths:
-      - "src/app-service/**"
-      - "test/test-service/**"
-      - ".github/workflows/**"
+      - 'src/app-service/**'
+      - 'test/test-service/**'
+      - '.github/workflows/**'
 
 jobs:
   setup:
@@ -24,11 +24,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Restore dependencies for Service
-        working-directory: ./src/app-service
+        working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet restore
 
       - name: Build Service
-        working-directory: ./src/app-service
+        working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet build --no-restore
 
   test:
@@ -36,11 +36,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Restore dependencies for Tests
-        working-directory: ./test/test-service
+        working-directory: ${{ github.workspace }}/test/test-service
         run: dotnet restore
 
       - name: Run XUnit tests
-        working-directory: ./test/test-service
+        working-directory: ${{ github.workspace }}/test/test-service
         run: dotnet test --framework net7.0
 
   format:
@@ -48,9 +48,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Run dotnet format on Backend Source
-        working-directory: ./src/app-service
+        working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet format --verify-no-changes
 
       - name: Run dotnet format on Backend Tests
-        working-directory: ./test/test-service
+        working-directory: ${{ github.workspace }}/test/test-service
         run: dotnet format --verify-no-changes

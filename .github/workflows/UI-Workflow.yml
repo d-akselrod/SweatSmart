@@ -26,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install source dependencies
-        working-directory: ./src/app-ui
+        working-directory: ${{ github.workspace }}/src/app-ui
         run: npm install
 
       - name: Install test dependencies
-        working-directory: ./test/test-ui
+        working-directory: ${{ github.workspace }}/test/test-ui
         run: npm install
 
   lint:
@@ -38,11 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run source ESLint
-        working-directory: ./src/app-ui
+        working-directory: ${{ github.workspace }}/src/app-ui
         run: npm run lint:check
 
       - name: Run test ESLint
-        working-directory: ./test/test-ui
+        working-directory: ${{ github.workspace }}/test/test-ui
         run: npm run lint:check
 
   format:
@@ -50,11 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check source formatting with Prettier
-        working-directory: ./src/app-ui
+        working-directory: ${{ github.workspace }}/src/app-ui
         run: npm run format:check
 
       - name: Check test formatting with Prettier
-        working-directory: ./test/test-ui
+        working-directory: ${{ github.workspace }}/test/test-ui
         run: npm run format:check
 
   test:
@@ -62,5 +62,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Jest tests
-        working-directory: ./src/app-ui
+        working-directory: ${{ github.workspace }}/src/app-ui
         run: npm test
