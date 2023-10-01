@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SweatSmart_Service.Controllers;
-using SweatSmart_Service.Models;
+using App_Service.Controllers;
+using App_Service.Models;
 
 public class UserControllerTests : TestBase
 {

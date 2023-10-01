@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SweatSmart_Service.Database;
-using SweatSmart_Service.Models;
+using App_Service.Database;
+using App_Service.Models;
 
-namespace SweatSmart_Service.Controllers;
+namespace App_Service.Controllers;
 
 public class UserController : ControllerBase
 {
-    private readonly SweatSmartDbContext _context;
+    private readonly DatabaseContext _context;
 
-    public UserController(SweatSmartDbContext context)
+    public UserController(DatabaseContext context)
     {
         _context = context;
     }

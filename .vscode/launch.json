@@ -1,0 +1,54 @@
+{
+  "configurations": [
+    {
+      "name": "Code Formatter",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "Code Formatter",
+      "program": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "App-Service",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/app-service/bin/Debug/net7.0/app-service.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/app-service",
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Test-Service",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "/usr/local/share/dotnet/dotnet",
+      "args": ["test", "${workspaceFolder}/test/test-service"],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "App-UI",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "ios"],
+      "cwd": "${workspaceFolder}/src/app-ui",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test-UI",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test:check"],
+      "cwd": "${workspaceFolder}/src/app-ui",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

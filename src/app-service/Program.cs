@@ -2,7 +2,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using SweatSmart_Service.Database;
+using App_Service.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string dbConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+string? dbConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
 try
 {
@@ -31,7 +31,7 @@ catch (Exception e)
     dbConnectionString = "";
 }
 
-builder.Services.AddDbContext<SweatSmartDbContext>(options =>
+builder.Services.AddDbContext<DbContext>(options =>
     options.UseSqlServer(dbConnectionString));
 
 var app = builder.Build();

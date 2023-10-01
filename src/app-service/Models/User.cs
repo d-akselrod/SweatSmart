@@ -1,4 +1,4 @@
-namespace SweatSmart_Service.Models;
+namespace App_Service.Models;
 
 public class User
 {

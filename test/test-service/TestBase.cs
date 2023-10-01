@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using SweatSmart_Service.Database;
+using App_Service.Database;
 
 public class TestBase : IDisposable
 {
-    protected readonly SweatSmartDbContext context;
+    protected readonly DatabaseContext context;
 
     protected TestBase()
     {
-        var options = new DbContextOptionsBuilder<SweatSmartDbContext>()
+        var options = new DbContextOptionsBuilder<DatabaseContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
 
-        context = new SweatSmartDbContext(options);
+        context = new DatabaseContext(options);
         context.Database.EnsureCreated();
     }
 

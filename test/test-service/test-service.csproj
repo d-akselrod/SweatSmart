@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>SweatSmart_Service</RootNamespace>
+    <RootNamespace>Test_Service</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SweatSmart-service\SweatSmart-service.csproj" />
+    <ProjectReference Include="..\..\src\app-service\app-service.csproj" />
   </ItemGroup>
 
 </Project>

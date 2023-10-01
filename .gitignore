@@ -285,50 +285,45 @@ TSWLatexianTemp*
 # React Native .gitignore contents with adjusted paths
 
 # dependencies
-src/SweatSmart-UI/node_modules/
-test/SweatSmart-UI/node_modules/
+src/app-ui/node_modules/
+test/test-ui/node_modules/
 
 # Expo
-src/SweatSmart-UI/.expo/
-src/SweatSmart-UI/dist/
-src/SweatSmart-UI/web-build/
+src/app-ui/.expo/
+src/app-ui/dist/
+src/app-ui/web-build/
 
 # Native
-src/SweatSmart-UI/*.orig.*
-src/SweatSmart-UI/*.jks
-src/SweatSmart-UI/*.p8
-src/SweatSmart-UI/*.p12
-src/SweatSmart-UI/*.key
-src/SweatSmart-UI/*.mobileprovision
+src/app-ui/*.orig.*
+src/app-ui/*.jks
+src/app-ui/*.p8
+src/app-ui/*.p12
+src/app-ui/*.key
+src/app-ui/*.mobileprovision
 
 # Metro
-src/SweatSmart-UI/.metro-health-check*
+src/app-ui/.metro-health-check*
 
 # debug
-src/SweatSmart-UI/npm-debug.*
-src/SweatSmart-UI/yarn-debug.*
-src/SweatSmart-UI/yarn-error.*
+src/app-ui/npm-debug.*
+src/app-ui/yarn-debug.*
+src/app-ui/yarn-error.*
 
 # macOS
-src/SweatSmart-UI/.DS_Store
-src/SweatSmart-UI/*.pem
+src/app-ui/.DS_Store
+src/app-ui/*.pem
 
 # local env files
-src/SweatSmart-UI/.env*.local
+src/app-ui/.env*.local
 
 # typescript
-src/SweatSmart-UI/*.tsbuildinfo
+src/app-ui/*.tsbuildinfo
 *.idea/*
 
 *.env
 
-src/SweatSmart-Service/bin/
-src/SweatSmart-Service/obj/
-src/SweatSmart-Service/.idea/
-test/SweatSmart-Service/bin/
-test/SweatSmart-Service/obj/
-
-/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/.gitignore
-/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/encodings.xml
-/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/indexLayout.xml
-/test/SweatSmart-Service/.idea/.idea.SweatSmart-Service.dir/.idea/vcs.xml
+test/test-service/bin/
+test/test-service/obj/
+test/test-service/.idea/
+src/app-service/bin/
+src/app-service/obj/

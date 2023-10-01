@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>SweatSmart_Service</RootNamespace>
+        <RootNamespace>App_Service</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,7 +20,4 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
-
-
-
 </Project>
