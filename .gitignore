@@ -320,6 +320,9 @@ src/app-ui/.env*.local
 src/app-ui/*.tsbuildinfo
 *.idea/*
 
+.run/
+.vscode/
+
 *.env
 
 test/test-service/bin/
