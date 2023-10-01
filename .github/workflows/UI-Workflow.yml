@@ -1,4 +1,4 @@
-name: App-UI CI
+name: UI Workflow
 
 on:
   push:
@@ -8,20 +8,29 @@ on:
       - ".github/workflows/**"
 
 jobs:
-  setup_and_build:
+  install_dependencies:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Cache node_modules
-      - name: Cache node_modules
+      # Cache node_modules for source
+      - name: Cache node_modules for source
         uses: actions/cache@v2
         with:
           path: src/app-ui/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('src/app-ui/package-lock.json') }}
+          key: ${{ runner.os }}-node-source-${{ hashFiles('src/app-ui/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-source-
+
+      # Cache node_modules for tests
+      - name: Cache node_modules for tests
+        uses: actions/cache@v2
+        with:
+          path: test/test-ui/node_modules
+          key: ${{ runner.os }}-node-test-${{ hashFiles('test/test-ui/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-test-
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -37,7 +46,7 @@ jobs:
         run: npm install
 
   lint_and_format:
-    needs: setup_and_build
+    needs: install_dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
