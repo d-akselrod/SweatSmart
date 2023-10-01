@@ -8,7 +8,7 @@ on:
       - ".github/workflows/**"
 
 jobs:
-  Setup:
+  Workflow:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,63 +19,24 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            src/app-ui/node_modules
-            test/test-ui/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('src/app-ui/package-lock.json', 'test/test-ui/package-lock.json') }}
-
-      - name: Install source dependencies
-        working-directory: ${{ github.workspace }}/src/app-ui
-        run: npm install
-
-      - name: Install test dependencies
-        working-directory: ${{ github.workspace }}/test/test-ui
-        run: npm install
-
-      - name: List workspace contents
-        run: ls -R ${{ github.workspace }}
-
-      - name: Check for errors in npm install
-        run: cat npm-debug.log || true
-
-  Format:
-    needs: Setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Debug step to list contents of node_modules/.bin
-      - name: List contents of node_modules/.bin
-        working-directory: ${{ github.workspace }}/src/app-ui
-        run: ls node_modules/.bin
+      - name: Install dependencies
+        run: |
+          cd src/app-ui
+          npm install
+          cd ../test/test-ui
+          npm install
 
       - name: Run source ESLint
-        working-directory: ${{ github.workspace }}/src/app-ui
-        run: npm run lint:check
+        run: npm --prefix src/app-ui run lint:check
 
       - name: Run test ESLint
-        working-directory: ${{ github.workspace }}/test/test-ui
-        run: npm run lint:check
+        run: npm --prefix test/test-ui run lint:check
 
       - name: Check source formatting with Prettier
-        working-directory: ${{ github.workspace }}/src/app-ui
-        run: npm run format:check
+        run: npm --prefix src/app-ui run format:check
 
       - name: Check test formatting with Prettier
-        working-directory: ${{ github.workspace }}/test/test-ui
-        run: npm run format:check
-
-  Test:
-    needs: Setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+        run: npm --prefix test/test-ui run format:check
 
       - name: Run Jest tests
-        working-directory: ${{ github.workspace }}/src/app-ui
-        run: npm test:check
+        run: npm --prefix src/app-ui run test:check
