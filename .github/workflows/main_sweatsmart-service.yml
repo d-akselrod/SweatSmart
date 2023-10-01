@@ -1,17 +1,16 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app
+name: Build and deploy ASP.Net Core app to Azure Web App - sweatsmart-service
+
 on:
   push:
     branches:
       - main
-    paths:
-      - "src/app-service/**"
   workflow_dispatch:
 
 jobs:
-  Build:
+  build:
     runs-on: windows-latest
 
     steps:
@@ -20,28 +19,26 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "7.x"
+          dotnet-version: '7.x'
           include-prerelease: true
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: src/app-service
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{github.workspace}}/myapp
-        working-directory: src/app-service
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{github.workspace}}/myapp
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
-    needs: Build
+    needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -54,7 +51,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "app-service"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6986F5477B8B4CA9B030776DD7738B65 }}
+          app-name: 'sweatsmart-service'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_66B6280C8F83406AB231EF821C7711E6 }}
           package: .
