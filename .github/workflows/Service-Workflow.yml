@@ -8,21 +8,26 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  setup:
+  build_service:
     runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      # Cache NuGet packages
+      - name: Cache NuGet packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/app-service.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "7.0.202"
 
-  build:
-    needs: setup
-    runs-on: windows-latest
-    steps:
       - name: Restore dependencies for Service
         working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet restore
@@ -31,10 +36,13 @@ jobs:
         working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet build --no-restore
 
-  test:
-    needs: build
+  test_service:
+    needs: build_service
     runs-on: windows-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Restore dependencies for Tests
         working-directory: ${{ github.workspace }}/test/test-service
         run: dotnet restore
@@ -43,10 +51,12 @@ jobs:
         working-directory: ${{ github.workspace }}/test/test-service
         run: dotnet test --framework net7.0
 
-  format:
-    needs: test
+  format_check:
     runs-on: windows-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Run dotnet format on Backend Source
         working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet format --verify-no-changes
