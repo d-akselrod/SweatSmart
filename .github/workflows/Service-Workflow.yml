@@ -3,12 +3,12 @@ name: Service Workflow
 on:
   push:
     paths:
-      - 'src/app-service/**'
-      - 'test/test-service/**'
-      - '.github/workflows/**'
+      - "src/app-service/**"
+      - "test/test-service/**"
+      - ".github/workflows/**"
 
 jobs:
-  build_service:
+  Build:
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -35,23 +35,8 @@ jobs:
       - name: Build Service
         working-directory: ${{ github.workspace }}/src/app-service
         run: dotnet build --no-restore
-
-  test_service:
-    needs: build_service
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Restore dependencies for Tests
-        working-directory: ${{ github.workspace }}/test/test-service
-        run: dotnet restore
-
-      - name: Run XUnit tests
-        working-directory: ${{ github.workspace }}/test/test-service
-        run: dotnet test --framework net7.0
-
-  format_check:
+  Format:
+    needs: Build
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -64,3 +49,17 @@ jobs:
       - name: Run dotnet format on Backend Tests
         working-directory: ${{ github.workspace }}/test/test-service
         run: dotnet format --verify-no-changes
+  Test:
+    needs: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore dependencies for Tests
+        working-directory: ${{ github.workspace }}/test/test-service
+        run: dotnet restore
+
+      - name: Run XUnit tests
+        working-directory: ${{ github.workspace }}/test/test-service
+        run: dotnet test --framework net7.0

@@ -8,7 +8,7 @@ on:
       - ".github/workflows/**"
 
 jobs:
-  install_dependencies:
+  Setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -45,12 +45,17 @@ jobs:
         working-directory: ${{ github.workspace }}/test/test-ui
         run: npm install
 
-  lint_and_format:
-    needs: install_dependencies
+  Format:
+    needs: Setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      # Debug step to list contents of node_modules/.bin
+      - name: List contents of node_modules/.bin
+        working-directory: ${{ github.workspace }}/src/app-ui
+        run: ls node_modules/.bin
 
       - name: Run source ESLint
         working-directory: ${{ github.workspace }}/src/app-ui
@@ -69,7 +74,7 @@ jobs:
         run: npm run format:check
 
   run_tests:
-    needs: lint_and_format
+    needs: Setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
