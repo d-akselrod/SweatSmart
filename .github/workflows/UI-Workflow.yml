@@ -14,24 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Cache node_modules for source
-      - name: Cache node_modules for source
-        uses: actions/cache@v2
-        with:
-          path: src/app-ui/node_modules
-          key: ${{ runner.os }}-node-source-${{ hashFiles('src/app-ui/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-source-
-
-      # Cache node_modules for tests
-      - name: Cache node_modules for tests
-        uses: actions/cache@v2
-        with:
-          path: test/test-ui/node_modules
-          key: ${{ runner.os }}-node-test-${{ hashFiles('test/test-ui/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-test-
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -44,6 +26,20 @@ jobs:
       - name: Install test dependencies
         working-directory: ${{ github.workspace }}/test/test-ui
         run: npm install
+
+      # Cache node_modules for source
+      - name: Cache node_modules for source
+        uses: actions/cache@v2
+        with:
+          path: src/app-ui/node_modules
+          key: ${{ runner.os }}-node-source-${{ hashFiles('src/app-ui/package-lock.json') }}
+
+      # Cache node_modules for tests
+      - name: Cache node_modules for tests
+        uses: actions/cache@v2
+        with:
+          path: test/test-ui/node_modules
+          key: ${{ runner.os }}-node-test-${{ hashFiles('test/test-ui/package-lock.json') }}
 
   Format:
     needs: Setup
@@ -73,8 +69,8 @@ jobs:
         working-directory: ${{ github.workspace }}/test/test-ui
         run: npm run format:check
 
-  run_tests:
-    needs: Setup
+  Test:
+    needs: Format
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
