@@ -1,4 +1,4 @@
-name: App-Service CI
+name: Service Workflow
 
 on:
   push:
@@ -8,11 +8,8 @@ on:
       - ".github/workflows/**"
 
 jobs:
-  build:
+  setup:
     runs-on: windows-latest
-    env:
-      NODE_VERSION: 16
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,6 +19,10 @@ jobs:
         with:
           dotnet-version: "7.0.202"
 
+  build:
+    needs: setup
+    runs-on: windows-latest
+    steps:
       - name: Restore dependencies for Service
         working-directory: ./src/app-service
         run: dotnet restore
@@ -30,6 +31,10 @@ jobs:
         working-directory: ./src/app-service
         run: dotnet build --no-restore
 
+  test:
+    needs: build
+    runs-on: windows-latest
+    steps:
       - name: Restore dependencies for Tests
         working-directory: ./test/test-service
         run: dotnet restore
@@ -38,6 +43,10 @@ jobs:
         working-directory: ./test/test-service
         run: dotnet test --framework net7.0
 
+  format:
+    needs: test
+    runs-on: windows-latest
+    steps:
       - name: Run dotnet format on Backend Source
         working-directory: ./src/app-service
         run: dotnet format --verify-no-changes
