@@ -19,6 +19,14 @@ jobs:
         with:
           node-version: "16"
 
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            src/app-ui/node_modules
+            test/test-ui/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('src/app-ui/package-lock.json', 'test/test-ui/package-lock.json') }}
+
       - name: Install source dependencies
         working-directory: ${{ github.workspace }}/src/app-ui
         run: npm install
@@ -26,20 +34,6 @@ jobs:
       - name: Install test dependencies
         working-directory: ${{ github.workspace }}/test/test-ui
         run: npm install
-
-      # Cache node_modules for source
-      - name: Cache node_modules for source
-        uses: actions/cache@v2
-        with:
-          path: src/app-ui/node_modules
-          key: ${{ runner.os }}-node-source-${{ hashFiles('src/app-ui/package-lock.json') }}
-
-      # Cache node_modules for tests
-      - name: Cache node_modules for tests
-        uses: actions/cache@v2
-        with:
-          path: test/test-ui/node_modules
-          key: ${{ runner.os }}-node-test-${{ hashFiles('test/test-ui/package-lock.json') }}
 
   Format:
     needs: Setup
@@ -70,7 +64,7 @@ jobs:
         run: npm run format:check
 
   Test:
-    needs: Format
+    needs: Setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
