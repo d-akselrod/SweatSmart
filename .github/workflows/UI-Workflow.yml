@@ -23,7 +23,7 @@ jobs:
         run: |
           cd src/app-ui
           npm install
-          cd ../test/test-ui
+          cd ../../test/test-ui
           npm install
 
       - name: Run source ESLint
