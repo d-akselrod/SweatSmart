@@ -31,7 +31,7 @@ catch (Exception e)
     dbConnectionString = "";
 }
 
-builder.Services.AddDbContext<DbContext>(options =>
+builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(dbConnectionString));
 
 var app = builder.Build();
