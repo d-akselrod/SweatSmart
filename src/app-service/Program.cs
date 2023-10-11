@@ -1,19 +1,67 @@
+using System.Text;
+using App_Service.Database;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using App_Service.Database;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
+Console.WriteLine(Environment.GetEnvironmentVariable("SIGNING_KEY"));
+
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-string? dbConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+// Configure JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://sweatsmart-service.azurewebsites.net",
+            ValidAudience = "https://sweatsmart-service.azurewebsites.net/api",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SIGNING_KEY")))};
+    });
+
+// Configure Swagger to use JWT
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SweatSmart Service", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new List<string>()
+        }
+    });
+});
+
+var dbConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
 try
 {
@@ -36,8 +84,15 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 var app = builder.Build();
 
+// Use authentication and authorization middleware
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
 
 app.MapGet("/", context =>
 {
@@ -46,8 +101,6 @@ app.MapGet("/", context =>
 });
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
