@@ -11,8 +11,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
-Console.WriteLine(Environment.GetEnvironmentVariable("SIGNING_KEY"));
-
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -22,7 +20,7 @@ try
 {
     if (issuerSigningKey == null)
     {
-        Console.WriteLine("Fetching connection string from Azure Key Vault...");
+        Console.WriteLine("Fetching Issuer Signing Key from Azure Key Vault...");
         var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
         var client = new SecretClient(new Uri(keyVaultUrl), new ManagedIdentityCredential());
         issuerSigningKey = client.GetSecret("JWTIssuerSigningKey").Value.Value;
@@ -86,7 +84,7 @@ try
 {
     if (dbConnectionString == null)
     {
-        Console.WriteLine("Fetching connection string from Azure Key Vault...");
+        Console.WriteLine("Fetching Database Connection String from Azure Key Vault...");
         var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
         var client = new SecretClient(new Uri(keyVaultUrl), new ManagedIdentityCredential());
         dbConnectionString = client.GetSecret("DBConnectionString").Value.Value;
