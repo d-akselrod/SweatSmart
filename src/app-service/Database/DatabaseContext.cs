@@ -10,4 +10,5 @@ public class DatabaseContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<PhysicalAttributes> PhysicalAttributes { get; set; }
 }
