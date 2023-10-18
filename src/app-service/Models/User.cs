@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,26 +7,25 @@ namespace App_Service.Models;
 public class User
 {
     [Key]
-    [Column("uID")]
-    public Guid uID { get; set; }
+    [Required]
+    [Column("uID", TypeName = "UniqueIdentifier")]
+    public Guid UId { get; set; }
 
-    [Column("FirstName")]
-    [MaxLength(32)]
-    public string firstName { get; set; }
+    [Column("FirstName", TypeName = "VarChar(32)")]
+    public string? FirstName { get; set; }
 
-    [Column("LastName")]
-    [MaxLength(32)]
-    public string lastName { get; set; }
+    [Column("LastName", TypeName = "VarChar(32)")]
+    public string? LastName { get; set; }
 
-    [Column("username")]
-    [MaxLength(32)]
-    public string username { get; set; }
+    [Required]
+    [Column("username", TypeName = "VarChar(32)")]
+    public string Username { get; set; }
 
-    [Column("password")]
-    [MaxLength(32)]
-    public string password { get; set; }
+    [Required]
+    [Column("password", TypeName = "VarChar(32)")]
+    public string Password { get; set; }
 
-    [Column("email")]
-    [MaxLength(64)]
-    public string email { get; set; }
+    [Required]
+    [Column("email", TypeName = "VarChar(64)")]
+    public string? Email { get; set; }
 }
