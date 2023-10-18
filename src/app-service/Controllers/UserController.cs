@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using App_Service.Database;
 using App_Service.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App_Service.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class UserController : ControllerBase
 {
     private readonly DatabaseContext _context;
@@ -14,6 +16,7 @@ public class UserController : ControllerBase
         _context = context;
     }
 
+    [Authorize]
     [HttpPost("/add-user")]
     public IActionResult AddUser()
     {
@@ -24,6 +27,7 @@ public class UserController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpGet("/get-user")]
     public IActionResult GetUsers()
     {
