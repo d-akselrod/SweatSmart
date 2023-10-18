@@ -5,11 +5,12 @@ on:
     paths:
       - "src/app-service/**"
       - "test/test-service/**"
-      - ".github/workflows/**"
+      - ".github/workflows/Service-Workflow.yml"
 
 jobs:
   Build:
     runs-on: windows-latest
+    if: contains(github.event.head_commit.message, '(#') && contains(github.event.head_commit.message, ')')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
