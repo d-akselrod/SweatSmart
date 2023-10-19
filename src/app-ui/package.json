@@ -20,7 +20,8 @@
       "<rootDir>/../../test/test-ui/"
     ],
     "setupFiles": [
-      "<rootDir>../../test/test-ui/jest.setup.js"],
+      "<rootDir>../../test/test-ui/jest.setup.js"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ]
@@ -33,6 +34,7 @@
     "jest-expo": "^49.0.0",
     "react": "18.2.0",
     "react-native": "^0.72.5",
+    "react-native-dotenv": "^3.4.9",
     "react-test-renderer": "^18.2.0"
   },
   "devDependencies": {
