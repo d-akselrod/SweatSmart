@@ -5,12 +5,10 @@ namespace App_Service.Models;
 
 public class UserWorkout
 {
-    [Key]
     [Required]
     [Column("uID", TypeName = "UniqueIdentifier")]
     public Guid UId { get; set; }
 
-    [Key]
     [Required]
     [Column("wID", TypeName = "UniqueIdentifier")]
     public Guid WId { get; set; }
