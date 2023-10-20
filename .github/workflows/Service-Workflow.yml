@@ -5,7 +5,7 @@ on:
     paths:
       - "src/app-service/**"
       - "test/test-service/**"
-      - ".github/workflows/**"
+      - ".github/workflows/Service-Workflow.yml"
 
 jobs:
   Build:

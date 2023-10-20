@@ -7,11 +7,11 @@ namespace App_Service.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController : ControllerBase
+public class PhysicalAttributesController : ControllerBase
 {
     private readonly DatabaseContext database;
 
-    public UserController(DatabaseContext database)
+    public PhysicalAttributesController(DatabaseContext database)
     {
         this.database = database;
     }
@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var users = await database.Users.ToListAsync();
-        return Ok(users);
+        var physicalAttributes = await database.PhysicalAttributes.ToListAsync();
+        return Ok(physicalAttributes);
     }
 }
