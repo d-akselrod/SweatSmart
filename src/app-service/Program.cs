@@ -1,15 +1,20 @@
+using System;
 using System.Text;
 using App_Service.Database;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
+
+bool isLocalDevelopment = File.Exists(".env");
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -32,28 +37,48 @@ catch (Exception e)
     issuerSigningKey = "";
 }
 
-// Configure JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+if (isLocalDevelopment)
+{
+    // Disable all authorization when running in local development.
+    builder.Services.AddAuthorization(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://sweatsmart-service.azurewebsites.net",
-            ValidAudience = "https://sweatsmart-service.azurewebsites.net/api",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey))
-        };
+        var defaultPolicy = new AuthorizationPolicyBuilder()
+            .RequireAssertion(_ => true) // Always succeed.
+            .Build();
+        options.DefaultPolicy = defaultPolicy;
     });
+
+    // Set all controllers to allow anonymous access during local development.
+    builder.Services.AddControllers(options =>
+    {
+        options.Filters.Add(new AllowAnonymousFilter());
+    });
+}
+else
+{
+    // Original JWT Authentication setup.
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "https://sweatsmart-service.azurewebsites.net",
+                ValidAudience = "https://sweatsmart-service.azurewebsites.net/api",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey))
+            };
+        });
+}
 
 // Configure Swagger to use JWT
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "SweatSmart Service", Version = "v1" });
 
-    if (File.Exists(".env") == false)
+    if (!isLocalDevelopment)
     {
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {

@@ -5,7 +5,7 @@ on:
     paths:
       - "src/app-ui/**"
       - "test/test-ui/**"
-      - ".github/workflows/**"
+      - ".github/workflows/UI-Workflow.yml"
 
 jobs:
   Workflow:
