@@ -11,13 +11,11 @@ public class User
     [Column("uID", TypeName = "UniqueIdentifier")]
     public Guid UId { get; set; }
 
-    [Required]
     [Column("FirstName", TypeName = "VarChar(32)")]
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
 
-    [Required]
     [Column("LastName", TypeName = "VarChar(32)")]
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
 
     [Required]
     [Column("username", TypeName = "VarChar(32)")]
