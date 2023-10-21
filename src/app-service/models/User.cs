@@ -27,5 +27,5 @@ public class User
 
     [Required]
     [Column("email", TypeName = "VarChar(64)")]
-    public string? Email { get; set; }
+    public string Email { get; set; }
 }
