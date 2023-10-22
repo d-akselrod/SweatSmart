@@ -4,11 +4,15 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        gap: 20,
         marginHorizontal: 20,
         justifyContent: 'center'
     },
+    
+    form: {
+        gap: 20,
+        alignItems: 'center'
+    },
+    
     button: {
         backgroundColor: '#6C96E8',
         borderRadius: 30,
