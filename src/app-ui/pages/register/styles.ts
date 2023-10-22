@@ -4,13 +4,34 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        marginHorizontal: 20,
-        justifyContent: 'center'
+    },
+    
+    titleContainer: {
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: '#D8F1FF',
+        flex: 6,
+    },
+    
+    fulltitle: {
+        flexDirection: 'row',
+        justifyContent: "center",
+        height: '100%',
+        alignItems: 'center'
+    },
+    
+    title: {
+        fontSize: 40,
+        fontWeight: '600',
+        color: '#5a85a4'
     },
     
     form: {
         gap: 20,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 28,
+        marginHorizontal: 24.5,
+        flex: 10
     },
     
     button: {
@@ -31,9 +52,9 @@ export const styles = StyleSheet.create({
     },
 
     registerTitle:{
-        fontSize: 30,
+        fontSize: 25,
         alignSelf: 'flex-start',
         fontWeight: '600',
-        color: "#1d2d94"
+        color: "#6D6089"
     }
 })

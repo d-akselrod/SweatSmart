@@ -1,9 +1,11 @@
-import {View, Pressable, Text, TouchableOpacity} from 'react-native';
+import {View, Pressable, Text, TouchableOpacity, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 import {styles} from './styles'
 import CustomizeInput from '../../components/CustomizeInput'
-import {IUser} from '../../typings/types'
 import { useState } from 'react';
-import LinearGradient from 'react-native-linear-gradient';
+import { Entypo } from '@expo/vector-icons';
+import Svg, { Path, G } from "react-native-svg"
+import { Dimensions } from 'react-native';
+
 
 function RegisterPage(props: any) {
     const [username, setUsername] = useState('');
@@ -19,6 +21,18 @@ function RegisterPage(props: any) {
 
     return (
         <View style = {styles.container}>
+            <Svg width={Dimensions.get('window').width} height={328} fill="none">
+                <Path fill="#D8F1FF" d="M0 0h393v250s-60.911-10.272-108 0c-50.557 11.029-137.47 60.85-188 72-55.442 12.234-97 0-97 0V0Z"/>
+                <G>
+                    <SafeAreaView style = {styles.fulltitle}>
+                        <Text style = {styles.title}>SweatSmart</Text>
+                        <Entypo name="drop" size={24} color="#1CA0EB"/>
+                    </SafeAreaView>
+                </G>
+            </Svg>
+            {/*<View style = {styles.titleContainer}>*/}
+            {/*    */}
+            {/*</View>*/}
             <View style = {styles.form}>
                 <Text style = {styles.registerTitle}>Sign Up</Text>
                 <CustomizeInput onChangeText = {text => setEmail(text)} placeholder = 'Enter your email' iconName = 'mail-outline' validInput = {false}/>

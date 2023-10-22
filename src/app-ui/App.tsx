@@ -4,9 +4,9 @@ import RegistrationPage from './pages/register/RegisterPage'
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
         <RegistrationPage></RegistrationPage>
-    </SafeAreaView>
+    </View>
   );
 }
 

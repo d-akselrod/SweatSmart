@@ -22,16 +22,16 @@ function CustomizeInput(props: ICustomzeProps) {
         <View>
             <View style = {[styles.inputContainer, {borderColor: focus ? 'lightblue' : '#C3C3C3'}]}>
                 <Ionicons name = {props.iconName} size = {20} color = {'#6C96E8'}></Ionicons>
-                <TextInput 
-                    onChangeText = {props.onChangeText} 
-                    maxLength = {24} autoCorrect = {false} 
-                    secureTextEntry = {hiddenField}
-                    placeholderTextColor="#A4A4A4"
-                    style= {styles.input} 
-                    placeholder ={props.placeholder}
-                    onFocus = {() => setFocus(true)}
-                    onBlur = {() => setFocus(false)}
-                />
+                    <TextInput
+                        onChangeText = {props.onChangeText}
+                        maxLength = {24} autoCorrect = {false}
+                        secureTextEntry = {hiddenField}
+                        placeholderTextColor="#A4A4A4"
+                        style= {styles.input}
+                        placeholder ={props.placeholder}
+                        onFocus = {() => setFocus(true)}
+                        onBlur = {() => setFocus(false)}
+                    />
                 {props.secureTextEntry &&
                     <TouchableOpacity onPress = {() => setHiddenField(!hiddenField)}>
                         <Ionicons name = {hiddenField ? 'eye' : 'eye-off'} color = '#6C96E8' size = {20} />
