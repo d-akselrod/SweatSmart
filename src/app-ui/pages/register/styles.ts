@@ -24,5 +24,12 @@ export const styles = StyleSheet.create({
     loginContainer: {
         flexDirection: "row",
         alignItems: 'center',
+    },
+
+    registerTitle:{
+        fontSize: 30,
+        alignSelf: 'flex-start',
+        fontWeight: '600',
+        color: "#1d2d94"
     }
 })

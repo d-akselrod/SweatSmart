@@ -23,6 +23,7 @@ function RegisterPage(props: any) {
 
     return (
         <View style = {styles.container}>
+            <Text style = {styles.registerTitle}>Sign Up</Text>
             <CustomizeInput onChangeText = {text => setEmail(text)} placeholder = 'Enter your email' iconName = 'mail-outline' validInput = {false}/>
             <CustomizeInput onChangeText = {text => setUsername(text)} placeholder = 'Enter a username' iconName = 'person-outline' validInput = {false}/>
             <CustomizeInput onChangeText = {text => setPassword(text)} placeholder = 'Enter a password' iconName = 'lock-closed-outline' secureTextEntry= {passwordShown} validInput = {!!errorMsg}/>
