@@ -25,7 +25,8 @@ function CustomizeInput(props: ICustomzeProps) {
                 <TextInput 
                     onChangeText = {props.onChangeText} 
                     maxLength = {24} autoCorrect = {false} 
-                    secureTextEntry = {hiddenField} 
+                    secureTextEntry = {hiddenField}
+                    placeholderTextColor="#A4A4A4"
                     style= {styles.input} 
                     placeholder ={props.placeholder}
                     onFocus = {() => setFocus(true)}
