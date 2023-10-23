@@ -23,102 +23,67 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        try
-        {
-            var users = await database.Users.ToListAsync();
-            return Ok(users);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+        var users = await database.Users.ToListAsync();
+        return Ok(users);
     }
 
     [Authorize]
     [HttpGet("{username}")]
     public async Task<IActionResult> GetUserByUsername(string username)
     {
-        try
-        {
-            var user = await database.Users.SingleAsync(user => user.Username == username);
+        var user = await database.Users.SingleAsync(user => user.Username == username);
 
-            if (user == null)
-            {
-                return StatusCode(1003);
-            }
-
-            return Ok(user);
-        }
-        catch (Exception)
+        if (user == null)
         {
-            return StatusCode(500);
+            return NotFound();
         }
+
+        return Ok(user);
     }
 
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddUser(User newUser)
     {
-        try
-        {
-            await database.Users.AddAsync(newUser);
-            await database.SaveChangesAsync();
+        await database.Users.AddAsync(newUser);
+        await database.SaveChangesAsync();
 
-            return Ok(newUser);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+        return Ok(newUser);
     }
 
     [Authorize]
     [HttpDelete("{username}")]
     public async Task<IActionResult> DeleteUserByUsername(string username)
     {
-        try
-        {
-            var user = await database.Users.SingleAsync(user => user.Username == username);
+        var user = await database.Users.SingleAsync(user => user.Username == username);
 
-            if (user == null)
-            {
-                return StatusCode(1003);
-            }
-
-            database.Users.Remove(user);
-            await database.SaveChangesAsync();
-            return Ok();
-        }
-        catch (Exception)
+        if (user == null)
         {
-            return StatusCode(500);
+            return NotFound();
         }
+
+        database.Users.Remove(user);
+        await database.SaveChangesAsync();
+        return Ok();
     }
 
     [Authorize]
     [HttpPut("{username}")]
     public async Task<IActionResult> UpdateUser(string username, User updatedUser)
     {
-        try
+        var user = await database.Users.SingleOrDefaultAsync(u => u.Username == username);
+
+        if (user == null)
         {
-            var user = await database.Users.SingleOrDefaultAsync(u => u.Username == username);
-
-            if (user == null)
-            {
-                return StatusCode(1003);
-            }
-
-            var oldUser = user;
-            updatedUser.UId = oldUser.UId;
-
-            database.Users.Remove(oldUser);
-            await database.Users.AddAsync(updatedUser);
-            await database.SaveChangesAsync();
-            return Ok(updatedUser);
+            return NotFound();
         }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+
+        var oldUser = user;
+        updatedUser.UId = oldUser.UId;
+
+        database.Users.Remove(oldUser);
+        await database.Users.AddAsync(updatedUser);
+        await database.SaveChangesAsync();
+        return Ok(updatedUser);
     }
 }
