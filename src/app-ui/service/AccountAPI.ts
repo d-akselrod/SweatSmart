@@ -1,4 +1,4 @@
-import { API_URL, API_AUTH } from './config';
+import { API_URL } from './config';
 
 export const registerAccount = (
   username: string,

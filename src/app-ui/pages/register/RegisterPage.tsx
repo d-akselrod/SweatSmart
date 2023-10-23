@@ -1,13 +1,4 @@
-import {
-  View,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  Keyboard,
-  Button,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
 import { styles } from './styles';
 import CustomizeInput from '../../components/CustomizeInput';
 import { useState } from 'react';
@@ -16,7 +7,7 @@ import Svg, { Path, G } from 'react-native-svg';
 import { Dimensions } from 'react-native';
 import { registerAccount } from '../../service/AccountAPI';
 
-function RegisterPage(props: any) {
+function RegisterPage() {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

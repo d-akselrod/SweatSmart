@@ -2,7 +2,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Text,
   TextInputProps,
   TouchableOpacity,
 } from 'react-native';
@@ -12,16 +11,12 @@ import { useRef, useState } from 'react';
 interface ICustomzeProps extends TextInputProps {
   validInput?: boolean;
   iconName?: any;
-  inputPattern?: RegExp;
-  resetError?: Function;
+  resetError?: () => void;
 }
 function CustomizeInput(props: ICustomzeProps) {
   const [hiddenField, setHiddenField] = useState(props.secureTextEntry);
   const [focus, setFocus] = useState(false);
   const input = useRef<TextInput | null>(null);
-  const matchRegEx = (value: string) => {
-    props.inputPattern ? value.match(props.inputPattern) : true;
-  };
 
   const handleFocus = () => {
     props.resetError?.();
