@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#6D6089',
   },
-  
+
   error: {
     backgroundColor: '#ffcccb',
     width: '100%',
@@ -64,11 +64,11 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6
+    gap: 6,
   },
-  
-  errorMsg:{
+
+  errorMsg: {
     color: '#e74341',
-    fontWeight: '500'
-  }
+    fontWeight: '500',
+  },
 });

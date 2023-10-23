@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   Keyboard,
-  Button
+  Button,
 } from 'react-native';
 import { styles } from './styles';
 import CustomizeInput from '../../components/CustomizeInput';
@@ -21,61 +21,64 @@ function RegisterPage(props: any) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState({
-    email: false, 
-    username: false, 
-    password: false
-  })
+    email: false,
+    username: false,
+    password: false,
+  });
   const [errorMsg, setErrorMsg] = useState('');
-  
+
   const resetErrors = () => {
     setErrors({
       username: false,
       email: false,
       password: false,
     });
-  }
-  const validRegistrationData = (username: string, email: string, password: string): boolean => {
-      if(!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)){
-        setErrors({...errors, email: true})
-        setErrorMsg('Please enter a valid email')
-        return false
-      }
-      else if(!username.match(/^[a-zA-Z0-9_]{3,20}$/)){
-        setErrors({...errors, username: true})
-        setErrorMsg('Please enter a valid username')
-        return false
-      }
-      else if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{};:<>|./?,-]{8,}$/)){
-        setErrors({...errors, password: true})
-        setErrorMsg('Password must satisfy the following requirements:')
-        return false
-      }
-      else{
-        return true
-      }
-  }
+  };
+  const validRegistrationData = (
+    username: string,
+    email: string,
+    password: string,
+  ): boolean => {
+    if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+      setErrors({ ...errors, email: true });
+      setErrorMsg('Please enter a valid email');
+      return false;
+    } else if (!username.match(/^[a-zA-Z0-9_]{3,20}$/)) {
+      setErrors({ ...errors, username: true });
+      setErrorMsg('Please enter a valid username');
+      return false;
+    } else if (
+      !password.match(
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{};:<>|./?,-]{8,}$/,
+      )
+    ) {
+      setErrors({ ...errors, password: true });
+      setErrorMsg('Password must satisfy the following requirements:');
+      return false;
+    } else {
+      return true;
+    }
+  };
   const handleRegister = async () => {
     Keyboard.dismiss();
-    if(validRegistrationData(username, email, password)){
-      try{
+    if (validRegistrationData(username, email, password)) {
+      try {
         const response = await registerAccount(username, email, password);
-        if(response.ok){
+        if (response.ok) {
           const data = await response.json();
-          setErrorMsg('')
+          setErrorMsg('');
           console.log(data);
-        }
-        else {
+        } else {
           const data = await response.json();
-          setErrorMsg(data.message)
-          console.log("unsuccessful")
+          setErrorMsg(data.message);
+          console.log('unsuccessful');
         }
-      }
-      catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     }
-  }
-  
+  };
+
   return (
     <View style={styles.container}>
       <Svg width={Dimensions.get('window').width} height={328} fill='none'>
@@ -99,14 +102,14 @@ function RegisterPage(props: any) {
           placeholder='Enter your email'
           iconName='mail-outline'
           validInput={errors.email}
-          resetError = {resetErrors}
+          resetError={resetErrors}
         />
         <CustomizeInput
           onChangeText={text => setUsername(text)}
           placeholder='Enter a username'
           iconName='person-outline'
           validInput={errors.username}
-          resetError = {resetErrors}
+          resetError={resetErrors}
         />
         <CustomizeInput
           onChangeText={text => setPassword(text)}
@@ -114,12 +117,14 @@ function RegisterPage(props: any) {
           iconName='lock-closed-outline'
           secureTextEntry={true}
           validInput={errors.password}
-          resetError = {resetErrors}
+          resetError={resetErrors}
         />
-        {errorMsg && <View style={styles.error}>
-          <MaterialIcons name="error-outline" size={20} color="#e74341"/>
-          <Text style={styles.errorMsg}>{errorMsg}</Text>
-        </View>}
+        {errorMsg && (
+          <View style={styles.error}>
+            <MaterialIcons name='error-outline' size={20} color='#e74341' />
+            <Text style={styles.errorMsg}>{errorMsg}</Text>
+          </View>
+        )}
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleRegister()}

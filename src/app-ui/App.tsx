@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView} from 'react-native';
-import RegistrationPage from './pages/register/RegisterPage'
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import RegistrationPage from './pages/register/RegisterPage';
 
 export default function App() {
   return (
     <View style={styles.container}>
-        <RegistrationPage></RegistrationPage>
+      <RegistrationPage></RegistrationPage>
     </View>
   );
 }

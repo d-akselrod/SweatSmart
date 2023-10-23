@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import {useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface ICustomzeProps extends TextInputProps {
   validInput?: boolean;
@@ -24,41 +24,47 @@ function CustomizeInput(props: ICustomzeProps) {
   };
 
   const handleFocus = () => {
-    props.resetError?.()
-    setFocus(true)
-  }
+    props.resetError?.();
+    setFocus(true);
+  };
 
   return (
-      <View>
-        <View
-            style={[
-              styles.inputContainer,
-              { borderColor: props.validInput ? 'red' : focus ? 'lightblue' : '#C3C3C3' },
-            ]}
-        >
-          <Ionicons name={props.iconName} size={20} color={'#6C96E8'}></Ionicons>
-          <TextInput
-              ref={input}
-              onChangeText={props.onChangeText}
-              autoCorrect={false}
-              secureTextEntry={hiddenField}
-              placeholderTextColor='#A4A4A4'
-              style={styles.input}
-              placeholder={props.placeholder}
-              onFocus={handleFocus}
-              onBlur={() => setFocus(false)}
-          />
-          {props.secureTextEntry && (
-              <TouchableOpacity onPress={() => setHiddenField(!hiddenField)}>
-                <Ionicons
-                    name={hiddenField ? 'eye' : 'eye-off'}
-                    color='#6C96E8'
-                    size={20}
-                />
-              </TouchableOpacity>
-          )}
-        </View>
+    <View>
+      <View
+        style={[
+          styles.inputContainer,
+          {
+            borderColor: props.validInput
+              ? 'red'
+              : focus
+                ? 'lightblue'
+                : '#C3C3C3',
+          },
+        ]}
+      >
+        <Ionicons name={props.iconName} size={20} color={'#6C96E8'}></Ionicons>
+        <TextInput
+          ref={input}
+          onChangeText={props.onChangeText}
+          autoCorrect={false}
+          secureTextEntry={hiddenField}
+          placeholderTextColor='#A4A4A4'
+          style={styles.input}
+          placeholder={props.placeholder}
+          onFocus={handleFocus}
+          onBlur={() => setFocus(false)}
+        />
+        {props.secureTextEntry && (
+          <TouchableOpacity onPress={() => setHiddenField(!hiddenField)}>
+            <Ionicons
+              name={hiddenField ? 'eye' : 'eye-off'}
+              color='#6C96E8'
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
       </View>
+    </View>
   );
 }
 
