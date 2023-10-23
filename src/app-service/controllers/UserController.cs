@@ -23,8 +23,15 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var users = await database.Users.ToListAsync();
-        return Ok(users);
+        try
+        {
+            var users = await database.Users.ToListAsync();
+            return Ok(users);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
     }
 
     [Authorize]
@@ -34,11 +41,13 @@ public class UserController : ControllerBase
         try
         {
             var user = await database.Users.SingleAsync(user => user.Username == username);
+
+            if (user == null)
+            {
+                return StatusCode(1003);
+            }
+
             return Ok(user);
-        }
-        catch (InvalidOperationException)
-        {
-            return NotFound("No account exists with the username: " + username);
         }
         catch (Exception)
         {
@@ -50,10 +59,17 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddUser(User newUser)
     {
-        await database.Users.AddAsync(newUser);
-        await database.SaveChangesAsync();
+        try
+        {
+            await database.Users.AddAsync(newUser);
+            await database.SaveChangesAsync();
 
-        return Ok(newUser);
+            return Ok(newUser);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
     }
 
     [Authorize]
@@ -63,13 +79,15 @@ public class UserController : ControllerBase
         try
         {
             var user = await database.Users.SingleAsync(user => user.Username == username);
+
+            if (user == null)
+            {
+                return StatusCode(1003);
+            }
+
             database.Users.Remove(user);
             await database.SaveChangesAsync();
             return Ok();
-        }
-        catch (InvalidOperationException)
-        {
-            return NotFound("No account exists with the username: " + username);
         }
         catch (Exception)
         {
@@ -87,14 +105,14 @@ public class UserController : ControllerBase
 
             if (user == null)
             {
-                return NotFound("No account exists with the username: " + username);
+                return StatusCode(1003);
             }
 
             var oldUser = user;
             updatedUser.UId = oldUser.UId;
 
             database.Users.Remove(oldUser);
-            database.Users.AddAsync(updatedUser);
+            await database.Users.AddAsync(updatedUser);
             await database.SaveChangesAsync();
             return Ok(updatedUser);
         }

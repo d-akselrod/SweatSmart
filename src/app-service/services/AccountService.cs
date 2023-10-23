@@ -23,67 +23,76 @@ public class AccountService : ControllerBase
 
     [Authorize]
     [HttpPost("Login")]
-    public async Task<IActionResult> Login(string? username, string? email, string? password)
+    public async Task<IActionResult> Login(string? username, string? email, string password)
     {
-        if (username == null && email == null)
+        try
         {
-            return BadRequest("Please provide a username or email");
-        }
+            if ((username == null && email == null) || (username != null && email != null) || password == null)
+            {
+                return BadRequest();
+            }
 
-        if (username != null && email != null)
+            var user = username != null
+                ? await database.Users.SingleOrDefaultAsync(user => user.Username == username)
+                : await database.Users.SingleOrDefaultAsync(user => user.Email == email);
+
+            if (user == null)
+            {
+                return username == null
+                    ? StatusCode(1002)
+                    : StatusCode(1003);
+            }
+
+            return password == user.Password ? Ok() : StatusCode(1004);
+        }
+        catch (Exception)
         {
-            return BadRequest("Please don't provide both a username and an email");
+            return StatusCode(500);
         }
-
-        if (password == null)
-        {
-            return BadRequest("Please enter a password");
-        }
-
-        var user = username != null
-            ? await database.Users.SingleOrDefaultAsync(user => user.Username == username)
-            : await database.Users.SingleOrDefaultAsync(user => user.Email == email);
-
-        if (user == null)
-        {
-            return BadRequest("No user found with the " + (username != null
-                ? "username of " + username
-                : "email of " + email));
-        }
-
-        return password == user.Password ? Ok("Successful Login") : BadRequest("Invalid password");
     }
 
     [Authorize]
     [HttpPost("Register")]
     public async Task<IActionResult> Register(string username, string email, string password)
     {
-        if (await database.Users.AnyAsync(user => user.Email == email))
+        try
         {
-            return BadRequest("An account already exists with the email: " + email);
+            if (username == null || email == null || password == null)
+            {
+                return BadRequest();
+            }
+
+            if (await database.Users.AnyAsync(user => user.Email == email))
+            {
+                return StatusCode(1000);
+            }
+
+            if (await database.Users.AnyAsync(user => user.Username == username))
+            {
+                return StatusCode(1001);
+            }
+
+            // Regex pattern = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,32}$");
+            // if (pattern.IsMatch(password) == false)
+            // {
+            //     return StatusCode(1005);
+            // }
+
+            UserController userController = new UserController(database);
+
+            var newUser = new User
+            {
+                Email = email,
+                Username = username,
+                Password = password
+            };
+
+            userController.AddUser(newUser);
+            return Ok(newUser);
         }
-
-        if (await database.Users.AnyAsync(user => user.Username == username))
+        catch (Exception)
         {
-            return BadRequest("An account already exists with the username: " + username);
+            return StatusCode(500);
         }
-
-        //Regex passwordPattern = new Regex("");
-        //if (passwordPattern.IsMatch(password) == false)
-        // {
-        //     return BadRequest("Invalid password");
-        // }
-
-        UserController userController = new UserController(database);
-
-        var newUser = new User
-        {
-            Email = email,
-            Username = username,
-            Password = password
-        };
-
-        userController.AddUser(newUser);
-        return Ok(newUser);
     }
 }
