@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App_Service.services;
 
+public record LoginRequest(string? Username, string? Email, string Password);
+
+public record RegisterRequest(string Username, string Email, string Password);
+
 [ApiController]
 [Route("[controller]")]
 
@@ -23,10 +27,14 @@ public class AccountService : ControllerBase
 
     [Authorize]
     [HttpPost("Login")]
-    public async Task<IActionResult> Login(string? username, string? email, string password)
+    public async Task<IActionResult> Login(LoginRequest body)
     {
         try
         {
+            var username = body.Username;
+            var email = body.Email;
+            var password = body.Password;
+
             if ((username == null && email == null) || (username != null && email != null) || password == null)
             {
                 return BadRequest();
@@ -53,10 +61,14 @@ public class AccountService : ControllerBase
 
     [Authorize]
     [HttpPost("Register")]
-    public async Task<IActionResult> Register(string username, string email, string password)
+    public async Task<IActionResult> Register(RegisterRequest body)
     {
         try
         {
+            var username = body.Username;
+            var email = body.Email;
+            var password = body.Password;
+
             if (username == null || email == null || password == null)
             {
                 return BadRequest();
