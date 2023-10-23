@@ -151,6 +151,8 @@
 			\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 			\midrule
 			0 & Oct 6, 2023 & Sophie, Daniel, Sam, Jonathan & First draft\\
+            \hline
+            0.1 & Oct 20, 2023 & Sophie, Jonathan & Updated safety requirements that mitigate system hazards\\
 			\bottomrule
 		\end{tabularx}
 	\end{table}
@@ -245,8 +247,6 @@ FitnessAi is another AI-powered fitness application that creates personalized wo
 
 
 \section{System Description}
-
-\subsection{Informal Description (if time permits)}
 
 \subsection{System Context}
 
@@ -533,9 +533,9 @@ AF5: The app shall allow users to share information from the application to soci
 \subsection{Performance Requirements}
 \begin{itemize}
 \item PR1: The system shall be capable of handling a minimum of 1000 simultaneous users and processing 200 transactions per minute while maintaining performance standards.
-\item PR2: The system shall achieve a minimum of 99.9% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.
+\item PR2: The system shall achieve a minimum of 99.9\% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.
 \item PR3: The system shall support a data throughput of at least 200 Mbps to ensure data transmission between the server and users is seamless and efficient under peak usage.
-\item PR4: The system shall deliver a response time of no more than 2 seconds for 99% of the transaction processed under standard operating conditions.
+\item PR4: The system shall deliver a response time of no more than 2 seconds for 99\% of the transaction processed under standard operating conditions.
 \end{itemize}
 
 \subsection{Operational and Environment Requirements}
@@ -564,31 +564,54 @@ AF5: The app shall allow users to share information from the application to soci
 \end{itemize}
 
 \subsection{Security Requirements}
+\subsubsection{Access Requirements}
 \begin{itemize}
-\item SECR1: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
-\item SECR2: Users shall authenticate themselves with their credentials securely.
-\item SECR3: Sensitive data shall be restricted from the users of the app.
-\item SECR4: Users will only have access to data and features for which they are authorized.
-\item SECR5: Data between the app and the server should be encrypted when an API call is made.
-\item SECR6: User data will be encrypted to ensure it is transmitted securely through a server.
+    \item ACR1: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
+    \item ACR2: Users shall authenticate themselves with their credentials securely.
+    \item ACR3: Users will only have access to data and features for which they are authorized.
+\end{itemize}
+
+\subsubsection{Integrity Requirements}
+\begin{itemize}
+    \item INR1: Sensitive data shall be restricted from the users of the app.
+    \item INR2: Data between the app and the server should be encrypted when an API call is made.
+    \item INR3: The system should regularly back up data automatically to prevent data loss in the event of database failures
+    \item INR4: unstored data should be stored locally if the data cannot be updated
+    \item INR5: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.
+    \item INR6: The system must have a mechanism to store the user's progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
+    \item INR7: The system should display clear and prominent warnings to users regarding exercise safety
+    \item INR8: The AI model system should be constantly updated with accurate practices and the data should be reviewed
+\end{itemize}
+
+\subsubsection{Privacy Requirements}
+\begin{itemize}
+    \item PRR1: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access
+\end{itemize}
+
+\subsubsection{Error Handling Requirements}
+\begin{itemize}
+    \item EHR1: The system should have robust error handling that doesn't reveal sensitive system information to users in error messages
+    \item EHR2: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures
 \end{itemize}
 
 \section{Likely Changes}
-
-LC1: The application may need to adapt to future versions of iOS to ensure compatibility and leverage new features.\\
-LC2: The integration of new APIs or third-party services to enhance functionality, such as adding a new payment gateway or integrating a new workout tracking device.\\
-LC3: Refinements in the UI/UX based on user feedback and usability testing may be required post-launch.\\
-LC4: The addition of new features or screens to accommodate evolving user needs and market trends, such as incorporating a new workout trend or social sharing capabilities.\\
-LC5: As the user base grows, enhancing the backend infrastructure to manage increased load, reducing latency, and ensuring smooth user experiences.\\
-LC6: Changes in data protection laws or health app regulations may require adjustments in data handling and user privacy features.\\
-LC7: Inclusion of new features or modification of existing ones to stay competitive and meet user demands.
+\begin{itemize}
+    \item LC1: The application may need to adapt to future versions of iOS to ensure compatibility and leverage new features.
+    \item LC2: The integration of new APIs or third-party services to enhance functionality, such as adding a new payment gateway or integrating a new workout tracking device.
+    \item LC3: Refinements in the UI/UX based on user feedback and usability testing may be required post-launch.
+    \item LC4: The addition of new features or screens to accommodate evolving user needs and market trends, such as incorporating a new workout trend or social sharing capabilities.
+    \item LC5: As the user base grows, enhancing the backend infrastructure to manage increased load, reducing latency, and ensuring smooth user experiences.
+    \item LC6: Changes in data protection laws or health app regulations may require adjustments in data handling and user privacy features.
+    \item LC7: Inclusion of new features or modification of existing ones to stay competitive and meet user demands.
+\end{itemize}
 
 \section{Unlikely Changes}
-
-UL1: The basic functionality and core features of the app, such as tracking workouts and providing workout plans, are fundamental and unlikely to change drastically.\\
-UL2: The primary target audience, being fitness enthusiasts, gym-goers, is unlikely to change.\\
-UL3: The platform choice (iOS) given that the styling, design, and functionalities, are deeply integrated with iOS features.\\
-UL4: The programming languages and core technologies used in development are unlikely to change unless a significant technological shift happens.
+\begin{itemize}
+    \item UL1: The basic functionality and core features of the app, such as tracking workouts and providing workout plans, are fundamental and unlikely to change drastically.
+    \item UL2: The primary target audience, being fitness enthusiasts, gym-goers, is unlikely to change.
+    \item UL3: The platform choice (iOS) given that the styling, design, and functionalities, are deeply integrated with iOS features.
+    \item UL4: The programming languages and core technologies used in development are unlikely to change unless a significant technological shift happens.
+\end{itemize}
 
 
 \section{Traceability Matrices}
@@ -720,9 +743,9 @@ The development of the fitness application will follow a phased approach to ensu
 In this initial phase, we will focus on implementing the core features required for the app's basic functionality. This includes:
 
 \begin{itemize}
-\item User account management (UA1 - UA5)
-\item AI Workout Generation (AI1 - AI5)
-\item User Workout Creation (UC1 - UC4)
+    \item User account management (UA1 - UA5)
+    \item AI Workout Generation (AI1 - AI5)
+    \item User Workout Creation (UC1 - UC4)
 \end{itemize}
 
 \subsection{Phase 2: User Experience Enhancement}
