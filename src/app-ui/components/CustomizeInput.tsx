@@ -32,8 +32,8 @@ function CustomizeInput(props: ICustomzeProps) {
             borderColor: props.validInput
               ? 'red'
               : focus
-                ? 'lightblue'
-                : '#C3C3C3',
+              ? 'lightblue'
+              : '#C3C3C3',
           },
         ]}
       >
