@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
 import { styles } from './styles';
-import CustomizeInput from '../../components/CustomizeInput';
+import FormInput from '../../components/FormInput';
 import { useState } from 'react';
 import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import Svg, { Path, G } from 'react-native-svg';
@@ -88,21 +88,21 @@ function RegisterPage() {
       </Svg>
       <View style={styles.form}>
         <Text style={styles.registerTitle}>Sign Up</Text>
-        <CustomizeInput
+        <FormInput
           onChangeText={text => setEmail(text)}
           placeholder='Enter your email'
           iconName='mail-outline'
           validInput={errors.email}
           resetError={resetErrors}
         />
-        <CustomizeInput
+        <FormInput
           onChangeText={text => setUsername(text)}
           placeholder='Enter a username'
           iconName='person-outline'
           validInput={errors.username}
           resetError={resetErrors}
         />
-        <CustomizeInput
+        <FormInput
           onChangeText={text => setPassword(text)}
           placeholder='Enter a password'
           iconName='lock-closed-outline'

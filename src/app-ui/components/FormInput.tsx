@@ -8,12 +8,12 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRef, useState } from 'react';
 
-interface ICustomzeProps extends TextInputProps {
+interface IFormInputProps extends TextInputProps {
   validInput?: boolean;
   iconName?: any;
   resetError?: () => void;
 }
-function CustomizeInput(props: ICustomzeProps) {
+function FormInput(props: IFormInputProps) {
   const [hiddenField, setHiddenField] = useState(props.secureTextEntry);
   const [focus, setFocus] = useState(false);
   const input = useRef<TextInput | null>(null);
@@ -23,17 +23,23 @@ function CustomizeInput(props: ICustomzeProps) {
     setFocus(true);
   };
 
+  const setColor = () => {
+    if (props.validInput) {
+      return 'red';
+    } else if (focus) {
+      return 'lightblue';
+    } else {
+      return '#C3C3C3';
+    }
+  };
+
   return (
     <View>
       <View
         style={[
           styles.inputContainer,
           {
-            borderColor: props.validInput
-              ? 'red'
-              : focus
-              ? 'lightblue'
-              : '#C3C3C3',
+            borderColor: setColor(),
           },
         ]}
       >
@@ -63,7 +69,7 @@ function CustomizeInput(props: ICustomzeProps) {
   );
 }
 
-export default CustomizeInput;
+export default FormInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
