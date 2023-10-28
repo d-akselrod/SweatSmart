@@ -21,7 +21,7 @@ const initialMessages: IChatMessage[] = [
   {
     role: ChatAuthor.Assistant,
     content:
-      'I\'d be glad to assist you in answering all your fitness related questions!',
+      "I'd be glad to assist you in answering all your fitness related questions!",
   },
 ];
 
@@ -59,7 +59,7 @@ export const ChatBotPage = () => {
     } catch (e) {
       const networkErrorReply: IChatMessage = {
         role: ChatAuthor.Assistant,
-        content: 'I\'m experiencing network issues. Please try again later.',
+        content: "I'm experiencing network issues. Please try again later.",
       };
 
       await new Promise(f => setTimeout(f, 1000));
@@ -82,8 +82,8 @@ export const ChatBotPage = () => {
           )}
           {isUserTyping &&
             messages[messages.length - 1].role == ChatAuthor.Assistant && (
-            <ChatTypingIndicator role={ChatAuthor.User} />
-          )}
+              <ChatTypingIndicator role={ChatAuthor.User} />
+            )}
         </View>
         <ChatInput
           onPressSend={(prompt: string) => handleSendMessage(prompt)}
