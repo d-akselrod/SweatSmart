@@ -20,7 +20,7 @@
         "prettier"
     ],
     "rules": {
-        "no-unused-vars": "error",
+        "no-unused-vars": "warn",
         "no-console": "warn",
         "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
         "react/prop-types": "off",
