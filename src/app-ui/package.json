@@ -9,10 +9,8 @@
     "web": "expo start --web",
     "test:check": "jest",
     "test:coverage": "jest -coverage",
-    "lint:check": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "format:check": "prettier --check \"**/*.ts\" \"**/*.tsx\"",
-    "format:fix": "prettier --write \"**/*.ts\" \"**/*.tsx\""
+    "format:check": "eslint . --ext .ts,.tsx",
+    "format:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "jest": {
     "preset": "jest-expo",
@@ -51,7 +49,6 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
-    "prettier": "^3.0.3",
     "typescript": "^5.1.3"
   },
   "private": true
