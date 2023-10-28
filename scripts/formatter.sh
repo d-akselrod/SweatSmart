@@ -4,7 +4,6 @@ cd src/app-ui
 if [ -f package.json ]; then
     echo "Running Prettier and ESLint for app-ui..."
     npm run format:fix
-    npm run lint:fix
 fi
 cd ../..
 
@@ -12,7 +11,6 @@ cd test/test-ui
 if [ -f package.json ]; then
     echo "Running Prettier and ESLint for test-ui..."
     npm run format:fix
-    npm run lint:fix
 fi
 cd ../..
 

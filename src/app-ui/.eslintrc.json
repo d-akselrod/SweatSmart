@@ -6,7 +6,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -19,18 +20,15 @@
         "prettier"
     ],
     "rules": {
-        "indent": ["error", 2, { "SwitchCase": 1 }],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"],
-        "no-unused-vars": "warn",
-        "no-console": "off",
-        "jsx-quotes": ["error", "prefer-single"],
+        "no-unused-vars": "error",
+        "no-console": "warn",
         "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
         "react/prop-types": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "warn",
         "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "prettier/prettier": "error"
     },
     "settings": {
         "react": {
