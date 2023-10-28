@@ -29,7 +29,7 @@ jobs:
       - name: Run ESLint and Prettier
         run: |
           npm --prefix src/app-ui run format:check
-          run: npm --prefix test/test-ui run format:check
+          npm --prefix test/test-ui run format:check
 
       - name: Run Jest tests
         run: npm --prefix src/app-ui run test:check
