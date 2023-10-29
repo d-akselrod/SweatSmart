@@ -48,8 +48,28 @@ export const EntryPage = () => {
         }),
       ]),
       Animated.timing(logoScale, {
+        toValue: 2.8,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(logoScale, {
+        toValue: 3,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(logoScale, {
+        toValue: 2.8,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(logoScale, {
+        toValue: 3,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(logoScale, {
         toValue: 0,
-        duration: 1000,
+        duration: 500,
         useNativeDriver: true,
       }),
     ]).start(handleAnimationCompletion);
