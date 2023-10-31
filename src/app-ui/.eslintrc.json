@@ -28,7 +28,8 @@
         "@typescript-eslint/no-explicit-any": "warn",
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/ban-ts-comment": "off",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "react/self-closing-comp": "error"
     },
     "settings": {
         "react": {

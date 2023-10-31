@@ -5,7 +5,7 @@ import RegistrationPage from './pages/register/RegisterPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <RegistrationPage></RegistrationPage>
+      <RegistrationPage />
     </View>
   );
 }
