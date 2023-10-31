@@ -1,13 +1,13 @@
-import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
-import { styles } from './styles';
-import FormInput from '../../components/FormInput';
 import { useState } from 'react';
 import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
-import Svg, { Path, G } from 'react-native-svg';
+import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
 import { Dimensions } from 'react-native';
+import Svg, { Path, G } from 'react-native-svg';
+import { styles } from './styles';
+import { FormInput } from '../../components/FormInput';
 import { registerAccount } from '../../service/AccountAPI';
 
-function RegisterPage() {
+export function RegisterPage() {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -134,5 +134,3 @@ function RegisterPage() {
     </View>
   );
 }
-
-export default RegisterPage;
