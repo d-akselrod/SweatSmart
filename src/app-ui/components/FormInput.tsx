@@ -43,7 +43,7 @@ function FormInput(props: IFormInputProps) {
           },
         ]}
       >
-        <Ionicons name={props.iconName} size={20} color={'#6C96E8'}></Ionicons>
+        <Ionicons name={props.iconName} size={20} color={'#6C96E8'} />
         <TextInput
           ref={input}
           onChangeText={props.onChangeText}
