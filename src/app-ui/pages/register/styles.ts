@@ -3,20 +3,16 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#D8F1FF',
   },
 
   titleContainer: {
     justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#D8F1FF',
-    flex: 6,
-  },
-
-  fulltitle: {
-    justifyContent: 'center',
-    height: '100%',
     alignItems: 'center',
+    backgroundColor: '#D8F1FF',
+    flex: 1,
+    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 50,
   },
 
   title: {
@@ -28,9 +24,13 @@ export const styles = StyleSheet.create({
   form: {
     gap: 20,
     alignItems: 'center',
-    marginTop: 28,
-    marginHorizontal: 24.5,
-    flex: 10,
+    flex: 1,
+    paddingLeft: 24.5,
+    paddingRight: 24.5,
+    paddingTop: 50,
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 60,
   },
 
   button: {
@@ -46,15 +46,16 @@ export const styles = StyleSheet.create({
   },
 
   loginContainer: {
+    position: 'absolute',
+    bottom: 30,
     flexDirection: 'row',
-    alignItems: 'center',
   },
 
   registerTitle: {
     fontSize: 25,
     alignSelf: 'flex-start',
     fontWeight: '600',
-    color: '#6D6089',
+    color: 'rgba(0,0,0,0.6)',
   },
 
   error: {
