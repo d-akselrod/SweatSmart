@@ -85,7 +85,6 @@ export function RegisterPage() {
       <KeyboardAvoidingView
         style={styles.form}
         behavior={'padding'}
-        keyboardVerticalOffset={130}
       >
         <Text style={styles.registerTitle}>Sign Up</Text>
         <FormInput
@@ -94,6 +93,7 @@ export function RegisterPage() {
           iconName='mail-outline'
           validInput={errors.email}
           resetError={resetErrors}
+          keyboardType = {'email-address'}
         />
         <FormInput
           onChangeText={text => setUsername(text)}

@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#D8F1FF',
-    flex: 1,
+    flex: 2,
     borderBottomRightRadius: 50,
     borderBottomLeftRadius: 50,
   },
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   form: {
     gap: 20,
     alignItems: 'center',
-    flex: 1,
+    flex: 3,
     paddingLeft: 24.5,
     paddingRight: 24.5,
     paddingTop: 50,
@@ -46,8 +46,6 @@ export const styles = StyleSheet.create({
   },
 
   loginContainer: {
-    position: 'absolute',
-    bottom: 30,
     flexDirection: 'row',
   },
 
