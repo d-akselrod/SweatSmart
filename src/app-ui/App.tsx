@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import RegistrationPage from './pages/register/RegisterPage';
+import { RegisterPage } from './pages/register/RegisterPage';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <RegistrationPage></RegistrationPage>
+      <RegisterPage />
     </View>
   );
 }

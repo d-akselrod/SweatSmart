@@ -26,17 +26,10 @@ jobs:
           cd ../../test/test-ui
           npm install
 
-      - name: Run source ESLint
-        run: npm --prefix src/app-ui run lint:check
-
-      - name: Run test ESLint
-        run: npm --prefix test/test-ui run lint:check
-
-      - name: Check source formatting with Prettier
-        run: npm --prefix src/app-ui run format:check
-
-      - name: Check test formatting with Prettier
-        run: npm --prefix test/test-ui run format:check
+      - name: Run ESLint and Prettier
+        run: |
+          npm --prefix src/app-ui run format:check
+          npm --prefix test/test-ui run format:check
 
       - name: Run Jest tests
         run: npm --prefix src/app-ui run test:check

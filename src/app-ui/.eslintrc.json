@@ -6,7 +6,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -16,21 +17,40 @@
     "plugins": [
         "@typescript-eslint",
         "react",
-        "prettier"
+        "prettier",
+        "import"
     ],
     "rules": {
-        "indent": ["error", 2, { "SwitchCase": 1 }],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"],
         "no-unused-vars": "warn",
-        "no-console": "off",
-        "jsx-quotes": ["error", "prefer-single"],
+        "no-console": "warn",
         "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
         "react/prop-types": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "warn",
         "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "prettier/prettier": "error",
+        "react/self-closing-comp": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "external",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "never",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
+        "import/no-default-export": "warn"
     },
     "settings": {
         "react": {
