@@ -1,3 +1,5 @@
+import { useRef, useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import {
   View,
   StyleSheet,
@@ -5,15 +7,13 @@ import {
   TextInputProps,
   TouchableOpacity,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRef, useState } from 'react';
 
 interface IFormInputProps extends TextInputProps {
   validInput?: boolean;
   iconName?: any;
   resetError?: () => void;
 }
-function FormInput(props: IFormInputProps) {
+export function FormInput(props: IFormInputProps) {
   const [hiddenField, setHiddenField] = useState(props.secureTextEntry);
   const [focus, setFocus] = useState(false);
   const input = useRef<TextInput | null>(null);
@@ -68,8 +68,6 @@ function FormInput(props: IFormInputProps) {
     </View>
   );
 }
-
-export default FormInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
