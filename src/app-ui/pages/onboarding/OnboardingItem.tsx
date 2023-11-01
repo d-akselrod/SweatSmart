@@ -1,12 +1,17 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Image, useWindowDimensions, Dimensions} from 'react-native';
 
 interface IOnboardingItem {
-    item: { id: number, title: string, description: string }
+    item: { id: number, title: string, description: string, image: any }
 }
 function OnboardingItem({item} : IOnboardingItem) {
+    
     return (
-        <View style = {styles.container}>
-            <Text>{item.title}</Text>
+        <View style = {[styles.container, {width: Dimensions.get('window').width}]}>
+            <Image source = {item.image} style = {[styles.image, {width: Dimensions.get('window').width, resizeMode: 'contain'}]}/>
+            <View style = {{flex: 0.4}}>
+                <Text style = {styles.title}>{item.title}</Text>
+                <Text style = {styles.description}>{item.description}</Text>
+            </View>
         </View>
     );
 }
@@ -18,6 +23,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
-        alignItems: 'center'
+    },
+    
+    image: {
+        flex: 0.6,
+    },
+    
+    title: {
+        fontSize: 25,
+        fontWeight: '700',
+        textAlign: 'center',
+        marginBottom: 10,
+        color: '#1a2264'
+    },
+    
+    description: {
+        fontWeight: '300',
+        textAlign: 'center',
+        paddingHorizontal: 24
     }
 })
