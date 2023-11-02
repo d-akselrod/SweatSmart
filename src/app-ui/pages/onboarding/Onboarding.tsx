@@ -3,6 +3,8 @@ import OnboardingItem from './OnboardingItem';
 import data from './data';
 import {useRef, useState } from 'react';
 import Paginator from '../../components/Paginator'
+import { AntDesign } from '@expo/vector-icons';
+
 
 
 function Onboarding(props: any) {
@@ -11,11 +13,22 @@ function Onboarding(props: any) {
     const scrollX = useRef(new Animated.Value(0)).current;
     const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current
     const {width} = useWindowDimensions();
+    const [x, setX] = useState(0)
     
-    // const opacity = scrollX.interpolate({
-    //     inputRange: [0, 0, 0],
-    //     outputRange: []
-    // })
+    const widthAnimated = scrollX.interpolate({
+        inputRange: [width, width * 2, width * 3],
+        outputRange: [30, 30, 200]
+    })
+    
+    const handleSlide = () => {
+        if(currentIndex + 1 < data.length){
+            slideRef.current?.scrollToIndex({index: currentIndex + 1})
+        }
+    }
+    
+    const handleScroll = (event: any) => {
+        setX(event.nativeEvent.contentOffset.x);
+    }
     
     return (
         <SafeAreaView style = {styles.container}>
@@ -28,9 +41,7 @@ function Onboarding(props: any) {
                 pagingEnabled
                 keyExtractor = {(item) => item.id.toString()}
                 ref ={slideRef}
-                onScroll = {Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {
-                    useNativeDriver: false
-                })}
+                onScroll = {Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false, listener: handleScroll})}
                 onMomentumScrollEnd={(event) => {
                     setCurrentIndex(Math.floor(
                         Math.floor(event.nativeEvent.contentOffset.x) /
@@ -40,9 +51,16 @@ function Onboarding(props: any) {
                 viewabilityConfig = {viewConfig}
             />
             <Paginator data = {data} index = {currentIndex} scrollX = {scrollX}/>
-            <TouchableOpacity style = {styles.button}>
-                <Text style = {styles.start}>Start Your Journey</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style = {[styles.button]} onPress = {handleSlide}>
+                    <Animated.View style =  {{width: widthAnimated, alignItems: 'center'}}>
+                    {x < width*3*0.98 ?
+                        <AntDesign name="arrowright" size={24} color="white" />
+                        :
+                        <Animated.Text style = {[styles.start]}>Start Your Journey</Animated.Text>
+                    }
+                    </Animated.View>
+                </TouchableOpacity>
+            
         </SafeAreaView>
     );
 }
@@ -68,6 +86,6 @@ const styles = StyleSheet.create({
     start: {
         color: 'white',
         fontWeight: '600',
-        fontSize: 18,
+        fontSize: 20,
     }
 })
