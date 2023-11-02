@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import Onboarding from './pages/onboarding/Onboarding';
 import { RegisterPage } from './pages/register/RegisterPage';
-import Onboarding from './pages/onboarding/Onboarding'
 
 export default function App() {
   return (

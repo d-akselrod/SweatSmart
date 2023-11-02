@@ -82,10 +82,7 @@ export function RegisterPage() {
         </View>
       </View>
 
-      <KeyboardAvoidingView
-        style={styles.form}
-        behavior={'padding'}
-      >
+      <KeyboardAvoidingView style={styles.form} behavior={'padding'}>
         <Text style={styles.registerTitle}>Get Started</Text>
         <FormInput
           onChangeText={text => setEmail(text)}
@@ -93,7 +90,7 @@ export function RegisterPage() {
           iconName='mail-outline'
           validInput={errors.email}
           resetError={resetErrors}
-          keyboardType = {'email-address'}
+          keyboardType={'email-address'}
         />
         <FormInput
           onChangeText={text => setUsername(text)}
@@ -116,7 +113,9 @@ export function RegisterPage() {
             <Text style={styles.errorMsg}>{errorMsg}</Text>
           </View>
         )}
-        <View style = {{borderWidth: 0.5, width: '100%', borderColor: '#C3C3C3'}}/>
+        <View
+          style={{ borderWidth: 0.5, width: '100%', borderColor: '#C3C3C3' }}
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleRegister()}
