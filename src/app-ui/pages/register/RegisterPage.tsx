@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
-import { Dimensions } from 'react-native';
-import Svg, { Path, G } from 'react-native-svg';
+import { MaterialIcons } from '@expo/vector-icons';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { styles } from './styles';
 import { FormInput } from '../../components/FormInput';
 import { registerAccount } from '../../service/AccountAPI';
@@ -72,28 +76,21 @@ export function RegisterPage() {
 
   return (
     <View style={styles.container}>
-      <Svg width={Dimensions.get('window').width} height={328} fill='none'>
-        <Path
-          fill='#D8F1FF'
-          d='M0 0h393v250s-60.911-10.272-108 0c-50.557 11.029-137.47 60.85-188 72-55.442 12.234-97 0-97 0V0Z'
-        />
-        <G>
-          <View style={styles.fulltitle}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.title}>SweatSmart</Text>
-              <SimpleLineIcons name='drop' size={24} color='#1CA0EB' />
-            </View>
-          </View>
-        </G>
-      </Svg>
-      <View style={styles.form}>
-        <Text style={styles.registerTitle}>Sign Up</Text>
+      <View style={styles.titleContainer}>
+        <View>
+          <Text style={styles.title}>SweatSmart</Text>
+        </View>
+      </View>
+
+      <KeyboardAvoidingView style={styles.form} behavior={'padding'}>
+        <Text style={styles.registerTitle}>Get Started</Text>
         <FormInput
           onChangeText={text => setEmail(text)}
           placeholder='Enter your email'
           iconName='mail-outline'
           validInput={errors.email}
           resetError={resetErrors}
+          keyboardType={'email-address'}
         />
         <FormInput
           onChangeText={text => setUsername(text)}
@@ -116,6 +113,9 @@ export function RegisterPage() {
             <Text style={styles.errorMsg}>{errorMsg}</Text>
           </View>
         )}
+        <View
+          style={{ borderWidth: 0.5, width: '100%', borderColor: '#C3C3C3' }}
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleRegister()}
@@ -130,7 +130,7 @@ export function RegisterPage() {
             <Text style={{ color: '#6C96E8', fontWeight: 'bold' }}>Login</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
