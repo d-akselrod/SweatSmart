@@ -22,7 +22,7 @@ const data : IOnboardingSections[] = [
 
     {
         id: 3,
-        title: "Track your progress with ease",
+        title: "Easy Progress Tracking",
         description: "Monitor your performance, see your improvements, and stay motivated",
         image: require('../../assets/Progress.png')
     },

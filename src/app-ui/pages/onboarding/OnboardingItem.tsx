@@ -30,15 +30,15 @@ const styles = StyleSheet.create({
     },
     
     title: {
-        fontSize: 25,
+        fontSize: 30,
         fontWeight: '700',
         textAlign: 'center',
-        marginBottom: 10,
+        marginBottom: 20,
         color: '#1a2264'
     },
     
     description: {
-        fontWeight: '300',
+        fontWeight: '400',
         textAlign: 'center',
         paddingHorizontal: 24
     }
