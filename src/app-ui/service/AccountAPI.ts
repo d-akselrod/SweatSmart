@@ -10,7 +10,7 @@ export const registerAccount = (
     email,
     password,
   };
-  
+
   return fetch(`${API_URL}/AccountService/Register`, {
     method: 'POST',
     headers: {
