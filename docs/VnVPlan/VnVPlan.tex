@@ -125,85 +125,161 @@ how they relate to your VnV efforts.}
 
 \section{Plan}
 
-\wss{Introduce this section.   You can provide a roadmap of the sections to
-  come.}
-
 \subsection{Verification and Validation Team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+Although all team members will be responsible for writing/understanding all aspects of the project's test suite, each member will have a particular specific role within the area.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Team Member} & \textbf{Project Verification Role} \\
+    \hline
+    Daniel Akselrod & Test Automation Expert: Responsible for all CD/CI testing \\
+    \hline
+    Jonathan Avraham & Test Designer/Case Writer: Create test cases \\
+    \hline
+    Sam McDonald & Test Strategist/Planner: Defines overall testing strategy \\
+    \hline
+    Sophie Fillion & Test Result Analysis: Analyze failing tests and create new issues \\
+    \hline
+  \end{tabular}
+  \caption{Roles of the Verification and Validation Team}
+  \label{tab:verification_validation_team}
+\end{table}
 
 \subsection{SRS Verification Plan}
 
-\wss{List any approaches you intend to use for SRS verification.  This may include
-  ad hoc feedback from reviewers, like your classmates, or you may plan for 
-  something more rigorous/systematic.}
+\subsubsection{Objective of the Verification Plan}
+The objective of this SRS verification plan is to ensure that SweatSmarts software complies with both the functional and non-functional requirements specified in the accompanying Software Requirements Specification document. This comprehensive verification process aims to ensure that the software is not only capable of performing its intended functions but also excels in terms of usability, performance, security, and compliance with industry standards. Specifically, the test plan should satisfy the following: Functional and nonfunctional requirement compliances, safety, user experiences and satisfaction, and the correct testing tools.
 
-\wss{Maybe create an SRS checklist?}
+\subsubsection{Scope}
+This test plan and verification will cover all of the functional and nonfunctional requirements that have been written in the SRS. This verification plan will describe what will be covered when undergoing verifications of requirements, the test cases and test criteria, the schedule of verification defining the amount of time it will take, the roles and responsibilities, and the acceptance criteria of each test.
+
+\subsubsection{Verification Methods/Tests}
+Testing is crucial in the Software development Life Cycle as it allows developers to find bugs within the system, can help identify whether certain components within the system work as anticipated and if it meets the needs of its stakeholders. Here are a few testing methods that will aid in the verification process:
+
+\begin{itemize}
+  \item \textbf{Functional Testing:} Functional tests will be conducted to verify the functionality of the system. The purpose is to test the functional requirements of the system as described in the SRS.
+  \item \textbf{Unit testing:} Unit tests verify individual components (units) of the software where they are isolated from the rest. The purpose is to create unit tests for specific functions or modules to verify that they behave correctly.
+  \item \textbf{Manual and Automated Testing:} Manual testing are tests that are conducted by people without test scripts. Automated testing is when tests are executed automatically via testing tools and frameworks such as Jest or XUnit.
+  \item \textbf{Static and Dynamic Testing:} Static testing means to examine the code without actually executing it to look for coding style and quality. Dynamic testing is used to verify the code by executing it and observing its behavior during runtime.
+\end{itemize}
+
+\subsubsection{Test Cases and Criteria}
+In this section, we write detailed test cases for each requirement in the SRS, including both the functional and non-functional requirements. Each case will include the following:
+
+\begin{itemize}
+  \item \textbf{The input data}
+  \item \textbf{The expected output data}
+  \item \textbf{The criteria for a pass/fail test}
+  \item \textbf{The tools used to test the requirement}
+\end{itemize}
+
+\subsubsection{Schedule and Result}
+The verification of the SRS will take place from [start date] to [end date]. The software will be considered verified once all test cases pass for all non-functional and functional requirements.
 
 \subsection{Design Verification Plan}
 
-\wss{Plans for design verification}
+\subsubsection{Architecture Review}
+Validate the system design for scalability and robustness before development begins.
 
-\wss{The review will include reviews by your classmates}
+\subsubsection{UI/UX Testing}
+Assess the interface and user flow for intuitiveness through user feedback and expert review.
 
-\wss{Create a checklists?}
+\subsubsection{Algorithm Efficiency}
+Confirm AI algorithm accuracy and backend efficiency through iterative testing with real-world data.
+
+\subsubsection{Security Checks}
+Evaluate application security features against industry best practices and standards.
 
 \subsection{Verification and Validation Plan Verification Plan}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
+\subsubsection{Plan Review}
+Implement periodic peer reviews, with a focus on comprehensive coverage and clarity.
 
-\wss{The review will include reviews by your classmates}
+\subsubsection{Mutation Testing}
+Use mutation testing to assess the plan's ability to detect faults and improve test cases.
 
-\wss{Create a checklists?}
+\subsubsection{Checklist Creation}
+Develop checklists to standardize review processes and ensure all critical aspects of the plan are evaluated.
 
 \subsection{Implementation Verification Plan}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
+\noindent \textbf{Objective:} Ensure the integrity and correctness of the implementation through static verification techniques.
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
+\subsubsection{Code Walk-Throughs}
+\begin{itemize}
+  \item Schedule regular sessions where developers present their code to the team for examination.
+  \item Focus on logical flow, adherence to design specifications, and potential logic errors.
+  \item Document insights and action items for improvement.
+\end{itemize}
+
+\subsubsection{Code Inspection}
+\begin{itemize}
+  \item Formalize a code inspection process with checklists tailored to project standards and best practices.
+  \item Assign roles for moderator, author, scribe, and reviewers to structure the inspection.
+  \item Utilize inspection outcomes to refine coding guidelines and improve code quality.
+\end{itemize}
+
+\subsubsection{Static Analyzers}
+\begin{itemize}
+  \item Integrate automated static analysis tools into the development workflow.
+  \item Configure tools to flag coding standards violations, potential bugs, security vulnerabilities, and performance issues.
+  \item Review and address flagged issues in a timely manner, prioritizing based on severity.
+\end{itemize}
+
+\subsubsection{Automated Code Reviews}
+\begin{itemize}
+  \item Set up custom rules and linting based on the project’s coding standards.
+\end{itemize}
+
+\subsubsection{Continuous Integration (CI) Checks}
+\begin{itemize}
+  \item Enforce static verification checks within the CI pipeline.
+  \item Prevent merging of code changes that fail to meet the defined static analysis criteria.
+\end{itemize}
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+\subsubsection{Unit Testing}
+\begin{itemize}
+  \item With React Native, we employ Jest to test our application's components, functions, and hooks thoroughly. This framework facilitates simulation of user interactions and verification of component behavior.
+  \item XUnit serves as the backbone for testing our .NET Core Web API. It will ensure that all units of application logic are tested for expected outcomes.
+\end{itemize}
 
-\wss{If you have already done this in the development plan, you can point to
-that document.}
+\subsubsection{Static Code Analysis}
+\begin{itemize}
+  \item ESLint and Prettier will be used in tandem to maintain code quality and consistency in our React Native codebase, ensuring adherence to our defined coding standards.
+  \item dotnet format and other .NET analyzers will scrutinize our backend code, enforcing the .NET Core's conventions and coding practices.
+\end{itemize}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\subsubsection{Continuous Integration (CI)}
+\begin{itemize}
+  \item We will use GitHub Actions to automate our continuous integration workflow. On every push and pull request, GitHub Actions will trigger the build and test processes for both the mobile and web API components, ensuring that changes do not introduce regressions or break existing functionality.
+\end{itemize}
+
+\subsubsection{Code Coverage}
+\begin{itemize}
+  \item Integrated code coverage tools within Jest for React Native and XUnit for .NET Core will provide insights into the portions of our codebase exercised by unit tests. Our goal is to maintain a high level of code coverage, correlating with fewer production bugs.
+\end{itemize}
 
 \subsection{Software Validation Plan}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
+\subsubsection{Objective}
+The objective of this SRS validation plan is to ensure that the software meets user needs and expectations, delivers its appropriate functionality to its users, and runs properly in its environment. It is essentially the process of checking whether or not customers' requirements are being met.
 
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
+\subsubsection{Scope}
+This validation plan will typically occur after the development phase as its intent is to ensure the satisfaction of user requirements and is ready in the environment that it is being used. Validation checks the software against the actual user and system requirements, ensuring that it provides the intended functionality and value. The validation plan will include the following: Validation methods for testing, test input and criteria, as well as a schedule for the validation aspect of the development cycle.
 
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
+\subsubsection{Validation methods}
+Usability testing is essential for assessing the user experience and the effectiveness of a product. It is complemented by regression testing, which is crucial for ensuring that new updates or changes to the software don't introduce fresh issues. In tandem, performance testing evaluates the system's response time and resource usage to ensure it operates efficiently. Security testing is another vital component, aimed at identifying and mitigating any vulnerabilities in the code. Lastly, functional testing is carried out to verify that the system operates as intended by executing the code and checking the functionality. Together, these different types of testing form a comprehensive approach to ensuring the quality and reliability of software products.
 
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
+\subsubsection{Test Cases and Criteria}
+In this section, we write detailed test cases for each requirement in the SRS including both the functional and non-functional requirements. Each case will include the input data, the expected output data, the criteria for a passed/failed test, and the tools used to test the requirement.
 
-\wss{This section might reference back to the SRS verification section.}
+\subsubsection{Scheduling and result}
+It is important to note that the validation plan aims for the end product that is ready to be deployed. Therefore, the validation is scheduled to start from [start date] to [end date]. The software will be considered validated once it passes all validation tests successfully and meets user expectations.
 
 \section{System Test Description}
 	
