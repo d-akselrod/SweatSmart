@@ -10,7 +10,7 @@ export const data: IOnboardingSections[] = [
     id: 1,
     title: 'SweatSmart',
     description: 'Get fit the smart, easy way ',
-    image: require('../../assets/Logo.png'),
+    image: require('../../assets/images/Logo.png'),
   },
 
   {

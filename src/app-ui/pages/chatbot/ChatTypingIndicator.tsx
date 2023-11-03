@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { View, Animated, Easing, StyleSheet } from 'react-native';
-import { ChatAuthor } from '../types';
+import { ChatAuthor } from './types';
 
 interface ITypingIndicatorProps {
   dotColor: string;

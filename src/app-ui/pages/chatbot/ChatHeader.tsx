@@ -1,12 +1,12 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 export const ChatHeader = () => {
   return (
     <View style={styles.container}>
       <Image
         style={styles.avatar}
-        source={require('../../../assets/images/FitBotAvatar.png')}
+        source={require('../../assets/images/FitBotAvatar.png')}
       />
       <Text style={styles.text}>FitBot</Text>
     </View>

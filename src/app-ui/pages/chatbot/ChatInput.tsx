@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Feather } from '@expo/vector-icons';
 import {
   View,
   StyleSheet,
@@ -5,8 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
 
 interface IChatInputProps extends TextInputProps {
   onPressSend: (prompt: string) => void;

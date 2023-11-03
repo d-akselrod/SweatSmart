@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { ChatBubble } from '../ChatBubble/ChatBubble';
 import { View, StyleSheet, ScrollView, Keyboard } from 'react-native';
-import { IChatMessage } from '../types';
+import { ChatBubble } from './ChatBubble';
+import { IChatMessage } from './types';
 
 interface IChatConversationProps {
   messages: IChatMessage[];

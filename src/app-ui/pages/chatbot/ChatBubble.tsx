@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { ChatAuthor, IChatMessage } from '../types';
+import { ChatAuthor, IChatMessage } from './types';
 
 interface IChatBotBubbleProps extends IChatMessage {
   onLayout: any;

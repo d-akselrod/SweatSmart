@@ -6,12 +6,12 @@ import {
   Platform,
   View,
 } from 'react-native';
-import { ChatConversation } from './ChatConversation/ChatConversation';
-import { ChatInput } from './ChatInput/ChatInput';
-import { sendPrompt } from '../../service/ChatBotAPI';
+import { ChatConversation } from './ChatConversation';
+import { ChatHeader } from './ChatHeader';
+import { ChatInput } from './ChatInput';
+import { ChatTypingIndicator } from './ChatTypingIndicator';
 import { ChatAuthor, IChatMessage } from './types';
-import { ChatTypingIndicator } from './ChatTypingIndicator/ChatTypingIndicator';
-import { ChatHeader } from './ChatHeader/ChatHeader';
+import { sendPrompt } from '../../service/ChatBotAPI';
 
 const initialMessages: IChatMessage[] = [
   {
