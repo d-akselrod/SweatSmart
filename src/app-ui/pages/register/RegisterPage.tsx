@@ -13,7 +13,6 @@ import { styles } from './styles';
 import { RootStackParamList } from '../../App';
 import { FormInput } from '../../components/FormInput';
 import { registerAccount } from '../../service/AccountAPI';
-import { IUser } from '../../typings/types';
 
 export function RegisterPage() {
   const [username, setUsername] = useState<string>('');
@@ -27,7 +26,7 @@ export function RegisterPage() {
 
   const [errorMsg, setErrorMsg] = useState('');
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'Onboarding'>>();
+    useNavigation<StackNavigationProp<RootStackParamList, 'OnboardingPage'>>();
 
   const resetErrors = () => {
     setErrors({
@@ -70,8 +69,15 @@ export function RegisterPage() {
         if (response.ok) {
           const data = await response.json();
 
-          navigation.navigate('Onboarding', {
-            user: data.body,
+          const activeUser = data.body;
+
+          navigation.navigate('OnboardingPage', {
+            user: {
+              uId: activeUser.uId,
+              username: activeUser.username,
+              email: activeUser.email,
+              password: activeUser.password,
+            },
           });
 
           setErrorMsg('');

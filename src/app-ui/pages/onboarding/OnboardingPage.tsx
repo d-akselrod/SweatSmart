@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { data } from './data';
-import OnboardingItem from './OnboardingItem';
+import { OnboardingItem } from './OnboardingItem';
 import { RootStackParamList } from '../../App';
 import Paginator from '../../components/Paginator';
 import { setActiveUser } from '../../redux/slices/userSlice';
 
-export function Onboarding() {
-  const route = useRoute<RouteProp<RootStackParamList, 'Onboarding'>>();
+export function OnboardingPage() {
+  const route = useRoute<RouteProp<RootStackParamList, 'OnboardingPage'>>();
   const activeUser = route.params.user;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,7 +28,6 @@ export function Onboarding() {
   const [x, setX] = useState(0);
 
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   const widthAnimated = scrollX.interpolate({
     inputRange: [width, width * 2, width * 3],
@@ -46,7 +45,6 @@ export function Onboarding() {
     } else if (currentIndex == data.length - 1) {
       // @ts-ignore
       dispatch(setActiveUser(activeUser));
-      console.log(activeUser);
     }
   };
 
@@ -79,7 +77,7 @@ export function Onboarding() {
         }}
         viewabilityConfig={viewConfig}
       />
-      <Paginator data={data} index={currentIndex} scrollX={scrollX} />
+      <Paginator data={data} scrollX={scrollX} />
       <TouchableOpacity style={[styles.button]} onPress={handleSlide}>
         <Animated.View
           style={{ width: widthAnimated, alignItems: 'center', opacity }}

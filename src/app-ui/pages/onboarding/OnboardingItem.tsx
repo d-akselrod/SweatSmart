@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 interface IOnboardingItemProps {
   item: { id: number; title: string; description: string; image: any };
 }
-function OnboardingItem({ item }: IOnboardingItemProps) {
+export function OnboardingItem({ item }: IOnboardingItemProps) {
   return (
     <View style={[styles.container, { width: Dimensions.get('window').width }]}>
       <Image
@@ -20,8 +20,6 @@ function OnboardingItem({ item }: IOnboardingItemProps) {
     </View>
   );
 }
-
-export default OnboardingItem;
 
 const styles = StyleSheet.create({
   container: {

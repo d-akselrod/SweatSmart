@@ -1,4 +1,4 @@
-interface IOnboardingSections {
+export interface IOnboardingSections {
   id: number;
   title: string;
   description: string;
@@ -31,7 +31,7 @@ export const data: IOnboardingSections[] = [
 
   {
     id: 4,
-    title: 'Meet Fitbot',
+    title: 'Meet FitBot',
     description:
       'Say hello to your virtual fitness coach! Get guidance, motivation, and expert tips to ensure you stay on track with your fitness goals',
     image: require('../../assets/Chatbot.png'),

@@ -10,19 +10,13 @@ export const registerAccount = (
     email,
     password,
   };
-
-  console.log(`${API_URL}/AccountService/Register`);
-  console.log(API_AUTH);
-
-  return fetch(
-    `https://sweatsmart-service.azurewebsites.net/AccountService/Register`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: API_AUTH,
-      },
-      body: JSON.stringify(userInfo),
+  
+  return fetch(`${API_URL}/AccountService/Register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
     },
-  );
+    body: JSON.stringify(userInfo),
+  });
 };

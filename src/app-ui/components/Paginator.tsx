@@ -1,6 +1,14 @@
 import { View, StyleSheet, useWindowDimensions, Animated } from 'react-native';
+import { IOnboardingSections } from '../pages/onboarding/data';
 
-function Paginator({ data, index, scrollX }: any) {
+interface IPaginatorProps {
+  data: IOnboardingSections[],
+  scrollX: Animated.Value
+}
+
+function Paginator(props: IPaginatorProps) {
+  const {data, scrollX} = props;
+  
   const { width } = useWindowDimensions();
 
   return (
