@@ -1,5 +1,5 @@
-import { IChatMessage } from '../pages/chatbot/types';
 import { API_AUTH, API_URL } from './config';
+import { IChatMessage } from '../pages/chatbot/types';
 
 export const sendPrompt = (history: IChatMessage[]) => {
   return fetch(`${API_URL}/ChatBot`, {
