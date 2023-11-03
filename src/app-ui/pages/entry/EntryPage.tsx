@@ -78,7 +78,7 @@ export const EntryPage = () => {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require('../../assets/Logo.png')}
+        source={require('../../assets/images/Logo.png')}
         style={[
           styles.logo,
           {

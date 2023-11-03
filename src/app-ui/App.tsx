@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
+import { ChatBotPage } from './pages/chatbot/ChatBotPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { RegisterPage } from './pages/register/RegisterPage';
 import { IUser } from './typings/types';
@@ -48,7 +49,7 @@ const AppMain = () => (
       initialRouteName='Home'
       screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen name='ChatBot' component={EmptyPage} />
+      <Tab.Screen name='ChatBot' component={ChatBotPage} />
       <Tab.Screen name='Profile' component={EmptyPage} />
       <Tab.Screen name='Home' component={EmptyPage} />
       <Tab.Screen name='Planner' component={EmptyPage} />
