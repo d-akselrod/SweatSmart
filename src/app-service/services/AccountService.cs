@@ -77,6 +77,6 @@ public class AccountService : ControllerBase
         };
 
         await userController.AddUser(newUser);
-        return APIResponse.Ok;
+        return new APIResponse(200, null, newUser);
     }
 }

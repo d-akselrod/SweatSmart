@@ -17,7 +17,8 @@
     "plugins": [
         "@typescript-eslint",
         "react",
-        "prettier"
+        "prettier",
+        "import"
     ],
     "rules": {
         "no-unused-vars": "warn",
@@ -28,7 +29,28 @@
         "@typescript-eslint/no-explicit-any": "warn",
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/ban-ts-comment": "off",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "react/self-closing-comp": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "external",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "never",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
+        "import/no-default-export": "warn"
     },
     "settings": {
         "react": {

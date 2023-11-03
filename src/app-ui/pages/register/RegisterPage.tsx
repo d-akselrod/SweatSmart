@@ -1,13 +1,20 @@
-import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
-import { styles } from './styles';
-import FormInput from '../../components/FormInput';
 import { useState } from 'react';
-import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
-import Svg, { Path, G } from 'react-native-svg';
-import { Dimensions } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+} from 'react-native';
+import { styles } from './styles';
+import { RootStackParamList } from '../../App';
+import { FormInput } from '../../components/FormInput';
 import { registerAccount } from '../../service/AccountAPI';
 
-function RegisterPage() {
+export function RegisterPage() {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -16,7 +23,10 @@ function RegisterPage() {
     username: false,
     password: false,
   });
+
   const [errorMsg, setErrorMsg] = useState('');
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'OnboardingPage'>>();
 
   const resetErrors = () => {
     setErrors({
@@ -25,6 +35,7 @@ function RegisterPage() {
       password: false,
     });
   };
+
   const validRegistrationData = (
     username: string,
     email: string,
@@ -57,8 +68,19 @@ function RegisterPage() {
         const response = await registerAccount(username, email, password);
         if (response.ok) {
           const data = await response.json();
+
+          const activeUser = data.body;
+
+          navigation.navigate('OnboardingPage', {
+            user: {
+              uId: activeUser.uId,
+              username: activeUser.username,
+              email: activeUser.email,
+              password: activeUser.password,
+            },
+          });
+
           setErrorMsg('');
-          console.log(data);
         } else {
           const data = await response.json();
           setErrorMsg(data.message);
@@ -72,28 +94,21 @@ function RegisterPage() {
 
   return (
     <View style={styles.container}>
-      <Svg width={Dimensions.get('window').width} height={328} fill='none'>
-        <Path
-          fill='#D8F1FF'
-          d='M0 0h393v250s-60.911-10.272-108 0c-50.557 11.029-137.47 60.85-188 72-55.442 12.234-97 0-97 0V0Z'
-        />
-        <G>
-          <View style={styles.fulltitle}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.title}>SweatSmart</Text>
-              <SimpleLineIcons name='drop' size={24} color='#1CA0EB' />
-            </View>
-          </View>
-        </G>
-      </Svg>
-      <View style={styles.form}>
-        <Text style={styles.registerTitle}>Sign Up</Text>
+      <View style={styles.titleContainer}>
+        <View>
+          <Text style={styles.title}>SweatSmart</Text>
+        </View>
+      </View>
+
+      <KeyboardAvoidingView style={styles.form} behavior={'padding'}>
+        <Text style={styles.registerTitle}>Get Started</Text>
         <FormInput
           onChangeText={text => setEmail(text)}
           placeholder='Enter your email'
           iconName='mail-outline'
           validInput={errors.email}
           resetError={resetErrors}
+          keyboardType={'email-address'}
         />
         <FormInput
           onChangeText={text => setUsername(text)}
@@ -116,6 +131,9 @@ function RegisterPage() {
             <Text style={styles.errorMsg}>{errorMsg}</Text>
           </View>
         )}
+        <View
+          style={{ borderWidth: 0.5, width: '100%', borderColor: '#C3C3C3' }}
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleRegister()}
@@ -130,9 +148,7 @@ function RegisterPage() {
             <Text style={{ color: '#6C96E8', fontWeight: 'bold' }}>Login</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
-
-export default RegisterPage;
