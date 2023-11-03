@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import {
   StyleSheet,
   FlatList,
