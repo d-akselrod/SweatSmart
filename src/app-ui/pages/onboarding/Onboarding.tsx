@@ -1,26 +1,34 @@
 import { useRef, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
-  View,
   StyleSheet,
   FlatList,
   SafeAreaView,
   TouchableOpacity,
-  Text,
   Animated,
   useWindowDimensions,
 } from 'react-native';
-import data from './data';
+import { useDispatch } from 'react-redux';
+import { data } from './data';
 import OnboardingItem from './OnboardingItem';
+import { RootStackParamList } from '../../App';
 import Paginator from '../../components/Paginator';
+import { setActiveUser } from '../../redux/slices/userSlice';
 
-function Onboarding(props: any) {
+export function Onboarding() {
+  const route = useRoute<RouteProp<RootStackParamList, 'Onboarding'>>();
+  const activeUser = route.params.user;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef<FlatList | null>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
   const { width } = useWindowDimensions();
   const [x, setX] = useState(0);
+
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const widthAnimated = scrollX.interpolate({
     inputRange: [width, width * 2, width * 3],
@@ -35,6 +43,10 @@ function Onboarding(props: any) {
   const handleSlide = () => {
     if (currentIndex + 1 < data.length) {
       slideRef.current?.scrollToIndex({ index: currentIndex + 1 });
+    } else if (currentIndex == data.length - 1) {
+      // @ts-ignore
+      dispatch(setActiveUser(activeUser));
+      console.log(activeUser);
     }
   };
 
@@ -75,16 +87,13 @@ function Onboarding(props: any) {
           {x < width * 3 * 0.98 ? (
             <AntDesign name='arrowright' size={24} color='white' />
           ) : (
-            <Animated.Text style={[styles.start]}>Join Now</Animated.Text>
+            <Animated.Text style={styles.start}>Get Started</Animated.Text>
           )}
         </Animated.View>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
-
-export default Onboarding;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

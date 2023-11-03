@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import { View, Animated, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setActiveUser } from '../../redux/slices/userSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
 
 export const EntryPage = () => {
   const dispatch = useDispatch();

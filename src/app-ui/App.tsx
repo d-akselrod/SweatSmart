@@ -1,16 +1,24 @@
 import React from 'react';
-import { EntryPage } from '../app-ui/pages/entry/EntryPage';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
+import { Onboarding } from './pages/onboarding/Onboarding';
+import { RegisterPage } from './pages/register/RegisterPage';
+import { IUser } from './typings/types';
+import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { store } from '../app-ui/redux/store';
-import RegisterPage from './pages/register/RegisterPage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const EmptyPage = () => <></>;
+
+export type RootStackParamList = {
+  Onboarding: {
+    user: IUser;
+  };
+};
 
 const AppEntry = () => (
   <NavigationContainer>
@@ -28,6 +36,7 @@ const AppEntry = () => (
       <Stack.Screen name='Entry' component={EntryPage} />
       <Stack.Screen name='Login' component={EmptyPage} />
       <Stack.Screen name='Registration' component={RegisterPage} />
+      <Stack.Screen name='Onboarding' component={Onboarding} />
     </Stack.Navigator>
   </NavigationContainer>
 );

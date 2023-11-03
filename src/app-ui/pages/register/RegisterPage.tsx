@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import {
   View,
   Text,
@@ -8,8 +10,10 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { styles } from './styles';
+import { RootStackParamList } from '../../App';
 import { FormInput } from '../../components/FormInput';
 import { registerAccount } from '../../service/AccountAPI';
+import { IUser } from '../../typings/types';
 
 export function RegisterPage() {
   const [username, setUsername] = useState<string>('');
@@ -20,7 +24,10 @@ export function RegisterPage() {
     username: false,
     password: false,
   });
+
   const [errorMsg, setErrorMsg] = useState('');
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Onboarding'>>();
 
   const resetErrors = () => {
     setErrors({
@@ -29,6 +36,7 @@ export function RegisterPage() {
       password: false,
     });
   };
+
   const validRegistrationData = (
     username: string,
     email: string,
@@ -61,8 +69,12 @@ export function RegisterPage() {
         const response = await registerAccount(username, email, password);
         if (response.ok) {
           const data = await response.json();
+
+          navigation.navigate('Onboarding', {
+            user: data.body,
+          });
+
           setErrorMsg('');
-          console.log(data);
         } else {
           const data = await response.json();
           setErrorMsg(data.message);

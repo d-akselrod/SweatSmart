@@ -1,4 +1,4 @@
-import { API_URL } from './config';
+import { API_AUTH, API_URL } from './config';
 
 export const registerAccount = (
   username: string,
@@ -11,11 +11,18 @@ export const registerAccount = (
     password,
   };
 
-  return fetch(`${API_URL}/AccountService/Register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  console.log(`${API_URL}/AccountService/Register`);
+  console.log(API_AUTH);
+
+  return fetch(
+    `https://sweatsmart-service.azurewebsites.net/AccountService/Register`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: API_AUTH,
+      },
+      body: JSON.stringify(userInfo),
     },
-    body: JSON.stringify(userInfo),
-  });
+  );
 };

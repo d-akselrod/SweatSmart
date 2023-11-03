@@ -5,7 +5,7 @@ interface IOnboardingSections {
   image: string;
 }
 
-const data: IOnboardingSections[] = [
+export const data: IOnboardingSections[] = [
   {
     id: 1,
     title: 'SweatSmart',
@@ -17,7 +17,7 @@ const data: IOnboardingSections[] = [
     id: 2,
     title: 'AI Workout Generator',
     description:
-      'Let our AI create customized workouts tailored to your fitness level, goals, and preferences',
+      'Create customized workouts tailored to your fitness level, goals, and preferences',
     image: require('../../assets/AI.png'),
   },
 
@@ -37,5 +37,3 @@ const data: IOnboardingSections[] = [
     image: require('../../assets/Chatbot.png'),
   },
 ];
-
-export default data;

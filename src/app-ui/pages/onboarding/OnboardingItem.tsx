@@ -1,16 +1,9 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  useWindowDimensions,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 
-interface IOnboardingItem {
+interface IOnboardingItemProps {
   item: { id: number; title: string; description: string; image: any };
 }
-function OnboardingItem({ item }: IOnboardingItem) {
+function OnboardingItem({ item }: IOnboardingItemProps) {
   return (
     <View style={[styles.container, { width: Dimensions.get('window').width }]}>
       <Image
