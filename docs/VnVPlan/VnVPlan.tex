@@ -21,1579 +21,1579 @@
 
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan for \progname{}} 
-\author{\authname}
-\date{\today}
-	
-\maketitle
+    \title{Project Title: System Verification and Validation Plan for \progname{}}
+    \author{\authname}
+    \date{\today}
 
-\pagenumbering{roman}
+    \maketitle
 
-\section*{Revision History}
+    \pagenumbering{roman}
 
-\begin{table}[hp]
-		\centering
-		\begin{tabularx}{\textwidth}{lllX}
-			\toprule
-			\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-			\midrule
-			0 & Nov 3, 2023 & Sophie, Daniel, Sam, Jonathan & First draft\\
-			\bottomrule
-		\end{tabularx}
-	\end{table}
+    \section*{Revision History}
 
-\newpage
+    \begin{table}[hp]
+        \centering
+        \begin{tabularx}{\textwidth}{lllX}
+            \toprule
+            \textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+            \midrule
+            0 & Nov 3, 2023 & Sophie, Daniel, Sam, Jonathan & First draft\\
+            \bottomrule
+        \end{tabularx}
+    \end{table}
 
-\tableofcontents
+    \newpage
 
-\listoftables
+    \tableofcontents
 
+    \listoftables
 
-\newpage
 
-\section{General Information}
+    \newpage
 
-\subsection{Summary}
+    \section{General Information}
 
-This document outlines the Verification and Validation (V\&V) plan for SweatSmart, an AI workout application. The purpose of this V\&V plan is to detail the methodologies, processes, and activities employed to ensure that SweatSmart meets the requirements laid out in our team’s software requirements specification (SRS) document.
+    \subsection{Summary}
 
-\subsection{Objectives}
+    This document outlines the Verification and Validation (V\&V) plan for SweatSmart, an AI workout application. The purpose of this V\&V plan is to detail the methodologies, processes, and activities employed to ensure that SweatSmart meets the requirements laid out in our team’s software requirements specification (SRS) document.
 
-The primary objectives of this plan are as follows:
+    \subsection{Objectives}
 
-\subsubsection{Verification}
-To ensure that the algorithms, user interfaces, data model, and other design elements of the application align with the intended specifications.
+    The primary objectives of this plan are as follows:
 
-\subsubsection{Validation}
-To ascertain that when users utilize SweatSmart in their daily workouts, they experience the promised personalized touch, and the app contributes positively to their fitness journey. We also aim to validate that on the technical side, the application is working as expected and as we plan on from the beginning.
+    \subsubsection{Verification}
+    To ensure that the algorithms, user interfaces, data model, and other design elements of the application align with the intended specifications.
 
-\subsubsection{User Experience Assurance}
-While the technical aspects of the application are of utmost importance, this plan also seeks to verify and validate the intuitiveness, ease of navigation, and overall user satisfaction derived from using the application.
+    \subsubsection{Validation}
+    To ascertain that when users utilize SweatSmart in their daily workouts, they experience the promised personalized touch, and the app contributes positively to their fitness journey. We also aim to validate that on the technical side, the application is working as expected and as we plan on from the beginning.
 
-\subsubsection{Data Integrity and Privacy}
-Given the sensitivity of health and fitness data, a crucial reason for this V\&V plan is to ensure that data collection, storage, and processing adhere to the required standards of security and privacy.
+    \subsubsection{User Experience Assurance}
+    While the technical aspects of the application are of utmost importance, this plan also seeks to verify and validate the intuitiveness, ease of navigation, and overall user satisfaction derived from using the application.
 
-\subsubsection{Continuous Feedback and Improvement}
-To set up a mechanism that gathers useful user feedback, ensuring that any discrepancies, issues, or potential improvements are identified during the V\&V process so they can be addressed before or during rollout of the application.
+    \subsubsection{Data Integrity and Privacy}
+    Given the sensitivity of health and fitness data, a crucial reason for this V\&V plan is to ensure that data collection, storage, and processing adhere to the required standards of security and privacy.
 
-\subsection{Relevant Documentation}
+    \subsubsection{Continuous Feedback and Improvement}
+    To set up a mechanism that gathers useful user feedback, ensuring that any discrepancies, issues, or potential improvements are identified during the V\&V process so they can be addressed before or during rollout of the application.
 
-The main supporting document for this V\&V plan is our Software Requirements Specification which enumerates the features, functionalities, and performance requirements that SweatSmart must adhere to. 
+    \subsection{Relevant Documentation}
 
+    The main supporting document for this V\&V plan is our Software Requirements Specification which enumerates the features, functionalities, and performance requirements that SweatSmart must adhere to.
 
-\section{Plan}
 
-\subsection{Verification and Validation Team}
+    \section{Plan}
 
-Although all team members will be responsible for writing/understanding all aspects of the project's test suite, each member will have a particular specific role within the area.
+    \subsection{Verification and Validation Team}
 
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|l|l|}
-    \hline
-    \textbf{Team Member} & \textbf{Project Verification Role} \\
-    \hline
-    Daniel Akselrod & Test Automation Expert: Responsible for all CD/CI testing \\
-    \hline
-    Jonathan Avraham & Test Designer/Case Writer: Create test cases \\
-    \hline
-    Sam McDonald & Test Strategist/Planner: Defines overall testing strategy \\
-    \hline
-    Sophie Fillion & Test Result Analysis: Analyze failing tests and create new issues \\
-    \hline
-  \end{tabular}
-  \caption{Roles of the Verification and Validation Team}
-  \label{tab:verification_validation_team}
-\end{table}
+    Although all team members will be responsible for writing/understanding all aspects of the project's test suite, each member will have a particular specific role within the area.
 
-\subsection{SRS Verification Plan}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Team Member} & \textbf{Project Verification Role} \\
+            \hline
+            Daniel Akselrod & Test Automation Expert: Responsible for all CD/CI testing \\
+            \hline
+            Jonathan Avraham & Test Designer/Case Writer: Create test cases \\
+            \hline
+            Sam McDonald & Test Strategist/Planner: Defines overall testing strategy \\
+            \hline
+            Sophie Fillion & Test Result Analysis: Analyze failing tests and create new issues \\
+            \hline
+        \end{tabular}
+        \caption{Roles of the Verification and Validation Team}
+        \label{tab:verification_validation_team}
+    \end{table}
 
-\subsubsection{Objective of the Verification Plan}
-The objective of this SRS verification plan is to ensure that SweatSmarts software complies with both the functional and non-functional requirements specified in the accompanying Software Requirements Specification document. This comprehensive verification process aims to ensure that the software is not only capable of performing its intended functions but also excels in terms of usability, performance, security, and compliance with industry standards. Specifically, the test plan should satisfy the following: Functional and nonfunctional requirement compliances, safety, user experiences and satisfaction, and the correct testing tools.
+    \subsection{SRS Verification Plan}
 
-\subsubsection{Scope}
-This test plan and verification will cover all of the functional and nonfunctional requirements that have been written in the SRS. This verification plan will describe what will be covered when undergoing verifications of requirements, the test cases and test criteria, the schedule of verification defining the amount of time it will take, the roles and responsibilities, and the acceptance criteria of each test.
+    \subsubsection{Objective of the Verification Plan}
+    The objective of this SRS verification plan is to ensure that SweatSmarts software complies with both the functional and non-functional requirements specified in the accompanying Software Requirements Specification document. This comprehensive verification process aims to ensure that the software is not only capable of performing its intended functions but also excels in terms of usability, performance, security, and compliance with industry standards. Specifically, the test plan should satisfy the following: Functional and nonfunctional requirement compliances, safety, user experiences and satisfaction, and the correct testing tools.
 
-\subsubsection{Verification Methods/Tests}
-Testing is crucial in the Software development Life Cycle as it allows developers to find bugs within the system, can help identify whether certain components within the system work as anticipated and if it meets the needs of its stakeholders. Here are a few testing methods that will aid in the verification process:
+    \subsubsection{Scope}
+    This test plan and verification will cover all of the functional and nonfunctional requirements that have been written in the SRS. This verification plan will describe what will be covered when undergoing verifications of requirements, the test cases and test criteria, the schedule of verification defining the amount of time it will take, the roles and responsibilities, and the acceptance criteria of each test.
 
-\begin{itemize}
-  \item \textbf{Functional Testing:} Functional tests will be conducted to verify the functionality of the system. The purpose is to test the functional requirements of the system as described in the SRS.
-  \item \textbf{Unit testing:} Unit tests verify individual components (units) of the software where they are isolated from the rest. The purpose is to create unit tests for specific functions or modules to verify that they behave correctly.
-  \item \textbf{Manual and Automated Testing:} Manual testing are tests that are conducted by people without test scripts. Automated testing is when tests are executed automatically via testing tools and frameworks such as Jest or XUnit.
-  \item \textbf{Static and Dynamic Testing:} Static testing means to examine the code without actually executing it to look for coding style and quality. Dynamic testing is used to verify the code by executing it and observing its behavior during runtime.
-\end{itemize}
-
-\subsubsection{Test Cases and Criteria}
-In this section, we write detailed test cases for each requirement in the SRS, including both the functional and non-functional requirements. Each case will include the following:
-
-\begin{itemize}
-  \item \textbf{The input data}
-  \item \textbf{The expected output data}
-  \item \textbf{The criteria for a pass/fail test}
-  \item \textbf{The tools used to test the requirement}
-\end{itemize}
+    \subsubsection{Verification Methods/Tests}
+    Testing is crucial in the Software development Life Cycle as it allows developers to find bugs within the system, can help identify whether certain components within the system work as anticipated and if it meets the needs of its stakeholders. Here are a few testing methods that will aid in the verification process:
 
-\subsubsection{Schedule and Result}
-The verification of the SRS will take place from [start date] to [end date]. The software will be considered verified once all test cases pass for all non-functional and functional requirements.
+    \begin{itemize}
+        \item \textbf{Functional Testing:} Functional tests will be conducted to verify the functionality of the system. The purpose is to test the functional requirements of the system as described in the SRS.
+        \item \textbf{Unit testing:} Unit tests verify individual components (units) of the software where they are isolated from the rest. The purpose is to create unit tests for specific functions or modules to verify that they behave correctly.
+        \item \textbf{Manual and Automated Testing:} Manual testing are tests that are conducted by people without test scripts. Automated testing is when tests are executed automatically via testing tools and frameworks such as Jest or XUnit.
+        \item \textbf{Static and Dynamic Testing:} Static testing means to examine the code without actually executing it to look for coding style and quality. Dynamic testing is used to verify the code by executing it and observing its behavior during runtime.
+    \end{itemize}
+
+    \subsubsection{Test Cases and Criteria}
+    In this section, we write detailed test cases for each requirement in the SRS, including both the functional and non-functional requirements. Each case will include the following:
+
+    \begin{itemize}
+        \item \textbf{The input data}
+        \item \textbf{The expected output data}
+        \item \textbf{The criteria for a pass/fail test}
+        \item \textbf{The tools used to test the requirement}
+    \end{itemize}
 
-\subsection{Design Verification Plan}
+    \subsubsection{Schedule and Result}
+    The verification of the SRS will take place from [start date] to [end date]. The software will be considered verified once all test cases pass for all non-functional and functional requirements.
 
-\subsubsection{Architecture Review}
-Validate the system design for scalability and robustness before development begins.
+    \subsection{Design Verification Plan}
 
-\subsubsection{UI/UX Testing}
-Assess the interface and user flow for intuitiveness through user feedback and expert review.
+    \subsubsection{Architecture Review}
+    Validate the system design for scalability and robustness before development begins.
 
-\subsubsection{Algorithm Efficiency}
-Confirm AI algorithm accuracy and backend efficiency through iterative testing with real-world data.
+    \subsubsection{UI/UX Testing}
+    Assess the interface and user flow for intuitiveness through user feedback and expert review.
 
-\subsubsection{Security Checks}
-Evaluate application security features against industry best practices and standards.
+    \subsubsection{Algorithm Efficiency}
+    Confirm AI algorithm accuracy and backend efficiency through iterative testing with real-world data.
 
-\subsection{Verification and Validation Plan Verification Plan}
+    \subsubsection{Security Checks}
+    Evaluate application security features against industry best practices and standards.
 
-\subsubsection{Plan Review}
-Implement periodic peer reviews, with a focus on comprehensive coverage and clarity.
+    \subsection{Verification and Validation Plan Verification Plan}
 
-\subsubsection{Mutation Testing}
-Use mutation testing to assess the plan's ability to detect faults and improve test cases.
+    \subsubsection{Plan Review}
+    Implement periodic peer reviews, with a focus on comprehensive coverage and clarity.
 
-\subsubsection{Checklist Creation}
-Develop checklists to standardize review processes and ensure all critical aspects of the plan are evaluated.
+    \subsubsection{Mutation Testing}
+    Use mutation testing to assess the plan's ability to detect faults and improve test cases.
 
-\subsection{Implementation Verification Plan}
+    \subsubsection{Checklist Creation}
+    Develop checklists to standardize review processes and ensure all critical aspects of the plan are evaluated.
 
-\noindent \textbf{Objective:} Ensure the integrity and correctness of the implementation through static verification techniques.
+    \subsection{Implementation Verification Plan}
 
-\subsubsection{Code Walk-Throughs}
-\begin{itemize}
-  \item Schedule regular sessions where developers present their code to the team for examination.
-  \item Focus on logical flow, adherence to design specifications, and potential logic errors.
-  \item Document insights and action items for improvement.
-\end{itemize}
+    \noindent \textbf{Objective:} Ensure the integrity and correctness of the implementation through static verification techniques.
 
-\subsubsection{Code Inspection}
-\begin{itemize}
-  \item Formalize a code inspection process with checklists tailored to project standards and best practices.
-  \item Assign roles for moderator, author, scribe, and reviewers to structure the inspection.
-  \item Utilize inspection outcomes to refine coding guidelines and improve code quality.
-\end{itemize}
+    \subsubsection{Code Walk-Throughs}
+    \begin{itemize}
+        \item Schedule regular sessions where developers present their code to the team for examination.
+        \item Focus on logical flow, adherence to design specifications, and potential logic errors.
+        \item Document insights and action items for improvement.
+    \end{itemize}
 
-\subsubsection{Static Analyzers}
-\begin{itemize}
-  \item Integrate automated static analysis tools into the development workflow.
-  \item Configure tools to flag coding standards violations, potential bugs, security vulnerabilities, and performance issues.
-  \item Review and address flagged issues in a timely manner, prioritizing based on severity.
-\end{itemize}
+    \subsubsection{Code Inspection}
+    \begin{itemize}
+        \item Formalize a code inspection process with checklists tailored to project standards and best practices.
+        \item Assign roles for moderator, author, scribe, and reviewers to structure the inspection.
+        \item Utilize inspection outcomes to refine coding guidelines and improve code quality.
+    \end{itemize}
 
-\subsubsection{Automated Code Reviews}
-\begin{itemize}
-  \item Set up custom rules and linting based on the project’s coding standards.
-\end{itemize}
+    \subsubsection{Static Analyzers}
+    \begin{itemize}
+        \item Integrate automated static analysis tools into the development workflow.
+        \item Configure tools to flag coding standards violations, potential bugs, security vulnerabilities, and performance issues.
+        \item Review and address flagged issues in a timely manner, prioritizing based on severity.
+    \end{itemize}
 
-\subsubsection{Continuous Integration (CI) Checks}
-\begin{itemize}
-  \item Enforce static verification checks within the CI pipeline.
-  \item Prevent merging of code changes that fail to meet the defined static analysis criteria.
-\end{itemize}
+    \subsubsection{Automated Code Reviews}
+    \begin{itemize}
+        \item Set up custom rules and linting based on the project’s coding standards.
+    \end{itemize}
 
-\subsection{Automated Testing and Verification Tools}
+    \subsubsection{Continuous Integration (CI) Checks}
+    \begin{itemize}
+        \item Enforce static verification checks within the CI pipeline.
+        \item Prevent merging of code changes that fail to meet the defined static analysis criteria.
+    \end{itemize}
 
-\subsubsection{Unit Testing}
-\begin{itemize}
-  \item With React Native, we employ Jest to test our application's components, functions, and hooks thoroughly. This framework facilitates simulation of user interactions and verification of component behavior.
-  \item XUnit serves as the backbone for testing our .NET Core Web API. It will ensure that all units of application logic are tested for expected outcomes.
-\end{itemize}
+    \subsection{Automated Testing and Verification Tools}
 
-\subsubsection{Static Code Analysis}
-\begin{itemize}
-  \item ESLint and Prettier will be used in tandem to maintain code quality and consistency in our React Native codebase, ensuring adherence to our defined coding standards.
-  \item dotnet format and other .NET analyzers will scrutinize our backend code, enforcing the .NET Core's conventions and coding practices.
-\end{itemize}
+    \subsubsection{Unit Testing}
+    \begin{itemize}
+        \item With React Native, we employ Jest to test our application's components, functions, and hooks thoroughly. This framework facilitates simulation of user interactions and verification of component behavior.
+        \item XUnit serves as the backbone for testing our .NET Core Web API. It will ensure that all units of application logic are tested for expected outcomes.
+    \end{itemize}
 
-\subsubsection{Continuous Integration (CI)}
-\begin{itemize}
-  \item We will use GitHub Actions to automate our continuous integration workflow. On every push and pull request, GitHub Actions will trigger the build and test processes for both the mobile and web API components, ensuring that changes do not introduce regressions or break existing functionality.
-\end{itemize}
+    \subsubsection{Static Code Analysis}
+    \begin{itemize}
+        \item ESLint and Prettier will be used in tandem to maintain code quality and consistency in our React Native codebase, ensuring adherence to our defined coding standards.
+        \item dotnet format and other .NET analyzers will scrutinize our backend code, enforcing the .NET Core's conventions and coding practices.
+    \end{itemize}
 
-\subsubsection{Code Coverage}
-\begin{itemize}
-  \item Integrated code coverage tools within Jest for React Native and XUnit for .NET Core will provide insights into the portions of our codebase exercised by unit tests. Our goal is to maintain a high level of code coverage, correlating with fewer production bugs.
-\end{itemize}
+    \subsubsection{Continuous Integration (CI)}
+    \begin{itemize}
+        \item We will use GitHub Actions to automate our continuous integration workflow. On every push and pull request, GitHub Actions will trigger the build and test processes for both the mobile and web API components, ensuring that changes do not introduce regressions or break existing functionality.
+    \end{itemize}
 
-\subsection{Software Validation Plan}
+    \subsubsection{Code Coverage}
+    \begin{itemize}
+        \item Integrated code coverage tools within Jest for React Native and XUnit for .NET Core will provide insights into the portions of our codebase exercised by unit tests. Our goal is to maintain a high level of code coverage, correlating with fewer production bugs.
+    \end{itemize}
 
-\subsubsection{Objective}
-The objective of this SRS validation plan is to ensure that the software meets user needs and expectations, delivers its appropriate functionality to its users, and runs properly in its environment. It is essentially the process of checking whether or not customers' requirements are being met.
+    \subsection{Software Validation Plan}
 
-\subsubsection{Scope}
-This validation plan will typically occur after the development phase as its intent is to ensure the satisfaction of user requirements and is ready in the environment that it is being used. Validation checks the software against the actual user and system requirements, ensuring that it provides the intended functionality and value. The validation plan will include the following: Validation methods for testing, test input and criteria, as well as a schedule for the validation aspect of the development cycle.
+    \subsubsection{Objective}
+    The objective of this SRS validation plan is to ensure that the software meets user needs and expectations, delivers its appropriate functionality to its users, and runs properly in its environment. It is essentially the process of checking whether or not customers' requirements are being met.
 
-\subsubsection{Validation methods}
-Usability testing is essential for assessing the user experience and the effectiveness of a product. It is complemented by regression testing, which is crucial for ensuring that new updates or changes to the software don't introduce fresh issues. In tandem, performance testing evaluates the system's response time and resource usage to ensure it operates efficiently. Security testing is another vital component, aimed at identifying and mitigating any vulnerabilities in the code. Lastly, functional testing is carried out to verify that the system operates as intended by executing the code and checking the functionality. Together, these different types of testing form a comprehensive approach to ensuring the quality and reliability of software products.
+    \subsubsection{Scope}
+    This validation plan will typically occur after the development phase as its intent is to ensure the satisfaction of user requirements and is ready in the environment that it is being used. Validation checks the software against the actual user and system requirements, ensuring that it provides the intended functionality and value. The validation plan will include the following: Validation methods for testing, test input and criteria, as well as a schedule for the validation aspect of the development cycle.
 
-\subsubsection{Test Cases and Criteria}
-In this section, we write detailed test cases for each requirement in the SRS including both the functional and non-functional requirements. Each case will include the input data, the expected output data, the criteria for a passed/failed test, and the tools used to test the requirement.
+    \subsubsection{Validation methods}
+    Usability testing is essential for assessing the user experience and the effectiveness of a product. It is complemented by regression testing, which is crucial for ensuring that new updates or changes to the software don't introduce fresh issues. In tandem, performance testing evaluates the system's response time and resource usage to ensure it operates efficiently. Security testing is another vital component, aimed at identifying and mitigating any vulnerabilities in the code. Lastly, functional testing is carried out to verify that the system operates as intended by executing the code and checking the functionality. Together, these different types of testing form a comprehensive approach to ensuring the quality and reliability of software products.
 
-\subsubsection{Scheduling and result}
-It is important to note that the validation plan aims for the end product that is ready to be deployed. Therefore, the validation is scheduled to start from [start date] to [end date]. The software will be considered validated once it passes all validation tests successfully and meets user expectations.
+    \subsubsection{Test Cases and Criteria}
+    In this section, we write detailed test cases for each requirement in the SRS including both the functional and non-functional requirements. Each case will include the input data, the expected output data, the criteria for a passed/failed test, and the tools used to test the requirement.
 
-\section{System Test Description}
-	
-\subsection{Tests for Functional Requirements}
+    \subsubsection{Scheduling and result}
+    It is important to note that the validation plan aims for the end product that is ready to be deployed. Therefore, the validation is scheduled to start from [start date] to [end date]. The software will be considered validated once it passes all validation tests successfully and meets user expectations.
 
-The system tests for the functional requirements are broken down into the same subsections found in the SRS for easy traceability.
+    \section{System Test Description}
 
-\subsubsection{User Account Testing}
-This section covers the user account functional requirements (section 5.1 in the SRS).
+    \subsection{Tests for Functional Requirements}
 
-\begin{enumerate}
+    The system tests for the functional requirements are broken down into the same subsections found in the SRS for easy traceability.
 
-\item{\textbf{STF-UA-1: Successful registration}\\}
+    \subsubsection{User Account Testing}
+    This section covers the user account functional requirements (section 5.1 in the SRS).
 
-Description: A user can create a new account.
+    \begin{enumerate}
 
-Control: Functional, Dynamic, Manual.
+        \item{\textbf{STF-UA-1: Successful registration}\\}
 
-Initial State: User does not have an existing account; user is on registration page. 
+        Description: A user can create a new account.
 
-Input: User provides valid email, available username, valid password, agrees to terms and conditions clause and clicks the register button.
+        Control: Functional, Dynamic, Manual.
 
-Output: User account is created and account information is stored in the database; user is redirected to the login page.
+        Initial State: User does not have an existing account; user is on registration page.
 
-Test Case Derivation: User registration is successful when a new user account is created. After a user has imputed valid and complete registration data, a new account should be created and the user can sign in to the app to access the app’s main features.
+        Input: User provides valid email, available username, valid password, agrees to terms and conditions clause and clicks the register button.
 
-How test will be performed: The program will run given the specific inputs. Ensure the user is redirected to the login page. Check the database to make sure account information is stored.
-					
-\item{\textbf{STF-UA-2: Missing registration data}\\}
+        Output: User account is created and account information is stored in the database; user is redirected to the login page.
 
-Description: A user cannot create a new account with incomplete registration information.
+        Test Case Derivation: User registration is successful when a new user account is created. After a user has imputed valid and complete registration data, a new account should be created and the user can sign in to the app to access the app’s main features.
 
-Control:  Functional, Dynamic, Manual.
+        How test will be performed: The program will run given the specific inputs. Ensure the user is redirected to the login page. Check the database to make sure account information is stored.
 
-Initial State: User does not have an existing account; user is on registration page. 
+        \item{\textbf{STF-UA-2: Missing registration data}\\}
 
-Input: User does not provide email, and/or username, and/or a password and clicks the register button.
+        Description: A user cannot create a new account with incomplete registration information.
 
-Output: User account is not created and account information is not stored in the database; the app displays an error message prompting the user to provide the missing information.
+        Control:  Functional, Dynamic, Manual.
 
-Test Case Derivation: User registration should not be created if the registration information is incomplete. A username, an email and a password must be imputed for a user registration to be considered. A new account should not be created if one or more of the inputs is missing.
+        Initial State: User does not have an existing account; user is on registration page.
 
-How test will be performed: The program will run with one or more inputs missing. Ensure the app displays an error message and prompts for corrections. Check the database to make sure account information is not stored.
+        Input: User does not provide email, and/or username, and/or a password and clicks the register button.
 
-\item{\textbf{STF-UA-3: Unsuccessful registration using existing username}\\}
+        Output: User account is not created and account information is not stored in the database; the app displays an error message prompting the user to provide the missing information.
 
-Description: A user cannot create a new account if their chosen username is taken.
+        Test Case Derivation: User registration should not be created if the registration information is incomplete. A username, an email and a password must be imputed for a user registration to be considered. A new account should not be created if one or more of the inputs is missing.
 
-Control:  Functional, Dynamic, Manual.
+        How test will be performed: The program will run with one or more inputs missing. Ensure the app displays an error message and prompts for corrections. Check the database to make sure account information is not stored.
 
-Initial State: User does not have an existing account; user is on registration page.
+        \item{\textbf{STF-UA-3: Unsuccessful registration using existing username}\\}
 
-Input: User provides valid email, a username that is already in use, a valid password and clicks the register button.
+        Description: A user cannot create a new account if their chosen username is taken.
 
-Output: User account is not created and account information is not stored in the database; user is prompted with a message saying that the username is taken and to try choosing another username.
+        Control:  Functional, Dynamic, Manual.
 
-Test Case Derivation: User registration should not be created if username is already in use. If a user inputs an existing username, a new account should not be created and the user must register using a different username.
+        Initial State: User does not have an existing account; user is on registration page.
 
-How test will be performed: The program will run given the specific inputs. Ensure the app displays an error message and prompts for corrections. Check the database to make sure account information is not stored and there are no duplicate usernames.
+        Input: User provides valid email, a username that is already in use, a valid password and clicks the register button.
 
-\item{\textbf{STF-UA-4: Terms and conditions agreement}\\}
+        Output: User account is not created and account information is not stored in the database; user is prompted with a message saying that the username is taken and to try choosing another username.
 
-Description: The app restricts account creation until the user agrees to the terms and conditions.
+        Test Case Derivation: User registration should not be created if username is already in use. If a user inputs an existing username, a new account should not be created and the user must register using a different username.
 
-Control: Functional, Dynamic, Manual.
+        How test will be performed: The program will run given the specific inputs. Ensure the app displays an error message and prompts for corrections. Check the database to make sure account information is not stored and there are no duplicate usernames.
 
-Initial State: User does not have an existing account; user is on registration page. 
+        \item{\textbf{STF-UA-4: Terms and conditions agreement}\\}
 
-Input: User provides valid email, available username, valid password, does not agree to terms and conditions clause and clicks the register button.
+        Description: The app restricts account creation until the user agrees to the terms and conditions.
 
-Output: User account is not created and account information is not stored in the database; user is prompted with an error message saying that the user must agree to the terms and conditions clause.
+        Control: Functional, Dynamic, Manual.
 
-Test Case Derivation: User registration is not successful if a user does not agree to the terms and conditions agreement. Even if a user has valid registration credentials (i.e. valid email, username, and password), an account cannot be created until the user agrees to the terms and conditions.
+        Initial State: User does not have an existing account; user is on registration page.
 
-How test will be performed: The program will run given valid registration information but without agreeing to the terms and conditions. Ensure the user is prompted with an error message to agree to the clause. Check the database to make sure account information is not stored.
+        Input: User provides valid email, available username, valid password, does not agree to terms and conditions clause and clicks the register button.
 
-\item{\textbf{STF-UA-5: Successful login}\\}
+        Output: User account is not created and account information is not stored in the database; user is prompted with an error message saying that the user must agree to the terms and conditions clause.
 
-Description: A user, with an existing account, can successfully log into their account using their account information.
-	
-Control: Functional, Dynamic, Manual.
+        Test Case Derivation: User registration is not successful if a user does not agree to the terms and conditions agreement. Even if a user has valid registration credentials (i.e. valid email, username, and password), an account cannot be created until the user agrees to the terms and conditions.
 
-Initial State: User has an existing account; user is on the login page but not logged in.
+        How test will be performed: The program will run given valid registration information but without agreeing to the terms and conditions. Ensure the user is prompted with an error message to agree to the clause. Check the database to make sure account information is not stored.
 
-Input: User provides valid credentials (existing username or email with corresponding password) and clicks login button.
+        \item{\textbf{STF-UA-5: Successful login}\\}
 
-Output: User is successfully logged into their account and can access the app’s core features; user is redirected to homepage. 
+        Description: A user, with an existing account, can successfully log into their account using their account information.
 
-Test Case Derivation: A user who has an existing account but is not currently logged in, will have a successful login after inputting valid credentials. This should result in the user gaining access to their account.
+        Control: Functional, Dynamic, Manual.
 
-How test will be performed: The program will run given the valid user login credentials. Ensure the user gains access to their account and can access the app’s core features. Check that the user is redirected to the homepage.
+        Initial State: User has an existing account; user is on the login page but not logged in.
 
-\item{\textbf{STF-UA-6: Unsuccessful login using unregistered username or email}\\}
+        Input: User provides valid credentials (existing username or email with corresponding password) and clicks login button.
 
-Description: A user with an invalid username or email cannot log into the app.
-	
-Control:  Functional, Dynamic, Manual.
+        Output: User is successfully logged into their account and can access the app’s core features; user is redirected to homepage.
 
-Initial State: User is on the login page but not logged in.
+        Test Case Derivation: A user who has an existing account but is not currently logged in, will have a successful login after inputting valid credentials. This should result in the user gaining access to their account.
 
-Input: User provides unregistered email or username and password, and clicks login button.
+        How test will be performed: The program will run given the valid user login credentials. Ensure the user gains access to their account and can access the app’s core features. Check that the user is redirected to the homepage.
 
-Output: User is not logged into the app and cannot access the app’s core features. 
+        \item{\textbf{STF-UA-6: Unsuccessful login using unregistered username or email}\\}
 
-Test Case Derivation: A user who inputs an incorrect email or username that is not associated to a user account will not be able to log into the app.
+        Description: A user with an invalid username or email cannot log into the app.
 
-How test will be performed: The program will run given the invalid username or email. Ensure the user is not logged into the app and cannot access the app’s core features.
+        Control:  Functional, Dynamic, Manual.
 
-\item{\textbf{STF-UA-7: Unsuccessful login with wrong password}\\}
+        Initial State: User is on the login page but not logged in.
 
-Description: A user tries to log into their account with the wrong password.
-	
-Control:  Functional, Dynamic, Manual.
+        Input: User provides unregistered email or username and password, and clicks login button.
 
-Initial State: User is on the login page but not logged in.
+        Output: User is not logged into the app and cannot access the app’s core features.
 
-Input: User provides registered email or username but invalid password, and clicks login button.
+        Test Case Derivation: A user who inputs an incorrect email or username that is not associated to a user account will not be able to log into the app.
 
-Output: User is not logged into the app and cannot access the app’s core features. 
+        How test will be performed: The program will run given the invalid username or email. Ensure the user is not logged into the app and cannot access the app’s core features.
 
-Test Case Derivation: A user who inputs an incorrect password that does not match their account’s password will not be able to log into the app.
+        \item{\textbf{STF-UA-7: Unsuccessful login with wrong password}\\}
 
-How test will be performed: The program will run given the invalid username or email. Ensure the user is not logged into the app and cannot access the app’s core features.
- 
-\item{\textbf{STF-UA-8: Successful logout}\\}
+        Description: A user tries to log into their account with the wrong password.
 
-Description: A user, who is already logged into their account, can successfully log out of their account.
-	
-Control: Functional, Dynamic, Manual.
+        Control:  Functional, Dynamic, Manual.
 
-Initial State: User is logged into their account.
+        Initial State: User is on the login page but not logged in.
 
-Input: User clicks the logout button.
+        Input: User provides registered email or username but invalid password, and clicks login button.
 
-Output: User is successfully logged out of the account and is redirected to the login page.
+        Output: User is not logged into the app and cannot access the app’s core features.
 
-Test Case Derivation: When a user is logged in, clicking the logout button should result in successful logout. The app’s core features can only be accessed again once the user logs back in.
-	
-How test will be performed: The program will run given the specific input. Ensure the user is successfully logged out and redirected as expected.
- 
-\item{\textbf{STF-UA-9: Update profile information}\\}
+        Test Case Derivation: A user who inputs an incorrect password that does not match their account’s password will not be able to log into the app.
 
-Description: A user can update their profile information, including their physical attributes and fitness goals, and their changes will be saved.
-	
-Control: Functional, Dynamic, Manual.
+        How test will be performed: The program will run given the invalid username or email. Ensure the user is not logged into the app and cannot access the app’s core features.
 
-Initial State: User is logged into their account.
+        \item{\textbf{STF-UA-8: Successful logout}\\}
 
-Input: User updates their physical attributes (e.g age, gender, height, weight) and/or fitness goals (e.g. targeted muscle goals, workout frequency, preferred workout type).
+        Description: A user, who is already logged into their account, can successfully log out of their account.
 
-Output: User profile is updated and all changes are saved to the user account.
+        Control: Functional, Dynamic, Manual.
 
-Test Case Derivation: Once logged in, a user can update their profile information and should see their saved changes to their profile. 
+        Initial State: User is logged into their account.
 
-How test will be performed: The program will run given the specific inputs. Ensure the user can see their saved changes on their profile. Check the database to ensure the new data is updated and stored. 
+        Input: User clicks the logout button.
 
-\end{enumerate}
+        Output: User is successfully logged out of the account and is redirected to the login page.
 
-\subsubsection{AI Workout Generation Testing}
-This section covers the AI workout generation functional requirements (section 5.2 in the SRS).
+        Test Case Derivation: When a user is logged in, clicking the logout button should result in successful logout. The app’s core features can only be accessed again once the user logs back in.
 
-\begin{enumerate}
+        How test will be performed: The program will run given the specific input. Ensure the user is successfully logged out and redirected as expected.
 
-\item{\textbf{STF-AI-1: Personalized workout}\\}
+        \item{\textbf{STF-UA-9: Update profile information}\\}
 
-Description: The app generates a personalized workout plan based on the user’s specified goals and characteristics.
-	
-Control: Functional, Dynamic, Manual.
+        Description: A user can update their profile information, including their physical attributes and fitness goals, and their changes will be saved.
 
-Initial State: User has a completed profile with set fitness goals and specific physical attributes.
+        Control: Functional, Dynamic, Manual.
 
-Input: User requests a personalized workout plan.
+        Initial State: User is logged into their account.
 
-Output: The app generates a personalized workout plan based on the user’s profile (i.e. physical attributes and fitness goals).
+        Input: User updates their physical attributes (e.g age, gender, height, weight) and/or fitness goals (e.g. targeted muscle goals, workout frequency, preferred workout type).
 
-Test Case Derivation: Given that the user has a completed profile, the app will generate a personalized workout that corresponds to the user’s fitness goals.
+        Output: User profile is updated and all changes are saved to the user account.
 
-How test will be performed: The program will run given the specific input. Ensure the user is given a workout plan. Check the user’s profile to ensure the workout plan is specific to the user’s fitness goals.
-					
-\item{\textbf{STF-AI-2: Workout plan alterations}\\}
+        Test Case Derivation: Once logged in, a user can update their profile information and should see their saved changes to their profile.
 
-Description: Workout plans are adjusted according to user feedback.
-	
-Control: Functional, Dynamic, Manual.
+        How test will be performed: The program will run given the specific inputs. Ensure the user can see their saved changes on their profile. Check the database to ensure the new data is updated and stored.
 
-Initial State: User has an existing personalized workout plan.
+    \end{enumerate}
 
-Input: User makes adjustments to the plan such as preferred exercises, duration of the workout, different intensity level, etc. 
+    \subsubsection{AI Workout Generation Testing}
+    This section covers the AI workout generation functional requirements (section 5.2 in the SRS).
 
-Output: The workout plan is updated to reflect the user’s feedback.
+    \begin{enumerate}
 
-Test Case Derivation: After receiving a generated workout plan, a user might want to alter it to really suit their needs. After making adjustments to their plan, the app should give the user an updated workout plan that incorporates the changes given.
+        \item{\textbf{STF-AI-1: Personalized workout}\\}
 
-How test will be performed: The program will run given the user feedback prompts. Ensure the user is given an updated workout plan. Check the workout plan’s changes to ensure it reflects the user’s feedback.
+        Description: The app generates a personalized workout plan based on the user’s specified goals and characteristics.
 
-\item{\textbf{STF-AI-3: Recursive AI model}\\}
+        Control: Functional, Dynamic, Manual.
 
-Description: The system trains and refines the AI model based on user progress over time.
-	
-Control: Functional, Dynamic, Automatic.
+        Initial State: User has a completed profile with set fitness goals and specific physical attributes.
 
-Initial State: User has a workout history.
+        Input: User requests a personalized workout plan.
 
-Input: Data collected from the user’s ratings after completing their workouts.
+        Output: The app generates a personalized workout plan based on the user’s profile (i.e. physical attributes and fitness goals).
 
-Output: The AI mode is trained and updated based on the user’s workout data.
+        Test Case Derivation: Given that the user has a completed profile, the app will generate a personalized workout that corresponds to the user’s fitness goals.
 
-Test Case Derivation: The AI model should be recursively trained so that it can generate more personalized workout plans that align with the user’s goals and progress.
+        How test will be performed: The program will run given the specific input. Ensure the user is given a workout plan. Check the user’s profile to ensure the workout plan is specific to the user’s fitness goals.
 
-How test will be performed: The system should automatically collect user workout data and train the AI model over time based on the user’s progress. This is an ongoing test that does not need manual intervention.
+        \item{\textbf{STF-AI-2: Workout plan alterations}\\}
 
-\item{\textbf{STF-AI-4: AI Chatbot}\\}
+        Description: Workout plans are adjusted according to user feedback.
 
-Description: The chatbot is functional and responsive to user prompts.
+        Control: Functional, Dynamic, Manual.
 
-Control: Functional, Dynamic, Manual.
+        Initial State: User has an existing personalized workout plan.
 
-Initial State: User is logged onto the app.
+        Input: User makes adjustments to the plan such as preferred exercises, duration of the workout, different intensity level, etc.
 
-Input: User asks fitness-related questions to chatbot.
+        Output: The workout plan is updated to reflect the user’s feedback.
 
-Output: Chatbot provides relevant fitness advice and information.
+        Test Case Derivation: After receiving a generated workout plan, a user might want to alter it to really suit their needs. After making adjustments to their plan, the app should give the user an updated workout plan that incorporates the changes given.
 
-Test Case Derivation: When a user has a fitness-related question they can interact with the chatbot for a quick answer. The chatbot should provide accurate and relevant responses. 
+        How test will be performed: The program will run given the user feedback prompts. Ensure the user is given an updated workout plan. Check the workout plan’s changes to ensure it reflects the user’s feedback.
 
-How test will be performed: The chatbot will run given the user prompt. Ensure the user is given relevant and accurate answers.
+        \item{\textbf{STF-AI-3: Recursive AI model}\\}
 
-\item{\textbf{STF-AI-5: In-workout messages}\\}
+        Description: The system trains and refines the AI model based on user progress over time.
 
-Description: Users receive helpful tips and guidance according to the specific exercise they are performing.
-	
-Control: Functional, Dynamic, Automatic.
+        Control: Functional, Dynamic, Automatic.
 
-Initial State: User starts a workout.
+        Initial State: User has a workout history.
 
-Input: User tracks their workout live.
+        Input: Data collected from the user’s ratings after completing their workouts.
 
-Output: The app displays messages with exercise tips and guidance throughout the workout.
+        Output: The AI mode is trained and updated based on the user’s workout data.
 
-Test Case Derivation: When a user is engaged in a live workout, they should receive in-workout messages to help them through exercises.
+        Test Case Derivation: The AI model should be recursively trained so that it can generate more personalized workout plans that align with the user’s goals and progress.
 
-How test will be performed: The program will run once the user starts a workout. The app’s algorithm should automatically send in-workout messages with exercise tips. Ensure the user receives messages associated with their current exercise throughout their workout.
- 
-\end{enumerate}
+        How test will be performed: The system should automatically collect user workout data and train the AI model over time based on the user’s progress. This is an ongoing test that does not need manual intervention.
 
-\subsubsection{User Workout Creation}
-This section covers the user workout creation functional requirements (section 5.3 in the SRS).
+        \item{\textbf{STF-AI-4: AI Chatbot}\\}
 
-\begin{enumerate}
+        Description: The chatbot is functional and responsive to user prompts.
 
-\item{\textbf{STF-UC-1: Calendar integration}\\}
+        Control: Functional, Dynamic, Manual.
 
-Description: Users can link their calendar to plan workouts effectively without clashing with their schedule.
-	
-Control: Functional, Dynamic, Manual.
+        Initial State: User is logged onto the app.
 
-Initial State: User is logged into their account.
+        Input: User asks fitness-related questions to chatbot.
 
-Input: User accesses calendar integration feature; user clicks button to link their calendar.
+        Output: Chatbot provides relevant fitness advice and information.
 
-Output: The app integrates the user’s calendar successfully and workouts can be planned according to the user’s schedule.
+        Test Case Derivation: When a user has a fitness-related question they can interact with the chatbot for a quick answer. The chatbot should provide accurate and relevant responses.
 
-Test Case Derivation: After a user links their calendar to their account, the app can generate workout plans more effectively by planning workouts around their schedule.
+        How test will be performed: The chatbot will run given the user prompt. Ensure the user is given relevant and accurate answers.
 
-How test will be performed: Tester will click the button to link the calendar. Ensure the calendar is successfully integrated. Check that the app can plan workouts based on the user’s schedule.
+        \item{\textbf{STF-AI-5: In-workout messages}\\}
 
-\item{\textbf{STF-UC-2: Workout rating}\\}
+        Description: Users receive helpful tips and guidance according to the specific exercise they are performing.
 
-Description: Users can rate a workout after completion.
-	
-Control: Functional, Dynamic, Manual.
+        Control: Functional, Dynamic, Automatic.
 
-Initial State: User has completed a workout and is prompted with rating form.
+        Initial State: User starts a workout.
 
-Input: User provides rating information and workout feedback.
+        Input: User tracks their workout live.
 
-Output: The app records the user’s rating and feedback for future use. 
+        Output: The app displays messages with exercise tips and guidance throughout the workout.
 
-Test Case Derivation: After a user has completed a workout, they will be prompted to rate their workout. After completing the rating, the app will store the user’s rating which will serve to recursively train the AI model.
+        Test Case Derivation: When a user is engaged in a live workout, they should receive in-workout messages to help them through exercises.
 
-How test will be performed: The program will run given the user’s rating feedback. Ensure the app stores user rating data.
- 
-\item{\textbf{STF-UC-3: Custom workout creation}\\}
+        How test will be performed: The program will run once the user starts a workout. The app’s algorithm should automatically send in-workout messages with exercise tips. Ensure the user receives messages associated with their current exercise throughout their workout.
 
-Description: A user can design and save their own custom workout tailored to their preferences.
-	
-Control: Functional, Dynamic, Manual.
+    \end{enumerate}
 
-Initial State: User is logged into their account.
+    \subsubsection{User Workout Creation}
+    This section covers the user workout creation functional requirements (section 5.3 in the SRS).
 
-Input: User designs a custom workout by inputting their preferred exercises and clicks the save button.
+    \begin{enumerate}
 
-Output: The custom workout is successfully saved and can be accessed for future use on the user’s account.
+        \item{\textbf{STF-UC-1: Calendar integration}\\}
 
-Test Case Derivation: A user who wishes to design their own custom workout can do so by inputting the proper inputs. The output will result in a saved custom workout that can be completed and tracked immediately or at a later date. 
+        Description: Users can link their calendar to plan workouts effectively without clashing with their schedule.
 
-How test will be performed: The program will run given the user’s custom workout inputs. Ensure the user can access their saved custom workout. Check the database to ensure the workout is saved.
- 
-\item{\textbf{STF-UC-4: Custom workout access}\\}
+        Control: Functional, Dynamic, Manual.
 
-Description: A user can access and use their previously created custom workout. 
-	
-Control: Functional, Dynamic, Manual.
+        Initial State: User is logged into their account.
 
-Initial State: User has designed and daved a custom workout.
+        Input: User accesses calendar integration feature; user clicks button to link their calendar.
 
-Input: User accesses their workout library and selects their saved custom workout.
+        Output: The app integrates the user’s calendar successfully and workouts can be planned according to the user’s schedule.
 
-Output: The app displays the custom workout and can be started for live tracking.
+        Test Case Derivation: After a user links their calendar to their account, the app can generate workout plans more effectively by planning workouts around their schedule.
 
-Test Case Derivation: After a user has saved their custom workout, they must be able to view that workout so that it can be completed and available for live tracking. 
+        How test will be performed: Tester will click the button to link the calendar. Ensure the calendar is successfully integrated. Check that the app can plan workouts based on the user’s schedule.
 
-How test will be performed: Tester will access the workout library. Ensure the user can see the saved workout and begin live tracking. 
- 
-\item{\textbf{STF-UC-5: Exercise list}\\}
+        \item{\textbf{STF-UC-2: Workout rating}\\}
 
-Description: The app provides a list of all available exercises.
-	
-Control: Functional, Dynamic, Manual.
+        Description: Users can rate a workout after completion.
 
-Initial State: User is logged into the app.
+        Control: Functional, Dynamic, Manual.
 
-Input: User accesses exercise list.
+        Initial State: User has completed a workout and is prompted with rating form.
 
-Output: The app displays a comprehensive list of all available exercises. 
+        Input: User provides rating information and workout feedback.
 
-Test Case Derivation: When the user accesses the list of exercises, the app must display all available exercises to be included in a workout.
+        Output: The app records the user’s rating and feedback for future use.
 
-How test will be performed: Tester will access the exercise list. Ensure the app displays all available exercises. 
+        Test Case Derivation: After a user has completed a workout, they will be prompted to rate their workout. After completing the rating, the app will store the user’s rating which will serve to recursively train the AI model.
 
-\end{enumerate}
+        How test will be performed: The program will run given the user’s rating feedback. Ensure the app stores user rating data.
 
-\subsubsection{Workout History}
-This section covers the workout history functional requirements (section 5.4 in the SRS).
+        \item{\textbf{STF-UC-3: Custom workout creation}\\}
 
-\begin{enumerate}
+        Description: A user can design and save their own custom workout tailored to their preferences.
 
-\item{\textbf{STF-WH-1: Display workout history}\\}
+        Control: Functional, Dynamic, Manual.
 
-Description: Users can view their workout history. 
-	
-Control: Functional, Dynamic, Manual.
+        Initial State: User is logged into their account.
 
-Initial State: User is logged into their account.
+        Input: User designs a custom workout by inputting their preferred exercises and clicks the save button.
 
-Input: User accesses their workout history.
+        Output: The custom workout is successfully saved and can be accessed for future use on the user’s account.
 
-Output: The app displays an accurate history with details of the user’s completed workouts.
+        Test Case Derivation: A user who wishes to design their own custom workout can do so by inputting the proper inputs. The output will result in a saved custom workout that can be completed and tracked immediately or at a later date.
 
-Test Case Derivation: A user can access their workout history and the app should display an accurate list of completed workouts.
+        How test will be performed: The program will run given the user’s custom workout inputs. Ensure the user can access their saved custom workout. Check the database to ensure the workout is saved.
 
-How test will be performed: Tester will access the account’s workout history. Ensure the app displays all past completed workouts with accurate details.
+        \item{\textbf{STF-UC-4: Custom workout access}\\}
 
-\item{\textbf{STF-WH-2: Saving completed workouts}\\}
+        Description: A user can access and use their previously created custom workout.
 
-Description: The app saves a workout as completed after a user finished their workout.
-	
-Control: Functional, Dynamic, Manual.
+        Control: Functional, Dynamic, Manual.
 
-Initial State: User has finished a workout.
+        Initial State: User has designed and daved a custom workout.
 
-Input: User clicks save completed workout button.
+        Input: User accesses their workout library and selects their saved custom workout.
 
-Output: The app displays a message that the workout has been saved as completed.
+        Output: The app displays the custom workout and can be started for live tracking.
 
-Test Case Derivation: Once a user completes their workout and saves it as completed, the app should display a message to notify the successful saving of the completed workout.
+        Test Case Derivation: After a user has saved their custom workout, they must be able to view that workout so that it can be completed and available for live tracking.
 
-How test will be performed: The program will run given the specific input. Ensure the user is prompted with a message notifying the successful saving. Check the database to ensure the workout is saved as completed.
- 
-\end{enumerate}
+        How test will be performed: Tester will access the workout library. Ensure the user can see the saved workout and begin live tracking.
 
-\subsubsection{Database}
-This section covers the database functional requirements (section 5.5 in the SRS).
+        \item{\textbf{STF-UC-5: Exercise list}\\}
 
-\begin{enumerate}
+        Description: The app provides a list of all available exercises.
 
-\item{\textbf{STF-DB-1: Database functionality}\\}
+        Control: Functional, Dynamic, Manual.
 
-Description: All information saved on the app by a user, including user account information, workout plans, user feedback, and workout history is stored in the database
-	
-Control: Functional, Dynamic, Manual, Automatic.
+        Initial State: User is logged into the app.
 
-Initial State: User interacts with app.
+        Input: User accesses exercise list.
 
-Input: The app retrieves and displays user account information, workout plans, user feedback, and workout history.
+        Output: The app displays a comprehensive list of all available exercises.
 
-Output: The app correctly stores, retrieves, and displays user account information, workout plans, user feedback, and workout history.
+        Test Case Derivation: When the user accesses the list of exercises, the app must display all available exercises to be included in a workout.
 
-Test Case Derivation: The database should always accurately store, retrieve and display the proper information. 
+        How test will be performed: Tester will access the exercise list. Ensure the app displays all available exercises.
 
-How test will be performed: Tester will manually access the app’s features to update, retrieve and display user-related data. The app automatically retrieves and displays the data requested by the user. Combine manual verification and automatic database operations to ensure that the database functionality is correct.
+    \end{enumerate}
 
-\end{enumerate}
+    \subsubsection{Workout History}
+    This section covers the workout history functional requirements (section 5.4 in the SRS).
 
-\subsubsection{Additional Features}
-This section covers the additional features functional requirements (section 5.6 in the SRS).
+    \begin{enumerate}
 
-\begin{enumerate}
+        \item{\textbf{STF-WH-1: Display workout history}\\}
 
-\item{\textbf{STF-AF-1: Live workout tracking}\\}
+        Description: Users can view their workout history.
 
-Description: A user can begin and engage in a planned workout while tracking their progress in real-time.
-	
-Control: Functional, Dynamic, Manual.
+        Control: Functional, Dynamic, Manual.
 
-Initial State: User is logged into their account and has a planned workout available.
+        Initial State: User is logged into their account.
 
-Input: User begins a planned workout.
+        Input: User accesses their workout history.
 
-Output: The user can track their progress in real time through the duration of their workout.
+        Output: The app displays an accurate history with details of the user’s completed workouts.
 
-Test Case Derivation: When a user starts their workout, the app should allow them to engage and track their progress in real-time for immediate feedback and to collect user progress for future use. 
+        Test Case Derivation: A user can access their workout history and the app should display an accurate list of completed workouts.
 
-How test will be performed: The program will run given the user’s input to start the workout. Ensure the app displays the real-time progress of the workout and the user can engage as the workout continues.
+        How test will be performed: Tester will access the account’s workout history. Ensure the app displays all past completed workouts with accurate details.
 
-\item{\textbf{STF-AF-2: Push notifications}\\}
+        \item{\textbf{STF-WH-2: Saving completed workouts}\\}
 
-Description: The app delivers notifications as intended.
-	
-Control: Functional, Dynamic, Automatic.
+        Description: The app saves a workout as completed after a user finished their workout.
 
-Initial State: User has enabled push notifications in settings.
+        Control: Functional, Dynamic, Manual.
 
-Input: The app generates and sends a push notification.
+        Initial State: User has finished a workout.
 
-Output: The notification is delivered to the user’s device as intended.
+        Input: User clicks save completed workout button.
 
-Test Case Derivation: After enabling push notification in their settings, a user can receive notifications on their device as intended by the app.
-	
-How test will be performed: The system should automatically push notifications when they are enabled in the settings. This is an ongoing test that does not need manual intervention.
+        Output: The app displays a message that the workout has been saved as completed.
 
-\item{\textbf{STF-AF-3: Offline access}\\}
+        Test Case Derivation: Once a user completes their workout and saves it as completed, the app should display a message to notify the successful saving of the completed workout.
 
-Description: A user can download workouts for offline access.
-	
-Control: Functional, Dynamic, Manual.
+        How test will be performed: The program will run given the specific input. Ensure the user is prompted with a message notifying the successful saving. Check the database to ensure the workout is saved as completed.
 
-Initial State: User is logged into their account.
+    \end{enumerate}
 
-Input: User downloads a workout.
+    \subsubsection{Database}
+    This section covers the database functional requirements (section 5.5 in the SRS).
 
-Output: The workout is saved onto the user’s device. 
+    \begin{enumerate}
 
-Test Case Derivation: If a user wishes to access a workout offline, it can download their desired workout. The workout should be saved locally onto the user’s device for offline access.
+        \item{\textbf{STF-DB-1: Database functionality}\\}
 
-How test will be performed: The program will run given the user input. Ensure the workout is downloaded onto the user’s device.
+        Description: All information saved on the app by a user, including user account information, workout plans, user feedback, and workout history is stored in the database
 
-\item{\textbf{STF-AF-4: Social media sharing}\\}
+        Control: Functional, Dynamic, Manual, Automatic.
 
-Description: A user can share information from the app to social media platforms. 
+        Initial State: User interacts with app.
 
-Control: Functional, Dynamic, Manual.
+        Input: The app retrieves and displays user account information, workout plans, user feedback, and workout history.
 
-Initial State: User is logged into their account.
+        Output: The app correctly stores, retrieves, and displays user account information, workout plans, user feedback, and workout history.
 
-Input: User accesses social media sharing feature and clicks share button.
+        Test Case Derivation: The database should always accurately store, retrieve and display the proper information.
 
-Output: The user can share information to social media platforms. 
+        How test will be performed: Tester will manually access the app’s features to update, retrieve and display user-related data. The app automatically retrieves and displays the data requested by the user. Combine manual verification and automatic database operations to ensure that the database functionality is correct.
 
-Test Case Derivation: After clicking the share button, a user can share information, such as workout achievement and progress, to social media platforms.
+    \end{enumerate}
 
-How test will be performed: The program will run given the user input. Ensure the information is shared to the appropriate social media platform(s).
+    \subsubsection{Additional Features}
+    This section covers the additional features functional requirements (section 5.6 in the SRS).
 
+    \begin{enumerate}
 
-\end{enumerate}
+        \item{\textbf{STF-AF-1: Live workout tracking}\\}
 
-\subsection{Tests for Nonfunctional Requirements}
+        Description: A user can begin and engage in a planned workout while tracking their progress in real-time.
 
-The system tests for the non-functional requirements are broken down into the same subsections found in the SRS for easy traceability.
+        Control: Functional, Dynamic, Manual.
 
-\subsubsection{Appearance Requirements }
+        Initial State: User is logged into their account and has a planned workout available.
 
-\begin{enumerate}
+        Input: User begins a planned workout.
 
-\item \textbf{STN-APR-1: Interface Design}
+        Output: The user can track their progress in real time through the duration of their workout.
 
-Description: The app shall have an intuitive and user-friendly interface with minimalist design. 
+        Test Case Derivation: When a user starts their workout, the app should allow them to engage and track their progress in real-time for immediate feedback and to collect user progress for future use.
 
-Type: Dynamic, functional, manual.
+        How test will be performed: The program will run given the user’s input to start the workout. Ensure the app displays the real-time progress of the workout and the user can engage as the workout continues.
 
-Initial State: App opened for the first time.
+        \item{\textbf{STF-AF-2: Push notifications}\\}
 
-Input/Condition: User interacts with the app interface.
+        Description: The app delivers notifications as intended.
 
-Output/Result: The user finds the interface intuitive and user-friendly with a minimalist design.
+        Control: Functional, Dynamic, Automatic.
 
-How the test will be performed: A group of users unfamiliar with the app will interact with it and provide feedback through a usability survey on the intuitiveness of the design. The survey is shown in section 6.2, question 1.  
+        Initial State: User has enabled push notifications in settings.
 
-\item\textbf{STN-APR-2: Screen adaptability}
+        Input: The app generates and sends a push notification.
 
-Description: The app shall be able to adapt to a variety of screen sizes and aspect ratios.
+        Output: The notification is delivered to the user’s device as intended.
 
-Type: Dynamic, functional, manual.
+        Test Case Derivation: After enabling push notification in their settings, a user can receive notifications on their device as intended by the app.
 
-Initial State: App opened on various device sizes and aspect ratios.
+        How test will be performed: The system should automatically push notifications when they are enabled in the settings. This is an ongoing test that does not need manual intervention.
 
-Input/Condition: Design team views the app's layout and graphics.
+        \item{\textbf{STF-AF-3: Offline access}\\}
 
-Output/Result: The app adapts smoothly to different screen sizes and aspect ratios.
+        Description: A user can download workouts for offline access.
 
-How the test will be performed: The app will be tested on devices with varying screen sizes and aspect ratios to ensure consistent appearance/proper display for each.
+        Control: Functional, Dynamic, Manual.
 
+        Initial State: User is logged into their account.
 
-\item \textbf{STN-APR-3: Feedback}
+        Input: User downloads a workout.
 
-Description: The app shall provide visual feedback whenever a user action takes place.
+        Output: The workout is saved onto the user’s device.
 
-Type: Dynamic, functional, manual.
+        Test Case Derivation: If a user wishes to access a workout offline, it can download their desired workout. The workout should be saved locally onto the user’s device for offline access.
 
-Initial State: User performs various actions (e.g., button presses, form submissions).
+        How test will be performed: The program will run given the user input. Ensure the workout is downloaded onto the user’s device.
 
-Input/Condition: User actions.
+        \item{\textbf{STF-AF-4: Social media sharing}\\}
 
-Output/Result: Visual feedback (e.g., animations, button color changes) is observed.
+        Description: A user can share information from the app to social media platforms.
 
-How the test will be performed: Testers will interact with the app and note any visual feedback that occurs upon their actions.
+        Control: Functional, Dynamic, Manual.
 
+        Initial State: User is logged into their account.
 
-\item \textbf{STN-APR-4: Reducing delays}
+        Input: User accesses social media sharing feature and clicks share button.
 
-Description: The app shall load data at a reasonable time so there are no noticeable delays for users.
+        Output: The user can share information to social media platforms.
 
-Type: Dynamic, functional, manual.
+        Test Case Derivation: After clicking the share button, a user can share information, such as workout achievement and progress, to social media platforms.
 
-Initial State: App opened with data-dependent pages.
+        How test will be performed: The program will run given the user input. Ensure the information is shared to the appropriate social media platform(s).
 
-Input/Condition: User navigates the app.
 
-Output/Result: Data loads without noticeable delays.
+    \end{enumerate}
 
-How test will be performed: Testers will navigate through various data-dependent sections of the app and measure the time it takes for data to load, ensuring our internet connection is consistent with the typical expected user. 
+    \subsection{Tests for Nonfunctional Requirements}
 
+    The system tests for the non-functional requirements are broken down into the same subsections found in the SRS for easy traceability.
 
-\item {\textbf{STN-APR-5: Portrait Mode}}
+    \subsubsection{Appearance Requirements }
 
-Description: The app shall only support portrait mode.
+    \begin{enumerate}
 
-Type: Dynamic, functional, manual.
+        \item \textbf{STN-APR-1: Interface Design}
 
-Initial State: App opened on a device.
+        Description: The app shall have an intuitive and user-friendly interface with minimalist design.
 
-Input/Condition: User attempts to change the device orientation.
+        Type: Dynamic, functional, manual.
 
-Output/Result: The app remains in portrait mode and does not adjust to landscape.
+        Initial State: App opened for the first time.
 
-How test will be performed: Testers will attempt to change the orientation of their devices to landscape mode and note the app's behavior.
+        Input/Condition: User interacts with the app interface.
 
-\end{enumerate}
+        Output/Result: The user finds the interface intuitive and user-friendly with a minimalist design.
 
+        How the test will be performed: A group of users unfamiliar with the app will interact with it and provide feedback through a usability survey on the intuitiveness of the design. The survey is shown in section 6.2, question 1.
 
-\subsubsection{Styling Requirements}
+        \item\textbf{STN-APR-2: Screen adaptability}
 
-\begin{enumerate}
+        Description: The app shall be able to adapt to a variety of screen sizes and aspect ratios.
 
-\item {\textbf{STN-STR-1: Colour and styling}}
+        Type: Dynamic, functional, manual.
 
-Description: The app should have consistent styling and design throughout by using the same colour palette. 
+        Initial State: App opened on various device sizes and aspect ratios.
 
-Type: Dynamic, functional, manual.
+        Input/Condition: Design team views the app's layout and graphics.
 
-Initial State: App opened with various pages visible.
+        Output/Result: The app adapts smoothly to different screen sizes and aspect ratios.
 
-Input/Condition: User navigates through these pages. 
+        How the test will be performed: The app will be tested on devices with varying screen sizes and aspect ratios to ensure consistent appearance/proper display for each.
 
-Output/Result: Consistent styling and design is observed and noted.
 
-How the test will be performed: Users will provide feedback for this requirement in our user experience survey, as shown in section 6.2, question 4. 
+        \item \textbf{STN-APR-3: Feedback}
 
-\item{\textbf{STN-STR-2: Modern styling}}
+        Description: The app shall provide visual feedback whenever a user action takes place.
 
-Description: The application’s styling should be modern and similar to iOS apps.
+        Type: Dynamic, functional, manual.
 
-Type: Dynamic, functional, manual.
+        Initial State: User performs various actions (e.g., button presses, form submissions).
 
-Initial State: App opened for the first time.
+        Input/Condition: User actions.
 
-Input/Condition: User observes app styling
+        Output/Result: Visual feedback (e.g., animations, button color changes) is observed.
 
-Output/Result: Styling is modern and mirrors that of typical iOS apps. 
+        How the test will be performed: Testers will interact with the app and note any visual feedback that occurs upon their actions.
 
-How the test will be performed: A comparison will be made between the app's styling and that of popular iOS apps by the user as prompted by question 8 in the survey in section 6.2. 
 
+        \item \textbf{STN-APR-4: Reducing delays}
 
-\item{\textbf{STN-STR-3: Visual appeal}}
+        Description: The app shall load data at a reasonable time so there are no noticeable delays for users.
 
-Description: The styling should be visually appealing and align with the app’s logo or theme.
+        Type: Dynamic, functional, manual.
 
-Type: Dynamic, functional, manual.
+        Initial State: App opened with data-dependent pages.
 
-Initial State: App opened with branding elements visible (e.g., logo).
+        Input/Condition: User navigates the app.
 
-Input/Condition: User observes app's styling elements.
+        Output/Result: Data loads without noticeable delays.
 
-Output/Result: Styling observed to be aligned with the app's logo or overarching theme.
+        How test will be performed: Testers will navigate through various data-dependent sections of the app and measure the time it takes for data to load, ensuring our internet connection is consistent with the typical expected user.
 
-How test will be performed: The usability survey in section 6.2, question 4 will help to test this requirement.
 
-\end{enumerate}
+        \item {\textbf{STN-APR-5: Portrait Mode}}
 
-\subsubsection{Ease of Use Requirements}
+        Description: The app shall only support portrait mode.
 
-\begin{enumerate}
+        Type: Dynamic, functional, manual.
 
-\item{\textbf{STN-EUR-1: Intuitiveness of System}}
+        Initial State: App opened on a device.
 
-Description: The system shall be intuitive such that new users can quickly understand basic functions and commands by using intuitive icons.
+        Input/Condition: User attempts to change the device orientation.
 
-Type: Dynamic, functional, manual.
+        Output/Result: The app remains in portrait mode and does not adjust to landscape.
 
-Initial State: App opened for the first time by a new user.
+        How test will be performed: Testers will attempt to change the orientation of their devices to landscape mode and note the app's behavior.
 
-Input/Condition: User attempts to use basic functions and commands.
+    \end{enumerate}
 
-Output/Result: The user can quickly understand and use basic functions without any guidance.
 
-How test will be performed: New users will be given tasks to perform using the app. Their ease and speed of understanding will be evaluated. They will also be asked about their experience in question 1 of section 6.2. 
+    \subsubsection{Styling Requirements}
 
+    \begin{enumerate}
 
-\item{\textbf{STN-EUR-2: Consistency}}
+        \item {\textbf{STN-STR-1: Colour and styling}}
 
-Description: The user interface elements, terminology, and interactions should remain consistent throughout the application’s various pages.
+        Description: The app should have consistent styling and design throughout by using the same colour palette.
 
-Type: Dynamic, functional, manual.
+        Type: Dynamic, functional, manual.
 
-Initial State: User navigates through various pages of the app.
+        Initial State: App opened with various pages visible.
 
-Input/Condition: User interaction with different elements.
+        Input/Condition: User navigates through these pages.
 
-Output/Result: User interface elements and interactions remain consistent throughout the app.
+        Output/Result: Consistent styling and design is observed and noted.
 
-How test will be performed: Users will note if UI elements, terms, and interactions are consistent across different pages when asked about it in question 10 of the survey in section 6.2. 
-\end{enumerate}
+        How the test will be performed: Users will provide feedback for this requirement in our user experience survey, as shown in section 6.2, question 4.
 
+        \item{\textbf{STN-STR-2: Modern styling}}
 
-\subsubsection{Personalization Requirements}
+        Description: The application’s styling should be modern and similar to iOS apps.
 
-\begin{enumerate}
+        Type: Dynamic, functional, manual.
 
-\item {\textbf{STN-PER-1: Date and Time}}
+        Initial State: App opened for the first time.
 
-Description: The app will support local date/time formats based on the user’s device settings.
+        Input/Condition: User observes app styling
 
-Type: Dynamic, functional, manual.
+        Output/Result: Styling is modern and mirrors that of typical iOS apps.
 
-Initial State: App opened on a device set to a non-default date/time format.
+        How the test will be performed: A comparison will be made between the app's styling and that of popular iOS apps by the user as prompted by question 8 in the survey in section 6.2.
 
-Input/Condition: User observes date and time displays.
 
-Output/Result: The app displays date/time according to the user's device settings.
+        \item{\textbf{STN-STR-3: Visual appeal}}
 
-How test will be performed: Devices with various date/time formats will be used to verify the app's adaptability.
+        Description: The styling should be visually appealing and align with the app’s logo or theme.
 
+        Type: Dynamic, functional, manual.
 
-\item{\textbf{STN-PER-2: Personalization settings}}
+        Initial State: App opened with branding elements visible (e.g., logo).
 
-Description: The app shall stay consistent with the personalization settings on the user’s device regarding display and font.
+        Input/Condition: User observes app's styling elements.
 
-Type: Dynamic, functional, manual.
+        Output/Result: Styling observed to be aligned with the app's logo or overarching theme.
 
-Initial State: App opened on a device with specific display and font settings such as dark mode and bolded font size.
+        How test will be performed: The usability survey in section 6.2, question 4 will help to test this requirement.
 
-Input/Condition: User observes app display and font.
+    \end{enumerate}
 
-Output/Result: The app's display and font are consistent with the user’s device settings.
+    \subsubsection{Ease of Use Requirements}
 
-How test will be performed: Devices with various display and font settings will be used to test the app's consistency.
+    \begin{enumerate}
 
-\end{enumerate}
+        \item{\textbf{STN-EUR-1: Intuitiveness of System}}
 
-\subsubsection{Learning Requirements}
+        Description: The system shall be intuitive such that new users can quickly understand basic functions and commands by using intuitive icons.
 
-\begin{enumerate}
+        Type: Dynamic, functional, manual.
 
-\item {\textbf{STN-LER-1: Required Prior Knowledge}}
+        Initial State: App opened for the first time by a new user.
 
-Description: Users shall not require external resources to navigate the application; everything they need to know to use the app should be taught in-app.
+        Input/Condition: User attempts to use basic functions and commands.
 
-Type: Dynamic, functional, manual.
+        Output/Result: The user can quickly understand and use basic functions without any guidance.
 
-Initial State: App opened by a user unfamiliar with it.
+        How test will be performed: New users will be given tasks to perform using the app. Their ease and speed of understanding will be evaluated. They will also be asked about their experience in question 1 of section 6.2.
 
-Input/Condition: User attempts to navigate and use the app.
 
-Output/Result: User does not need external resources to understand and use the app.
+        \item{\textbf{STN-EUR-2: Consistency}}
 
-How test will be performed: New users will be asked to perform tasks without external assistance. Their ability to navigate and use the app will be evaluated. They will then be asked about their experience in the survey in section 6.2. 
+        Description: The user interface elements, terminology, and interactions should remain consistent throughout the application’s various pages.
 
-\end{enumerate}
+        Type: Dynamic, functional, manual.
 
-\subsubsection{Understandability and Politeness Requirements}
+        Initial State: User navigates through various pages of the app.
 
-\begin{enumerate}
+        Input/Condition: User interaction with different elements.
 
-\item {\textbf{STN-UPR1: Tutorial}}
+        Output/Result: User interface elements and interactions remain consistent throughout the app.
 
-Description: The system should provide a tutorial for first-time users. 
+        How test will be performed: Users will note if UI elements, terms, and interactions are consistent across different pages when asked about it in question 10 of the survey in section 6.2.
+    \end{enumerate}
 
-Type: Dynamic, functional, manual.
 
-Initial State: App opened for the first time.
+    \subsubsection{Personalization Requirements}
 
-Input/Condition: User starts using the app.
+    \begin{enumerate}
 
-Output/Result: A tutorial is provided for first-time users.
+        \item {\textbf{STN-PER-1: Date and Time}}
 
-How test will be performed: First-time users will be observed to see if a tutorial is presented upon initial app use.
+        Description: The app will support local date/time formats based on the user’s device settings.
 
+        Type: Dynamic, functional, manual.
 
-\item{\textbf{STN-UPR-2:FAQ}}
+        Initial State: App opened on a device set to a non-default date/time format.
 
-Description: The application shall contain an FAQ to answer expected questions about the application.
+        Input/Condition: User observes date and time displays.
 
-Type: Dynamic, functional, manual.
+        Output/Result: The app displays date/time according to the user's device settings.
 
-Initial State: User accesses the help or settings section.
+        How test will be performed: Devices with various date/time formats will be used to verify the app's adaptability.
 
-Input/Condition: User looks for an FAQ section.
 
-Output/Result: An FAQ section is available to answer questions about the app.
+        \item{\textbf{STN-PER-2: Personalization settings}}
 
-How test will be performed: Testers will navigate to the app's help or settings sections to locate and review the FAQ.
+        Description: The app shall stay consistent with the personalization settings on the user’s device regarding display and font.
 
-\end{enumerate}
+        Type: Dynamic, functional, manual.
 
-\subsubsection{Accessibility Requirements}
+        Initial State: App opened on a device with specific display and font settings such as dark mode and bolded font size.
 
-\begin{enumerate}
+        Input/Condition: User observes app display and font.
 
-\item {\textbf{STN-ACR-1: }Accessibility Guidelines}
+        Output/Result: The app's display and font are consistent with the user’s device settings.
 
-Description: The system will follow Apple’s design guidelines regarding accessible applications.
+        How test will be performed: Devices with various display and font settings will be used to test the app's consistency.
 
-Type: Dynamic, functional, manual.
+    \end{enumerate}
 
-Initial State: App installed on a device.
+    \subsubsection{Learning Requirements}
 
-Input/Condition: User with accessibility needs uses the app.
+    \begin{enumerate}
 
-Output/Result: The app follows Apple’s design guidelines for accessible applications.
+        \item {\textbf{STN-LER-1: Required Prior Knowledge}}
 
-How test will be performed: Testers with accessibility needs (e.g., vision or hearing impairment) will use the app, and the design team will note how easily they are able to navigate the app. 
+        Description: Users shall not require external resources to navigate the application; everything they need to know to use the app should be taught in-app.
 
-\end{enumerate}
+        Type: Dynamic, functional, manual.
 
-\subsubsection{Performance Requirements}
+        Initial State: App opened by a user unfamiliar with it.
 
-\begin{enumerate}
-\item {\textbf{STN-PR-1: System Capacity}}
+        Input/Condition: User attempts to navigate and use the app.
 
-Description: The system shall be capable of handling a minimum of 1000 simultaneous users and processing 200 transactions per minute while maintaining performance standards.
+        Output/Result: User does not need external resources to understand and use the app.
 
-Type: Automated, functional, automated.
+        How test will be performed: New users will be asked to perform tasks without external assistance. Their ability to navigate and use the app will be evaluated. They will then be asked about their experience in the survey in section 6.2.
 
-Initial State: Simulation of 100 simultaneous users using the app at once. 
+    \end{enumerate}
 
-Input/Condition: Users start processing transactions.
+    \subsubsection{Understandability and Politeness Requirements}
 
-Output/Result: The system can handle 1000 users and process 200 transactions per minute.
+    \begin{enumerate}
 
-How test will be performed: Automated load testing tools will simulate 1000 users connecting and processing transactions.
+        \item {\textbf{STN-UPR1: Tutorial}}
 
+        Description: The system should provide a tutorial for first-time users.
 
-\item{\textbf{STN-PR-2: Availability}}
+        Type: Dynamic, functional, manual.
 
-Description: The system shall achieve a minimum of 99.9\% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.
+        Initial State: App opened for the first time.
 
-Type: Non-functional, dynamic, automated.
+        Input/Condition: User starts using the app.
 
-Initial State: System running continuously.
+        Output/Result: A tutorial is provided for first-time users.
 
-Input/Condition: Monitor system availability over a month.
+        How test will be performed: First-time users will be observed to see if a tutorial is presented upon initial app use.
 
-Output/Result: The system achieves a minimum of 99.9\% availability.
 
-How test will be performed: System monitoring tools will track uptime over a specified period, to be determined closer to the testing date. 
+        \item{\textbf{STN-UPR-2:FAQ}}
 
-\item{\textbf{STN-PR-3: Required Throughput}}
+        Description: The application shall contain an FAQ to answer expected questions about the application.
 
-Description: The system shall support a data throughput of at least 200 Mbps to ensure data transmission between the server and users is seamless and efficient under peak usage.
+        Type: Dynamic, functional, manual.
 
-Type: Dynamic, non-functional, automated.
+        Initial State: User accesses the help or settings section.
 
-Initial State: Peak usage period.
+        Input/Condition: User looks for an FAQ section.
 
-Input/Condition: Large data transfer between server and users.
+        Output/Result: An FAQ section is available to answer questions about the app.
 
-Output/Result: Data throughput is at least 200 Mbps.
+        How test will be performed: Testers will navigate to the app's help or settings sections to locate and review the FAQ.
 
-How test will be performed: While testing capacity of the system, we will also automate data transfers of more than 200Mbps and measure the system’s performance. 
+    \end{enumerate}
 
+    \subsubsection{Accessibility Requirements}
 
-\item{\textbf{STN-PR-4: Response Time}}
+    \begin{enumerate}
 
-Description: The system shall deliver a response time of no more than 2 seconds for 99\% of the transaction processed under standard operating conditions.
+        \item {\textbf{STN-ACR-1: }Accessibility Guidelines}
 
-Type: Dynamic, non-functional, automated.
+        Description: The system will follow Apple’s design guidelines regarding accessible applications.
 
-Initial State: System under standard operating conditions.
+        Type: Dynamic, functional, manual.
 
-Input/Condition: User sends a request to the server.
+        Initial State: App installed on a device.
 
-Output/Result: Response time is no more than 2 seconds for 99\% of the transactions.
+        Input/Condition: User with accessibility needs uses the app.
 
-How test will be performed: Response times will be logged and analyzed to ensure 99\% fall under the 2-second threshold.
+        Output/Result: The app follows Apple’s design guidelines for accessible applications.
 
-\end{enumerate}
+        How test will be performed: Testers with accessibility needs (e.g., vision or hearing impairment) will use the app, and the design team will note how easily they are able to navigate the app.
 
-\subsubsection{Operational and Environment Requirements}
+    \end{enumerate}
 
-\begin{enumerate}
+    \subsubsection{Performance Requirements}
 
-\item {\textbf{STN-OER-1: Locational Requirements}}
+    \begin{enumerate}
+        \item {\textbf{STN-PR-1: System Capacity}}
 
-Description:  The system shall be able to be used in a gym/workout facility or home workout room. 
+        Description: The system shall be capable of handling a minimum of 1000 simultaneous users and processing 200 transactions per minute while maintaining performance standards.
 
-Type: Dynamic, functional, manual.
+        Type: Automated, functional, automated.
 
-Initial State: App installed on a device.
+        Initial State: Simulation of 100 simultaneous users using the app at once.
 
-Input/Condition: User tries to use the app in a gym/workout facility or home workout room.
+        Input/Condition: Users start processing transactions.
 
-Output/Result: The app functions correctly without any environmental interference.
+        Output/Result: The system can handle 1000 users and process 200 transactions per minute.
 
-How test will be performed: A user will test the app in various gym/workout environments to ensure functionality.
+        How test will be performed: Automated load testing tools will simulate 1000 users connecting and processing transactions.
 
 
-\item{\textbf{STN-OER-2: OS Requirements}}
+        \item{\textbf{STN-PR-2: Availability}}
 
-Description: The system shall be able to run on an iOS phone.
+        Description: The system shall achieve a minimum of 99.9\% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.
 
-Type: Non-functional, dynamic, manual.
+        Type: Non-functional, dynamic, automated.
 
-Initial State: App is ready to be installed.
+        Initial State: System running continuously.
 
-Input/Condition: User tries to install the app on an iOS phone.
+        Input/Condition: Monitor system availability over a month.
 
-Output/Result: The app installs, opens, and functions correctly.
+        Output/Result: The system achieves a minimum of 99.9\% availability.
 
-How test will be performed: Installation and basic functionality test on an iOS device.
+        How test will be performed: System monitoring tools will track uptime over a specified period, to be determined closer to the testing date.
 
+        \item{\textbf{STN-PR-3: Required Throughput}}
 
-\item{\textbf{STN-OER-3: Audio Functionality}}
+        Description: The system shall support a data throughput of at least 200 Mbps to ensure data transmission between the server and users is seamless and efficient under peak usage.
 
-Description: The system shall allow the audio output to be transmitted through the device’s speakers or a connected Bluetooth device.
+        Type: Dynamic, non-functional, automated.
 
-Type: Functional, dynamic, manual.
+        Initial State: Peak usage period.
 
-Initial State: App running with audio features activated.
+        Input/Condition: Large data transfer between server and users.
 
-Input/Condition: User connects to device’s speakers or a Bluetooth device.
+        Output/Result: Data throughput is at least 200 Mbps.
 
-Output/Result: Audio is transmitted clearly without any issues.
+        How test will be performed: While testing capacity of the system, we will also automate data transfers of more than 200Mbps and measure the system’s performance.
 
-How test will be performed: Test audio output on device’s speakers and on different Bluetooth devices.
 
+        \item{\textbf{STN-PR-4: Response Time}}
 
-\item{\textbf{STN-OER-4: Network Connection}}
+        Description: The system shall deliver a response time of no more than 2 seconds for 99\% of the transaction processed under standard operating conditions.
 
-Description: The system should connect to the internet for back-end services.
+        Type: Dynamic, non-functional, automated.
 
-Type: Non-functional, dynamic, manual.
+        Initial State: System under standard operating conditions.
 
-Initial State: App installed and requires backend services.
+        Input/Condition: User sends a request to the server.
 
-Input/Condition: User tries to use features that require internet 
-connection.
+        Output/Result: Response time is no more than 2 seconds for 99\% of the transactions.
 
-Output/Result: App connects to the internet and back-end services function correctly.
+        How test will be performed: Response times will be logged and analyzed to ensure 99\% fall under the 2-second threshold.
 
-How test will be performed: Use the app with an active internet connection and verify backend services.
+    \end{enumerate}
 
-\end{enumerate}
+    \subsubsection{Operational and Environment Requirements}
 
+    \begin{enumerate}
 
-\subsubsection{Test for Maintainability and Support}
+        \item {\textbf{STN-OER-1: Locational Requirements}}
 
-\begin{enumerate}
+        Description:  The system shall be able to be used in a gym/workout facility or home workout room.
 
-\item {\textbf{STN-MSR-1:} Error Detection}
+        Type: Dynamic, functional, manual.
 
-Description: The system shall automatically detect, log, and report any errors or system failures to the development and support team without requiring user intervention. 
+        Initial State: App installed on a device.
 
-Type: Functional, dynamic, automated.
+        Input/Condition: User tries to use the app in a gym/workout facility or home workout room.
 
-Initial State: The app is functioning with intentional errors introduced.
+        Output/Result: The app functions correctly without any environmental interference.
 
-Input/Condition: App is running and encounters an error.
+        How test will be performed: A user will test the app in various gym/workout environments to ensure functionality.
 
-Output/Result: The app should automatically detect, log, and report the error.
 
-How test will be performed: Developers will introduce intentional errors, run the app, and verify if errors are detected and reported with the necessary feedback statements. 
+        \item{\textbf{STN-OER-2: OS Requirements}}
 
+        Description: The system shall be able to run on an iOS phone.
 
-\item{\textbf{STN-MSR-2: User Feedback}}
+        Type: Non-functional, dynamic, manual.
 
-Description: The system shall incorporate an accessible user feedback mechanism to enable users to easily report issues.
+        Initial State: App is ready to be installed.
 
-Type: Functional, dynamic, manual.
+        Input/Condition: User tries to install the app on an iOS phone.
 
-Initial State: App is open and functional.
+        Output/Result: The app installs, opens, and functions correctly.
 
-Input/Condition: User accesses the feedback section and submits feedback.
+        How test will be performed: Installation and basic functionality test on an iOS device.
 
-Output/Result: The feedback is successfully sent and recorded.
-How test will be performed: Testers will send mock feedback and check if the feedback mechanism is accessible and works properly.
 
+        \item{\textbf{STN-OER-3: Audio Functionality}}
 
-\item{\textbf{STN-MSR-3: Update Mechanism}}
+        Description: The system shall allow the audio output to be transmitted through the device’s speakers or a connected Bluetooth device.
 
-Description: The system shall support periodic, backward-compatible software updates, notifying users of availability and enabling convenient download and installation while providing information about the changes.
+        Type: Functional, dynamic, manual.
 
-Type: Non-functional, dynamic, manual.
+        Initial State: App running with audio features activated.
 
-Initial State: An older version of the app is installed.
+        Input/Condition: User connects to device’s speakers or a Bluetooth device.
 
-Input/Condition: A new update is available.
+        Output/Result: Audio is transmitted clearly without any issues.
 
-Output/Result: The user is notified of the update, and upon choosing to update, the app updates smoothly with information about the changes.
+        How test will be performed: Test audio output on device’s speakers and on different Bluetooth devices.
 
-How test will be performed: An older version of the app will be installed on a device. When a new update is rolled out, testers will verify the update mechanism by downloading and installing the application and running tests to check for new features/bug fixes. 
 
-\end{enumerate}
+        \item{\textbf{STN-OER-4: Network Connection}}
 
+        Description: The system should connect to the internet for back-end services.
 
-\subsubsection{Test for Compliance Requirements}
+        Type: Non-functional, dynamic, manual.
 
-\begin{enumerate}
+        Initial State: App installed and requires backend services.
 
-\item {\textbf{STN-COMR-1: Data Protection Laws}}
+        Input/Condition: User tries to use features that require internet
+        connection.
 
-Description: The application will adhere to all data protection laws in the region(s) it operates within.
+        Output/Result: App connects to the internet and back-end services function correctly.
 
-Type: Non-functional, static, manual.
+        How test will be performed: Use the app with an active internet connection and verify backend services.
 
-Initial State: The app is designed and ready for review.
+    \end{enumerate}
 
-Input/Condition: The app's data handling and storage methods.
 
-Output/Result: The app should adhere to all data protection laws in the region it operates within.
+    \subsubsection{Test for Maintainability and Support}
 
-How test will be performed: The design team will consult all applicable Canadian laws regarding digital privacy and ensure proper precautions have been made to protect data. Or, where data cannot be protected, users are informed in accordance with the law of the risks associated with using SweatSmart. 
+    \begin{enumerate}
 
-\item{\textbf{STN-COMR-2: Informed Consent}}
+        \item {\textbf{STN-MSR-1:} Error Detection}
 
-Description: The informed consent of users shall be obtained before collecting and processing their personal data.
+        Description: The system shall automatically detect, log, and report any errors or system failures to the development and support team without requiring user intervention.
 
-Type: Functional, dynamic, manual.
+        Type: Functional, dynamic, automated.
 
-Initial State: User is registering or using a feature that requires personal data.
+        Initial State: The app is functioning with intentional errors introduced.
 
-Input/Condition: Registration or usage of personal data-dependent features.
+        Input/Condition: App is running and encounters an error.
 
-Output/Result: A clear and comprehensive consent form should be presented to the user.
+        Output/Result: The app should automatically detect, log, and report the error.
 
-How test will be performed: Testers will simulate user registration and verify that informed consent is properly obtained.
+        How test will be performed: Developers will introduce intentional errors, run the app, and verify if errors are detected and reported with the necessary feedback statements.
 
 
-\item{\textbf{STN-COMR-3: Security Measures}}
+        \item{\textbf{STN-MSR-2: User Feedback}}
 
-Description: Robust security measures will be put in place to safeguard user data.
+        Description: The system shall incorporate an accessible user feedback mechanism to enable users to easily report issues.
 
-Type: Non-functional, dynamic, manual.
+        Type: Functional, dynamic, manual.
 
-Initial State: App is functioning and storing user data.
+        Initial State: App is open and functional.
 
-Input/Condition: App's data storage and security measures.
+        Input/Condition: User accesses the feedback section and submits feedback.
 
-Output/Result: The app should have robust security measures that safeguard user data.
+        Output/Result: The feedback is successfully sent and recorded.
+        How test will be performed: Testers will send mock feedback and check if the feedback mechanism is accessible and works properly.
 
-How test will be performed: The design team will perform a security audit on the app to validate its data safeguarding measures.
 
-\item{\textbf{STN-COMR-4: Data Collection Transparency}}
+        \item{\textbf{STN-MSR-3: Update Mechanism}}
 
-Description: The application will be transparent about its data collection.
+        Description: The system shall support periodic, backward-compatible software updates, notifying users of availability and enabling convenient download and installation while providing information about the changes.
 
-Type: Non-functional, static, manual.
+        Type: Non-functional, dynamic, manual.
 
-Initial State: App is downloaded and installed.
+        Initial State: An older version of the app is installed.
 
-Input/Condition: User's first interaction with the app.
+        Input/Condition: A new update is available.
 
-Output/Result: Clear information about data collection practices should be presented.
+        Output/Result: The user is notified of the update, and upon choosing to update, the app updates smoothly with information about the changes.
 
-How test will be performed: Testers will initiate the app for the first time and verify that the app is transparent about its data collection.
+        How test will be performed: An older version of the app will be installed on a device. When a new update is rolled out, testers will verify the update mechanism by downloading and installing the application and running tests to check for new features/bug fixes.
 
-\item{\textbf{STN-COMR-5: Safe Fitness Guidance}}
+    \end{enumerate}
 
-Description: The app shall always recommend safe and proven fitness guidance and information.
 
-Type: Functional, dynamic, manual.
+    \subsubsection{Test for Compliance Requirements}
 
-Initial State: App is open and provides fitness guidance.
+    \begin{enumerate}
 
-Input/Condition: User accesses fitness guidance or information sections.
+        \item {\textbf{STN-COMR-1: Data Protection Laws}}
 
-Output/Result: Only safe and proven fitness guidance should be provided.
+        Description: The application will adhere to all data protection laws in the region(s) it operates within.
 
-How test will be performed: Design team will compare fitness advice from the application to that from experts in fitness for the 50 most common exercises. 
+        Type: Non-functional, static, manual.
 
+        Initial State: The app is designed and ready for review.
 
-\item{\textbf{STN-COMR-6: Injury Disclaimer}}
+        Input/Condition: The app's data handling and storage methods.
 
-Description: The system must state that the application is not responsible for any injuries or accidents resulting from its use.
+        Output/Result: The app should adhere to all data protection laws in the region it operates within.
 
-Type: Non-functional, static, manual.
+        How test will be performed: The design team will consult all applicable Canadian laws regarding digital privacy and ensure proper precautions have been made to protect data. Or, where data cannot be protected, users are informed in accordance with the law of the risks associated with using SweatSmart.
 
-Initial State: App is installed and opened.
+        \item{\textbf{STN-COMR-2: Informed Consent}}
 
-Input/Condition: User's first interaction with fitness guidance or exercise tutorials.
+        Description: The informed consent of users shall be obtained before collecting and processing their personal data.
 
-Output/Result: A clear disclaimer about potential injuries should be presented.
+        Type: Functional, dynamic, manual.
 
-How test will be performed: Testers will access fitness guidance or tutorials and ensure that the app clearly states its non-responsibility for injuries.
+        Initial State: User is registering or using a feature that requires personal data.
 
-\end{enumerate}
+        Input/Condition: Registration or usage of personal data-dependent features.
 
+        Output/Result: A clear and comprehensive consent form should be presented to the user.
 
-\subsubsection{Access Requirements}
+        How test will be performed: Testers will simulate user registration and verify that informed consent is properly obtained.
 
-\begin{enumerate}
 
-\item {\textbf{STN-ACR-1: Strong Password Restrictions}}
+        \item{\textbf{STN-COMR-3: Security Measures}}
 
-Description: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
+        Description: Robust security measures will be put in place to safeguard user data.
 
-Type: Functional, dynamic, manual.
+        Type: Non-functional, dynamic, manual.
 
-Initial State: User is at the registration or password change page.
+        Initial State: App is functioning and storing user data.
 
-Input/Condition: User attempts to set or change a password.
+        Input/Condition: App's data storage and security measures.
 
-Output/Result: Password meets specified strength criteria.
+        Output/Result: The app should have robust security measures that safeguard user data.
 
-How test will be performed: Testers will attempt to register or change passwords using weak and strong password examples and verify that only strong passwords are accepted.
+        How test will be performed: The design team will perform a security audit on the app to validate its data safeguarding measures.
 
+        \item{\textbf{STN-COMR-4: Data Collection Transparency}}
 
-\item{\textbf{STN-ACR-2: Authentication Credentials}}
+        Description: The application will be transparent about its data collection.
 
-Description:  Users shall authenticate themselves with their credentials securely.
+        Type: Non-functional, static, manual.
 
-Type: Functional, dynamic, manual.
+        Initial State: App is downloaded and installed.
 
-Initial State: User is at the login page.
+        Input/Condition: User's first interaction with the app.
 
-Input/Condition: User inputs their credentials.
+        Output/Result: Clear information about data collection practices should be presented.
 
-Output/Result: Successful login with valid credentials; unsuccessful login with invalid credentials.
+        How test will be performed: Testers will initiate the app for the first time and verify that the app is transparent about its data collection.
 
-How test will be performed: Testers will use valid and invalid credentials to ensure proper authentication.
+        \item{\textbf{STN-COMR-5: Safe Fitness Guidance}}
 
+        Description: The app shall always recommend safe and proven fitness guidance and information.
 
-\item{\textbf{STN-ACR-3: Authorized Data Access}}
+        Type: Functional, dynamic, manual.
 
-Description: Users will only have access to data and features for which they are authorized.
+        Initial State: App is open and provides fitness guidance.
 
-Type: Functional, dynamic, manual.
+        Input/Condition: User accesses fitness guidance or information sections.
 
-Initial State: User is logged in.
+        Output/Result: Only safe and proven fitness guidance should be provided.
 
-Input/Condition: User tries to access data/features.
+        How test will be performed: Design team will compare fitness advice from the application to that from experts in fitness for the 50 most common exercises.
 
-Output/Result: Users can only access authorized data/features.
 
-How test will be performed: Different user profiles will be created with different levels of authorization. Testers will try accessing restricted areas to ensure authorization controls are working.
+        \item{\textbf{STN-COMR-6: Injury Disclaimer}}
 
-\end{enumerate}
+        Description: The system must state that the application is not responsible for any injuries or accidents resulting from its use.
 
+        Type: Non-functional, static, manual.
 
-\subsubsection{Integrity Requirements}
+        Initial State: App is installed and opened.
 
-\begin{enumerate}
+        Input/Condition: User's first interaction with fitness guidance or exercise tutorials.
 
-\item {\textbf{STN-INR-1: Restrict Sensitive Data}}
+        Output/Result: A clear disclaimer about potential injuries should be presented.
 
-Description: Sensitive data shall be restricted from the users of the app. 
+        How test will be performed: Testers will access fitness guidance or tutorials and ensure that the app clearly states its non-responsibility for injuries.
 
-Type: Non-functional, static, manual.
+    \end{enumerate}
 
-Initial State: App is functioning and displaying user data.
 
-Input/Condition: Review of displayed data in user profile or other sections.
+    \subsubsection{Access Requirements}
 
-Output/Result: No sensitive data is displayed.
+    \begin{enumerate}
 
-How test will be performed: Testers will review user data sections to ensure no sensitive data is revealed.
+        \item {\textbf{STN-ACR-1: Strong Password Restrictions}}
 
-\item{\textbf{STN-INR-2: Data Encryption API}}
+        Description: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
 
-Description:  Data between the app and the server should be encrypted when an API call is made.
+        Type: Functional, dynamic, manual.
 
-Type: Non-functional, dynamic, manual.
+        Initial State: User is at the registration or password change page.
 
-Initial State: Data is being transmitted between the app and the server.
+        Input/Condition: User attempts to set or change a password.
 
-Input/Condition: Sending or receiving data via API.
+        Output/Result: Password meets specified strength criteria.
 
-Output/Result: Data transmission is encrypted.
+        How test will be performed: Testers will attempt to register or change passwords using weak and strong password examples and verify that only strong passwords are accepted.
 
-How test will be performed: Design team will monitor data transmissions for encryption.
 
+        \item{\textbf{STN-ACR-2: Authentication Credentials}}
 
-\item \textbf{{STN-INR-3: Data Backup}}
+        Description:  Users shall authenticate themselves with their credentials securely.
 
-Description: The system should regularly back up data automatically to prevent data loss in the event of database failures.
+        Type: Functional, dynamic, manual.
 
-Type: Non-functional, dynamic, automated.
+        Initial State: User is at the login page.
 
-Initial State: System is operational.
+        Input/Condition: User inputs their credentials.
 
-Input/Condition: Automated process to backup data.
+        Output/Result: Successful login with valid credentials; unsuccessful login with invalid credentials.
 
-Output/Result: Successful backup of data without loss.
+        How test will be performed: Testers will use valid and invalid credentials to ensure proper authentication.
 
-How test will be performed: Testers will trigger the backup process, then will retrieve and verify the data from the backup storage.
 
-\item{\textbf{STN-INR-4: Local Data Storage}}
+        \item{\textbf{STN-ACR-3: Authorized Data Access}}
 
-Description: Unstored data should be stored locally if the data cannot be updated.
+        Description: Users will only have access to data and features for which they are authorized.
 
-Type: Functional, dynamic, manual.
+        Type: Functional, dynamic, manual.
 
-Initial State: Data cannot be updated to the main database.
+        Initial State: User is logged in.
 
-Input/Condition: Application tries to save user data.
+        Input/Condition: User tries to access data/features.
 
-Output/Result: Unstored data is saved locally.
+        Output/Result: Users can only access authorized data/features.
 
-How test will be performed: Testers will simulate server connection failures and see if the app saves data locally.
+        How test will be performed: Different user profiles will be created with different levels of authorization. Testers will try accessing restricted areas to ensure authorization controls are working.
 
+    \end{enumerate}
 
-\item{\textbf{STN-INR-5: Unique Primary Key}}
 
-Description: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database. 
+    \subsubsection{Integrity Requirements}
 
-Type: Functional, dynamic, automated.
+    \begin{enumerate}
 
-Initial State: Database with existing user accounts.
+        \item {\textbf{STN-INR-1: Restrict Sensitive Data}}
 
-Input/Condition: Registering a new user or changing primary key of an existing user.
+        Description: Sensitive data shall be restricted from the users of the app.
 
-Output/Result: System ensures the uniqueness of primary keys.
+        Type: Non-functional, static, manual.
 
-How test will be performed: Testers will attempt to register users with duplicate primary keys or modify existing keys to mimic another user's primary key. The system should reject these attempts.
+        Initial State: App is functioning and displaying user data.
 
-\item{\textbf{STN-INR-6: Progress Save On Interruption}}
+        Input/Condition: Review of displayed data in user profile or other sections.
 
-Description: The system must have a mechanism to store the user’s progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
+        Output/Result: No sensitive data is displayed.
 
-Type: Functional, dynamic, manual.
+        How test will be performed: Testers will review user data sections to ensure no sensitive data is revealed.
 
-Initial State: User is in the middle of a live workout.
+        \item{\textbf{STN-INR-2: Data Encryption API}}
 
-Input/Condition: Application is forcefully closed or interrupted.
+        Description:  Data between the app and the server should be encrypted when an API call is made.
 
-Output/Result: User's progress is saved.
+        Type: Non-functional, dynamic, manual.
 
-How test will be performed: While in the middle of a live workout, testers will forcefully close the app and then reopen it to check if the progress is saved and can be resumed.
+        Initial State: Data is being transmitted between the app and the server.
 
+        Input/Condition: Sending or receiving data via API.
 
-\item{\textbf{STN-INR-7: Exercise Safety Warnings}}
+        Output/Result: Data transmission is encrypted.
 
-Description: The system should display clear and prominent warnings to users regarding exercise safety.
+        How test will be performed: Design team will monitor data transmissions for encryption.
 
-Type: Functional, dynamic, manual.
 
-Initial State: User is accessing exercise instructions.
+        \item \textbf{{STN-INR-3: Data Backup}}
 
-Input/Condition: User views different exercises.
+        Description: The system should regularly back up data automatically to prevent data loss in the event of database failures.
 
-Output/Result: Clear and prominent warnings are displayed for exercises that might pose risks.
+        Type: Non-functional, dynamic, automated.
 
-How test will be performed: Testers will navigate through different exercise instructions and ensure safety warnings are prominently displayed.
+        Initial State: System is operational.
 
+        Input/Condition: Automated process to backup data.
 
-\item{\textbf{STN-INR-8: AI Model Updates}}
+        Output/Result: Successful backup of data without loss.
 
-Description: The AI model system should be constantly updated with accurate practices and the data should be reviewed
+        How test will be performed: Testers will trigger the backup process, then will retrieve and verify the data from the backup storage.
 
-Type: Non-functional, dynamic, automated.
+        \item{\textbf{STN-INR-4: Local Data Storage}}
 
-Initial State: AI model is operational.
+        Description: Unstored data should be stored locally if the data cannot be updated.
 
-Input/Condition: Feeding the AI model with new practices and reviewing data.
+        Type: Functional, dynamic, manual.
 
-Output/Result: The AI model should be updated with accurate practices.
+        Initial State: Data cannot be updated to the main database.
 
-How test will be performed: AI experts will feed new accurate data into the model and monitor how it incorporates the updates.
+        Input/Condition: Application tries to save user data.
 
-\end{enumerate}
+        Output/Result: Unstored data is saved locally.
 
+        How test will be performed: Testers will simulate server connection failures and see if the app saves data locally.
 
-\subsubsection{Privacy Requirements}
 
-\begin{enumerate}
-\item {\textbf{STN-PRR-1: Encrypted Data}}
+        \item{\textbf{STN-INR-5: Unique Primary Key}}
 
-Description: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access.
+        Description: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.
 
-Type: Non-functional, dynamic, manual.
+        Type: Functional, dynamic, automated.
 
-Initial State: User data is stored or being transmitted.
+        Initial State: Database with existing user accounts.
 
-Input/Condition: Review of how data is stored and transmitted.
+        Input/Condition: Registering a new user or changing primary key of an existing user.
 
-Output/Result: Data is encrypted in both transit and at rest.
+        Output/Result: System ensures the uniqueness of primary keys.
 
-How test will be performed: Design team will analyze the data storage and transmission methods to ensure encryption.
+        How test will be performed: Testers will attempt to register users with duplicate primary keys or modify existing keys to mimic another user's primary key. The system should reject these attempts.
 
-\end{enumerate}
+        \item{\textbf{STN-INR-6: Progress Save On Interruption}}
 
+        Description: The system must have a mechanism to store the user’s progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
 
-\subsubsection{Error Handling Requirements}
+        Type: Functional, dynamic, manual.
 
-\begin{enumerate}
+        Initial State: User is in the middle of a live workout.
 
-\item {\textbf{STN-EHR-1: Error Handling}}
+        Input/Condition: Application is forcefully closed or interrupted.
 
-Description: The system should have robust error handling that doesn’t reveal sensitive system information to users in error messages.
+        Output/Result: User's progress is saved.
 
-Type: Functional, dynamic, manual.
+        How test will be performed: While in the middle of a live workout, testers will forcefully close the app and then reopen it to check if the progress is saved and can be resumed.
 
-Initial State: An error occurs in the application.
 
-Input/Condition: Triggering various errors in the application.
+        \item{\textbf{STN-INR-7: Exercise Safety Warnings}}
 
-Output/Result: Error handling mechanisms work and no sensitive system information is shown.
+        Description: The system should display clear and prominent warnings to users regarding exercise safety.
 
-How test will be performed: Testers will deliberately induce errors in the application to observe how they are handled
+        Type: Functional, dynamic, manual.
 
-\item{\textbf{STN-EHR-2: User Feedback Mechanism}}
+        Initial State: User is accessing exercise instructions.
 
-Description: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures.
+        Input/Condition: User views different exercises.
 
-Type: Functional, dynamic, manual.
+        Output/Result: Clear and prominent warnings are displayed for exercises that might pose risks.
 
-Initial State: User wants to report an issue.
+        How test will be performed: Testers will navigate through different exercise instructions and ensure safety warnings are prominently displayed.
 
-Input/Condition: User accesses the feedback mechanism.
 
-Output/Result: Users can successfully send feedback.
+        \item{\textbf{STN-INR-8: AI Model Updates}}
 
-How test will be performed: Testers will use the feedback mechanism to send feedback and see if it reaches the desired destination.
+        Description: The AI model system should be constantly updated with accurate practices and the data should be reviewed
 
-\end{enumerate}
+        Type: Non-functional, dynamic, automated.
 
+        Initial State: AI model is operational.
 
-\subsection{Traceability Between Test Cases and Requirements}
-The traceability matrix for the functional requirements can be found below. Note that since the tests for the non-functional requirements map directly to the non-functional requirements, no matrix was created.
+        Input/Condition: Feeding the AI model with new practices and reviewing data.
 
-\afterpage{
-\newgeometry{left=1cm, right=0cm, top=0cm, bottom=0cm}
-\begin{landscape}
+        Output/Result: The AI model should be updated with accurate practices.
 
-\begin{table}[h!]
-\footnotesize
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
- \hline
-   & UA1 & UA2 & UA3 & UA4 & UA5 & AI1 & AI2 & AI3 & AI4 & AI5 & UC1 & UC2 & UC3 & UC4 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 & AF4 & AF5\\
- \hline
- STF-UA-1 & X & & & X & X & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-2 & X & & & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-3 & X & & & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-4 & & & & X & X & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-5 & & X & & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-6 & & X & & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-7 & & X & & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-8 & & X & & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-UA-9 & & & X & & & & & & & & & & & & & & & & & & & & 
- \hline
- STF-AI-1 & & & & & & X & & & & & & & & & & & & & & & & & 
- \hline
- STF-AI-2 & & & & & & & X & & & & & & & & & & & & & & & & 
- \hline
- STF-AI-3 & & & & & & & & X & & & & & & & & & & & & & & & 
- \hline
- STF-AI-4 & & & & & & & & & X & & & & & & & & & & & & & & 
- \hline
- STF-AI-5 & & & & & & & & & & X & & & & & & & & & & & & & 
- \hline
- STF-UC-1 & & & & & & & & & & & X & & & & & & & & & & & & 
- \hline
- STF-UC-2 & & & & & & & & & & & & X & & & & & & & & & & & 
- \hline
- STF-UC-3 & & & & & & & & & & & & & X & & & & & & & & & & 
- \hline
- STF-UC-4 & & & & & & & & & & & & & X & & & & & & & & & & 
- \hline
- STF-UC-5 & & & & & & & & & & & & & & X & & & & & & & & & 
- \hline
- STF-WH-1 & & & & & & & & & & & & & & & X & & & & & & & & 
- \hline
- STF-WH-2 & & & & & & & & & & & & & & & & X & & & & & & & 
- \hline
- STF-DB-1 & & & & & & & & & & & & & & & & & X & & & & & & 
- \hline
- STF-AF-1 & & & & & & & & & & & & & & & & & & X & & X & & & 
- \hline
- STF-AF-2 & & & & & & & & & & & & & & & & & & & X & & & & 
- \hline
- STF-AF-3 & & & & & & & & & & & & & & & & & & & & & X & & 
- \hline
- STF-AF-4 & & & & & & & & & & & & & & & & & & & & & & X &
-\hline
-\end{tabular}
-\caption{Traceability Matrix Between Test Cases and Functional Requirements}
-\label{Table:A_trace}
-\end{table}
+        How test will be performed: AI experts will feed new accurate data into the model and monitor how it incorporates the updates.
 
-\end{landscape}
-}
+    \end{enumerate}
 
-\restoregeometry
 
-\section{Unit Test Description}
+    \subsubsection{Privacy Requirements}
 
-This section is to be completed when the MIS (detailed design document) is completed.
+    \begin{enumerate}
+        \item {\textbf{STN-PRR-1: Encrypted Data}}
 
-\section{Appendix}
+        Description: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access.
 
-\subsection{Usability Survey Questions}
+        Type: Non-functional, dynamic, manual.
 
-\begin{enumerate}
-    \item On a scale of 1 to 10, how intuitive did you find the app's interface?
-    \item Did you experience any noticeable delays or lag when using the app? (Options: Always, Often, Sometimes, Rarely, Never)
-    \item Were you able to easily navigate and understand the app's various pages and features?
-    \item How would you rate the app's visual appearance and design consistency? (Options: Excellent, Good, Average, Below Average, Poor)
-    \item How helpful did you find the in-app tutorials and guides?
-    \item Were there any features or functions you found confusing or difficult to use?
-    \item How would you describe the overall speed and responsiveness of the app?
-    \item Was the app's styling and design in line with what you'd expect from a modern iOS application?
-    \item Did you encounter any issues or difficulties when trying to customize or personalize your app settings?
-    \item How consistent do you feel terminology and required interactions stayed throughout your navigation of the app on a scale of 1 to 10? (1 being very inconsistent, 10 being very consistent)
-\end{enumerate}
+        Initial State: User data is stored or being transmitted.
 
-\newpage{}
-\section*{Appendix --- Reflection}
+        Input/Condition: Review of how data is stored and transmitted.
 
-\begin{enumerate}
-  \item What knowledge and skills will the team collectively need to acquire to successfully complete the verification and validation of your project? Examples of possible knowledge and skills include dynamic testing knowledge, static testing knowledge, specific tool usage etc. You should look to identify at least one item for each team member.
+        Output/Result: Data is encrypted in both transit and at rest.
 
-  \textbf{Answer:}
-  The successful verification and validation of our project necessitates a diverse set of knowledge and skills that our team needs to harness. To begin, Daniel will need expertise in dynamic testing knowledge. His role will largely revolve around verifying how the software behaves during runtime, ensuring the system reacts as expected to various inputs. Jonathan, given his talent in analyzing code, will delve into static testing knowledge, evaluating the system's code, documentation, and design without actually executing the software. This will be crucial for spotting potential errors at the code level. Sam, who has displayed an inclination towards tool mastery, will focus on becoming proficient with specific validation tools such as Jest for React Native and XUnit for .NET Core. These tools will be pivotal in streamlining the testing process and ensuring that our application is robust. Finally, Sophie will tackle user experience (UX) testing. Given her keen eye for design and user flow, she will be responsible for gauging the intuitiveness of the system, ensuring that users can navigate and utilize the application with ease.
+        How test will be performed: Design team will analyze the data storage and transmission methods to ensure encryption.
 
-  \item For each of the knowledge areas and skills identified in the previous question, what are at least two approaches to acquiring the knowledge or mastering the skill? Of the identified approaches, which will each team member pursue, and why did they make this choice?
+    \end{enumerate}
 
-  \textbf{Answer:}
-  To master dynamic testing, Daniel has opted for learning via youtube tutorials due to the large amounts of free, quality content. Jonathan, understanding the value of experience, will seek to to grasp the intricacies of static testing via reading texts and materials. For Sam, the combination of official documentation and community forums offers a strong approach to mastering specific validation tools, ensuring he understands both foundational concepts and practical applications. Sophie recognizes the importance of user feedback in UX testing and will prioritize direct user feedback sessions, offering her  insights into user preferences and areas for design improvement. The choices made by each team member reflect a balance between their learning preferences, the project's immediate needs, and the methods most likely to yield comprehensive understanding.
-\end{enumerate}
+
+    \subsubsection{Error Handling Requirements}
+
+    \begin{enumerate}
+
+        \item {\textbf{STN-EHR-1: Error Handling}}
+
+        Description: The system should have robust error handling that doesn’t reveal sensitive system information to users in error messages.
+
+        Type: Functional, dynamic, manual.
+
+        Initial State: An error occurs in the application.
+
+        Input/Condition: Triggering various errors in the application.
+
+        Output/Result: Error handling mechanisms work and no sensitive system information is shown.
+
+        How test will be performed: Testers will deliberately induce errors in the application to observe how they are handled
+
+        \item{\textbf{STN-EHR-2: User Feedback Mechanism}}
+
+        Description: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures.
+
+        Type: Functional, dynamic, manual.
+
+        Initial State: User wants to report an issue.
+
+        Input/Condition: User accesses the feedback mechanism.
+
+        Output/Result: Users can successfully send feedback.
+
+        How test will be performed: Testers will use the feedback mechanism to send feedback and see if it reaches the desired destination.
+
+    \end{enumerate}
+
+
+    \subsection{Traceability Between Test Cases and Requirements}
+    The traceability matrix for the functional requirements can be found below. Note that since the tests for the non-functional requirements map directly to the non-functional requirements, no matrix was created.
+
+    \afterpage{
+        \newgeometry{left=1cm, right=0cm, top=0cm, bottom=0cm}
+        \begin{landscape}
+
+            \begin{table}[h!]
+                \footnotesize
+                \centering
+                \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+                    \hline
+                    & UA1 & UA2 & UA3 & UA4 & UA5 & AI1 & AI2 & AI3 & AI4 & AI5 & UC1 & UC2 & UC3 & UC4 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 & AF4 & AF5\\
+                    \hline
+                    STF-UA-1 & X & & & X & X & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-2 & X & & & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-3 & X & & & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-4 & & & & X & X & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-5 & & X & & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-6 & & X & & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-7 & & X & & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-8 & & X & & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-UA-9 & & & X & & & & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-AI-1 & & & & & & X & & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-AI-2 & & & & & & & X & & & & & & & & & & & & & & & &
+                    \hline
+                    STF-AI-3 & & & & & & & & X & & & & & & & & & & & & & & &
+                    \hline
+                    STF-AI-4 & & & & & & & & & X & & & & & & & & & & & & & &
+                    \hline
+                    STF-AI-5 & & & & & & & & & & X & & & & & & & & & & & & &
+                    \hline
+                    STF-UC-1 & & & & & & & & & & & X & & & & & & & & & & & &
+                    \hline
+                    STF-UC-2 & & & & & & & & & & & & X & & & & & & & & & & &
+                    \hline
+                    STF-UC-3 & & & & & & & & & & & & & X & & & & & & & & & &
+                    \hline
+                    STF-UC-4 & & & & & & & & & & & & & X & & & & & & & & & &
+                    \hline
+                    STF-UC-5 & & & & & & & & & & & & & & X & & & & & & & & &
+                    \hline
+                    STF-WH-1 & & & & & & & & & & & & & & & X & & & & & & & &
+                    \hline
+                    STF-WH-2 & & & & & & & & & & & & & & & & X & & & & & & &
+                    \hline
+                    STF-DB-1 & & & & & & & & & & & & & & & & & X & & & & & &
+                    \hline
+                    STF-AF-1 & & & & & & & & & & & & & & & & & & X & & X & & &
+                    \hline
+                    STF-AF-2 & & & & & & & & & & & & & & & & & & & X & & & &
+                    \hline
+                    STF-AF-3 & & & & & & & & & & & & & & & & & & & & & X & &
+                    \hline
+                    STF-AF-4 & & & & & & & & & & & & & & & & & & & & & & X &
+                    \hline
+                \end{tabular}
+                \caption{Traceability Matrix Between Test Cases and Functional Requirements}
+                \label{Table:A_trace}
+            \end{table}
+
+        \end{landscape}
+    }
+
+    \restoregeometry
+
+    \section{Unit Test Description}
+
+    This section is to be completed when the MIS (detailed design document) is completed.
+
+    \section{Appendix}
+
+    \subsection{Usability Survey Questions}
+
+    \begin{enumerate}
+        \item On a scale of 1 to 10, how intuitive did you find the app's interface?
+        \item Did you experience any noticeable delays or lag when using the app? (Options: Always, Often, Sometimes, Rarely, Never)
+        \item Were you able to easily navigate and understand the app's various pages and features?
+        \item How would you rate the app's visual appearance and design consistency? (Options: Excellent, Good, Average, Below Average, Poor)
+        \item How helpful did you find the in-app tutorials and guides?
+        \item Were there any features or functions you found confusing or difficult to use?
+        \item How would you describe the overall speed and responsiveness of the app?
+        \item Was the app's styling and design in line with what you'd expect from a modern iOS application?
+        \item Did you encounter any issues or difficulties when trying to customize or personalize your app settings?
+        \item How consistent do you feel terminology and required interactions stayed throughout your navigation of the app on a scale of 1 to 10? (1 being very inconsistent, 10 being very consistent)
+    \end{enumerate}
+
+    \newpage{}
+    \section*{Appendix --- Reflection}
+
+    \begin{enumerate}
+        \item What knowledge and skills will the team collectively need to acquire to successfully complete the verification and validation of your project? Examples of possible knowledge and skills include dynamic testing knowledge, static testing knowledge, specific tool usage etc. You should look to identify at least one item for each team member.
+
+        \textbf{Answer:}
+        The successful verification and validation of our project necessitates a diverse set of knowledge and skills that our team needs to harness. To begin, Daniel will need expertise in dynamic testing knowledge. His role will largely revolve around verifying how the software behaves during runtime, ensuring the system reacts as expected to various inputs. Jonathan, given his talent in analyzing code, will delve into static testing knowledge, evaluating the system's code, documentation, and design without actually executing the software. This will be crucial for spotting potential errors at the code level. Sam, who has displayed an inclination towards tool mastery, will focus on becoming proficient with specific validation tools such as Jest for React Native and XUnit for .NET Core. These tools will be pivotal in streamlining the testing process and ensuring that our application is robust. Finally, Sophie will tackle user experience (UX) testing. Given her keen eye for design and user flow, she will be responsible for gauging the intuitiveness of the system, ensuring that users can navigate and utilize the application with ease.
+
+        \item For each of the knowledge areas and skills identified in the previous question, what are at least two approaches to acquiring the knowledge or mastering the skill? Of the identified approaches, which will each team member pursue, and why did they make this choice?
+
+        \textbf{Answer:}
+        To master dynamic testing, Daniel has opted for learning via youtube tutorials due to the large amounts of free, quality content. Jonathan, understanding the value of experience, will seek to to grasp the intricacies of static testing via reading texts and materials. For Sam, the combination of official documentation and community forums offers a strong approach to mastering specific validation tools, ensuring he understands both foundational concepts and practical applications. Sophie recognizes the importance of user feedback in UX testing and will prioritize direct user feedback sessions, offering her  insights into user preferences and areas for design improvement. The choices made by each team member reflect a balance between their learning preferences, the project's immediate needs, and the methods most likely to yield comprehensive understanding.
+    \end{enumerate}
 
 \end{document}
