@@ -85,11 +85,11 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 \setlength\parindent{0pt}
 \section{\textbf{General Information}}
 
-\section{Summary}
+\subsection{Summary}
 
 This document outlines the Verification and Validation (V\&V) plan for SweatSmart, an AI workout application. The purpose of this V\&V plan is to detail the methodologies, processes, and activities employed to ensure that SweatSmart meets the requirements laid out in our team’s software requirements specification (SRS) document.
 
-\section{Objectives}
+\subsection{Objectives}
 
 The primary objectives of this plan are as follows: \newline
 
@@ -103,16 +103,16 @@ The primary objectives of this plan are as follows: \newline
 
 \textbf{Continuous Feedback and Improvement: }To set up a mechanism that gathers useful user feedback, ensuring that any discrepancies, issues, or potential improvements are identified during the V\&V process so they can be addressed before or during rollout of the application. \newline
 
-\section{Relevant Documentation}
+\subsection{Relevant Documentation}
 
 The main supporting document for this V\&V plan is our Software Requirements Specification which enumerates the features, functionalities, and performance requirements that SweatSmart must adhere to. 
 
-\section{Summary}
+\subsection{Summary}
 
 \wss{Say what software is being tested.  Give its name and a brief overview of
   its general functions.}
 
-\section{Objectives}
+\subsection{Objectives}
 
 \wss{State what is intended to be accomplished.  The objective will be around
   the qualities that are most important for your project.  You might have
@@ -131,7 +131,7 @@ so what are you going to prioritize?  As an example, if your system depends on a
 external library, you can explicitly state that you will assume that external library 
 has already been verified by its implementation team.}
 
-\section{Relevant Documentation}
+\subsection{Relevant Documentation}
 
 \wss{Reference relevant documentation.  This will definitely include your SRS
   and your other project documents (design documents, like MG, MIS, etc).  You
@@ -148,13 +148,13 @@ how they relate to your VnV efforts.}
 \wss{Introduce this section.   You can provide a roadmap of the sections to
   come.}
 
-\section{Verification and Validation Team}
+\subsection{Verification and Validation Team}
 
 \wss{Your teammates.  Maybe your supervisor.
   You should do more than list names.  You should say what each person's role is
   for the project's verification.  A table is a good way to summarize this information.}
 
-\section{SRS Verification Plan}
+\subsection{SRS Verification Plan}
 
 \wss{List any approaches you intend to use for SRS verification.  This may include
   ad hoc feedback from reviewers, like your classmates, or you may plan for 
@@ -162,7 +162,7 @@ how they relate to your VnV efforts.}
 
 \wss{Maybe create an SRS checklist?}
 
-\section{Design Verification Plan}
+\subsection{Design Verification Plan}
 
 \wss{Plans for design verification}
 
@@ -170,7 +170,7 @@ how they relate to your VnV efforts.}
 
 \wss{Create a checklists?}
 
-\section{Verification and Validation Plan Verification Plan}
+\subsection{Verification and Validation Plan Verification Plan}
 
 \wss{The verification and validation plan is an artifact that should also be
 verified.  Techniques for this include review and mutation testing.}
@@ -179,7 +179,7 @@ verified.  Techniques for this include review and mutation testing.}
 
 \wss{Create a checklists?}
 
-\section{Implementation Verification Plan}
+\subsection{Implementation Verification Plan}
 
 \wss{You should at least point to the tests listed in this document and the unit
   testing plan.}
@@ -188,7 +188,7 @@ verified.  Techniques for this include review and mutation testing.}
   verification of the implementation.  Potential techniques include code
   walkthroughs, code inspection, static analyzers, etc.}
 
-\section{Automated Testing and Verification Tools}
+\subsection{Automated Testing and Verification Tools}
 
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
@@ -205,7 +205,7 @@ that document.}
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
 
-\section{Software Validation Plan}
+\subsection{Software Validation Plan}
 
 \wss{If there is any external data that can be used for validation, you should
   point to it here.  If there are no plans for validation, you should state that
@@ -225,7 +225,7 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
-\section{System Test Description}
+\subsection{System Test Description}
 	
 \section{Tests for Functional Requirements}
 
@@ -1102,7 +1102,7 @@ How test will be performed:
 
 ...
 
-\section{Traceability Between Test Cases and Requirements}
+\subsection{Traceability Between Test Cases and Requirements}
 
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
@@ -1123,7 +1123,7 @@ and as many tests as needed for edge cases.  Rather than create the details of t
 and output here, you could point to the unit testing code.  For this to work, you code 
 needs to be well-documented, with meaningful names for all of the tests.}
 
-\section{Unit Testing Scope}
+\subsection{Unit Testing Scope}
 
 \wss{What modules are outside of the scope.  If there are modules that are
   developed by someone else, then you would say here if you aren't planning on
@@ -1131,7 +1131,7 @@ needs to be well-documented, with meaningful names for all of the tests.}
   have a lower priority for verification than others.  If this is the case,
   explain your rationale for the ranking of module importance.}
 
-\section{Tests for Functional Requirements}
+\subsection{Tests for Functional Requirements}
 
 \wss{Most of the verification will be through automated unit testing.  If
   appropriate specific modules can be verified by a non-testing based
@@ -1184,7 +1184,7 @@ How test will be performed:
 
 ...
 
-\section{Tests for Nonfunctional Requirements}
+\subsection{Tests for Nonfunctional Requirements}
 
 \wss{If there is a module that needs to be independently assessed for
   performance, those test cases can go here.  In some projects, planning for
@@ -1193,7 +1193,7 @@ How test will be performed:
 \wss{These tests may involve collecting performance data from previously
   mentioned functional tests.}
 
-\subsection{Module ?}
+\subsubsection{Module ?}
 		
 \begin{enumerate}
 
@@ -1224,11 +1224,11 @@ How test will be performed:
 
 \end{enumerate}
 
-\subsection{Module ?}
+\subsubsection{Module ?}
 
 ...
 
-\section{Traceability Between Test Cases and Modules}
+\subsection{Traceability Between Test Cases and Modules}
 
 \wss{Provide evidence that all of the modules have been considered.}
 				
@@ -1247,7 +1247,7 @@ This is where you can place additional information.
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
-\section{Usability Survey Questions?}
+\subsection{Usability Survey Questions?}
 
 \wss{This is a section that would be appropriate for some projects.}
 
