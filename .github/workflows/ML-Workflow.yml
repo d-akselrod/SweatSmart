@@ -1,4 +1,4 @@
-name: Service Workflow
+name: ML Workflow
 
 on:
   push:
@@ -18,11 +18,11 @@ jobs:
         with:
           dotnet-version: "7.0.202"
 
-      - name: Restore dependencies for Service
+      - name: Restore dependencies
         working-directory: ${{ github.workspace }}/src/model-builder
         run: dotnet restore
 
-      - name: Build Service
+      - name: Build
         working-directory: ${{ github.workspace }}/src/model-builder
         run: dotnet build --no-restore
   Format:
