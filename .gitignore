@@ -330,4 +330,6 @@ test/test-service/obj/
 test/test-service/.idea/
 src/app-service/bin/
 src/app-service/obj/
+src/model-builder/bin/
+src/model-builder/obj/
 SweatSmart.sln
