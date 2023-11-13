@@ -1,9 +1,9 @@
 import { API_AUTH, API_URL } from './config';
 
 export const registerAccount = (
-  username: string,
-  email: string,
-  password: string,
+    username: string,
+    email: string,
+    password: string,
 ) => {
   const userInfo = {
     username,
