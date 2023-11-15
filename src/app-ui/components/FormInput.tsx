@@ -34,40 +34,40 @@ export function FormInput(props: IFormInputProps) {
   };
 
   return (
-      <View>
-        <View
-            style={[
-              styles.inputContainer,
-              {
-                borderColor: setColor(),
-              },
-            ]}
-        >
-          <Ionicons name={props.iconName} size={20} color={'#6C96E8'} />
-          <TextInput
-              ref={input}
-              onChangeText={props.onChangeText}
-              autoCorrect={false}
-              secureTextEntry={hiddenField}
-              placeholderTextColor='#A4A4A4'
-              style={styles.input}
-              placeholder={props.placeholder}
-              onFocus={handleFocus}
-              onBlur={() => setFocus(false)}
-              keyboardType={props.keyboardType}
-              autoCapitalize="none"
-          />
-          {props.secureTextEntry && (
-              <TouchableOpacity onPress={() => setHiddenField(!hiddenField)}>
-                <Ionicons
-                    name={hiddenField ? 'eye' : 'eye-off'}
-                    color='#6C96E8'
-                    size={20}
-                />
-              </TouchableOpacity>
-          )}
-        </View>
+    <View>
+      <View
+        style={[
+          styles.inputContainer,
+          {
+            borderColor: setColor(),
+          },
+        ]}
+      >
+        <Ionicons name={props.iconName} size={20} color={'#6C96E8'} />
+        <TextInput
+          ref={input}
+          onChangeText={props.onChangeText}
+          autoCorrect={false}
+          secureTextEntry={hiddenField}
+          placeholderTextColor='#A4A4A4'
+          style={styles.input}
+          placeholder={props.placeholder}
+          onFocus={handleFocus}
+          onBlur={() => setFocus(false)}
+          keyboardType={props.keyboardType}
+          autoCapitalize='none'
+        />
+        {props.secureTextEntry && (
+          <TouchableOpacity onPress={() => setHiddenField(!hiddenField)}>
+            <Ionicons
+              name={hiddenField ? 'eye' : 'eye-off'}
+              color='#6C96E8'
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
       </View>
+    </View>
   );
 }
 

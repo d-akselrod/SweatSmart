@@ -76,25 +76,25 @@ export const EntryPage = () => {
   }, [dispatch]);
 
   return (
-      <View style={styles.container}>
-        <Animated.Image
-            source={require('../../assets/images/Logo.png')}
-            style={[
-              styles.logo,
+    <View style={styles.container}>
+      <Animated.Image
+        source={require('../../assets/images/Logo.png')}
+        style={[
+          styles.logo,
+          {
+            transform: [
+              { scale: logoScale },
               {
-                transform: [
-                  { scale: logoScale },
-                  {
-                    rotate: logoRotation.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: ['0deg', '360deg'],
-                    }),
-                  },
-                ],
+                rotate: logoRotation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ['0deg', '360deg'],
+                }),
               },
-            ]}
-        />
-      </View>
+            ],
+          },
+        ]}
+      />
+    </View>
   );
 };
 

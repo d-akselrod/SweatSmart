@@ -1,11 +1,11 @@
 import { API_AUTH, API_URL } from './config';
 
 export const registerAccount = (
-    username: string,
-    email: string,
-    password: string,
+  username: string,
+  email: string,
+  password: string,
 ) => {
-  const userInfo = {
+  const requestBody = {
     username,
     email,
     password,
@@ -17,6 +17,25 @@ export const registerAccount = (
       'Content-Type': 'application/json',
       Authorization: API_AUTH,
     },
-    body: JSON.stringify(userInfo),
+    body: JSON.stringify(requestBody),
+  });
+};
+
+export const loginAccount = (usernameOrEmail: string, password: string) => {
+  const isEmail = usernameOrEmail.includes('@');
+
+  const requestBody = {
+    username: isEmail ? null : usernameOrEmail,
+    email: isEmail ? usernameOrEmail : null,
+    password,
+  };
+
+  return fetch(`${API_URL}/AccountService/Login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+    body: JSON.stringify(requestBody),
   });
 };

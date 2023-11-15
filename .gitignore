@@ -322,6 +322,7 @@ src/app-ui/*.tsbuildinfo
 
 .run/
 .vscode/
+.vs
 
 *.env
 
