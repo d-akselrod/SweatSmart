@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { ChatBotPage } from './pages/chatbot/ChatBotPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { RegisterPage } from './pages/register/RegisterPage';
+import {LoginPage} from './pages/login/LoginPage'
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { store } from '../app-ui/redux/store';
@@ -36,7 +37,7 @@ const AppEntry = () => (
       }}
     >
       <Stack.Screen name='Entry' component={EntryPage} />
-      <Stack.Screen name='Login' component={EmptyPage} />
+      <Stack.Screen name='Login' component={LoginPage} />
       <Stack.Screen name='Registration' component={RegisterPage} />
       <Stack.Screen name='OnboardingPage' component={OnboardingPage} />
     </Stack.Navigator>
