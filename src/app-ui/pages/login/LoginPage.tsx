@@ -30,26 +30,27 @@ export function LoginPage() {
 
   const handleLogin = async () => {
     Keyboard.dismiss();
+
+    if (usernameOrEmail.length === 0) {
+      setError('Enter a username or email');
+      return;
+    } else if (password.length === 0) {
+      setError('Enter a password');
+      return;
+    }
+
     try {
       const response = await loginAccount(usernameOrEmail, password);
       if (response.ok) {
         const data = await response.json();
 
-        if (data.code === 200) {
-          const activeUser = data.body;
-          dispatch(setActiveUser(activeUser));
-
-          await AsyncStorage.setItem('user', `"${activeUser}"`);
-        } else if (data.code === 401) {
-          setError(data.message);
-          setPassword('');
-        } else if (data.code === 404) {
-          setError(data.message);
-          setUsernameOrEmail('');
-          setPassword('');
-        }
+        const activeUser = data.body;
+        dispatch(setActiveUser(activeUser));
+        await AsyncStorage.setItem('user', JSON.stringify(activeUser));
       } else {
         const data = await response.json();
+
+        setPassword('');
         setError(data.message || 'Login failed');
       }
     } catch (error) {
@@ -68,12 +69,14 @@ export function LoginPage() {
         <Text style={styles.loginTitle}>Welcome Back</Text>
         <FormInput
           onChangeText={text => setUsernameOrEmail(text)}
+          value={usernameOrEmail}
           placeholder='Enter your email'
           iconName='mail-outline'
           keyboardType={'email-address'}
         />
         <FormInput
           onChangeText={text => setPassword(text)}
+          value={password}
           placeholder='Enter your password'
           iconName='lock-closed-outline'
           secureTextEntry={true}

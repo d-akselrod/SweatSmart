@@ -56,6 +56,7 @@ export function FormInput(props: IFormInputProps) {
           onBlur={() => setFocus(false)}
           keyboardType={props.keyboardType}
           autoCapitalize='none'
+          value={props.value}
         />
         {props.secureTextEntry && (
           <TouchableOpacity onPress={() => setHiddenField(!hiddenField)}>

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Animated, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setActiveUser } from '../../redux/slices/userSlice';
+import { IUser } from '../../typings/types';
 
 export const EntryPage = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ export const EntryPage = () => {
   const fetchUserData = async () => {
     try {
       const userJson = await AsyncStorage.getItem('user');
-      return userJson ? JSON.parse(userJson) : null;
+
+      return userJson ? (JSON.parse(userJson) as IUser) : null;
     } catch (error) {
       console.error('Failed to fetch user data:', error);
     }
@@ -28,7 +30,7 @@ export const EntryPage = () => {
       dispatch(setActiveUser(activeUser));
     } else {
       // @ts-ignore
-      navigation.navigate('Registration');
+      navigation.navigate('Login');
     }
   };
 

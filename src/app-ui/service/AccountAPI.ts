@@ -39,4 +39,3 @@ export const loginAccount = (usernameOrEmail: string, password: string) => {
     body: JSON.stringify(requestBody),
   });
 };
-

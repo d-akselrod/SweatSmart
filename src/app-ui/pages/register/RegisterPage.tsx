@@ -77,7 +77,8 @@ export function RegisterPage() {
 
           const activeUser = data.body;
 
-          await AsyncStorage.setItem('user', `"${activeUser}"`);
+          await AsyncStorage.setItem('user', JSON.stringify(activeUser));
+
           navigation.navigate('OnboardingPage', {
             user: {
               uId: activeUser.uId,
@@ -91,10 +92,9 @@ export function RegisterPage() {
         } else {
           const data = await response.json();
           setErrorMsg(data.message);
-          console.log('unsuccessful');
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
