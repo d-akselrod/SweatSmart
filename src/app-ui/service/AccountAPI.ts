@@ -39,3 +39,25 @@ export const loginAccount = (usernameOrEmail: string, password: string) => {
     body: JSON.stringify(requestBody),
   });
 };
+
+export const loginAccount = (
+    usernameOrEmail: string,
+    password: string,
+) => {
+
+  const loginBody = {
+    Username: usernameOrEmail.includes('@') ? null : usernameOrEmail,
+    Email: usernameOrEmail.includes('@') ? usernameOrEmail : null,
+    Password: password
+  }
+
+  return fetch(`${API_URL}/AccountService/Login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+    body: JSON.stringify(loginBody),
+  });
+};
+
