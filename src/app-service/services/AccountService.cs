@@ -43,12 +43,12 @@ public class AccountService : ControllerBase
 
         if (user == null)
         {
-            return APIResponse.NotFound;
+            return new APIResponse(404, "Account not found", null);
         }
 
         return password == user.Password
-            ? APIResponse.Ok
-            : APIResponse.Unauthorized;
+            ? new APIResponse(200, null, user)
+            : new APIResponse(401, "Incorrect Password", null);
     }
 
     [Authorize]
