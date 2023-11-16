@@ -322,6 +322,7 @@ src/app-ui/*.tsbuildinfo
 
 .run/
 .vscode/
+.vs
 
 *.env
 
@@ -330,4 +331,5 @@ test/test-service/obj/
 test/test-service/.idea/
 src/app-service/bin/
 src/app-service/obj/
-SweatSmart.sln
+src/model-builder/bin/
+src/model-builder/obj/

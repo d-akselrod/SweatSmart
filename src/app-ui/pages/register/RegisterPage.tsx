@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
@@ -34,6 +35,11 @@ export function RegisterPage() {
       email: false,
       password: false,
     });
+  };
+
+  const handleLoginInstead = () => {
+    // @ts-ignore
+    navigation.navigate('Login');
   };
 
   const validRegistrationData = (
@@ -71,6 +77,8 @@ export function RegisterPage() {
 
           const activeUser = data.body;
 
+          await AsyncStorage.setItem('user', JSON.stringify(activeUser));
+
           navigation.navigate('OnboardingPage', {
             user: {
               uId: activeUser.uId,
@@ -84,10 +92,9 @@ export function RegisterPage() {
         } else {
           const data = await response.json();
           setErrorMsg(data.message);
-          console.log('unsuccessful');
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -144,7 +151,7 @@ export function RegisterPage() {
         </TouchableOpacity>
         <View style={styles.loginContainer}>
           <Text>Already have an account? </Text>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={handleLoginInstead}>
             <Text style={{ color: '#6C96E8', fontWeight: 'bold' }}>Login</Text>
           </TouchableOpacity>
         </View>

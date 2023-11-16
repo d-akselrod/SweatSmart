@@ -1,0 +1,37 @@
+name: ML Workflow
+
+on:
+  push:
+    paths:
+      - "src/model-builder/**"
+      - ".github/workflows/ML-Workflow.yml"
+
+jobs:
+  Build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "7.0.202"
+
+      - name: Restore dependencies
+        working-directory: ${{ github.workspace }}/src/model-builder
+        run: dotnet restore
+
+      - name: Build
+        working-directory: ${{ github.workspace }}/src/model-builder
+        run: dotnet build --no-restore
+  Format:
+    needs: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run dotnet format on Model Builder
+        working-directory: ${{ github.workspace }}/src/model-builder
+        run: dotnet format --verify-no-changes
