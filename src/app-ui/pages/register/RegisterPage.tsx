@@ -79,7 +79,6 @@ export function RegisterPage() {
       }
 
       setErrors({ ...errors, password: true });
-      //setErrorMsg('Password must be at least 8 characters with a number, upper and lower case letters, and a special character');
       return false;
     } else {
       return true;
@@ -95,7 +94,7 @@ export function RegisterPage() {
 
           const activeUser = data.body;
 
-          //await AsyncStorage.setItem('user', JSON.stringify(activeUser));
+          await AsyncStorage.setItem('user', JSON.stringify(activeUser));
 
           navigation.navigate('OnboardingPage', {
             user: {
