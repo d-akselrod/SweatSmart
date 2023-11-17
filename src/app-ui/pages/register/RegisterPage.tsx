@@ -57,11 +57,29 @@ export function RegisterPage() {
       return false;
     } else if (
       !password.match(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{};:<>|./?,-]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};:<>|./?,-]).{8,31}$/,
       )
     ) {
+      if (password.length < 8) {
+        setErrorMsg('Password must be minimum 8 characters');
+      } else if (!password.split('').some(c => !isNaN(Number(c)))) {
+        setErrorMsg('Password must include a numeric character');
+      } else if (
+        password.split('').filter(c => c == c.toLowerCase()).length ==
+        password.length
+      ) {
+        setErrorMsg('Password must include an uppercase character');
+      } else if (
+        password.split('').filter(c => c == c.toUpperCase()).length ==
+        password.length
+      ) {
+        setErrorMsg('Password must include a lowercase character');
+      } else {
+        setErrorMsg('Password must include a special character');
+      }
+
       setErrors({ ...errors, password: true });
-      setErrorMsg('Password must satisfy the following requirements:');
+      //setErrorMsg('Password must be at least 8 characters with a number, upper and lower case letters, and a special character');
       return false;
     } else {
       return true;
@@ -77,7 +95,7 @@ export function RegisterPage() {
 
           const activeUser = data.body;
 
-          await AsyncStorage.setItem('user', JSON.stringify(activeUser));
+          //await AsyncStorage.setItem('user', JSON.stringify(activeUser));
 
           navigation.navigate('OnboardingPage', {
             user: {
