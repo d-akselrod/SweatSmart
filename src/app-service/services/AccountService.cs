@@ -61,12 +61,12 @@ public class AccountService : ControllerBase
 
         if (await database.Users.AnyAsync(user => user.Email == email))
         {
-            return APIResponse.Conflict;
+            return new APIResponse(409, "Email already exists", null);
         }
 
         if (await database.Users.AnyAsync(user => user.Username == username))
         {
-            return APIResponse.Conflict;
+            return new APIResponse(409, "Username already exists", null);
         }
 
         var newUser = new User
