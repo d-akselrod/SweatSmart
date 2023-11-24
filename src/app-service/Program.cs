@@ -37,6 +37,31 @@ catch (Exception e)
     issuerSigningKey = "";
 }
 
+var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey");
+
+try
+{
+    if (issuerSigningKey == null)
+    {
+        Console.WriteLine("Fetching Encryption Key from Azure Key Vault...");
+        var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
+        var client = new SecretClient(new Uri(keyVaultUrl), new ManagedIdentityCredential());
+        encryptionKey = client.GetSecret("EncryptionKey").Value.Value;
+    }
+
+    var inMemorySettings = new Dictionary<string, string>
+    {
+        {"EncryptionKey", encryptionKey}
+    };
+
+    builder.Configuration.AddInMemoryCollection(inMemorySettings);
+}
+catch (Exception e)
+{
+    Console.WriteLine("Error fetching encryptionKey from Azure Key Vault: " + e.Message);
+    encryptionKey = "";
+}
+
 if (isLocalDevelopment)
 {
     // Disable all authorization when running in local development.
