@@ -3,8 +3,6 @@ using App_Service.Database;
 using App_Service.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.SqlServer.Server;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace App_Service.Controllers;
 
@@ -31,7 +29,7 @@ public class UserController : ControllerBase
     [HttpGet("{username}")]
     public async Task<IActionResult> GetUserByUsername(string username)
     {
-        var user = await database.Users.SingleAsync(user => user.Username == username);
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == username);
 
         if (user == null)
         {
@@ -55,7 +53,7 @@ public class UserController : ControllerBase
     [HttpDelete("{username}")]
     public async Task<IActionResult> DeleteUserByUsername(string username)
     {
-        var user = await database.Users.SingleAsync(user => user.Username == username);
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == username);
 
         if (user == null)
         {

@@ -12,7 +12,7 @@ public record Message(string role, string content);
 
 [ApiController]
 [Route("[controller]")]
-public class ChatBot : ControllerBase
+public class ChatBotService : ControllerBase
 {
     private readonly string APIUrl = "https://api.openai.com/v1/chat/completions";
     private readonly string APIKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -21,7 +21,7 @@ public class ChatBot : ControllerBase
         "You are a fitness trainer assistant named \"Fit Bot\" here to answer any fitness/health related questions. " +
         "If you are given a prompt non-relating to fitness, you must respond stating that you can only answer fitness related questions.");
 
-    public ChatBot()
+    public ChatBotService()
     {
         if (APIKey != null) return;
 
