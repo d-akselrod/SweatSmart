@@ -50,20 +50,35 @@ urlcolor=cyan          % color of external links
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-January 17, 2024 & 1.0 & Revion 0\\
-\bottomrule
-\end{tabularx}
+
+\begin{table}[hp]
+		\centering
+		\begin{tabularx}{\textwidth}{lllX}
+			\toprule
+			\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+			\midrule
+			0 & January 17, 2024 & Sam, Sophie, Jonathan, Daniel & First draft of Document\\
+			\bottomrule
+		\end{tabularx}
+        \caption{Revision History} \label{TblRevisionHistory}
+	\end{table}
 
 ~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
-
-\wss{Also add any additional symbols, abbreviations or acronyms}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  M & Module \\
+  MG & Module Guide \\
+  MIS & Management Information System \\
+  R & Requirement\\
+  SRS & Software Requirements Specification\\
+  \progname & Explanation of program name\\
+  \bottomrule
+\end{tabular}\\
 
 \newpage
 
@@ -92,14 +107,10 @@ Throughout the development and maintenance of \textit{SweatSmart}, this document
 
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
-The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+The structure of the MIS for modules comes from \textit{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
-\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
-\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+\textit{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
+\textit{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
@@ -112,9 +123,12 @@ The following table summarizes the primitive data types used by \progname.
 \toprule 
 \textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
 \midrule
+boolean & bool & a result of true or false\\
 character & char & a single symbol or digit\\
 integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+sequence & seq & multiple \\
+string & string & a sequence of characters \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \bottomrule
 \end{tabular} 
@@ -157,42 +171,36 @@ The following table is taken directly from the Module Guide document for this pr
 \label{TblMH}
 \end{table}
 
-\newpage
-~\newpage
 
 \section{MIS of User Profile Management Module}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
 
 \subsection{Module}
 The User Profile Management Module (M1) is responsible for handling all aspects of user profile data, including account creation, authentication, and personal information management within the SweatSmart application. It ensures the secure handling of sensitive user data and provides essential functionalities for user identification and profile customization.
 
 \subsection{Uses}
-M1 uses the Data Management Module (M3) for storing and retrieving user data. It also interfaces with the Algorithm Selection Module (M6) to provide necessary user data for personalized algorithm selection and with the Input Format Module (M7) for data validation and formatting. M1 is used to store all data pertaining to the functionality of our application. From user data, to exercise data, it will encompass our database.
+M1 uses the Data Management Module (M3) for storing and retrieving user data. It also interfaces with the Algorithm Selection Module (M7) to provide necessary user data for personalized algorithm selection and with the Input Format Module (M7) for data validation and formatting. M1 is used to store all data pertaining to the functionality of our application. From user data, to exercise data, it will encompass our database.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 \begin{itemize}
-\item  MAX\_USERNAME\_LENGTH: Integer
-\item MAX\_PASSWORD\_LENGTH: Integer 
-\item MIN\_PASSWORD\_LENGTH: Integer
+\item  MAX\_USERNAME\_LENGTH: $\mathbb{Z}$
+\item MAX\_PASSWORD\_LENGTH: $\mathbb{Z}$ 
+\item MIN\_PASSWORD\_LENGTH: $\mathbb{Z}$
 \end{itemize}
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{c p{3.5cm} c c}
+\begin{tabular}{l p{3.7cm} l l}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-createUser & String: username, String: password & Boolean & UserAlreadyExistsException \\
-authenticateUser & String: username, String: password & Boolean & AuthenticationException \\
-updateUser & String: username, UserProfile: user & Boolean & UserNotFoundException \\
-deleteUser & String: username & Boolean & UserNotFoundException \\
-getUserProfile & String: username & UserProfileData & UserNotFoundException \\
+createUser & username: String, password: String & Bool & UserAlreadyExistsException \\
+authenticateUser & username: String, password: String & Bool & AuthenticationException \\
+updateUser & username: String, UserProfile: User & Bool & UserNotFoundException \\
+deleteUser & username: String & Bool & UserNotFoundException \\
+getUserProfile & username: String & UserProfileData & UserNotFoundException \\
 \hline
 \end{tabular}
 \end{center}
@@ -201,12 +209,12 @@ getUserProfile & String: username & UserProfileData & UserNotFoundException \\
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item userDatabase: Map\textless String, UserProfileData\textgreater
+\item userDatabase := Map\textless String, UserProfileData\textgreater
 \end{itemize}
 
 \subsubsection{Environment Variables}
 \begin{itemize}
-\item userProfileDB: a database for storing user information.
+\item userProfileDB := a database for storing user information.
 \end{itemize}
 
 \subsubsection{Assumptions}
@@ -221,53 +229,49 @@ getUserProfile & String: username & UserProfileData & UserNotFoundException \\
 
 \noindent createUser(username, password):
 \begin{itemize}
-\item transition: NA.
-\item output: Adds a new user with the given username and password to userDatabase.
-\item exception: NA.
+\item transition: N/A
+\item output: userProfile := User\\
+Adds a new user with the given username and password to userDatabase.
+\item exception: N/A
 \end{itemize}
 
 \noindent authenticateUser(username, password):
 \begin{itemize}
-\item transition: NA.
+\item transition: N/A
 \item output: Returns true if a username and password match an entry in userDatabase.
-\item exception: NA.
+\item exception: N/A
 \end{itemize}
 
 \noindent updateUser(username, UserProfileData):
 \begin{itemize}
-\item transition: NA.
+\item transition: N/A
 \item output: Returns true if the update is successful.
-\item exception: NA.
+\item exception: N/A
 \end{itemize}
 
 \noindent deleteUser(username):
 \begin{itemize}
-\item transition: NA.
+\item transition: N/A
 \item output: Returns true if the deletion is successful.
-\item exception: NA.
+\item exception: N/A
 \end{itemize}
 
 \noindent getUserProfile(username):
 \begin{itemize}
-\item transition: NA.
-\item output: Returns the UserProfileData for the given username from userDatabase.
-\item exception: NA.
+\item transition: N/A
+\item output: userProfile: := User\\
+Returns the UserProfileData for the given username from userDatabase.
+\item exception: N/A
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
 
 \subsubsection{Local Functions}
-\noindent validateUsername: String $\rightarrow$ Boolean
+\noindent validateUsername(username := String) $\rightarrow$ Bool
 \begin{itemize}
 \item Checks if the username meets the specified criteria (e.g., length, format).
 \end{itemize}
 
-\noindent validatePassword: String $\rightarrow$ Boolean
+\noindent validatePassword(password := String) $\rightarrow$ Bool
 \begin{itemize}
 \item Checks if the password meets the security criteria (e.g., length, complexity).
 \end{itemize}
@@ -288,7 +292,7 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{c p{3cm} c c}
+\begin{tabular}{l p{3cm} l l}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
@@ -301,7 +305,7 @@ generateWorkout & userProfile: UserProfile & List\textless Objects\textgreater e
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item workoutData: List\textless Workouts\textgreater
+\item workoutData := List\textless Workouts\textgreater
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -318,24 +322,24 @@ N/A
 \noindent generateWorkout(userProfile):
 \begin{itemize}
 \item transition: Utilizes the user profile information to generate a personalized workout and adds the workout data to the workoutData set.
-\item output: Returns a workout list filled with exercises, each specifying the number of sets and reps, and the time it takes to complete.
+\item output: workout := seq of strings\\
+Returns a workout list filled with exercises, each specifying the number of sets and reps, and the time it takes to complete.
 \item exception: There is no profile completed.
 \end{itemize}
 
 \subsubsection{Local Functions}
-\noindent getUserProfileData(userProfile: UserProfile) UserProfileInfo
+\noindent getUserProfileData(userProfile := User) $\rightarrow$ UserProfileInfo
 \begin{itemize}
 \item Getting the data from the user profile in order to generate the workout.
 \end{itemize}
 
-
 \section{MIS of Data Management Module}
 
 \subsection{Module}
-This module acts as a data storage, where all data posts, retrievals, and other management operations are completed. It will make sure that the data is served correctly and efficiently whether it may be user or workout data. 
+This module (M3) acts as a data storage, where all data posts, retrievals, and other management operations are completed. It will make sure that the data is served correctly and efficiently whether it may be user or workout data. 
 
 \subsection{Uses}
-The Data Management module (M4) within the Management Information System (MIS) serves as the backbone for efficient storage and retrieval of critical information, encompassing both user and workout data. This module seamlessly integrates with other components to ensure the seamless functioning of the entire system. The Workout Generator Module leverages M4 to store generated workout data, enabling the module to refine future recommendations and track user progress. The Chatbot System Module benefits from M4 by accessing historical user interactions, enhancing the chatbot's ability to provide personalized responses. 
+The Data Management module (M3) within the Management Information System (MIS) serves as the backbone for efficient storage and retrieval of critical information, encompassing both user and workout data. This module seamlessly integrates with other components to ensure the seamless functioning of the entire system. The Workout Generator Module leverages M3 to store generated workout data, enabling the module to refine future recommendations and track user progress. The Chatbot System Module benefits from M3 by accessing historical user interactions, enhancing the chatbot's ability to provide personalized responses. 
 
 \subsection{Syntax}
 
@@ -345,16 +349,16 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{c p{3.5cm} c c}
+\begin{tabular}{l p{3.5cm} l l}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-storeUserData & userProfile: UserProfile & N/A & N/A \\
-getUserData & Username: String & UserProfile & UserProfileNotFound \\
-storeWorkoutData & Workout: Workout & N/A & N/A \\
-getWorkoutData & Username: String & List\textless Workouts\textgreater & UsernameNotFound \\
-storeChatData & Interaction: ChatbotInteraction & N/A & N/A \\
-getChatData & Username: String & List\textless ChatbotInteraction\textgreater & UsernameNotFound \\
+storeUserData & userProfile: User & N/A & N/A \\
+getUserData & username: String & UserProfile & UserProfileNotFound \\
+storeWorkoutData & workout: Workout & N/A & N/A \\
+getWorkoutData & username: String & List\textless Workouts\textgreater & UsernameNotFound \\
+storeChatData & interaction: ChatbotInteraction & N/A & N/A \\
+getChatData & username: String & List\textless ChatbotInteraction\textgreater & UsernameNotFound \\
 \hline
 \end{tabular}
 \end{center}
@@ -363,10 +367,10 @@ getChatData & Username: String & List\textless ChatbotInteraction\textgreater & 
 
 \subsubsection{State Variables}
 \begin{itemize}
-\item userData: Map of (username: String) to UserProfile
-\item workoutData: Map of (username: String) to List of Workout
-\item chatbotInteractionData: Map of (username: String) to List of ChatbotInteraction
-\item feedbackData: Map of (username: String) to List of UserFeedback
+\item userData := Map\textless username := String, UserProfile\textgreater
+\item workoutData := Map\textless username := String, List\textless Workout\textgreater\textgreater
+\item chatbotInteractionData := Map\textless username := String, List \textless ChatbotInteraction\textgreater\textgreater
+\item feedbackData := Map\textless username := String, List\textless UserFeedback\textgreater\textgreater
 
 \end{itemize}
 
@@ -389,10 +393,11 @@ N/A
 \item exception: N/A
 \end{itemize}
 
-\noindent retrieveUserData(username):
+\noindent getUserData(username):
 \begin{itemize}
 \item transition: N/A
-\item output: Returns the user profile data associated with the provided username.
+\item output: userProfile := User \\
+Returns the user profile data associated with the provided username.
 \item exception: Raises UserProfileNotFoundException if the specified user profile is not found.
 \end{itemize}
 
@@ -406,7 +411,8 @@ N/A
 \noindent retrieveWorkoutData(username):
 \begin{itemize}
 \item transition: N/A
-\item output: Returns a list of workout data associated with the provided username.
+\item output: workouts := List\textless Workouts\textgreater\\
+Returns a list of workout data associated with the provided username.
 \item exception: Raises UserProfileNotFoundException if the specified user profile is not found.
 \end{itemize}
 
@@ -420,7 +426,8 @@ N/A
 \noindent retrieveChatbotInteractionData(username):
 \begin{itemize}
 \item transition: N/A
-\item output: Returns a list of chatbot interaction data associated with the provided username.
+\item output: chatMessage := List\textless ChatbotInteration\textgreater\\
+Returns a list of chatbot interaction data associated with the provided username.
 \item exception: Raises UserProfileNotFoundException if the specified user profile is not found.
 \end{itemize}
 
@@ -430,15 +437,12 @@ N/A
 
 \section{MIS of User Interaction Module}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
 
 \subsection{Module}
 This module showcases the user interface and interaction of the application. Through the use of inputs including buttons, text fields, or scrolling, users can interact with the interface in order to achieve the software's functionalities. 
 
 \subsection{Uses}
-The User Interaction module (M5) serves as the gateway for users to interact with the Management Information System (MIS). It seamlessly integrates with other modules to facilitate user engagement. Linked with the User Profile Module, it provides a user-friendly interface for inputting personal information and preferences. This module collaborates with the Workout Generator Module, allowing users to input characteristics and goals, receiving personalized workout plans. In conjunction with the Chatbot System Module, it enables dynamic back-and-forth messaging, answering fitness-related queries. The Data Management Module ensures efficient handling of user inputs, optimizing the overall user experience and contributing to the MIS cohesive functionality.
+The User Interaction module (M4) serves as the gateway for users to interact with the Management Information System (MIS). It seamlessly integrates with other modules to facilitate user engagement. Linked with the User Profile Module, it provides a user-friendly interface for inputting personal information and preferences. This module collaborates with the Workout Generator Module, allowing users to input characteristics and goals, receiving personalized workout plans. In conjunction with the Chatbot System Module, it enables dynamic back-and-forth messaging, answering fitness-related queries. The Data Management Module ensures efficient handling of user inputs, optimizing the overall user experience and contributing to the MIS cohesive functionality.
 
 \subsection{Syntax}
 
@@ -448,13 +452,13 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{c c c c}
+\begin{tabular}{l l l l}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
 getUserInput & N/A & String & N/A \\
-displayMessage & String: message & N/A & N/A \\
-storeWorkoutData & String: input & N/A & N/A \\
+displayMessage & message: String & N/A & N/A \\
+storeWorkoutData & input: String & N/A & N/A \\
 
 \hline
 \end{tabular}
@@ -479,20 +483,23 @@ N/A
 \noindent getUserInput():
 \begin{itemize}
 \item transition: Waits for user input from the interface and returns the input as a string.
-\item output: Returns the user input as a string.
+\item output: userIn := String \\
+Returns the user input as a string.
 \item exception: NA.
 \end{itemize}
 
 \noindent displayMessage(message):
 \begin{itemize}
-\item transition: Displays the provided message on the user interface.
+\item transition: message := String \\
+Displays the provided message on the user interface.
 \item output:  None
 \item exception:  None
 \end{itemize}
 
 \noindent processUserInput(input):
 \begin{itemize}
-\item transition: Processes the user input received from the interface.
+\item transition: input := String \\
+Processes the user input received from the interface.
 \item output:  None
 \item exception:  None
 \end{itemize}
@@ -507,7 +514,7 @@ N/A
 This module is used to understand user satisfaction by taking in user feedback. The user feedback is collected, processed, and served in order to provide the user with improvements and other workout insights by generating reports. 
 
 \subsection{Uses}
-The Reporting and Feedback module (M6) is integral to the Management Information System, focusing on user satisfaction and system enhancement. It collaborates with the User Interaction Module to collect and process user feedback. The Data Management Module efficiently stores and retrieves feedback data. Teaming up with the Workout Generator Module, it generates reports for users, providing insights into their progress and suggesting improvements. The Chatbot System Module benefits from this feedback loop, refining responses. Overall, M1.5 plays a vital role in maintaining user satisfaction, fostering system improvements, and creating a responsive MIS.
+The Reporting and Feedback module (M5) is integral to the Management Information System, focusing on user satisfaction and system enhancement. It collaborates with the User Interaction Module to collect and process user feedback. The Data Management Module efficiently stores and retrieves feedback data. Teaming up with the Workout Generator Module, it generates reports for users, providing insights into their progress and suggesting improvements. The Chatbot System Module benefits from this feedback loop, refining responses. Overall, M5 plays a vital role in maintaining user satisfaction, fostering system improvements, and creating a responsive MIS.
 
 \subsection{Syntax}
 
@@ -517,12 +524,12 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{c p{3.5cm} c c}
+\begin{tabular}{l p{3.5cm} l l}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-SubmitFeedback & Feedback: UserFeed &  N/A & ProcessingError\\
-generateUserReports & Username: String& List\textless UserReport \textgreater & UsernameNotFound \\
+SubmitFeedback & feedback: UserFeed &  N/A & ProcessingError\\
+generateUserReports & Username: String& List\textless UserReport\textgreater & UsernameNotFound \\
 generateWorkoutReports & Username: String & List\textless WorkoutReport\textgreater & UsernameNotFound \\
 
 \hline
@@ -533,7 +540,7 @@ generateWorkoutReports & Username: String & List\textless WorkoutReport\textgrea
 
 \subsubsection{State Variables}
 \begin{itemize}
-    \item feedbackData: Map of (username: String) to List of UserFeedback
+    \item feedbackData: Map\textless username := String, List\textless UserFeedback\textgreater\textgreater
 \end{itemize}
 
 
@@ -551,7 +558,8 @@ N/A
 
 \noindent submitFeedback(feedback):
 \begin{itemize}
-\item transition: Stores the provided user feedback in the feedbackData map.
+\item transition: feedback := UserFeed \\
+Stores the provided user feedback in the feedbackData map.
 \item output: N/A
 \item exception: N/A
 \end{itemize}
@@ -559,20 +567,86 @@ N/A
 \noindent generateUserReports(username):
 \begin{itemize}
 \item transition: N/A
-\item output:  Returns a list of user reports based on the feedback associated with the provided username.
+\item output:  userRep := List\textless UserReport\textgreater \\
+Returns a list of user reports based on the feedback associated with the provided username.
 \item exception: N/A
 \end{itemize}
 
 \noindent generateWorkoutReports(username):
 \begin{itemize}
 \item transition: N/A
-\item output: Returns a list of workout reports based on the feedback associated with the provided username.
+\item output: workoutRep := List\textless WorkoutReport\textgreater \\
+Returns a list of workout reports based on the feedback associated with the provided username.
 \item exception: N/A
 \end{itemize}
 
 
 \subsubsection{Local Functions}
 N/A
+
+\section{MIS of Chatbot System Module}
+
+\subsection{Module}
+This module (M6) serves the user by answering any fitness-related questions or guiding them towards their goal in their fitness journey. The input to the system includes a message from the user's end. The system will then process the message and provide a response back to the user. 
+ 
+
+\subsection{Uses}
+M6 within the Management Information System (MIS) represents a vital component dedicated to facilitating user engagement and support in the fitness journey. Operating collaboratively with other modules, M6 is designed to answer fitness-related inquiries and guide users toward their health and wellness goals. Through the fully-automated Conversational User Interface (CUI), this module enables seamless interactions between users and an online chatbot, fostering dynamic and informative back-and-forth messaging. Users input messages to the system, seeking advice, information, or assistance in their fitness endeavors.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{l l l l}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+processMessage & userMessage: String & response: String  & N/A \\
+retrieveHistory & userProfile: User & List\textless String\textgreater   & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+\item chatbotInteractions: Set of ChatbotInteraction
+\end{itemize}
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+\begin{itemize}
+\item Assumes that the User Profile Management Module (M1) provides accurate and up-to-date user information.
+\item Assumes that user messages provided to `interactWithChatbot` are in a valid format.
+\end{itemize}
+
+
+\subsubsection{Access Routine Semantics}
+
+\noindent interactWithChatbot(userMessage):
+\begin{itemize}
+\item transition: userMessage := String \\
+Processes the user message, generates a chatbot response, and adds the interaction data to the chatbotInteractions set.
+\item output: response := String\\
+Returns a response generated by the chatbot based on the user message.
+\item exception: N/A
+\end{itemize}
+
+\noindent retrieveChatbotHistory(userProfile):
+\begin{itemize}
+\item transition: N/A
+\item output: chatInterac := List\textless String\textgreater \\
+Returns a list of chatbot interactions for the specified user profile.
+\item exception: N/A
+\end{itemize}
+
 
 \section{MIS of Algorithm Selection Module}
 
@@ -591,7 +665,7 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{c p{3.5cm} c c}
+\begin{tabular}{l l l l}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
@@ -605,7 +679,7 @@ selectAlgorithm & userProfile: User &  algorithm: String & AlgorithmNotFoundExce
 
 \subsubsection{State Variables}
 \begin{itemize}
-    \item userData: Map of (username: String) to UserProfile
+    \item userData := Map\textless username:= String to UserProfile\textgreater
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -620,10 +694,12 @@ N/A
 
 \subsubsection{Access Routine Semantics}
 
-\noindent selectAlgorithm:
+\noindent selectAlgorithm():
 \begin{itemize}
-\item transition: compares available algorithms based on user data
-\item output: returns selected algorithm for Workout Generator Module
+\item transition: userProfile := User \\
+compares available algorithms based on user data
+\item output: algorithm := String \\
+returns selected algorithm for Workout Generator Module
 \item exception: None
 \end{itemize}
 
@@ -633,13 +709,17 @@ N/A
 
 \newpage
 
-\bibliographystyle {plainnat}
-\bibliography {../../../refs/References}
+%\bibliographystyle {plainnat}
+%\bibliography {../../../refs/References}
 
-\newpage
+%\newpage
 
 \section{Appendix} \label{Appendix}
 
-\wss{Extra information if required}
+\subsection{Reflection}
+One limitation of our proposed solution is the accuracy of the generated workouts. The accuracy for the personalized workouts, specifically for future workouts to build upon a user’s progress, relies heavily on user data, which must be both available and accurate. If a user provides inaccurate and/or incomplete data, this will lead to suboptimal workout recommendations and thus affect the results. For example, a user who does not provide feedback on their progress of completed workouts will likely see much less progress in their fitness journey, as the workout recommendations are not being modified and updated according to the user’s progress. Another limitation lies in the accuracy of personalized workout exercises. By using evidence-based studies and research as the backbone of our app, we have seen that workouts are more or less prescribed based on a user’s situation. \\
+
+Other potential solutions that may not rely as much on user data and feedback are not as restricted and dependent on user input. However, these solutions will not cater to the individual’s progress and thus produce suboptimal results. Therefore, choosing to have our solution rely on user feedback is the best option to provide the best results. With this in mind, we will focus on user engagement to motivate users to provide us with that data to provide them with the best recommendations, while making the process as short and simple as possible.  We have designed our application with software design principles in mind. Our module decomposition implements a high-cohesion, low-coupling approach to ensure independence. 
+
 
 \end{document}
