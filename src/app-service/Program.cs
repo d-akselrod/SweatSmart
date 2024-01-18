@@ -41,7 +41,7 @@ var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey");
 
 try
 {
-    if (issuerSigningKey == null)
+    if (encryptionKey == null)
     {
         Console.WriteLine("Fetching Encryption Key from Azure Key Vault...");
         var keyVaultUrl = "https://sweatsmartdb-cs.vault.azure.net/";
