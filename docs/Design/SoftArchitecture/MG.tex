@@ -230,42 +230,55 @@ between requirements and modules is listed in Table~\ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
-decomposition is a brief statement of the design decision hidden by the
-module. The \emph{Services} field specifies \emph{what} the module will do
-without documenting \emph{how} to do it. For each module, a suggestion for the
-implementing software is given under the \emph{Implemented By} title. If the
-entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
+\subsection{User Profile Management Module} \label{SecMD}
 
-Only the leaf modules in the hierarchy have to be implemented. If a dash
-(\emph{--}) is shown, this means that the module is not a leaf and will not have
-to be implemented.
+The SweatSmart application is composed of several distinct modules, each responsible for a separate concern within the system. This modular approach ensures that each part of the application can be developed, tested, and maintained in isolation, promoting a scalable and robust software architecture.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+The following sections detail the specific responsibilities and design of each module, providing insight into their individual functions as well as their interactions with other parts of the system. The decomposition is designed to encapsulate core functionalities and to define clear boundaries and interfaces for interaction, facilitating a plug-and-play architecture that can evolve as new features and requirements emerge.
 
-\begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
-\end{description}
+Each module is described with an emphasis on its ``secret'' – the design and knowledge it hides from other modules, its interface – the access points for other parts of the system to interact with it, and its interaction with other modules, which delineates how it cooperates within the system to deliver cohesive functionality. 
+
+The primary modules identified for the SweatSmart application are as follows:
+
+\begin{itemize}
+    \item User Profile Module
+    \item Workout Generation Module
+    \item Data Management Module
+    \item User Interaction Module
+    \item Reporting and Feedback Module
+    \item Algorithm Selection Module
+    \item Input Format Module
+\end{itemize}
+
+In subsequent sections, we will delve into the particulars of each module, starting with the User Profile Module.
 
 \subsection{Behaviour-Hiding Module}
 
+\subsection{User Profile Management Module (M1)}
+
+The User Profile Management Module is central to the personalization features of the SweatSmart application. Its primary responsibility is to manage user-specific data, which includes account creation, user authentication, and the storage and retrieval of personal fitness profiles.
+
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+    \item[Secrets:] The module encapsulates the logic for user data validation, ensuring that data integrity is maintained and personal information is stored securely. It also handles the encryption and decryption of sensitive information to protect user privacy. Additionally, this module will include logic to provide data in the format expected by the Algorithm Selection Module for personalized workout algorithms.
+    \item[Services:]
+    \begin{itemize}
+        \item Account creation and management.
+        \item User login and authentication processes.
+        \item Personal information updates and management.
+        \item Privacy settings and account security features.
+        \item Services for formatting user data as per the standards defined in the Input Format Module.
+    \end{itemize}
+    \item[Interfaces:]
+    \begin{itemize}
+        \item An API endpoint for account creation and modification.
+        \item Authentication services that integrate with third-party identity providers.
+        \item Interfaces for other system modules to retrieve or update user profiles.
+    \end{itemize}
+    \item[Interaction with Other Modules:] This module interacts closely with the Workout Generation Module to provide personalized workout plans based on the user's fitness profile. It also communicates with the Data Management Module to persist user information and with the Reporting and Feedback Module to adjust user preferences based on feedback.
 \end{description}
+
+By maintaining a clear separation of concerns, the User Profile Management Module ensures that user-related features are modular, scalable, and independent, enabling effective and secure management of user-specific data within the broader SweatSmart system. This module's design will provide potential for future enhancements such as integration with social media platforms for enriched user profiles and community engagement.
+
 
 \subsubsection{Input Format Module (\mref{mInput})}
 
