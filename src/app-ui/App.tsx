@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -6,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
 import { ChatBotPage } from './pages/chatbot/ChatBotPage';
+import { HomePage } from './pages/home/HomePage';
 import { LoginPage } from './pages/login/LoginPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { RegisterPage } from './pages/register/RegisterPage';
@@ -47,20 +49,90 @@ const AppEntry = () => (
   </NavigationContainer>
 );
 
-const AppMain = () => (
-  <NavigationContainer>
-    <Tab.Navigator
-      initialRouteName='Home'
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen name='ChatBot' component={ChatBotPage} />
-      <Tab.Screen name='Profile' component={EmptyPage} />
-      <Tab.Screen name='Home' component={EmptyPage} />
-      <Tab.Screen name='Planner' component={EmptyPage} />
-      <Tab.Screen name='Progress' component={EmptyPage} />
-    </Tab.Navigator>
-  </NavigationContainer>
-);
+const AppMain = () => {
+  const iconSize = 40;
+  const focusedIconColor = 'black';
+  const unfocusedIconColor = 'grey';
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName='Home'
+        screenOptions={{ headerShown: false }}
+      >
+        <Tab.Screen
+          name='ChatBot'
+          component={ChatBotPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='chatbubbles-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Progress'
+          component={EmptyPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='trending-up-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Home'
+          component={HomePage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='barbell-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Profile'
+          component={EmptyPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='person-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Social'
+          component={EmptyPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='people-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
 
 const App = () => {
   const activeUser: IUser = useSelector((state: any) => state.user);
