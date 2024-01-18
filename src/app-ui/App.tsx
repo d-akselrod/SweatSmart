@@ -65,10 +65,6 @@ const AppMain = () => (
 const App = () => {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
-  useEffect(() => {
-    AsyncStorage.removeItem('user');
-  }, []);
-
   return activeUser == undefined ? <AppEntry /> : <AppMain />;
 };
 
