@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{enumitem}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -228,15 +229,14 @@ The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table~\ref{TblRT}.
 
+\setlength{\parindent}{0cm}
 \section{Module Decomposition} \label{SecMD}
 
-\subsection{User Profile Management Module} \label{SecMD}
+The SweatSmart application is composed of several distinct modules, each responsible for a separate concern within the system. This modular approach ensures that each part of the application can be developed, tested, and maintained in isolation, promoting a scalable and robust software architecture. \\
 
-The SweatSmart application is composed of several distinct modules, each responsible for a separate concern within the system. This modular approach ensures that each part of the application can be developed, tested, and maintained in isolation, promoting a scalable and robust software architecture.
+The following sections detail the specific responsibilities and design of each module, providing insight into their individual functions as well as their interactions with other parts of the system. The decomposition is designed to encapsulate core functionalities and to define clear boundaries and interfaces for interaction, facilitating a plug-and-play architecture that can evolve as new features and requirements emerge.\\
 
-The following sections detail the specific responsibilities and design of each module, providing insight into their individual functions as well as their interactions with other parts of the system. The decomposition is designed to encapsulate core functionalities and to define clear boundaries and interfaces for interaction, facilitating a plug-and-play architecture that can evolve as new features and requirements emerge.
-
-Each module is described with an emphasis on its ``secret'' – the design and knowledge it hides from other modules, its interface – the access points for other parts of the system to interact with it, and its interaction with other modules, which delineates how it cooperates within the system to deliver cohesive functionality. 
+Each module is described with an emphasis on its ``secret'' – the design and knowledge it hides from other modules, its interface – the access points for other parts of the system to interact with it, and its interaction with other modules, which delineates how it cooperates within the system to deliver cohesive functionality. \\
 
 The primary modules identified for the SweatSmart application are as follows:
 
@@ -248,66 +248,277 @@ The primary modules identified for the SweatSmart application are as follows:
     \item Reporting and Feedback Module
     \item Algorithm Selection Module
     \item Input Format Module
-\end{itemize}
+\end{itemize}\\
 
 In subsequent sections, we will delve into the particulars of each module, starting with the User Profile Module.
 
 \subsection{Behaviour-Hiding Module}
 
-\subsection{User Profile Management Module (M1)}
+\subsubsection{User Profile Management Module (M1)}
 
 The User Profile Management Module is central to the personalization features of the SweatSmart application. Its primary responsibility is to manage user-specific data, which includes account creation, user authentication, and the storage and retrieval of personal fitness profiles.
 
-\begin{description}
-    \item[Secrets:] The module encapsulates the logic for user data validation, ensuring that data integrity is maintained and personal information is stored securely. It also handles the encryption and decryption of sensitive information to protect user privacy. Additionally, this module will include logic to provide data in the format expected by the Algorithm Selection Module for personalized workout algorithms.
-    \item[Services:]
-    \begin{itemize}
-        \item Account creation and management.
-        \item User login and authentication processes.
-        \item Personal information updates and management.
-        \item Privacy settings and account security features.
-        \item Services for formatting user data as per the standards defined in the Input Format Module.
-    \end{itemize}
-    \item[Interfaces:]
-    \begin{itemize}
-        \item An API endpoint for account creation and modification.
-        \item Authentication services that integrate with third-party identity providers.
-        \item Interfaces for other system modules to retrieve or update user profiles.
-    \end{itemize}
-    \item[Interaction with Other Modules:] This module interacts closely with the Workout Generation Module to provide personalized workout plans based on the user's fitness profile. It also communicates with the Data Management Module to persist user information and with the Reporting and Feedback Module to adjust user preferences based on feedback.
+\begin{description}[leftmargin=0pt]
+\item[Secrets:] 
+The module encapsulates the logic for user data validation, ensuring that data integrity is maintained and personal information is stored securely. It also handles the encryption and decryption of sensitive information to protect user privacy. Additionally, this module will include logic to provide data in the format expected by the Algorithm Selection Module for personalized workout algorithms.
 \end{description}
+
+\begin{description}[leftmargin=0pt] % Add style=nextline to ensure the title and 
+\item[Services:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Account creation and management.
+\item User login and authentication processes.
+\item Personal information updates and management.
+\item Privacy settings and account security features.
+\item Services for formatting user data as per the standards defined in the Input Format Module.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item An API endpoint for account creation and modification.
+\item Authentication services that integrate with third-party identity providers.
+\end{itemize}
 
 By maintaining a clear separation of concerns, the User Profile Management Module ensures that user-related features are modular, scalable, and independent, enabling effective and secure management of user-specific data within the broader SweatSmart system. This module's design will provide potential for future enhancements such as integration with social media platforms for enriched user profiles and community engagement.
 
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Workout Generation Module (M2)}
 
-\begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+The Workout Generation Module is the central aspect of the SweatSmart application, responsible for curating personalized workout plans tailored to the individual user's fitness goals, preferences, and progress.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:] 
+The module is designed to hold evidence-based algorithms that consider a range of variables such as the user's exercise history, current fitness level, performance metrics, and personal targets. It ensures that workouts are challenging and effective, promoting consistent user progress. It will refer to the Algorithm Selection Module for choosing the appropriate workout generation algorithm.
 \end{description}
 
-\subsubsection{Etc.}
+\begin{description}[leftmargin=0pt]
+\item[Services:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Creation of personalized workout routines.
+\item Adaptation of workouts in response to user feedback.
+\item Dynamic adjustment to plans based on user feedback and workout results.
+\item Integration of rest and active days to optimize recovery and growth.
+\item Receives pre-validated and formatted data from the Input Format Module.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item API endpoints for initiating workout generation and retrieving the latest plans.
+\item Interfaces to receive user data updates from the User Profile Management Module.
+\item Output methods to deliver the workout plan to the User Interaction Module.
+\end{itemize}
+
+Interaction with Other Modules: The Workout Generation Module interacts extensively with the User Profile Management Module to obtain necessary user data. The module also feeds data to the Reporting and Feedback Module to inform users of their progress and areas for improvement. Its algorithms can be updated or enhanced based on patterns observed from the Data Management Module, ensuring the workouts remain effective as fitness sciences evolve.
+\\
+
+By maintaining this modular approach, the Workout Generation Module can be independently updated or replaced if new fitness planning methodologies are adopted, without the need to overhaul the entire system. This ensures that SweatSmart can remain at the cutting edge of fitness evidence, providing users with effective, science-backed workout regimens.
+
+\subsubsection{Data Management Module (M3)}
+
+The Data Management Module in SweatSmart is integral for handling all data storage, retrieval, and management operations. It ensures efficient and secure handling of user data, workout logs, and application metrics.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:] 
+The module encapsulates the database schema design, data access layers, and the data querying logic. It is responsible for ensuring data integrity, consistency, and optimizing data retrieval and storage operations. This module also interfaces with the Input Format Module to ensure all data stored and retrieved is correctly formatted.
+\end{description}
+
+\begin{description}[leftmargin=0pt]
+\item[Services:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Secure storage of user profiles, workout histories, and preferences.
+\item Efficient retrieval of data for real-time application use.
+\item Management of data backups and restoration processes.
+\item Implementation of data privacy and protection mechanisms.
+\item Formats data according to the rules of the Input Format Module before storage.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item APIs for data CRUD (Create, Read, Update, Delete) operations.
+\item Interfaces to interact with the User Profile Management and Workout Generation Modules for data exchange.
+\item Data export functions for reporting and analysis purposes.
+\end{itemize}
+
+Interaction with Other Modules: The Data Management Module serves as the backbone for the User Profile Management and Workout Generation Modules, providing them with necessary data. It also interacts with the Reporting and Feedback Module to supply data for generating user reports and analytics.
+\\
+
+By centralizing data management, SweatSmart ensures that all modules have consistent and reliable access to the necessary data, enhancing the application's overall performance and user experience.
+
+\subsubsection{User Interaction Module (M4)}
+
+The User Interaction Module is a pivotal component of SweatSmart, focusing on the user interface (UI) and user experience (UX) aspects of the application. It facilitates the interaction between the user and the software's functionalities.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:] 
+This module contains the design elements, layout configurations, and interaction logic that define how users interact with the application. It ensures a seamless, intuitive, and engaging user experience. It also contains the logic to handle formatting feedback data from the Input Format Module to be sent to other modules.
+\end{description}
+
+\begin{description}[leftmargin=0pt]
+\item[Services:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Rendering of the user interface, including screens for profile management, workout plans, and feedback.
+\item Handling user inputs and translating them into actions within the application.
+\item Displaying personalized content and workout suggestions.
+\item Alerting users when input data does not meet formatting requirements.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:] 
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Front-end frameworks and libraries for UI rendering.
+\item API endpoints for sending user inputs to backend modules and receiving data.
+\item Integration with Workout Generation Module for real-time data display.
+\end{itemize}
+
+Interaction with Other Modules: The User Interaction Module is closely linked with almost all other modules. It receives data from the Data Management Module for display and sends user inputs back for processing. It also works in conjunction with the Workout Generation Module to present tailored workout plans to enhance user engagement.
+\\
+
+By focusing on a user-centric design, this module plays a crucial role in ensuring that SweatSmart is not only functional but also enjoyable and easy to use.
+
+\subsubsection{Reporting and Feedback Module (M5)}
+
+The Reporting and Feedback Module is a key component of SweatSmart, focusing on the collection, analysis, and presentation of user feedback and workout data. This module is instrumental in understanding user satisfaction and system performance.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:]
+The module houses the mechanisms for gathering user feedback, analyzing workout data, and generating reports. It ensures confidentiality and accuracy in feedback processing and report generation. It includes the decision-making logic provided by the Algorithm Selection Module for generating insights based on user feedback.
+\end{description}
+
+\begin{description}[leftmargin=0pt]
+\item[Services:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Collection and storage of user feedback from various points within the app.
+\item Analysis of workout data to generate performance reports.
+\item Generation of insights based on user activity and feedback.
+\item Formats feedback data from users according to standards set by the Input Format Module.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Feedback collection interfaces within the app.
+\item Reporting APIs to deliver analyzed data and insights to users and administrators.
+\item Data exchange interfaces with the Data Management Module for accessing user data.
+\end{itemize}
+
+Interaction with Other Modules: The Reporting and Feedback Module interacts with the User Profile Management Module to tailor feedback requests based on user profiles. It also collaborates with the Workout Generation Module by providing insights that can be used to refine the workout algorithms. Interaction with the Data Management Module is crucial for accessing and storing the necessary data for analysis.
+\\
+
+This module plays a vital role in driving improvements across the SweatSmart platform by translating user feedback and workout data into actionable insights.
+
+\subsubsection{ChatBot Integration Module (M6)}
+
+The ChatBot Integration Module serves as the intermediary between the SweatSmart application and OpenAI's Chat GPT API, enabling advanced conversational capabilities and interactive user support within the application.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:] 
+This module encapsulates the logic for interacting with the Chat GPT API, including constructing the HTTP requests, managing authentication, handling the conversation state, and parsing the responses. It abstracts the complexities of network communication, JSON serialization, and API key management, ensuring these implementation details are not exposed to the other parts of the system.
+\end{description}
+
+\begin{description}[leftmargin=0pt]
+\item[Services:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Authenticate and communicate with the OpenAI Chat GPT API.
+\item Send user messages and system context to the API and receive responses.
+\item Serialize and deserialize chat messages to and from JSON format.
+\item Manage API keys securely, retrieving them from Azure Key Vault when not available in the environment variables.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item RESTful API endpoints to receive chat messages from the client and send responses back.
+\item Authentication interface to secure chat endpoints.
+\end{itemize}
+
+\textbf{Interaction with Other Modules:} 
+The ChatBot Module interacts with the User Profile Management Module to retrieve user preferences and context for personalized interactions. It also connects with the Data Management Module to store and retrieve conversation histories.
+
+By integrating with OpenAI's Chat GPT API, the ChatBot Module provides a robust solution for real-time user interaction, leveraging the capabilities of AI to deliver personalized and intelligent support within the SweatSmart application.
+
 
 
 \subsection{Software Decision Module}
 
-\begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\subsubsection{Algorithm Selection Module (M7)}
+
+The Algorithm Selection Module is a crucial software decision-making component of SweatSmart, responsible for determining the most effective algorithms for workout generation and analytics based on real-time user data.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:]
+The module comprises advanced selection logic to choose the optimal algorithm for each user, considering factors like past performance, current fitness levels, and user preferences. This module also includes proprietary methods for evaluating and comparing the effectiveness of different algorithms.
 \end{description}
 
-\subsubsection{Etc.}
+\begin{description}[leftmargin=0pt]
+\item[Services:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Dynamic selection of workout and analytics algorithms based on user data.
+\item Periodic evaluation of algorithm effectiveness and adaptation as necessary.
+\item Provision of a selection interface for other modules to request algorithm services.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Algorithm selection interface used by the Workout Generation and Predictive Analytics Modules.
+\item Interface for receiving user data and preferences from the User Profile Management Module.
+\end{itemize}
+
+Interaction with Other Modules: The Algorithm Selection Module directly impacts the functionality of the Workout Generation Module by supplying it with the appropriate algorithm for creating personalized workout plans. It also interacts with the Reporting and Feedback Module to use insights from user feedback for algorithm refinement.
+\\
+
+By effectively selecting and managing the algorithms used across the application, the Algorithm Selection Module ensures that SweatSmart adapts to the unique and changing needs of each user, providing a highly personalized fitness experience.
+
+\subsubsection{Input Format Module (M8)}
+
+The Input Format Module is an integral part of SweatSmart, ensuring all user and system data is correctly formatted and validated before being processed by the application's various functional components.
+
+\begin{description}[leftmargin=0pt]
+\item[Secrets:]
+This module harbors the logic for data validation rules, format specifications, and sanitization procedures. It acts as the first line of defense against data inconsistencies and errors that could compromise system functionality.
+\end{description}
+
+\begin{description}[leftmargin=0pt]
+\item[Services:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Validation and formatting of incoming data from user inputs and external sources.
+\item Sanitization of data to remove or correct any inaccuracies or inconsistencies.
+\item Provision of formatting rules and validation interfaces for other system modules.
+\end{itemize}
+
+\begin{description}[leftmargin=0pt]
+\item[Interfaces:]
+\end{description}
+\begin{itemize}[leftmargin=*]
+\item Data validation and formatting interface utilized by the User Interaction Module.
+\item Sanitization interface for cleaning data received from External Integration Module.
+\end{itemize}
+
+Interaction with Other Modules: The Input Format Module serves all other modules by ensuring the data they receive is in the correct format and meets the system's data quality standards. It plays a critical role in the interaction between the User Interaction Module and the core system components, such as the Workout Generation and Predictive Analytics Modules, by providing them with clean and standardized data.
+\\
+
+By maintaining the integrity and consistency of the data throughout SweatSmart, the Input Format Module supports robust system operations and a seamless user experience.
+
+
+\setlength{\parindent}{default}
 
 \section{Traceability Matrix} \label{SecTM}
 
