@@ -44,12 +44,16 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-January 17, 2024 & 1.0 & Revion 0\\
-\bottomrule
-\end{tabularx}
+\begin{table}[hp]
+		\centering
+		\begin{tabularx}{\textwidth}{lllX}
+			\toprule
+			\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+			\midrule
+			0 & January 17, 2024 & Sam, Sophie, Jonathan, Daniel & First draft of Document\\
+			\bottomrule
+		\end{tabularx}
+	\end{table}
 
 
 
@@ -93,16 +97,9 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+Breaking down a system into modules is a widely accepted strategy in software development. A module serves as a task assignment for a programmer or programming team. Our approach advocates decomposition based on the principle of information hiding. This principle aligns with designing for change, as the concealed "secrets" within each module anticipate potential future modifications. Designing for change is particularly valuable in SC, where alterations are frequent, especially during the initial development phase as the solution space is explored.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+Our design follows the rules, as follows:
 \begin{itemize}
 \item System details that are likely to change independently should be the
   secrets of separate modules.
@@ -112,7 +109,7 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \end{itemize}
 
 After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
+Specification (SRS), the Module Guide (MG) is developed [\textit{ParnasEtAl1984}]. The MG
 specifies the modular structure of the system and is intended to allow both
 designers and maintainers to easily identify the parts of the software.  The
 potential readers of this document are as follows:
@@ -146,8 +143,7 @@ other shows the relation between anticipated changes and the modules. Section
 
 This section lists possible changes to the system. According to the likeliness
 of the change, the possible changes are classified into two
-categories. Anticipated changes are listed in Section \ref{SecAchange}, and
-unlikely changes are listed in Section \ref{SecUchange}.
+categories. Section \ref{SecAchange} lists anticipated changes, and Section \ref{SecUchange} lists unlikely changes.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
@@ -158,11 +154,12 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acExercise}:] The exercises included in the exercise list.
+\item[\refstepcounter{acnum} \actheacnum \label{acProfile}:] The parameters a user can edit for their profile.
+\item[\refstepcounter{acnum} \actheacnum \label{acFeedback}:] The feedback form prompts and interaction.
+\item[\refstepcounter{acnum} \actheacnum \label{acAlgorithm}:] Algorithm improvement for workout generation.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -177,7 +174,7 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucEncryption}:] The encryption scheme of data.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -187,6 +184,16 @@ in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
+\begin{description}
+\item [\refstepcounter{mnum} \mthemnum \label{mUP}:] User Profile Management Module
+\item [\refstepcounter{mnum} \mthemnum \label{mWG}:] Workout Generation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDM}:] Data Management Module
+\item [\refstepcounter{mnum} \mthemnum \label{mUI}:] User Interaction Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRF}:] Reporting and Feedback Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCI}:] ChatBot Integration Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAS}:] Algorithm Selection Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIF}:] Input Format Module
+\end{description}
 
 \begin{table}[h!]
 \centering
@@ -195,21 +202,25 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} 
-& User Profile Management Module\\
+
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & User Profile Management Module\\
 & Workout Generation Module\\
 & Data Management Module\\
-& User Interaction Module\\
+& User Interaction Module\\ 
 & Reporting and Feedback Module\\
-& Chatbot Integration Module\\ 
+& Chatbot System Module\\
 \midrule
+
+\multirow{3}{0.3\textwidth}{Software Decision} & Algorithm Selection Module\\
+& Input Format Module\\
+\bottomrule
 
 \end{tabular}
 \caption{Module Hierarchy}
 \label{TblMH}
 \end{table}
 
-\newpage
+
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
 The design of the system is intended to satisfy the requirements developed in
@@ -235,7 +246,7 @@ The primary modules identified for the SweatSmart application are as follows:
     \item Reporting and Feedback Module
     \item Algorithm Selection Module
     \item Input Format Module
-\end{itemize}\\
+\end{itemize}
 
 In subsequent sections, we will delve into the particulars of each module, starting with the User Profile Module.
 
@@ -505,7 +516,7 @@ Interaction with Other Modules: The Input Format Module serves all other modules
 By maintaining the integrity and consistency of the data throughout SweatSmart, the Input Format Module supports robust system operations and a seamless user experience.
 
 
-\setlength{\parindent}{default}
+%\setlength{\parindent}{default}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -518,19 +529,30 @@ requirements and between the modules and the anticipated changes.
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Requirement} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+UA1 & \mref{mUP}, \mref{mDM}, \mref{mUI}, \mref{mIF}\\
+UA2 & \mref{mUP}, \mref{mDM}, \mref{mUI}, \mref{mAS}\\
+UA3 & \mref{mUP}, \mref{mDM}, \mref{mUI}, \mref{mAS}\\
+UA4 & \mref{mUP}, \mref{mUI}, \mref{mAS}\\
+UA5 & \mref{mUP}, \mref{mUI}, \mref{mAS}\\
+AI1 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI}, \mref{mAS}\\
+AI2 & \mref{mWG}, \mref{mDM}, \mref{mAS}\\
+AI3 & \mref{mWG}, \mref{mDM}, \mref{mRF}, \mref{mAS}\\
+AI4 & \mref{mDM}, \mref{mUI}, \mref{CI}\\
+AI5 & \mref{mDM}, \mref{mUI}, \mref{mRF}, \mref{mAS}\\
+UC1 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI}\\
+UC2 & \mref{mUI}, \mref{mRF}\\
+UC3 & \mref{mUP}, \mref{mDM}, \mref{mUI}\\
+UC4 & \mref{mDM}\\
+WH1 & \mref{mUP}, \mref{mDM}\\
+WH2 & \mref{mDM}, \mref{mRF}\\
+DB1 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI}, \mref{mRF}\\
+AF1 & \mref{mUI}, \mref{mAS}\\
+AF2 & \mref{mDM}, \mref{mUI}\\
+AF3 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI} \\
+AF4 & \mref{mUP}, \mref{mDM} \\
+AF5 & \mref{mUP}, \mref{mDM}, \mref{mUI}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -543,18 +565,11 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acInput} & \mref{mIF}\\
+\acref{acExercise} & \mref{mDM}\\
+\acref{acProfile} & \mref{mUP}\\
+\acref{acFeedback} & \mref{mRF}\\
+\acref{acAlgorithm} & \mref{mAS}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -564,7 +579,7 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
+provided. \textit{Parnas1978} said of two programs A and B that A {\em uses} B if
 correct execution of B may be necessary for A to complete the task described in
 its specification. That is, A {\em uses} B if there exist situations in which
 the correct functioning of A depends upon the availability of a correct
@@ -576,16 +591,37 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{docs/design/SoftArchitecture/UseHierarchyModules.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
 
 %\section*{References}
 
-\bibliographystyle {plainnat}
-\bibliography{../../../refs/References}
+%\bibliographystyle {plainnat}
+%\bibliography{../../../refs/References}
 
 \newpage{}
+
+\section{Timeline}
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Module} & \textbf{Developers} & \textbf{Deadline}\\
+\midrule
+M1 & Daniel, Jonathan & Feb 2, 2024\\
+M2 & Sam, Sophie & Jan 27, 2024\\
+M3 & Daniel, Jonathan, Sam, Sophie & Feb 2, 2024\\
+M4 & Daniel, Jonathan, Sam, Sophie & Feb 2, 2024\\
+M5 & Daniel, Jonathan, Sam, Sophie & Feb 2, 2024\\
+M6 & Daniel, Sophie & Jan 25, 2024\\
+M7 & Sam, Sophie & Jan 27, 2024\\
+M8 & Daniel, Jonathan & Jan 31, 2024\\
+\bottomrule
+\end{tabular}
+\caption{Timeline for Revision 0 Demo}
+\label{TblT}
+\end{table}
 
 \end{document}
