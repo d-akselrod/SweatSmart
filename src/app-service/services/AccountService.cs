@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
 using App_Service.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
@@ -18,11 +21,25 @@ public class AccountService : ControllerBase
 {
     private readonly DatabaseContext database;
     private readonly UserController userController;
+    private readonly EncryptionHelper encryptionHelper;
 
-    public AccountService(DatabaseContext database)
+    public AccountService(DatabaseContext database, IConfiguration configuration)
     {
         this.database = database;
         userController = new UserController(database);
+
+        var encryptionKey = configuration["EncryptionKey"];
+        encryptionHelper = new EncryptionHelper(encryptionKey);
+    }
+
+    private string HashPassword(string password)
+    {
+        using (SHA256 sha256Hash = SHA256.Create())
+        {
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+            string hashedPassword = BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            return hashedPassword;
+        }
     }
 
     [Authorize]
@@ -38,15 +55,15 @@ public class AccountService : ControllerBase
             return APIResponse.BadRequest;
         }
         var user = username != null
-            ? await database.Users.SingleOrDefaultAsync(user => user.Username == username)
-            : await database.Users.SingleOrDefaultAsync(user => user.Email == email);
+            ? await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username))
+            : await database.Users.SingleOrDefaultAsync(user => user.Email == encryptionHelper.Encrypt(email));
 
         if (user == null)
         {
             return new APIResponse(404, "Account not found", null);
         }
 
-        return password == user.Password
+        return HashPassword(password) == user.Password
             ? new APIResponse(200, null, user)
             : new APIResponse(401, "Incorrect Password", null);
     }
@@ -59,21 +76,21 @@ public class AccountService : ControllerBase
         var email = body.Email;
         var password = body.Password;
 
-        if (await database.Users.AnyAsync(user => user.Email == email))
+        if (await database.Users.AnyAsync(user => user.Email == encryptionHelper.Encrypt(email)))
         {
-            return APIResponse.Conflict;
+            return new APIResponse(409, "Email already exists", null);
         }
 
-        if (await database.Users.AnyAsync(user => user.Username == username))
+        if (await database.Users.AnyAsync(user => user.Username == encryptionHelper.Encrypt(username)))
         {
-            return APIResponse.Conflict;
+            return new APIResponse(409, "Username already exists", null);
         }
 
         var newUser = new User
         {
-            Email = email,
-            Username = username,
-            Password = password
+            Email = encryptionHelper.Encrypt(email),
+            Username = encryptionHelper.Encrypt(username),
+            Password = HashPassword(password)
         };
 
         await userController.AddUser(newUser);
