@@ -7,9 +7,21 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
     <ItemGroup>
-      <PackageReference Include="Microsoft.ML" Version="2.0.1" />
+        <PackageReference Include="Microsoft.ML" Version="1.7.1" />
+        <PackageReference Include="Microsoft.ML.FastTree" Version="1.7.1" />
+    </ItemGroup>
+    <ItemGroup Label="model">
+        <None Include="model.consumption.cs">
+            <DependentUpon>model.mbconfig</DependentUpon>
+        </None>
+        <None Include="model.training.cs">
+            <DependentUpon>model.mbconfig</DependentUpon>
+        </None>
+        <None Include="model.zip">
+            <DependentUpon>model.mbconfig</DependentUpon>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

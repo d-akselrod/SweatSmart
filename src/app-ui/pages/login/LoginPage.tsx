@@ -87,6 +87,9 @@ export function LoginPage() {
             <Text style={styles.errorMsg}>{error}</Text>
           </View>
         )}
+        <View
+          style={{ borderWidth: 0.5, width: '100%', borderColor: '#C3C3C3' }}
+        />
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
             Login
