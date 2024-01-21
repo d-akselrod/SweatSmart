@@ -6,3 +6,11 @@ export interface IUser {
   email: string;
   password: string;
 }
+
+export interface IWorkoutCategory {
+  image: any;
+  imgWidth: number;
+  imgHeight: number;
+  categoryName: string;
+  numOfExercises: number;
+}

@@ -5,11 +5,13 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
-  Pressable
+  Pressable, FlatList, ScrollView
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { IUser } from '../../typings/types';
 import { AddProgramButton } from "./AddProgramButton";
+import { WorkoutCategories } from './WorkoutCategories';
+import { workoutData } from "../../typings/ExerciseData";
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -27,41 +29,59 @@ export function HomePage() {
       )
     })
   }
-
   const changeView = (index : number) => {
     setChosenWorkout(index)
   }
 
+  const renderWorkoutCategories = () => {
+    return workoutData.map((category, index) => {
+      return (
+        <WorkoutCategories
+          image={category.image}
+          categoryName={category.categoryName}
+          numOfExercises={category.numOfExercises}
+          imgHeight={category.imgHeight}
+          imgWidth={category.imgWidth}
+          key = {index}/>
+      )
+    })
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={{ fontSize: 30, fontWeight: '600' }}>
-        Hello, {activeUser.username.slice(1, 4)}!
-      </Text>
-      <View id={'my-programs'}>
-        <View style={styles.myProgramsHeader}>
-          <Text style={styles.title}>My Programs</Text>
-          <AddProgramButton onPress = {() => {}}/>
+    <SafeAreaView>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={{gap: 20}}>
+          <Text style={{ fontSize: 30, fontWeight: '600' }}>
+            Hello, {activeUser.username.slice(1, 4)}!
+          </Text>
+          <View id={'my-programs'} style = {styles.section}>
+            <View style={styles.myProgramsHeader}>
+              <Text style={styles.title}>My Programs</Text>
+              <AddProgramButton onPress = {() => {}}/>
+            </View>
+            <View style={styles.selectionContainer}>
+              {showWorkoutView()}
+            </View>
+          </View>
+          <View id={'featured-programs'} style = {styles.section}>
+            <Text style={styles.title}>Featured Programs</Text>
+            <View style = {{backgroundColor: 'white', width: 375, height: 145}}/>
+          </View>
+          <View id={'browse-exercises'} style = {[styles.section, {paddingBottom: 10}]}>
+            <Text style={styles.title}>Browse Exercises</Text>
+            <View style = {styles.categoriesContainer}>
+              {renderWorkoutCategories()}
+            </View>
+          </View>
         </View>
-        <View style={styles.selectionContainer}>
-          {showWorkoutView()}
-        </View>
-      </View>
-      <View id={'featured-programs'}>
-        <Text style={styles.title}>Featured Programs</Text>
-      </View>
-      <View id={'browse-exercises'}>
-        <Text style={styles.title}>Browse Exercises</Text>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginHorizontal: 15,
-    justifyContent: "space-between",
-    marginVertical: 10
   },
   title:{
     fontSize: 18,
@@ -83,5 +103,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
-  }
+  },
+
+  section:{
+    gap: 15
+  },
+
+  categoriesContainer: {
+    gap: 10
+  },
 });
