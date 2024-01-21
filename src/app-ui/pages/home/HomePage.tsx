@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
+  Pressable
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { IUser } from '../../typings/types';
@@ -14,8 +15,21 @@ export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
   const [chosenWorkout, setChosenWorkout] = useState(0)
   const workoutView : string[] = ["All Programs", "AI generated", "Created By Me"];
-  const changeView = () => {
+  const showWorkoutView = () => {
+    return workoutView.map((program, index) => {
+      return(
+        <Pressable
+          key = {index}
+          style = {[styles.selectWorkout, {backgroundColor: chosenWorkout == index ? "#4ABAD2" : 'white', borderColor: '#4ABAD2', borderWidth: 1}]}
+          onPress={() => changeView(index)}>
+          <Text style = {{color: chosenWorkout == index ? 'white' : "#4ABAD2", fontWeight: '500'}}>{program}</Text>
+        </Pressable>
+      )
+    })
+  }
 
+  const changeView = (index : number) => {
+    setChosenWorkout(index)
   }
 
   return (
@@ -29,15 +43,7 @@ export function HomePage() {
           <AddProgramButton onPress = {() => {}}/>
         </View>
         <View style={styles.selectionContainer}>
-          <View style = {styles.selectWorkout}>
-            <Text>My Programs</Text>
-          </View>
-          <View style = {styles.selectWorkout}>
-            <Text>AI generated</Text>
-          </View>
-          <View style = {styles.selectWorkout}>
-            <Text>Created By Me</Text>
-          </View>
+          {showWorkoutView()}
         </View>
       </View>
       <View id={'featured-programs'}>
@@ -69,7 +75,6 @@ const styles = StyleSheet.create({
   selectWorkout:{
     width: 110,
     height: 30,
-    backgroundColor: "#4ABAD2",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center"
