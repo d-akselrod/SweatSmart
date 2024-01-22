@@ -10,6 +10,7 @@ import { ChatBotPage } from './pages/chatbot/ChatBotPage';
 import { HomePage } from './pages/home/HomePage';
 import { LoginPage } from './pages/login/LoginPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
+import { ProfilePage } from './pages/profile/ProfilePage';
 import { RegisterPage } from './pages/register/RegisterPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
@@ -103,7 +104,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Profile'
-          component={EmptyPage}
+          component={ProfilePage}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (

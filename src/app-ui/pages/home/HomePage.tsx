@@ -7,16 +7,18 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { AddProgramButton } from './AddProgramButton';
 import { IUser } from '../../typings/types';
-import { AddProgramButton } from "./AddProgramButton";
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
-  const [chosenWorkout, setChosenWorkout] = useState(0)
-  const workoutView : string[] = ["All Programs", "AI generated", "Created By Me"];
-  const changeView = () => {
-
-  }
+  const [chosenWorkout, setChosenWorkout] = useState(0);
+  const workoutView: string[] = [
+    'All Programs',
+    'AI generated',
+    'Created By Me',
+  ];
+  const changeView = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,16 +28,16 @@ export function HomePage() {
       <View id={'my-programs'}>
         <View style={styles.myProgramsHeader}>
           <Text style={styles.title}>My Programs</Text>
-          <AddProgramButton onPress = {() => {}}/>
+          <AddProgramButton onPress={() => {}} />
         </View>
         <View style={styles.selectionContainer}>
-          <View style = {styles.selectWorkout}>
+          <View style={styles.selectWorkout}>
             <Text>My Programs</Text>
           </View>
-          <View style = {styles.selectWorkout}>
+          <View style={styles.selectWorkout}>
             <Text>AI generated</Text>
           </View>
-          <View style = {styles.selectWorkout}>
+          <View style={styles.selectWorkout}>
             <Text>Created By Me</Text>
           </View>
         </View>
@@ -54,29 +56,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 15,
-    justifyContent: "space-between",
-    marginVertical: 10
+    justifyContent: 'space-between',
+    marginVertical: 10,
   },
-  title:{
+  title: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
-  selectionContainer:{
-    flexDirection: "row",
-    justifyContent: "space-between"
-},
-  selectWorkout:{
+  selectionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  selectWorkout: {
     width: 110,
     height: 30,
-    backgroundColor: "#4ABAD2",
+    backgroundColor: '#4ABAD2',
     borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  myProgramsHeader:{
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
-  }
+  myProgramsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
