@@ -16,8 +16,4 @@ public class UserWorkout
     [Required]
     [Column("status", TypeName = "int")]
     public int Status { get; set; }
-
-    [Required]
-    [Column("date", TypeName = "DateTime")]
-    public DateTime Date { get; set; }
 }
