@@ -14,3 +14,11 @@ export interface IWorkoutCategory {
   categoryName: string;
   numOfExercises: number;
 }
+
+export interface IWorkout {
+  date: Date;
+  duration: number;
+  numOfExercises: number;
+  wId: string;
+  name: string;
+}

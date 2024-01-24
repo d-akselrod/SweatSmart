@@ -16,7 +16,7 @@ public class UserWorkoutController : ControllerBase
     {
         this.database = database;
     }
-    
+
     [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetUserWorkouts()
@@ -24,7 +24,7 @@ public class UserWorkoutController : ControllerBase
         var workouts = await database.UserWorkouts.ToListAsync();
         return Ok(workouts);
     }
-    
+
     [Authorize]
     [HttpGet("{username}")]
     public async Task<IActionResult> GetSingleUserWorkouts(string username)
@@ -35,11 +35,11 @@ public class UserWorkoutController : ControllerBase
         {
             return NotFound();
         }
-        
+
         var workouts = await database.UserWorkouts.Where(userWorkout => userWorkout.UId == user.UId).ToListAsync();
         return Ok(workouts);
     }
-    
+
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddUserWorkout(UserWorkout userWorkout)

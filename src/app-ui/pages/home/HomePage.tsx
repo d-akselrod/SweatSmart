@@ -12,17 +12,28 @@ import {
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
 import { WorkoutCategories } from './WorkoutCategories';
+import { WorkoutProgramComponent } from './WorkoutProgramComponent';
+import { getWorkouts } from '../../service/WorkoutAPI';
 import { workoutData } from '../../typings/ExerciseData';
 import { IUser } from '../../typings/types';
+import { IWorkout } from '../../typings/types';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
-  const [chosenWorkout, setChosenWorkout] = useState(0);
+
+  const [workouts, setWorkouts] = useState<IWorkout[]>([]);
+  const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
+
   const workoutView: string[] = [
     'All Programs',
     'AI generated',
     'Created By Me',
   ];
+
+  const handleChangeView = (index: number) => {
+    setChosenWorkoutIdx(index);
+  };
+
   const showWorkoutView = () => {
     return workoutView.map((program, index) => {
       return (
@@ -31,16 +42,16 @@ export function HomePage() {
           style={[
             styles.selectWorkout,
             {
-              backgroundColor: chosenWorkout == index ? '#4ABAD2' : 'white',
+              backgroundColor: chosenWorkoutIdx == index ? '#4ABAD2' : 'white',
               borderColor: '#4ABAD2',
               borderWidth: 1,
             },
           ]}
-          onPress={() => changeView(index)}
+          onPress={() => handleChangeView(index)}
         >
           <Text
             style={{
-              color: chosenWorkout == index ? 'white' : '#4ABAD2',
+              color: chosenWorkoutIdx == index ? 'white' : '#4ABAD2',
               fontWeight: '500',
             }}
           >
@@ -49,9 +60,6 @@ export function HomePage() {
         </Pressable>
       );
     });
-  };
-  const changeView = (index: number) => {
-    setChosenWorkout(index);
   };
 
   const renderWorkoutCategories = () => {
@@ -69,12 +77,39 @@ export function HomePage() {
     });
   };
 
+  useEffect(() => {
+    const loadWorkouts = async () => {
+      try {
+        const response = await getWorkouts(activeUser.username);
+        if (response.ok) {
+          const data = await response.json();
+          const mappedWorkouts: IWorkout[] = JSON.parse(
+            JSON.stringify(data.body),
+          );
+          setWorkouts(mappedWorkouts);
+          console.log(mappedWorkouts);
+        } else {
+          const data = await response.json();
+          console.log('RESPONSE NOT OK');
+        }
+      } catch (error) {
+        //LOGIC
+        console.error(error);
+      }
+    };
+
+    loadWorkouts();
+  }, [activeUser]);
+
+  const renderWorkoutPrograms = (item: IWorkout) => {
+    return <WorkoutProgramComponent workout={item} />;
+  };
   return (
     <SafeAreaView>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 20 }}>
           <Text style={{ fontSize: 30, fontWeight: '600' }}>
-            Hello, {activeUser.username.slice(1, 4)}!
+            Hello, {activeUser.username}!
           </Text>
           <View id={'my-programs'} style={styles.section}>
             <View style={styles.myProgramsHeader}>
@@ -82,6 +117,11 @@ export function HomePage() {
               <AddProgramButton onPress={() => {}} />
             </View>
             <View style={styles.selectionContainer}>{showWorkoutView()}</View>
+            <FlatList
+              data={workouts}
+              renderItem={({ item }) => renderWorkoutPrograms(item)}
+              horizontal
+            />
           </View>
           <View id={'featured-programs'} style={styles.section}>
             <Text style={styles.title}>Featured Programs</Text>

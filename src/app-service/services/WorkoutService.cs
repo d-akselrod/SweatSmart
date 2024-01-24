@@ -15,7 +15,7 @@ public class WorkoutService : ControllerBase
 {
     private readonly DatabaseContext database;
     private readonly EncryptionHelper encryptionHelper;
-    
+
     private readonly WorkoutController workoutController;
     private readonly UserController userController;
     private readonly UserWorkoutController userWorkoutController;
@@ -25,7 +25,7 @@ public class WorkoutService : ControllerBase
         this.database = database;
         var encryptionKey = configuration["EncryptionKey"];
         encryptionHelper = new EncryptionHelper(encryptionKey);
-        
+
         workoutController = new WorkoutController(database);
         userWorkoutController = new UserWorkoutController(database);
     }
@@ -43,31 +43,31 @@ public class WorkoutService : ControllerBase
         var userWorkouts = await database.UserWorkouts.Where(workout => workout.UId == user.UId).ToListAsync();
 
         var workouts = new List<Workout>();
-        foreach(UserWorkout userWorkout in userWorkouts)
+        foreach (UserWorkout userWorkout in userWorkouts)
         {
             var workout = await database.Workouts.SingleAsync(workout => workout.WId == userWorkout.WId);
             workouts.Add(workout);
         }
-        
+
         return new APIResponse(200, null, workouts);
     }
-    
+
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddWorkoutsByUsername(AddWorkoutRequest body)
     {
         var username = body.username;
         var workout = body.workout;
-        
+
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
 
         if (user == null)
         {
             return APIResponse.NotFound;
         }
-        
+
         var wId = Guid.NewGuid();
-        
+
         workout.WId = wId;
 
         var userWorkout = new UserWorkout
@@ -76,10 +76,10 @@ public class WorkoutService : ControllerBase
             UId = user.UId,
             Status = 0
         };
-        
+
         await workoutController.AddWorkout(workout);
         await userWorkoutController.AddUserWorkout(userWorkout);
-         
+
         return new APIResponse(200, null, null);
     }
 }
