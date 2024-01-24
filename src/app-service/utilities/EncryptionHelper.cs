@@ -45,7 +45,6 @@ public class EncryptionHelper
                 encrypted = msEncrypt.ToArray();
             }
         }
-
         return Convert.ToBase64String(encrypted);
     }
 

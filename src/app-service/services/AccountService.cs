@@ -63,9 +63,18 @@ public class AccountService : ControllerBase
             return new APIResponse(404, "Account not found", null);
         }
 
-        return HashPassword(password) == user.Password
-            ? new APIResponse(200, null, user)
-            : new APIResponse(401, "Incorrect Password", null);
+        if (HashPassword(password) == user.Password)
+        {
+            var decryptedUser = new User
+            {
+                FirstName = !string.IsNullOrEmpty(user.FirstName) ? encryptionHelper.Decrypt(user.FirstName) : null,
+                LastName = !string.IsNullOrEmpty(user.LastName) ? encryptionHelper.Decrypt(user.LastName) : null,
+                Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+                Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+            };
+            return new APIResponse(200, null, decryptedUser);
+        }
+        return new APIResponse(401, "Incorrect Password", null);
     }
 
     [Authorize]
@@ -86,14 +95,20 @@ public class AccountService : ControllerBase
             return new APIResponse(409, "Username already exists", null);
         }
 
-        var newUser = new User
+        var decryptedUser = new User
+        {
+            Email = email,
+            Username = username,
+        };
+
+        var encryptedUser = new User
         {
             Email = encryptionHelper.Encrypt(email),
             Username = encryptionHelper.Encrypt(username),
             Password = HashPassword(password)
         };
 
-        await userController.AddUser(newUser);
-        return new APIResponse(200, null, newUser);
+        await userController.AddUser(encryptedUser);
+        return new APIResponse(200, null, decryptedUser);
     }
 }
