@@ -8,6 +8,7 @@ import {
   Pressable,
   FlatList,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
@@ -16,7 +17,9 @@ import { WorkoutProgramComponent } from './WorkoutProgramComponent';
 import { getWorkouts } from '../../service/WorkoutAPI';
 import { workoutData } from '../../typings/ExerciseData';
 import { IUser } from '../../typings/types';
-import { IWorkout } from '../../typings/types';
+import { IWorkout, IFeaturedWorkout } from '../../typings/types';
+import {FeaturedProgramComponent} from './FeaturedProgramComponent';
+import {featuredWorkouts} from '../../typings/FeaturedWorkoutsData'
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -102,36 +105,54 @@ export function HomePage() {
   }, [activeUser]);
 
   const renderWorkoutPrograms = (item: IWorkout) => {
-    return <WorkoutProgramComponent workout={item} />;
+    return <WorkoutProgramComponent workout={item}/>
+  };
+
+  const renderFeaturedPrograms = (item: IFeaturedWorkout) => {
+    return <FeaturedProgramComponent workout={item}/>
   };
   return (
     <SafeAreaView>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: '600' }}>
+          <Text style={{ fontSize: 30, fontWeight: '600', marginHorizontal: 15}}>
             Hello, {activeUser.username}!
           </Text>
           <View id={'my-programs'} style={styles.section}>
-            <View style={styles.myProgramsHeader}>
+            <View style={[styles.myProgramsHeader, {marginHorizontal: 15}]}>
               <Text style={styles.title}>My Programs</Text>
               <AddProgramButton onPress={() => {}} />
             </View>
-            <View style={styles.selectionContainer}>{showWorkoutView()}</View>
+            <View style={[styles.selectionContainer, {marginHorizontal: 15}]}>{showWorkoutView()}</View>
             <FlatList
               data={workouts}
               renderItem={({ item }) => renderWorkoutPrograms(item)}
               horizontal
+              showsHorizontalScrollIndicator = {false}
+              ListEmptyComponent = {() => 
+                  <View style = {{width: Dimensions.get('window').width, height: 100, justifyContent: 'center'}}>
+                    <Text style = {{textAlign: 'center', fontSize: 20}}>No Programs</Text>
+                  </View>
+            }
             />
           </View>
           <View id={'featured-programs'} style={styles.section}>
-            <Text style={styles.title}>Featured Programs</Text>
-            <View
-              style={{ backgroundColor: 'white', width: 375, height: 145 }}
+            <Text style={[styles.title, {marginHorizontal: 15}]}>Featured Programs</Text>
+            <FlatList
+                data={featuredWorkouts}
+                renderItem={({ item }) => renderFeaturedPrograms(item)}
+                horizontal
+                showsHorizontalScrollIndicator = {false}
+                ListEmptyComponent = {() =>
+                    <View style = {{width: Dimensions.get('window').width, height: 100, justifyContent: 'center'}}>
+                      <Text style = {{textAlign: 'center', fontSize: 20}}>No Programs</Text>
+                    </View>
+                }
             />
           </View>
           <View
             id={'browse-exercises'}
-            style={[styles.section, { paddingBottom: 10 }]}
+            style={[styles.section, { paddingBottom: 10, marginHorizontal: 15}]}
           >
             <Text style={styles.title}>Browse Exercises</Text>
             <View style={styles.categoriesContainer}>
@@ -146,7 +167,6 @@ export function HomePage() {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 15,
     marginTop: 10,
   },
   title: {
@@ -157,7 +177,7 @@ const styles = StyleSheet.create({
   selectionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
+},
   selectWorkout: {
     width: 110,
     height: 30,

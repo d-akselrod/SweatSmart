@@ -22,3 +22,10 @@ export interface IWorkout {
   wId: string;
   name: string;
 }
+
+export interface IFeaturedWorkout{
+  duration: number;
+  name: string;
+  numOfExercies: number;
+  image: any;
+}

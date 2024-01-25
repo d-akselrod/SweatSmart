@@ -1,40 +1,56 @@
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
-import { View, Text, StyleSheet } from 'react-native';
+import { Ionicons, FontAwesome5, Feather } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { IWorkout } from '../../typings/types';
+import {ProgressBar} from './ProgressBar'
 
 interface IWorkoutProgramProps {
   workout: IWorkout;
 }
+const width = Dimensions.get("window").width
 export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
   const { workout } = props;
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{workout.name}</Text>
-      <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-        <Ionicons name='barbell-outline' size={12} color='black' />
-        <Text style={{ fontSize: 8 }}>{workout.numOfExercises} Exercises</Text>
+      <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <Text style={styles.title}>{workout.name}</Text>
+        <TouchableOpacity>
+          <Feather name="info" size={20} color="black" />
+        </TouchableOpacity>
       </View>
-      <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-        <FontAwesome5 name='clock' size={12} color='black' />
-        <Text style={{ fontSize: 8 }}>{workout.duration} min</Text>
+      <View>
+        <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
+          <Ionicons name='barbell-outline' size={14} color='grey' />
+          <Text style={{ fontSize: 9, color: 'grey' }}>{workout.numOfExercises} Exercises</Text>
+        </View>
+        <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
+          <FontAwesome5 name='clock' size={14} color='grey' />
+          <Text style={{ fontSize: 9, color: 'grey' }}>{workout.duration} min</Text>
+        </View>
       </View>
+      <ProgressBar/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'lightgreen',
-    width: '90%',
-    height: 80,
+    backgroundColor: 'white',
+    width: width/2.4,
+    height: 100,
     borderRadius: 10,
     padding: 10,
-    gap: 5,
+    justifyContent: 'space-between',
+    marginLeft: 15,
   },
 
   title: {
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontSize: 16,
   },
+  
+  durationContainer: {
+    flexDirection: 'row', 
+    gap: 3, 
+    alignItems: 'center'
+  }
 });
