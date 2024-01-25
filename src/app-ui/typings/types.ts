@@ -28,4 +28,5 @@ export interface IFeaturedWorkout{
   name: string;
   numOfExercies: number;
   image: any;
+  type: string;
 }

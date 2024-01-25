@@ -23,15 +23,15 @@ export function FeaturedProgramComponent(props: IFeaturedProgram){
                 <View>
                     <Text style = {{fontWeight: 'bold', fontSize: 25}}>{workout.name}</Text>
                 </View>
-                <Text style = {{fontWeight: '500', fontSize: 14, color: 'grey'}}>Full Body Workout</Text>
+                <Text style = {{fontWeight: '500', fontSize: 14, color: 'grey'}}>{workout.type}</Text>
                 <View style = {{flexDirection: 'row', gap: 10}}>
                     <View style={styles.timeContainer}>
-                        <FontAwesome5 name='clock' size={14} color='#26bb42' />
-                        <Text style={{ fontSize: 11, color: '#26bb42', fontWeight: '500' }}>{workout.duration} min</Text>
+                        <FontAwesome5 name='clock' size={14} color='#546cff' />
+                        <Text style={{ fontSize: 11, color: '#546cff', fontWeight: '600' }}>{workout.duration} min</Text>
                     </View>
                     <View style={styles.exerciseContainer}>
-                        <Ionicons name='barbell-outline' size={14} color='#f3b419' />
-                        <Text style={{ fontSize: 11, color: '#f3b419', fontWeight: '500' }}>{workout.numOfExercies} Exercises</Text>
+                        <Ionicons name='barbell-outline' size={14} color='#546cff' />
+                        <Text style={{ fontSize: 11, color: '#546cff', fontWeight: '600' }}>{workout.numOfExercies} Exercises</Text>
                     </View>
                 </View>
             </View>
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         alignItems: 'center',
         borderWidth: 1,
-        backgroundColor: '#edffee',
-        borderColor: '#26bb42',
+        backgroundColor: '#ffffff',
+        borderColor: '#546cff',
         borderRadius: 20
     },
 
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         alignItems: 'center',
         borderWidth: 1,
-        backgroundColor: '#fff2db',
-        borderColor: '#f3b419',
+        backgroundColor: '#ffffff',
+        borderColor: '#546cff',
         borderRadius: 20
     },
     
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         backgroundColor: 'white',
         position: 'absolute',
-        left:'70%',
+        left:'75%',
         bottom: '40%',
         zIndex:1
     }

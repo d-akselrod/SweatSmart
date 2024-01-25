@@ -9,6 +9,7 @@ import {
   FlatList,
   ScrollView,
   Dimensions,
+  Modal
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
@@ -19,13 +20,15 @@ import { workoutData } from '../../typings/ExerciseData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
 import {FeaturedProgramComponent} from './FeaturedProgramComponent';
-import {featuredWorkouts} from '../../typings/FeaturedWorkoutsData'
+import {featuredWorkouts} from '../../typings/FeaturedWorkoutsData';
+import {AddWorkoutPage} from './AddWorkoutPage';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
   const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
+  const [showList, setShow] = useState(false)
 
   const workoutView: string[] = [
     'All Programs',
@@ -111,8 +114,12 @@ export function HomePage() {
   const renderFeaturedPrograms = (item: IFeaturedWorkout) => {
     return <FeaturedProgramComponent workout={item}/>
   };
+  
   return (
     <SafeAreaView>
+      <Modal visible = {showList} onRequestClose={() => setShow(false)} animationType='slide'>
+        <AddWorkoutPage close = {() => setShow(false)}/>
+      </Modal>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 20 }}>
           <Text style={{ fontSize: 30, fontWeight: '600', marginHorizontal: 15}}>
@@ -121,7 +128,7 @@ export function HomePage() {
           <View id={'my-programs'} style={styles.section}>
             <View style={[styles.myProgramsHeader, {marginHorizontal: 15}]}>
               <Text style={styles.title}>My Programs</Text>
-              <AddProgramButton onPress={() => {}} />
+              <AddProgramButton onPress={() => setShow(true)} />
             </View>
             <View style={[styles.selectionContainer, {marginHorizontal: 15}]}>{showWorkoutView()}</View>
             <FlatList
@@ -179,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
 },
   selectWorkout: {
-    width: 110,
+    width: '31%',
     height: 30,
     borderRadius: 10,
     justifyContent: 'center',
