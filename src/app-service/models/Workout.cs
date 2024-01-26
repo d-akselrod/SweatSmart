@@ -11,9 +11,9 @@ public class Workout
     public Guid WId { get; set; }
 
     [Required]
-    [Column("Name", TypeName = "VarChar(32)")]
+    [Column("WorkoutType", TypeName = "VarChar(32)")]
     [MaxLength(32)]
-    public string name { get; set; }
+    public string WorkoutType { get; set; }
 
     [Column("Date", TypeName = "Date")]
     [MaxLength(32)]

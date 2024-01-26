@@ -8,8 +8,8 @@ namespace App_Service.Models
     public class Exercise
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("eID")]
+        [Required]
+        [Column("eID", TypeName = "UniqueIdentifier")]
         public Guid EId { get; set; }
 
         [Required]
