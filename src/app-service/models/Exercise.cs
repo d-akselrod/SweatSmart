@@ -23,12 +23,12 @@ namespace App_Service.Models
         [Required]
         [Column("Level", TypeName = "char(1)")]
         public required string Level { get; set; }
-        
+
         [Required]
-        [Column("U_L_C", TypeName = "char(1)")] 
+        [Column("U_L_C", TypeName = "char(1)")]
         public required char? UI_C { get; set; }
 
-        [Column("P_P", TypeName = "varchar(4)")] 
+        [Column("P_P", TypeName = "varchar(4)")]
         public char? P_P { get; set; }
 
         [Required]

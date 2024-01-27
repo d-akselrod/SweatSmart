@@ -27,7 +27,7 @@ namespace App_Service.Models
         [Required]
         [Column("Reps", TypeName = "int")]
         public int Reps { get; set; }
-        
+
         [Required]
         [Column("PercentageOfOneRepMax", TypeName = "double")]
         public double PercentageOfOneRepMax { get; set; }
