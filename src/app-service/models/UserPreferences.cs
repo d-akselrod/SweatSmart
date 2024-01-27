@@ -24,8 +24,8 @@ public class UserPreferences
     public int Frequency { get; set; }
 
     [Required]
-    [Column("EquipmentAvailable", TypeName = "Char(1)")]
-    public EquipmentAvailable EquipmentAvailable { get; set; }
+    [Column("Equipment", TypeName = "Char(1)")]
+    public EquipmentAvailable Equipment { get; set; }
 
     [Required]
     [Column("TimeAvailable", TypeName = "Int")]
