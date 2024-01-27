@@ -16,8 +16,8 @@ public class UserPreferences
     public string Goal { get; set; }
 
     [Required]
-    [Column("ExperienceLevel", TypeName = "Char(1)")]
-    public char ExperienceLevel { get; set; }
+    [Column("ExperienceLevel", TypeName = "ExerienceLevel")]
+    public ExperienceLevel ExperienceLevel { get; set; }
 
     [Required]
     [Column("Frequency", TypeName = "Int")]
@@ -25,7 +25,7 @@ public class UserPreferences
 
     [Required]
     [Column("EquipmentAvailable", TypeName = "Char(1)")]
-    public char EquipmentAvailable { get; set; }
+    public EquipmentAvailable EquipmentAvailable { get; set; }
 
     [Required]
     [Column("TimeAvailable", TypeName = "Int")]
