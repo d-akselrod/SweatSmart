@@ -29,7 +29,7 @@ namespace App_Service.Models
         public required char? U_L_C { get; set; }
 
         [Column("P_P", TypeName = "varchar(4)")]
-        public char? P_P { get; set; }
+        public required string P_P { get; set; }
 
         [Required]
         [Column("Equipment", TypeName = "char(1)")]
