@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App_Service.Models;
 
+[Table("UserWorkout")]
 public class UserWorkout
 {
     [Required]

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App_Service.Models
 {
+    [Table("WorkoutExercise")]
     public class WorkoutExercise
     {
 

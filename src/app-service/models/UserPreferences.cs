@@ -13,10 +13,10 @@ public class UserPreferences
 
     [Required]
     [Column("Goal", TypeName = "VarChar(32)")]
-    public string Goal { get; set; }
+    public required string Goal { get; set; }
 
     [Required]
-    [Column("ExperienceLevel", TypeName = "ExerienceLevel")]
+    [Column("ExperienceLevel", TypeName = "VarChar(32)")]
     public ExperienceLevel ExperienceLevel { get; set; }
 
     [Required]

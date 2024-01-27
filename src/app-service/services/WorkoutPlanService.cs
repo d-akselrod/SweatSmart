@@ -65,8 +65,9 @@ public class WorkoutPlanService
 
         var workout = new Workout
         {
-            WId = Guid.NewGuid(), 
-            WorkoutType = workoutType,
+            WId = Guid.NewGuid(),
+            name = workoutType.ToString(), // Convert the enum to string to store in the 'Name' field
+            date = DateTime.Now, // Assuming you want to set the current date for the workout
             duration = TimeSpan.FromMinutes(totalWorkoutTime)
         };
 
@@ -119,17 +120,17 @@ public class WorkoutPlanService
         return selectedExercises.Where(e => e != null); // Remove any null entries if an exercise was not found
     }
 
-    private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, string ulcCategory, string ppCategory, string equipmentPreference, string experienceLevel)
+    private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, string ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
     {
         // Filter exercises based on the U/L/C, P/P category, equipment availability, and experience level.
         var filteredExercises = exercises.Where(e =>
             (ppCategory == null || e.P_P == ppCategory) &&
-            (equipmentPreference == "Full" ||
-             equipmentPreference == "Dumbbells" && (e.Equipment == "D" || e.Equipment == "N") ||
-             equipmentPreference == "None" && e.Equipment == "N") &&
-            (experienceLevel == "A" ||
-             experienceLevel == "I" && (e.Level == "I" || e.Level == "B") ||
-             experienceLevel == "B" && e.Level == "B")).ToList();
+            (equipmentPreference == EquipmentAvailable.Full ||
+             equipmentPreference == EquipmentAvailable.Dumbbells && (e.Equipment == "D" || e.Equipment == "N") ||
+             equipmentPreference == EquipmentAvailable.None && e.Equipment == "N") &&
+            (experienceLevel == ExperienceLevel.Advanced ||
+             experienceLevel == ExperienceLevel.Intermediate && (e.Level == "I" || e.Level == "B") ||
+             experienceLevel == ExperienceLevel.Beginner && e.Level == "B")).ToList();
 
         // Select a random exercise from the filtered list
         return filteredExercises.Any() ? filteredExercises[rnd.Next(filteredExercises.Count)] : null;
@@ -160,19 +161,21 @@ public class WorkoutPlanService
         }.Where(e => e != null).ToList(); // Remove any null entries if an exercise was not found
     }
 
-    private List<Exercise> SelectExercisesByMuscleGroups(IEnumerable<Exercise> allExercises, UserPreferences preferences, Dictionary<string, int> muscleGroupCounts, string? movementType)
+    private List<Exercise> SelectExercisesByMuscleGroups(IEnumerable<Exercise> allExercises, UserPreferences preferences, Dictionary<string, int> muscleGroupCounts, string movementType)
     {
         List<Exercise> selectedExercises = new List<Exercise>();
 
         foreach (var muscleGroup in muscleGroupCounts.Keys)
         {
             var exercisesForMuscleGroup = allExercises
-                .Where(e => e.MuscleGroup == muscleGroup && 
-                            (movementType == null || e.P_P == movementType) && 
-                            (preferences.Equipment.HasFlag(Equipment.Parse(typeof(Equipment), e.Equipment)) || e.Equipment == "N") &&
-                            (preferences.ExperienceLevel == "A" || 
-                            preferences.ExperienceLevel == "I" && (e.Level == "I" || e.Level == "B") ||
-                            preferences.ExperienceLevel == "B" && e.Level == "B"))
+                .Where(e => e.MuscleGroup == muscleGroup &&
+                            (movementType == null || e.P_P == movementType) &&
+                            (preferences.Equipment == EquipmentAvailable.Full ||
+                            preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment.Contains("D") ||
+                            preferences.Equipment == EquipmentAvailable.None && e.Equipment.Contains("N")) &&
+                            (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level.Contains("A") ||
+                            preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level.Contains("I") ||
+                            preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level.Contains("B")))
                 .ToList();
 
             // Randomly shuffle the exercises for the muscle group to provide variety
@@ -185,6 +188,7 @@ public class WorkoutPlanService
 
         return selectedExercises;
     }
+
 
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
@@ -207,18 +211,10 @@ public class WorkoutPlanService
     }
 
     [Authorize]
-    [HttpPost("Test/{frequency}")]
-    public IActionResult TestWorkoutSplit(int frequency)
+    [HttpPost("Test")]
+    public IActionResult Test()
     {
-        try
-        {
-            var workoutTypes = DetermineWorkoutSplit(frequency);
-            return Ok(new { Frequency = frequency, WorkoutTypes = workoutTypes });
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        return APIResponse(200, DetermineWorkoutSplit(3));
     }
 
 }

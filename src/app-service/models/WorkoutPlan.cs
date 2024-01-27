@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App_Service.Models;
-
+[Table("WorkoutPlan")]
 public class WorkoutPlan
 {
     [Key]
