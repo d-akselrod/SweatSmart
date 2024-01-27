@@ -1,5 +1,6 @@
 using App_Service.Database;
 using App_Service.Models;
+using App_Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -81,7 +82,7 @@ public class WorkoutPlanService
     {
         return new WorkoutExercise
         {
-            ExerciseId = exercise.EId, 
+            EId = exercise.EId, 
             Sets = sets,
             Reps = reps
         };
