@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App_Service.Models;
 
-public class WorkoutPlans
+public class WorkoutPlan
 {
     [Key]
     [Required]
