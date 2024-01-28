@@ -26,7 +26,7 @@ public class WorkoutPlanService
     private async Task<Workout> GenerateWorkout(UserPreferences preferences, WorkoutType workoutType)
     {
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
-        
+
         int sets = preferences.Goal == "strength" ? 3 : (preferences.Goal == "endurance" ? 4 : 3);
         int reps = preferences.Goal == "strength" ? 5 : (preferences.Goal == "endurance" ? 12 : 10);
         double percOneRM = 1 - 0.025 * reps; // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
@@ -71,10 +71,14 @@ public class WorkoutPlanService
             duration = TimeSpan.FromMinutes(totalWorkoutTime)
         };
 
+        _context.Workouts.Add(workout);
+
+        await _context.SaveChangesAsync();
+
         return workout;
     }
 
-        private int CalculateExerciseTime(int sets, int reps, int timePerRep, int restBetweenSets)
+    private int CalculateExerciseTime(int sets, int reps, int timePerRep, int restBetweenSets)
     {
         return (reps * timePerRep + restBetweenSets) * sets;
     }
@@ -83,12 +87,12 @@ public class WorkoutPlanService
     {
         return new WorkoutExercise
         {
-            EId = exercise.EId, 
+            EId = exercise.EId,
             Sets = sets,
             Reps = reps
         };
     }
-    
+
     private List<WorkoutType> DetermineWorkoutSplit(int frequency)
     {
         switch (frequency)
@@ -214,7 +218,7 @@ public class WorkoutPlanService
     [HttpPost("Test")]
     public IActionResult Test()
     {
-        return APIResponse(200, DetermineWorkoutSplit(3));
+        return new APIResponse(200, null, DetermineWorkoutSplit(3));
     }
 
 }
