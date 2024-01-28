@@ -1,14 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { logout, setActiveUser } from '../../redux/slices/userSlice';
+import { clear } from '../../redux/slices/recentProfileSearchesSlice';
+import { logout } from '../../redux/slices/userSlice';
 
 export const LogoutButton = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clear());
     AsyncStorage.removeItem('user');
+    AsyncStorage.removeItem('recent-profile-searches');
   };
 
   return (

@@ -97,15 +97,12 @@ export function HomePage() {
               };
             },
           );
-          setWorkouts(mappedWorkouts);
-          console.log(mappedWorkouts);
         } else {
           const data = await response.json();
-          console.log('RESPONSE NOT OK');
         }
       } catch (error) {
         //LOGIC
-        console.error(error);
+        console.error('OOPS' + error);
       }
     };
 

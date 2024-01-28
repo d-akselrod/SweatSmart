@@ -54,7 +54,6 @@ export const ChatBotPage = () => {
         setMessages(conversation.concat(promptReply));
       } else {
         const data = await response.json();
-        console.log('unsuccessful', data);
       }
     } catch (e) {
       const networkErrorReply: IChatMessage = {
