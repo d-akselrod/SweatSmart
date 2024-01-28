@@ -40,15 +40,17 @@ public class WorkoutService : ControllerBase
         {
             return APIResponse.NotFound;
         }
-        var userWorkouts = await database.UserWorkouts.Where(workout => workout.UId == user.UId).ToListAsync();
+        var userWorkouts = await database.UserWorkouts
+            .Where(workout => workout.UId == user.UId)
+            .ToListAsync();
+        
+        var workoutIds = userWorkouts.Select(workout => workout.WId);
 
-        var workouts = new List<Workout>();
-        foreach (UserWorkout userWorkout in userWorkouts)
-        {
-            var workout = await database.Workouts.SingleAsync(workout => workout.WId == userWorkout.WId);
-            workouts.Add(workout);
-        }
-
+        var workouts = await database.Workouts
+            .Where(workout => workoutIds.Contains(workout.WId))
+            .OrderByDescending(workout => workout.date)
+            .ToListAsync();
+        
         return new APIResponse(200, null, workouts);
     }
 
@@ -60,7 +62,7 @@ public class WorkoutService : ControllerBase
         var workout = body.workout;
 
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
-
+        Console.WriteLine("hello");
         if (user == null)
         {
             return APIResponse.NotFound;
