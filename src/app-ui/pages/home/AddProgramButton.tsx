@@ -10,7 +10,7 @@ export const AddProgramButton = (props: IAddProgramButton) => {
   const { onPress } = props;
   return (
     <TouchableOpacity onPress={onPress}>
-      <MaterialIcons name='add-box' size={32} color='#D24A4A' />
+      <MaterialIcons name='add-box' size={25} color='#D24A4A' />
     </TouchableOpacity>
   );
 };

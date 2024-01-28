@@ -28,7 +28,7 @@ export function HomePage() {
 
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
   const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
-  const [showList, setShow] = useState(false)
+  const [showAddPage, setShow] = useState(false)
 
   const workoutView: string[] = [
     'All Programs',
@@ -89,9 +89,12 @@ export function HomePage() {
         const response = await getWorkouts(activeUser.username);
         if (response.ok) {
           const data = await response.json();
-          const mappedWorkouts: IWorkout[] = JSON.parse(
-            JSON.stringify(data.body),
-          );
+          const mappedWorkouts: IWorkout[] = data.body.map((workout:IWorkout)  => {
+            return {
+              ...workout,
+              date: new Date(workout.date)
+            }
+          })
           setWorkouts(mappedWorkouts);
           console.log(mappedWorkouts);
         } else {
@@ -105,7 +108,7 @@ export function HomePage() {
     };
 
     loadWorkouts();
-  }, [activeUser]);
+  }, [showAddPage]);
 
   const renderWorkoutPrograms = (item: IWorkout) => {
     return <WorkoutProgramComponent workout={item}/>
@@ -117,7 +120,7 @@ export function HomePage() {
   
   return (
     <SafeAreaView>
-      <Modal visible = {showList} onRequestClose={() => setShow(false)} animationType='slide'>
+      <Modal visible = {showAddPage} onRequestClose={() => setShow(false)} animationType='slide'>
         <AddWorkoutPage close = {() => setShow(false)}/>
       </Modal>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>

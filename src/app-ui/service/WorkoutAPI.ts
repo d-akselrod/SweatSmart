@@ -1,5 +1,5 @@
 import { API_AUTH, API_URL } from './config';
-
+import {IWorkout} from '../typings/types'
 export const getWorkouts = (username: string) => {
   return fetch(`${API_URL}/WorkoutService/${username}`, {
     method: 'GET',
@@ -9,3 +9,14 @@ export const getWorkouts = (username: string) => {
     },
   });
 };
+
+export const postWorkout = (username: string, workout: Object) => {
+  return fetch(`${API_URL}/WorkoutService`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+    body: JSON.stringify({username, workout})
+  })
+}
