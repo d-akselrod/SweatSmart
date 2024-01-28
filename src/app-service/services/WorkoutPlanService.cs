@@ -95,16 +95,36 @@ public class WorkoutPlanService
 
     private List<WorkoutType> DetermineWorkoutSplit(int frequency)
     {
+        List<WorkoutType> workoutSplit = null;
+
         switch (frequency)
         {
-            case 1: return new List<WorkoutType> { WorkoutType.TotalBody };
-            case 2: return new List<WorkoutType> { WorkoutType.TotalBody, WorkoutType.TotalBody };
-            case 3: return new List<WorkoutType> { WorkoutType.TotalBody, WorkoutType.TotalBody, WorkoutType.TotalBody };
-            case 4: return new List<WorkoutType> { WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower, WorkoutType.TotalBody };
-            case 5: return new List<WorkoutType> { WorkoutType.TotalBody, WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower, WorkoutType.TotalBody };
-            case 6: return new List<WorkoutType> { WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower, WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower };
-            default: throw new ArgumentOutOfRangeException(nameof(frequency), "Frequency must be between 1 and 6");
+            case 1:
+                workoutSplit = new List<WorkoutType> { WorkoutType.TotalBody };
+                break;
+            case 2:
+                workoutSplit = new List<WorkoutType> { WorkoutType.TotalBody, WorkoutType.TotalBody };
+                break;
+            case 3:
+                workoutSplit = new List<WorkoutType> { WorkoutType.TotalBody, WorkoutType.TotalBody, WorkoutType.TotalBody };
+                break;
+            case 4:
+                workoutSplit = new List<WorkoutType> { WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower, WorkoutType.TotalBody };
+                break;
+            case 5:
+                workoutSplit = new List<WorkoutType> { WorkoutType.TotalBody, WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower, WorkoutType.TotalBody };
+                break;
+            case 6:
+                workoutSplit = new List<WorkoutType> { WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower, WorkoutType.UpperPush, WorkoutType.UpperPull, WorkoutType.Lower };
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(frequency), "Frequency must be between 1 and 6");
         }
+
+        // Log the workout split to the console
+        Console.WriteLine($"Determined workout split for frequency {frequency}: {string.Join(", ", workoutSplit)}");
+
+        return workoutSplit;
     }
 
     private async Task<IEnumerable<Exercise>> SelectExercisesForWorkout(UserPreferences preferences, WorkoutType workoutType)
@@ -219,6 +239,7 @@ public class WorkoutPlanService
     public IActionResult Test()
     {
         return new APIResponse(200, null, DetermineWorkoutSplit(3));
+
     }
 
 }
