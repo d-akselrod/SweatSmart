@@ -43,14 +43,14 @@ public class WorkoutService : ControllerBase
         var userWorkouts = await database.UserWorkouts
             .Where(workout => workout.UId == user.UId)
             .ToListAsync();
-        
+
         var workoutIds = userWorkouts.Select(workout => workout.WId);
 
         var workouts = await database.Workouts
             .Where(workout => workoutIds.Contains(workout.WId))
             .OrderByDescending(workout => workout.date)
             .ToListAsync();
-        
+
         return new APIResponse(200, null, workouts);
     }
 

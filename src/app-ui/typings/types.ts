@@ -23,7 +23,7 @@ export interface IWorkout {
   name: string;
 }
 
-export interface IFeaturedWorkout{
+export interface IFeaturedWorkout {
   duration: number;
   name: string;
   numOfExercies: number;
