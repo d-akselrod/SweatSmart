@@ -86,15 +86,12 @@ export function HomePage() {
           const mappedWorkouts: IWorkout[] = JSON.parse(
             JSON.stringify(data.body),
           );
-          setWorkouts(mappedWorkouts);
-          console.log(mappedWorkouts);
         } else {
           const data = await response.json();
-          console.log('RESPONSE NOT OK');
         }
       } catch (error) {
         //LOGIC
-        console.error(error);
+        console.error('OOPS' + error);
       }
     };
 

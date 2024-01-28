@@ -12,6 +12,7 @@ import { LoginPage } from './pages/login/LoginPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
 import { RegisterPage } from './pages/register/RegisterPage';
+import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
@@ -118,7 +119,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Social'
-          component={EmptyPage}
+          component={SocialPage}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (

@@ -13,15 +13,15 @@ public class Workout
     [Required]
     [Column("Name", TypeName = "VarChar(32)")]
     [MaxLength(32)]
-    public string name { get; set; }
+    public string Name { get; set; }
 
     [Column("Date", TypeName = "DateTime")]
-    public DateTime? date { get; set; }
+    public DateTime? Date { get; set; }
 
     [Column("Duration", TypeName = "Int")]
-    public int? duration { get; set; }
+    public int? Duration { get; set; }
 
     [Column("NumOfExercises", TypeName = "Int")]
-    public int numOfExercises { get; set; }
+    public int? NumOfExercises { get; set; }
 }
 
