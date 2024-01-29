@@ -101,8 +101,8 @@ public class WorkoutPlannerService : ControllerBase
         {
             WId = WId,
             name = workoutType.ToString(),
-            date = DateTime.Now, // or any specific date you wish to set
-            duration = TimeSpan.FromMinutes(totalWorkoutTime) // Assuming totalWorkoutTime is calculated
+            date = DateTime.Now, 
+            duration = TimeSpan.FromMinutes(totalWorkoutTime) 
         };
 
         database.Workouts.Add(newWorkout);
