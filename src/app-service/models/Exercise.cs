@@ -15,6 +15,9 @@ namespace App_Service.Models
         [Required]
         [Column("MuscleGroup", TypeName = "varchar(32)")]
         public required string MuscleGroup { get; set; }
+        
+        [Column("TargetMuscle", TypeName = "varchar(50")]
+        public required string? TargetMuscle { get; set; }
 
         [Required]
         [Column("Name", TypeName = "varchar(32)")]
@@ -26,8 +29,9 @@ namespace App_Service.Models
 
         [Required]
         [Column("U_L_C", TypeName = "char(1)")]
-        public required char? U_L_C { get; set; }
+        public required char U_L_C { get; set; }
 
+        [Required]
         [Column("P_P", TypeName = "varchar(4)")]
         public required string P_P { get; set; }
 
