@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App_Service.Models;
-
+[Table("WorkoutPlan")]
 public class WorkoutPlan
 {
     [Key]
@@ -12,8 +12,8 @@ public class WorkoutPlan
 
     [Key]
     [Required]
-    [Column("eID", TypeName = "UniqueIdentifier")]
-    public Guid EId { get; set; }
+    [Column("eID", TypeName = "int")]
+    public int EId { get; set; }
 
     [Required]
     [Column("sets", TypeName = "int")]
@@ -22,4 +22,8 @@ public class WorkoutPlan
     [Required]
     [Column("reps", TypeName = "int")]
     public int Reps { get; set; }
+
+    [Required]
+    [Column("PercentageOfOneRepMax", TypeName = "float")]
+    public float PercentageOfOneRepMax { get; set; }
 }
