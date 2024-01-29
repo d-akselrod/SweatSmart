@@ -33,3 +33,11 @@ export interface IFeaturedWorkout {
   image: any;
   type: string;
 }
+
+export interface IExercise {
+  eId: string,
+  muscleGroup: MuscleGroup,
+  TargetMuscle: string,
+  name: string,
+
+}
