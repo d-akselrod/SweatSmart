@@ -22,7 +22,8 @@ public class WorkoutPlan
     [Required]
     [Column("reps", TypeName = "int")]
     public int Reps { get; set; }
-    
+
+    [Required]
     [Column("PercentageOfOneRepMax", TypeName = "float")]
     public float PercentageOfOneRepMax { get; set; }
 }

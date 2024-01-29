@@ -18,4 +18,5 @@ public class UserWorkout
     [Required]
     [Column("status", TypeName = "int")]
     public WorkoutStatus Status { get; set; }
+
 }
