@@ -74,7 +74,6 @@ export function HomePage() {
         <WorkoutCategories
           image={category.image}
           categoryName={category.categoryName}
-          numOfExercises={category.numOfExercises}
           imgHeight={category.imgHeight}
           imgWidth={category.imgWidth}
           key={index}
@@ -205,7 +204,7 @@ export function HomePage() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles= StyleSheet.create({
   container: {
     marginTop: 10,
   },

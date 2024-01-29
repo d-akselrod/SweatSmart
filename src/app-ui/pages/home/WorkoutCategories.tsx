@@ -1,10 +1,35 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { IWorkoutCategory } from '../../typings/types';
+import {IExercise, IWorkoutCategory} from '../../typings/types';
+import { getExercisesByMuscleGroup } from "../../service/WorkoutAPI";
+import {useEffect, useRef} from "react";
 
 export function WorkoutCategories(props: IWorkoutCategory) {
-  const { numOfExercises, image, categoryName, imgHeight, imgWidth } = props;
+  const { image, categoryName, imgHeight, imgWidth } = props;
+  const muscleGroupExercises = useRef<IExercise[]>();
+
+  useEffect(() => {
+    const loadData = async() => {
+      const response = await getExercisesByMuscleGroup(categoryName);
+      try{
+        if(response.ok){
+          const data = await response.json()
+          muscleGroupExercises.current = data.body;
+          console.log(muscleGroupExercises.current)
+        }
+        else{
+          console.error(response)
+        }
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+
+    loadData();
+  }, [])
+
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
@@ -18,12 +43,12 @@ export function WorkoutCategories(props: IWorkoutCategory) {
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>
             {categoryName}
           </Text>
-          <Text style={{ fontSize: 12 }}>{numOfExercises} Exercises</Text>
+          <Text style={{ fontSize: 12 }}>{muscleGroupExercises.current?.length} Exercises</Text>
         </View>
       </View>
       <TouchableOpacity
         style={{
-          backgroundColor: '#a2adff',
+          backgroundColor: '#d3dcff',
           justifyContent: 'center',
           alignItems: 'center',
           width: 24,
@@ -41,7 +66,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     width: '100%',
-    borderRadius: 2,
+    borderRadius: 5,
     height: 80,
     paddingHorizontal: 15,
     flexDirection: 'row',

@@ -20,3 +20,13 @@ export const postWorkout = (username: string, workout: Object) => {
     body: JSON.stringify({ username, workout }),
   });
 };
+
+export const getExercisesByMuscleGroup = (muscleGroup : string) => {
+  return fetch(`${API_URL}/WorkoutService/MuscleGroup/${muscleGroup}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};

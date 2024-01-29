@@ -15,7 +15,6 @@ export interface IWorkoutCategory {
   imgWidth: number;
   imgHeight: number;
   categoryName: string;
-  numOfExercises: number;
 }
 
 export interface IWorkout {
