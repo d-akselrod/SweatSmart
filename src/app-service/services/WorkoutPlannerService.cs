@@ -51,7 +51,7 @@ public class WorkoutPlannerService : ControllerBase
 
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
 
-        int sets = preferences.Goal == PersonalGoal.endurance ? 4 : 3;
+        int sets = preferences.Goal == PersonalGoal.strength ? 3 : 4;
         int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
 
         float percOneRM = (float)(1 - 0.025 * reps); // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
