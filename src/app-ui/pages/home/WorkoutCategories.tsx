@@ -23,7 +23,7 @@ export function WorkoutCategories(props: IWorkoutCategory) {
       </View>
       <TouchableOpacity
         style={{
-          backgroundColor: '#4ABAD2',
+          backgroundColor: '#a2adff',
           justifyContent: 'center',
           alignItems: 'center',
           width: 24,

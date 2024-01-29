@@ -48,8 +48,8 @@ export function HomePage() {
           style={[
             styles.selectWorkout,
             {
-              backgroundColor: chosenWorkoutIdx == index ? '#4ABAD2' : 'white',
-              borderColor: '#4ABAD2',
+              backgroundColor: chosenWorkoutIdx == index ? '#546cff' : 'white',
+              borderColor: '#546cff',
               borderWidth: 1,
             },
           ]}
@@ -57,7 +57,7 @@ export function HomePage() {
         >
           <Text
             style={{
-              color: chosenWorkoutIdx == index ? 'white' : '#4ABAD2',
+              color: chosenWorkoutIdx == index ? 'white' : '#546cff',
               fontWeight: '500',
             }}
           >
@@ -98,7 +98,6 @@ export function HomePage() {
             },
           );
           setWorkouts(mappedWorkouts);
-          console.log(mappedWorkouts);
         } else {
           const data = await response.json();
           console.log('RESPONSE NOT OK');

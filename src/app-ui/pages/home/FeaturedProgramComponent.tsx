@@ -36,14 +36,14 @@ export function FeaturedProgramComponent(props: IFeaturedProgram) {
         </Text>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <View style={styles.timeContainer}>
-            <FontAwesome5 name='clock' size={14} color='#546cff' />
-            <Text style={{ fontSize: 11, color: '#546cff', fontWeight: '600' }}>
+            <FontAwesome5 name='clock' size={14} color='#fa8e00' />
+            <Text style={{ fontSize: 11, color: '#fa8e00', fontWeight: '600' }}>
               {workout.duration} min
             </Text>
           </View>
           <View style={styles.exerciseContainer}>
-            <Ionicons name='barbell-outline' size={14} color='#546cff' />
-            <Text style={{ fontSize: 11, color: '#546cff', fontWeight: '600' }}>
+            <Ionicons name='barbell-outline' size={14} color='#34a420' />
+            <Text style={{ fontSize: 11, color: '#34a420', fontWeight: '600' }}>
               {workout.numOfExercies} Exercises
             </Text>
           </View>
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: 'center',
     borderWidth: 1,
-    backgroundColor: '#ffffff',
-    borderColor: '#546cff',
+    backgroundColor: '#fff2e7',
+    borderColor: '#fa8e00',
     borderRadius: 20,
   },
 
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: 'center',
     borderWidth: 1,
-    backgroundColor: '#ffffff',
-    borderColor: '#546cff',
+    backgroundColor: '#efffec',
+    borderColor: '#34a420',
     borderRadius: 20,
   },
 

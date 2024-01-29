@@ -8,8 +8,8 @@ public class Exercise
 {
     [Required]
     [Key]
-    [Column("eID", TypeName = "UniqueIdentifier")]
-    public Guid EId { get; set; }
+    [Column("eID", TypeName = "Integer")]
+    public int EId { get; set; }
 
     [Required]
     [Column("Name", TypeName = "VarChar(32)")]
@@ -23,6 +23,6 @@ public class Exercise
     [Column("MuscleGroup", TypeName = "VarChar(32)")]
     public string MuscleGroup { get; set; }
 
-    [Column("Duration", TypeName = "Time(0)")]
-    public TimeSpan? Duration { get; set; }
+    [Column("Duration", TypeName = "Integer")]
+    public int Duration { get; set; }
 }
