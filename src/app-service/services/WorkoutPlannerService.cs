@@ -220,7 +220,7 @@ public class WorkoutPlannerService : ControllerBase
         // Select a random exercise from the filtered list
         return filteredExercises.Any() ? filteredExercises[rnd.Next(filteredExercises.Count)] : null;
     }
-
+    //only adding 4 exercises rather than 5
     private List<Exercise> SelectTotalBodyExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Select a balanced mix of exercises covering Upper, Lower, and Core with both Push and Pull movements
@@ -234,7 +234,7 @@ public class WorkoutPlannerService : ControllerBase
             SelectExerciseByType(allExercises, "C", null, preferences.Equipment, preferences.ExperienceLevel) // Core exercises
         }.Where(e => e != null).ToList();
     }
-
+    //only adding three exercises rather than 4
     private List<Exercise> SelectLowerExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Focus on leg exercises that are either push or pull
