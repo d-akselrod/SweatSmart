@@ -4,7 +4,7 @@ using App_Service.Typings;
 
 namespace App_Service.Models;
 
-[Table("UserWorkout")]
+[Table("UserWorkouts")]
 public class UserWorkout
 {
     [Required]
