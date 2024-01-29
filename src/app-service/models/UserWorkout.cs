@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using App_Service.Typings;
 
 namespace App_Service.Models;
 
+[Table("UserWorkouts")]
 public class UserWorkout
 {
     [Required]
@@ -15,5 +17,6 @@ public class UserWorkout
 
     [Required]
     [Column("status", TypeName = "int")]
-    public int Status { get; set; }
+    public WorkoutStatus Status { get; set; }
+
 }

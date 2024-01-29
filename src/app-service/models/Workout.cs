@@ -15,13 +15,11 @@ public class Workout
     [MaxLength(32)]
     public string name { get; set; }
 
-    [Column("Date", TypeName = "DateTime")]
+    [Column("Date", TypeName = "Date")]
+    [MaxLength(32)]
     public DateTime? date { get; set; }
 
-    [Column("Duration", TypeName = "Int")]
+    [Column("Duration", TypeName = "int")]
     public int? duration { get; set; }
 
-    [Column("NumOfExercises", TypeName = "Int")]
-    public int numOfExercises { get; set; }
 }
-
