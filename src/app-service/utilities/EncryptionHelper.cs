@@ -23,7 +23,7 @@ public class EncryptionHelper
     public string Encrypt(string plainText)
     {
         if (string.IsNullOrEmpty(plainText))
-            throw new ArgumentNullException(nameof(plainText));
+            return null;
 
         byte[] encrypted;
 
@@ -51,7 +51,7 @@ public class EncryptionHelper
     public string Decrypt(string cipherText)
     {
         if (string.IsNullOrEmpty(cipherText))
-            throw new ArgumentNullException(nameof(cipherText));
+            return null;
 
         string plaintext = null;
         var cipherBytes = Convert.FromBase64String(cipherText);

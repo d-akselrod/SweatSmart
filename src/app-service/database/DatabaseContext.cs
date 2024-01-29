@@ -15,9 +15,13 @@ public class DatabaseContext : DbContext
             .HasKey(uw => new { uw.UId, uw.WId });
         modelBuilder.Entity<WorkoutPlan>()
             .HasKey(wp => new { wp.WId, wp.EId });
+        modelBuilder.Entity<Friendship>()
+            .HasKey(f => new { f.Friend1, f.Friend2 });
     }
 
     public DbSet<User> Users { get; set; }
+
+    public DbSet<Friendship> Friends { get; set; }
     public DbSet<PhysicalAttributes> PhysicalAttributes { get; set; }
 
     public DbSet<Workout> Workouts { get; set; }

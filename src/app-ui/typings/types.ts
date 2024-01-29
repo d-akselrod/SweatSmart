@@ -1,8 +1,11 @@
-export interface IUser {
+export interface IProfile {
   uId: string;
   firstName?: string;
   lastName?: string;
   username: string;
+}
+
+export interface IUser extends IProfile {
   email: string;
   password: string;
 }
