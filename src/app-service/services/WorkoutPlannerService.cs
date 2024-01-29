@@ -247,7 +247,7 @@ public class WorkoutPlannerService : ControllerBase
         }.Where(e => e != null).ToList(); // Remove any null entries if an exercise was not found
     }
 
-    //this method just doesnt work
+    //this method just doesnt work as intended
     private List<Exercise> SelectExercisesByMuscleGroups(IEnumerable<Exercise> allExercises, UserPreferences preferences, Dictionary<string, int> muscleGroupCounts, string movementType)
     {
         List<Exercise> selectedExercises = new List<Exercise>();
@@ -274,14 +274,15 @@ public class WorkoutPlannerService : ControllerBase
         }
 
         return selectedExercises;
-    }
 
+    }
+    // only returning one exercise each for some reason.
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
-            { "Chest - Pectoralis", 2 },
-            { "Shoulders - Delts/Traps", 1 },
+            { "Chest", 2 },
+            { "Shoulders", 1 },
             { "Triceps", 1 }
         }, "Push");
     }
@@ -290,9 +291,8 @@ public class WorkoutPlannerService : ControllerBase
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
-            { "Back - Latissimus Dorsi", 1 },
-            { "Back - Lat.Dorsi/Rhomboids", 1 },
-            { "Bicep", 2 }
+            { "Back", 2 },
+            { "Biceps", 2 }
         }, "Pull");
     }
 }
