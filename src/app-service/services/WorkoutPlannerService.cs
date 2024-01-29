@@ -50,17 +50,18 @@ public class WorkoutPlannerService : ControllerBase
         }
 
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
-        //sets is always 0 for some reason
+
         int sets = preferences.Goal == PersonalGoal.strength ? 3 : 4;
         int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
 
         float percOneRM = (float)(1 - 0.025 * reps); // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
 
-        int timePerRep = 3; // Time per rep in seconds
-        int restBetweenSets = 60; // Rest between sets in seconds
+        int timePerRep = 3;
+        int restBetweenSets = 60;
         int totalWorkoutTime = 0;
 
         var workoutExercises = new List<WorkoutPlan>();
+        Guid WId = Guid.NewGuid();
 
         foreach (var exercise in exercises)
         {
@@ -68,18 +69,20 @@ public class WorkoutPlannerService : ControllerBase
 
             var workoutExercise = new WorkoutPlan
             {
+                WId = WId,
                 EId = exercise.EId,
                 Sets = sets,
                 Reps = reps,
                 PercentageOfOneRepMax = percOneRM
             };
-            //reason sets is always 0 
-            if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable)
+
+            if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable * 60)
             {
                 while (sets > 0)
                 {
                     exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
-                    if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable)
+
+                    if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable * 60)
                     {
                         workoutExercises.Add(workoutExercise);
                         totalWorkoutTime += exerciseTime;
@@ -95,17 +98,15 @@ public class WorkoutPlannerService : ControllerBase
             }
         }
 
-        Guid WId = Guid.NewGuid();
-
         var newWorkout = new Workout
         {
             WId = WId,
             name = workoutType.ToString(),
-            date = DateTime.Now, 
-            duration = totalWorkoutTime 
+            date = DateTime.Now,
+            duration = totalWorkoutTime
         };
 
-        database.Workouts.Add(newWorkout);
+        await database.Workouts.AddAsync(newWorkout);
         await database.SaveChangesAsync();
 
         var workout = new UserWorkout
@@ -115,7 +116,7 @@ public class WorkoutPlannerService : ControllerBase
             Status = WorkoutStatus.NotStarted,
         };
 
-        database.UserWorkout.Add(workout);
+        await database.UserWorkout.AddAsync(workout);
         await database.SaveChangesAsync();
 
         foreach (var exercise in workoutExercises)
@@ -128,22 +129,7 @@ public class WorkoutPlannerService : ControllerBase
                 Reps = exercise.Reps,
                 PercentageOfOneRepMax = percOneRM
             };
-
-            // Check if the entity is already being tracked
-            var existingWorkoutPlan = database.WorkoutPlans.Find(workoutPlan.WId, workoutPlan.EId);
-            if (existingWorkoutPlan == null)
-            {
-                // If it's not being tracked, add it
-                database.WorkoutPlans.Add(workoutPlan);
-            }
-            else
-            {
-                // If it is being tracked, update the necessary fields
-                existingWorkoutPlan.Sets = workoutPlan.Sets;
-                existingWorkoutPlan.Reps = workoutPlan.Reps;
-                existingWorkoutPlan.PercentageOfOneRepMax = workoutPlan.PercentageOfOneRepMax;
-                database.Entry(existingWorkoutPlan).State = EntityState.Modified;
-            }
+            database.WorkoutPlans.Add(workoutPlan);
         }
 
         await database.SaveChangesAsync();
