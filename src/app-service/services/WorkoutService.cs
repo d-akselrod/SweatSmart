@@ -2,6 +2,7 @@ using App_Service.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
 using App_Service.Models;
+using App_Service.Typings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
@@ -83,5 +84,13 @@ public class WorkoutService : ControllerBase
         await userWorkoutController.AddUserWorkout(userWorkout);
 
         return new APIResponse(200, null, null);
+    }
+
+    [Authorize]
+    [HttpGet("MuscleGroup/{muscleGroup}")]
+    public async Task<IActionResult> GetExercisesByMuscleGroup(string muscleGroup)
+    {
+        var exercises = await database.Exercises.Where(exercise => exercise.MuscleGroup == muscleGroup).ToListAsync();
+        return new APIResponse(200, null, exercises);
     }
 }

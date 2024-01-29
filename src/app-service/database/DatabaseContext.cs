@@ -33,4 +33,8 @@ public class DatabaseContext : DbContext
     public DbSet<WorkoutPlan> WorkoutPlans { get; set; }
 
     public DbSet<FitnessGoals> FitnessGoals { get; set; }
+
+    public DbSet<UserPreferences> UserPreferences { get; set; }
+
+    public DbSet<UserWorkout> UserWorkout { get; set; }
 }
