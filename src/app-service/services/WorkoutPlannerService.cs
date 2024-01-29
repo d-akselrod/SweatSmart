@@ -50,7 +50,7 @@ public class WorkoutPlannerService : ControllerBase
         }
 
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
-
+        //sets is always 0 for some reason
         int sets = preferences.Goal == PersonalGoal.strength ? 3 : 4;
         int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
 
@@ -73,7 +73,7 @@ public class WorkoutPlannerService : ControllerBase
                 Reps = reps,
                 PercentageOfOneRepMax = percOneRM
             };
-
+            //reason sets is always 0 
             if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable)
             {
                 while (sets > 0)
@@ -204,7 +204,7 @@ public class WorkoutPlannerService : ControllerBase
 
         return selectedExercises;
     }
-
+    //make sure this is correct for pulling from the database
     private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, string ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
     {
         // Filter exercises based on the U/L/C, P/P category, equipment availability, and experience level.
@@ -226,6 +226,7 @@ public class WorkoutPlannerService : ControllerBase
         // Select a balanced mix of exercises covering Upper, Lower, and Core with both Push and Pull movements
         return new List<Exercise>
         {
+            //issues with pulling from database
             SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
@@ -246,6 +247,7 @@ public class WorkoutPlannerService : ControllerBase
         }.Where(e => e != null).ToList(); // Remove any null entries if an exercise was not found
     }
 
+    //this method just doesnt work
     private List<Exercise> SelectExercisesByMuscleGroups(IEnumerable<Exercise> allExercises, UserPreferences preferences, Dictionary<string, int> muscleGroupCounts, string movementType)
     {
         List<Exercise> selectedExercises = new List<Exercise>();
