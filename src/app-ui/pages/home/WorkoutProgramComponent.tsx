@@ -16,7 +16,7 @@ const width = Dimensions.get('window').width;
 export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
   const { workout } = props;
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View
         style={{
           flexDirection: 'row',
@@ -33,18 +33,18 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
           <Ionicons name='barbell-outline' size={14} color='grey' />
           <Text style={{ fontSize: 9, color: 'grey' }}>
-            {workout.numOfExercises} Exercises
+            {workout.numOfExercises && workout.numOfExercises > 0 ? `${workout.numOfExercises} Exercises` : 'No Exercises'} 
           </Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
           <FontAwesome5 name='clock' size={14} color='grey' />
           <Text style={{ fontSize: 9, color: 'grey' }}>
-            {workout.duration} min
+            {workout.duration ? `${workout.duration} Minutes` : '0 Minutes'}
           </Text>
         </View>
       </View>
       <ProgressBar />
-    </View>
+    </TouchableOpacity>
   );
 }
 

@@ -40,7 +40,7 @@ export const SocialPage = () => {
     if (searchQuery !== '') {
       handleSearchFriends();
     } else {
-      handleSearchFriends();
+      //handleSearchFriends();
     }
   }, [searchQuery]);
 

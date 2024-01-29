@@ -1,3 +1,4 @@
+import {MuscleGroup } from './WorkoutEnums';
 export interface IProfile {
   uId: string;
   firstName?: string;
@@ -18,11 +19,11 @@ export interface IWorkoutCategory {
 }
 
 export interface IWorkout {
-  date: Date;
-  duration: number;
-  numOfExercises: number;
   wId: string;
   name: string;
+  date: Date;
+  duration?: number;
+  numOfExercises?: number;
 }
 
 export interface IFeaturedWorkout {
