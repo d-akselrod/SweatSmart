@@ -37,7 +37,7 @@ public class ExerciseController : ControllerBase
         if (exercise == null)
         {
             return NotFound();
-        }   
+        }
         return Ok();
     }
 
@@ -56,7 +56,7 @@ public class ExerciseController : ControllerBase
     {
         var existingExercise =
             await database.Exercises.SingleOrDefaultAsync(exercise => exercise.EId == updatedExercise.EId);
-        
+
         if (existingExercise == null)
         {
             return NotFound();
@@ -74,7 +74,7 @@ public class ExerciseController : ControllerBase
 
         database.AddAsync(updatedExercise);
         await database.SaveChangesAsync();
-        
+
         return Ok();
     }
 

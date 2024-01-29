@@ -25,7 +25,7 @@ public class WorkoutPlannerService : ControllerBase
     {
         this.database = database;
         exerciseController = new ExerciseController(database);
-        
+
         var encryptionKey = configuration["EncryptionKey"];
         encryptionHelper = new EncryptionHelper(encryptionKey);
     }
@@ -36,7 +36,7 @@ public class WorkoutPlannerService : ControllerBase
     {
         var username = body.username;
         var workoutType = body.workoutType;
-        
+
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
         if (user == null)
         {
@@ -48,12 +48,12 @@ public class WorkoutPlannerService : ControllerBase
         {
             return APIResponse.NotFound;
         }
-        
+
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
 
         int sets = preferences.Goal == PersonalGoal.endurance ? 4 : 3;
         int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
-        
+
         float percOneRM = (float)(1 - 0.025 * reps); // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
 
         int timePerRep = 3; // Time per rep in seconds
@@ -73,7 +73,7 @@ public class WorkoutPlannerService : ControllerBase
                 Reps = reps,
                 PercentageOfOneRepMax = percOneRM
             };
-            
+
             if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable)
             {
                 while (sets > 0)
@@ -96,7 +96,7 @@ public class WorkoutPlannerService : ControllerBase
         }
 
         Guid WId = Guid.NewGuid();
-        
+
         foreach (var exercise in workoutExercises)
         {
             var workoutPlan = new WorkoutPlan
@@ -111,7 +111,7 @@ public class WorkoutPlannerService : ControllerBase
         }
 
         await database.SaveChangesAsync();
-        
+
         var workout = new UserWorkout
         {
             WId = WId,
@@ -121,7 +121,7 @@ public class WorkoutPlannerService : ControllerBase
 
         database.UserWorkout.Add(workout);
         await database.SaveChangesAsync();
-        
+
         return new APIResponse(200, null, workoutExercises);
     }
 
@@ -246,7 +246,7 @@ public class WorkoutPlannerService : ControllerBase
 
         return selectedExercises;
     }
-    
+
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
