@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using App_Service.Typings;
 
 namespace App_Service.Models;
 
@@ -16,9 +17,5 @@ public class UserWorkout
 
     [Required]
     [Column("status", TypeName = "int")]
-    public int Status { get; set; }
-
-    [Required]
-    [Column("date", TypeName = "DateTime")]
-    public DateTime Date { get; set; }
+    public WorkoutStatus Status { get; set; }
 }

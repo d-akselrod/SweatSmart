@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using App_Service.Typings;
 
 namespace App_Service.Models;
 
@@ -12,11 +13,11 @@ public class UserPreferences
     public Guid UId { get; set; }
 
     [Required]
-    [Column("Goal", TypeName = "VarChar(32)")]
-    public required string Goal { get; set; }
+    [Column("Goal", TypeName = "Int")]
+    public PersonalGoal Goal { get; set; }
 
     [Required]
-    [Column("ExperienceLevel", TypeName = "VarChar(32)")]
+    [Column("ExperienceLevel", TypeName = "Int")]
     public ExperienceLevel ExperienceLevel { get; set; }
 
     [Required]
@@ -24,7 +25,7 @@ public class UserPreferences
     public int Frequency { get; set; }
 
     [Required]
-    [Column("Equipment", TypeName = "Char(1)")]
+    [Column("Equipment", TypeName = "int")]
     public EquipmentAvailable Equipment { get; set; }
 
     [Required]

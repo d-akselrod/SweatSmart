@@ -7,49 +7,81 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App_Service.Typings;
+using Microsoft.EntityFrameworkCore;
+
+public record GenerateWorkoutRequest(string username, WorkoutType workoutType);
 
 [ApiController]
 [Route("[controller]")]
-public class WorkoutPlanService
+public class WorkoutPlannerService : ControllerBase
 {
-    private readonly DatabaseContext _context;
-    private readonly ExerciseService _exerciseService;
+    private readonly DatabaseContext database;
+    private readonly ExerciseController exerciseController;
+    private readonly EncryptionHelper encryptionHelper;
     private static readonly Random rnd = new Random();
 
-    public WorkoutPlanService(DatabaseContext context, ExerciseService exerciseService)
+    public WorkoutPlannerService(DatabaseContext database, IConfiguration configuration)
     {
-        _context = context;
-        _exerciseService = exerciseService;
+        this.database = database;
+        exerciseController = new ExerciseController(database);
+        
+        var encryptionKey = configuration["EncryptionKey"];
+        encryptionHelper = new EncryptionHelper(encryptionKey);
     }
 
-
-    private async Task<Workout> GenerateWorkout(UserPreferences preferences, WorkoutType workoutType)
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> GenerateWorkout(GenerateWorkoutRequest body)
     {
+        var username = body.username;
+        var workoutType = body.workoutType;
+        
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        var preferences = await database.UserPreferences.SingleOrDefaultAsync(userPreferences => userPreferences.UId == user.UId);
+        if (preferences == null)
+        {
+            return APIResponse.NotFound;
+        }
+        
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
 
-        int sets = preferences.Goal == "strength" ? 3 : (preferences.Goal == "endurance" ? 4 : 3);
-        int reps = preferences.Goal == "strength" ? 5 : (preferences.Goal == "endurance" ? 12 : 10);
-        double percOneRM = 1 - 0.025 * reps; // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
+        int sets = preferences.Goal == PersonalGoal.endurance ? 4 : 3;
+        int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
+        
+        float percOneRM = (float)(1 - 0.025 * reps); // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
 
         int timePerRep = 3; // Time per rep in seconds
         int restBetweenSets = 60; // Rest between sets in seconds
         int totalWorkoutTime = 0;
 
-        var workoutExercises = new List<WorkoutExercise>();
+        var workoutExercises = new List<WorkoutPlan>();
 
         foreach (var exercise in exercises)
         {
             int exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
 
+            var workoutExercise = new WorkoutPlan
+            {
+                EId = exercise.EId,
+                Sets = sets,
+                Reps = reps,
+                PercentageOfOneRepMax = percOneRM
+            };
+            
             if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable)
             {
-                // If the exercise doesn't fit, try reducing sets
                 while (sets > 0)
                 {
                     exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
-                    if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable) // time available needed in 
+                    if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable)
                     {
-                        workoutExercises.Add(CreateWorkoutExercise(exercise, sets, reps));
+                        workoutExercises.Add(workoutExercise);
                         totalWorkoutTime += exerciseTime;
                         break;
                     }
@@ -58,39 +90,44 @@ public class WorkoutPlanService
             }
             else
             {
-                workoutExercises.Add(CreateWorkoutExercise(exercise, sets, reps));
+                workoutExercises.Add(workoutExercise);
                 totalWorkoutTime += exerciseTime;
             }
         }
 
-        var workout = new Workout
+        Guid WId = Guid.NewGuid();
+        
+        foreach (var exercise in workoutExercises)
         {
-            WId = Guid.NewGuid(),
-            name = workoutType.ToString(), // Convert the enum to string to store in the 'Name' field
-            date = DateTime.Now, // Assuming you want to set the current date for the workout
-            duration = TimeSpan.FromMinutes(totalWorkoutTime)
+            var workoutPlan = new WorkoutPlan
+            {
+                WId = WId,
+                EId = exercise.EId,
+                Sets = exercise.Sets,
+                Reps = exercise.Reps,
+                PercentageOfOneRepMax = percOneRM
+            };
+            database.WorkoutPlans.Add(workoutPlan);
+        }
+
+        await database.SaveChangesAsync();
+        
+        var workout = new UserWorkout
+        {
+            WId = WId,
+            UId = user.UId,
+            Status = WorkoutStatus.NotStarted,
         };
 
-        _context.Workouts.Add(workout);
-
-        await _context.SaveChangesAsync();
-
-        return workout;
+        database.UserWorkout.Add(workout);
+        await database.SaveChangesAsync();
+        
+        return new APIResponse(200, null, workoutExercises);
     }
 
     private int CalculateExerciseTime(int sets, int reps, int timePerRep, int restBetweenSets)
     {
         return (reps * timePerRep + restBetweenSets) * sets;
-    }
-
-    private WorkoutExercise CreateWorkoutExercise(Exercise exercise, int sets, int reps)
-    {
-        return new WorkoutExercise
-        {
-            EId = exercise.EId,
-            Sets = sets,
-            Reps = reps
-        };
     }
 
     private List<WorkoutType> DetermineWorkoutSplit(int frequency)
@@ -121,15 +158,12 @@ public class WorkoutPlanService
                 throw new ArgumentOutOfRangeException(nameof(frequency), "Frequency must be between 1 and 6");
         }
 
-        // Log the workout split to the console
-        Console.WriteLine($"Determined workout split for frequency {frequency}: {string.Join(", ", workoutSplit)}");
-
         return workoutSplit;
     }
 
     private async Task<IEnumerable<Exercise>> SelectExercisesForWorkout(UserPreferences preferences, WorkoutType workoutType)
     {
-        var allExercises = await _exerciseService.GetAllExercisesAsync();
+        var allExercises = await database.Exercises.ToListAsync();
 
         // Depending on the workoutType, filter and select exercises
         List<Exercise> selectedExercises = workoutType switch
@@ -138,10 +172,10 @@ public class WorkoutPlanService
             WorkoutType.UpperPush => SelectUpperPushExercises(allExercises, preferences),
             WorkoutType.UpperPull => SelectUpperPullExercises(allExercises, preferences),
             WorkoutType.Lower => SelectLowerExercises(allExercises, preferences),
-            _ => throw new ArgumentOutOfRangeException(nameof(workoutType), "Unsupported workout type")
+            _ => new List<Exercise>()
         };
 
-        return selectedExercises.Where(e => e != null); // Remove any null entries if an exercise was not found
+        return selectedExercises;
     }
 
     private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, string ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
@@ -170,7 +204,7 @@ public class WorkoutPlanService
             SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "C", null, preferences.Equipment, preferences.ExperienceLevel) // Core exercises
-        }.Where(e => e != null).ToList(); // Remove any null entries if an exercise was not found
+        }.Where(e => e != null).ToList();
     }
 
     private List<Exercise> SelectLowerExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
@@ -212,8 +246,7 @@ public class WorkoutPlanService
 
         return selectedExercises;
     }
-
-
+    
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
@@ -233,14 +266,5 @@ public class WorkoutPlanService
             { "Bicep", 2 }
         }, "Pull");
     }
-
-    [Authorize]
-    [HttpPost("Test")]
-    public IActionResult Test()
-    {
-        return new APIResponse(200, null, DetermineWorkoutSplit(3));
-
-    }
-
 }
 

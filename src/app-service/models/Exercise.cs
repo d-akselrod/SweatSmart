@@ -9,8 +9,8 @@ namespace App_Service.Models
     {
         [Key]
         [Required]
-        [Column("eID", TypeName = "UniqueIdentifier")]
-        public Guid EId { get; set; }
+        [Column("eID", TypeName = "int")]
+        public int EId { get; set; }
 
         [Required]
         [Column("MuscleGroup", TypeName = "varchar(32)")]
