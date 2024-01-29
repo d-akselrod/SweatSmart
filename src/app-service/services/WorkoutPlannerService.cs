@@ -102,7 +102,7 @@ public class WorkoutPlannerService : ControllerBase
             WId = WId,
             name = workoutType.ToString(),
             date = DateTime.Now, 
-            duration = TimeSpan.FromMinutes(totalWorkoutTime) 
+            duration = totalWorkoutTime 
         };
 
         database.Workouts.Add(newWorkout);
