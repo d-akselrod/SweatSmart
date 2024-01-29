@@ -38,16 +38,16 @@ public class ExerciseController : ControllerBase
         {
             return NotFound();
         }
-        return Ok();
+        return Ok(exercise);
     }
 
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddExercise(Exercise exercise)
     {
-        database.Exercises.AddAsync(exercise);
+        await database.Exercises.AddAsync(exercise);
         await database.SaveChangesAsync();
-        return Ok();
+        return Ok(exercise);
     }
 
     [Authorize]
@@ -75,7 +75,7 @@ public class ExerciseController : ControllerBase
         database.AddAsync(updatedExercise);
         await database.SaveChangesAsync();
 
-        return Ok();
+        return Ok(updatedExercise);
     }
 
     [Authorize]
