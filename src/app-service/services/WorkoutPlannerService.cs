@@ -107,7 +107,21 @@ public class WorkoutPlannerService : ControllerBase
                 Reps = exercise.Reps,
                 PercentageOfOneRepMax = percOneRM
             };
-            database.WorkoutPlans.Add(workoutPlan);
+
+            // Check if a similar entity is already being tracked
+            var existingEntity = database.WorkoutPlans.Find(workoutPlan.WId, workoutPlan.EId);
+            if (existingEntity == null)
+            {
+                database.WorkoutPlans.Add(workoutPlan);
+            }
+            else
+            {
+                // Update the existing entity if necessary
+                existingEntity.Sets = workoutPlan.Sets;
+                existingEntity.Reps = workoutPlan.Reps;
+                existingEntity.PercentageOfOneRepMax = workoutPlan.PercentageOfOneRepMax;
+                database.Entry(existingEntity).State = EntityState.Modified;
+            }
         }
 
         await database.SaveChangesAsync();
@@ -163,7 +177,7 @@ public class WorkoutPlannerService : ControllerBase
 
     private async Task<IEnumerable<Exercise>> SelectExercisesForWorkout(UserPreferences preferences, WorkoutType workoutType)
     {
-        var allExercises = await database.Exercises.ToListAsync();
+        var allExercises = await database.Exercises.AsNoTracking().ToListAsync();
 
         // Depending on the workoutType, filter and select exercises
         List<Exercise> selectedExercises = workoutType switch
