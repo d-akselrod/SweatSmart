@@ -34,9 +34,8 @@ export interface IFeaturedWorkout {
 }
 
 export interface IExercise {
-  eId: string,
-  muscleGroup: MuscleGroup,
-  TargetMuscle: string,
-  name: string,
-
+  eId: string;
+  muscleGroup: MuscleGroup;
+  TargetMuscle: string;
+  name: string;
 }

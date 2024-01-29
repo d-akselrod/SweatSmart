@@ -204,7 +204,7 @@ export function HomePage() {
   );
 }
 
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     marginTop: 10,
   },
