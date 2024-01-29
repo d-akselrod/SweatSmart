@@ -56,14 +56,13 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
-    [HttpPost]
+    [HttpPost("AddWorkout")]
     public async Task<IActionResult> AddWorkoutsByUsername(AddWorkoutRequest body)
     {
         var username = body.username;
         var workout = body.workout;
 
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
-        Console.WriteLine("hello");
         if (user == null)
         {
             return APIResponse.NotFound;
