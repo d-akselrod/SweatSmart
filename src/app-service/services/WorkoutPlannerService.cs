@@ -97,33 +97,15 @@ public class WorkoutPlannerService : ControllerBase
 
         Guid WId = Guid.NewGuid();
 
-        foreach (var exercise in workoutExercises)
+        var newWorkout = new Workout
         {
-            var workoutPlan = new WorkoutPlan
-            {
-                WId = WId,
-                EId = exercise.EId,
-                Sets = exercise.Sets,
-                Reps = exercise.Reps,
-                PercentageOfOneRepMax = percOneRM
-            };
+            WId = WId,
+            name = workoutType.ToString(),
+            date = DateTime.Now, // or any specific date you wish to set
+            duration = TimeSpan.FromMinutes(totalWorkoutTime) // Assuming totalWorkoutTime is calculated
+        };
 
-            // Check if a similar entity is already being tracked
-            var existingEntity = database.WorkoutPlans.Find(workoutPlan.WId, workoutPlan.EId);
-            if (existingEntity == null)
-            {
-                database.WorkoutPlans.Add(workoutPlan);
-            }
-            else
-            {
-                // Update the existing entity if necessary
-                existingEntity.Sets = workoutPlan.Sets;
-                existingEntity.Reps = workoutPlan.Reps;
-                existingEntity.PercentageOfOneRepMax = workoutPlan.PercentageOfOneRepMax;
-                database.Entry(existingEntity).State = EntityState.Modified;
-            }
-        }
-
+        database.Workouts.Add(newWorkout);
         await database.SaveChangesAsync();
 
         var workout = new UserWorkout
@@ -135,6 +117,37 @@ public class WorkoutPlannerService : ControllerBase
 
         database.UserWorkout.Add(workout);
         await database.SaveChangesAsync();
+
+        foreach (var exercise in workoutExercises)
+        {
+            var workoutPlan = new WorkoutPlan
+            {
+                WId = WId,
+                EId = exercise.EId,
+                Sets = exercise.Sets,
+                Reps = exercise.Reps,
+                PercentageOfOneRepMax = percOneRM
+            };
+
+            // Check if the entity is already being tracked
+            var existingWorkoutPlan = database.WorkoutPlans.Find(workoutPlan.WId, workoutPlan.EId);
+            if (existingWorkoutPlan == null)
+            {
+                // If it's not being tracked, add it
+                database.WorkoutPlans.Add(workoutPlan);
+            }
+            else
+            {
+                // If it is being tracked, update the necessary fields
+                existingWorkoutPlan.Sets = workoutPlan.Sets;
+                existingWorkoutPlan.Reps = workoutPlan.Reps;
+                existingWorkoutPlan.PercentageOfOneRepMax = workoutPlan.PercentageOfOneRepMax;
+                database.Entry(existingWorkoutPlan).State = EntityState.Modified;
+            }
+        }
+
+        await database.SaveChangesAsync();
+
 
         return new APIResponse(200, null, workoutExercises);
     }
