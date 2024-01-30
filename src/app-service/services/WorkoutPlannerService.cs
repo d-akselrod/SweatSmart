@@ -50,11 +50,10 @@ public class WorkoutPlannerService : ControllerBase
         }
 
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
-        //sets is always 0 for some reason
+        
         int sets = preferences.Goal == PersonalGoal.strength ? 3 : 4;
         int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
-
-        float percOneRM = (float)(1 - 0.025 * reps); // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
+        float percOneRM = (float)(1 - 0.025 * reps); 
 
         int timePerRep = 3; // Time per rep in seconds
         int restBetweenSets = 60; // Rest between sets in seconds
@@ -65,7 +64,7 @@ public class WorkoutPlannerService : ControllerBase
         foreach (var exercise in exercises)
         {
             int exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
-
+        
             var workoutExercise = new WorkoutPlan
             {
                 EId = exercise.EId,
@@ -73,19 +72,31 @@ public class WorkoutPlannerService : ControllerBase
                 Reps = reps,
                 PercentageOfOneRepMax = percOneRM
             };
-            //reason sets is always 0 
+        
+            // while (totalWorkoutTime <= preferences.TimeAvailable)
+            // {
+            //     if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable)
+            //     {
+            //         workoutExercises.Add(workoutExercise);
+            //         totalWorkoutTime += exerciseTime;
+            //     }
+            //     else
+            //     {
+            //         break;
+            //     }
+            // }
             if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable)
             {
-                while (sets > 0)
+                while (workoutExercise.Sets > 0)
                 {
-                    exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
+                    exerciseTime = CalculateExerciseTime(workoutExercise.Sets, reps, timePerRep, restBetweenSets);
                     if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable)
                     {
                         workoutExercises.Add(workoutExercise);
                         totalWorkoutTime += exerciseTime;
                         break;
                     }
-                    sets--;
+                    workoutExercise.Sets--;
                 }
             }
             else
@@ -94,6 +105,7 @@ public class WorkoutPlannerService : ControllerBase
                 totalWorkoutTime += exerciseTime;
             }
         }
+        
 
         Guid WId = Guid.NewGuid();
 
@@ -204,7 +216,7 @@ public class WorkoutPlannerService : ControllerBase
 
         return selectedExercises;
     }
-    //make sure this is correct for pulling from the database
+    
     private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, string ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
     {
         // Filter exercises based on the U/L/C, P/P category, equipment availability, and experience level.
@@ -220,7 +232,7 @@ public class WorkoutPlannerService : ControllerBase
         // Select a random exercise from the filtered list
         return filteredExercises.Any() ? filteredExercises[rnd.Next(filteredExercises.Count)] : null;
     }
-    //only adding 4 exercises rather than 5
+    
     private List<Exercise> SelectTotalBodyExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Select a balanced mix of exercises covering Upper, Lower, and Core with both Push and Pull movements
@@ -234,7 +246,7 @@ public class WorkoutPlannerService : ControllerBase
             SelectExerciseByType(allExercises, "C", null, preferences.Equipment, preferences.ExperienceLevel) // Core exercises
         }.Where(e => e != null).ToList();
     }
-    //only adding three exercises rather than 4
+    
     private List<Exercise> SelectLowerExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Focus on leg exercises that are either push or pull
@@ -246,8 +258,7 @@ public class WorkoutPlannerService : ControllerBase
             SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel)
         }.Where(e => e != null).ToList(); // Remove any null entries if an exercise was not found
     }
-
-    //this method just doesnt work as intended
+    
     private List<Exercise> SelectExercisesByMuscleGroups(IEnumerable<Exercise> allExercises, UserPreferences preferences, Dictionary<string, int> muscleGroupCounts, string movementType)
     {
         List<Exercise> selectedExercises = new List<Exercise>();
@@ -276,7 +287,7 @@ public class WorkoutPlannerService : ControllerBase
         return selectedExercises;
 
     }
-    // only returning one exercise each for some reason.
+    
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
