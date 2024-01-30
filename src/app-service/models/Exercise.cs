@@ -15,9 +15,9 @@ namespace App_Service.Models
         [Required]
         [Column("MuscleGroup", TypeName = "varchar(32)")]
         public string MuscleGroup { get; set; }
-
+        
         [Required]
-        [Column("TargetMuscle", TypeName = "varchar(32)")]
+        [Column("TargetMuscle", TypeName = "varchar(32")]
         public string TargetMuscle { get; set; }
 
         [Required]
@@ -30,8 +30,9 @@ namespace App_Service.Models
 
         [Required]
         [Column("U_L_C", TypeName = "char(1)")]
-        public char U_L_C { get; set; }
+        public string U_L_C { get; set; }
 
+        [Required]
         [Column("P_P", TypeName = "varchar(4)")]
         public string P_P { get; set; }
 

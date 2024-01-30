@@ -58,6 +58,7 @@ public class WorkoutPlannerService : ControllerBase
 
         int timePerRep = 3;
         int restBetweenSets = 60;
+        int restBetweenExercises = 60 * 5;
         int totalWorkoutTime = 0;
 
         var workoutExercises = new List<WorkoutPlan>();
@@ -65,7 +66,7 @@ public class WorkoutPlannerService : ControllerBase
 
         foreach (var exercise in exercises)
         {
-            int exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
+            int exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets, restBetweenExercises);
 
             var workoutExercise = new WorkoutPlan
             {
@@ -78,9 +79,9 @@ public class WorkoutPlannerService : ControllerBase
 
             if (totalWorkoutTime + exerciseTime > preferences.TimeAvailable * 60)
             {
-                while (sets > 0)
+                while (workoutExercise.Sets > 0)
                 {
-                    exerciseTime = CalculateExerciseTime(sets, reps, timePerRep, restBetweenSets);
+                    exerciseTime = CalculateExerciseTime(workoutExercise.Sets, reps, timePerRep, restBetweenSets, restBetweenExercises);
 
                     if (totalWorkoutTime + exerciseTime <= preferences.TimeAvailable * 60)
                     {
@@ -88,7 +89,7 @@ public class WorkoutPlannerService : ControllerBase
                         totalWorkoutTime += exerciseTime;
                         break;
                     }
-                    sets--;
+                    workoutExercise.Sets--;
                 }
             }
             else
@@ -138,9 +139,9 @@ public class WorkoutPlannerService : ControllerBase
         return new APIResponse(200, null, workoutExercises);
     }
 
-    private int CalculateExerciseTime(int sets, int reps, int timePerRep, int restBetweenSets)
+    private int CalculateExerciseTime(int sets, int reps, int timePerRep, int restBetweenSets, int restBetweenExercises)
     {
-        return (reps * timePerRep + restBetweenSets) * sets;
+        return (reps * timePerRep + restBetweenSets) * sets + restBetweenExercises;
     }
 
     private List<WorkoutType> DetermineWorkoutSplit(int frequency)
@@ -195,7 +196,8 @@ public class WorkoutPlannerService : ControllerBase
     {
         // Filter exercises based on the U/L/C, P/P category, equipment availability, and experience level.
         var filteredExercises = exercises.Where(e =>
-            (ppCategory == null || e.P_P == ppCategory) &&
+            (e.U_L_C == ulcCategory) &&
+            (e.P_P == ppCategory) &&
             (equipmentPreference == EquipmentAvailable.Full ||
              equipmentPreference == EquipmentAvailable.Dumbbells && (e.Equipment == "D" || e.Equipment == "N") ||
              equipmentPreference == EquipmentAvailable.None && e.Equipment == "N") &&
@@ -212,12 +214,21 @@ public class WorkoutPlannerService : ControllerBase
         // Select a balanced mix of exercises covering Upper, Lower, and Core with both Push and Pull movements
         return new List<Exercise>
         {
-            //issues with pulling from database
             SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "C", null, preferences.Equipment, preferences.ExperienceLevel) // Core exercises
+            SelectExerciseByType(allExercises, "C", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "C", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "C", "Push", preferences.Equipment, preferences.ExperienceLevel),
         }.Where(e => e != null).ToList();
     }
     //only adding three exercises rather than 4
@@ -226,6 +237,18 @@ public class WorkoutPlannerService : ControllerBase
         // Focus on leg exercises that are either push or pull
         return new List<Exercise>
         {
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
             SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
@@ -267,9 +290,9 @@ public class WorkoutPlannerService : ControllerBase
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
-            { "Chest", 2 },
-            { "Shoulders", 1 },
-            { "Triceps", 1 }
+            { "Chest", 8 },
+            { "Shoulders", 4 },
+            { "Triceps", 4 }
         }, "Push");
     }
 
@@ -277,8 +300,8 @@ public class WorkoutPlannerService : ControllerBase
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
-            { "Back", 2 },
-            { "Biceps", 2 }
+            { "Back", 8 },
+            { "Biceps", 8 }
         }, "Pull");
     }
 }
