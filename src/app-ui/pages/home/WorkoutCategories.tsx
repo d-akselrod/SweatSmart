@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
@@ -9,14 +9,15 @@ export function WorkoutCategories(props: IWorkoutCategory) {
   const { image, categoryName, imgHeight, imgWidth } = props;
   const muscleGroupExercises = useRef<IExercise[]>();
 
+  const [exercises, setExercises] = useState<IExercise[]>([]);
+
   useEffect(() => {
     const loadData = async () => {
       const response = await getExercisesByMuscleGroup(categoryName);
       try {
         if (response.ok) {
           const data = await response.json();
-          muscleGroupExercises.current = data.body;
-          console.log(muscleGroupExercises.current);
+          setExercises(data.body);
         } else {
           console.error(response);
         }
@@ -42,7 +43,7 @@ export function WorkoutCategories(props: IWorkoutCategory) {
             {categoryName}
           </Text>
           <Text style={{ fontSize: 12 }}>
-            {muscleGroupExercises.current?.length} Exercises
+            {exercises.length > 0 ? `${exercises.length} Exercises` : ''}
           </Text>
         </View>
       </View>
