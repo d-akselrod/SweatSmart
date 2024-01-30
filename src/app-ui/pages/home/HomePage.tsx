@@ -109,14 +109,7 @@ export function HomePage() {
 
     loadWorkouts();
   }, [showAddPage]);
-
-  const renderWorkoutPrograms = (item: IWorkout) => {
-    return <WorkoutProgramComponent workout={item} />;
-  };
-
-  const renderFeaturedPrograms = (item: IFeaturedWorkout) => {
-    return <FeaturedProgramComponent workout={item} />;
-  };
+  
 
   return (
     <SafeAreaView>
@@ -144,7 +137,7 @@ export function HomePage() {
             </View>
             <FlatList
               data={workouts}
-              renderItem={({ item }) => renderWorkoutPrograms(item)}
+              renderItem={({ item, index }) => <WorkoutProgramComponent workout={item} index = {index} workouts = {workouts} />}
               horizontal
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={() => (
@@ -168,7 +161,7 @@ export function HomePage() {
             </Text>
             <FlatList
               data={featuredWorkouts}
-              renderItem={({ item }) => renderFeaturedPrograms(item)}
+              renderItem={({ item, index }) => <FeaturedProgramComponent workout={item} index = {index} workouts = {featuredWorkouts}/>}
               horizontal
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={() => (

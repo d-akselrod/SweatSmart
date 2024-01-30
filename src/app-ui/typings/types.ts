@@ -39,4 +39,9 @@ export interface IExercise {
   muscleGroup: MuscleGroup;
   TargetMuscle: string;
   name: string;
+  level: string;
+}
+
+export interface ExerciseListParams {
+  exerciseList?: string; // Adjust the type according to your actual data type
 }

@@ -11,12 +11,14 @@ import { IWorkout } from '../../typings/types';
 
 interface IWorkoutProgramProps {
   workout: IWorkout;
+  index: number;
+  workouts: IWorkout[];
 }
 const width = Dimensions.get('window').width;
 export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
-  const { workout } = props;
+  const { workout, index, workouts } = props;
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]}>
       <View
         style={{
           flexDirection: 'row',
