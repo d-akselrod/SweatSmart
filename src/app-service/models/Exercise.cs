@@ -30,7 +30,7 @@ namespace App_Service.Models
 
         [Required]
         [Column("U_L_C", TypeName = "char(1)")]
-        public string U_L_C { get; set; }
+        public char U_L_C { get; set; }
 
         [Required]
         [Column("P_P", TypeName = "varchar(4)")]
