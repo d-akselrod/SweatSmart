@@ -16,12 +16,21 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
+import { ExercisePage } from './pages/home/ExercisePage'
 
 const debugRedux = false;
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const HomeStack = () => (
+    <Stack.Navigator
+        initialRouteName="HomePage"
+    >
+        <Stack.Screen name="HomePage" component={HomePage} options = {{headerShown: false}}/>
+        <Stack.Screen name="ExerciseList" component={ExercisePage} />
+    </Stack.Navigator>
+);
 const EmptyPage = () => <></>;
 
 export type RootStackParamList = {
@@ -91,7 +100,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Home'
-          component={HomePage}
+          component={HomeStack}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (
