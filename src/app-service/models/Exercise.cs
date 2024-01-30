@@ -14,30 +14,31 @@ namespace App_Service.Models
 
         [Required]
         [Column("MuscleGroup", TypeName = "varchar(32)")]
-        public required string MuscleGroup { get; set; }
+        public string MuscleGroup { get; set; }
         
-        [Column("TargetMuscle", TypeName = "varchar(50")]
-        public required string? TargetMuscle { get; set; }
+        [Required]
+        [Column("TargetMuscle", TypeName = "varchar(32")]
+        public string TargetMuscle { get; set; }
 
         [Required]
         [Column("Name", TypeName = "varchar(32)")]
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Column("Level", TypeName = "char(1)")]
-        public required string Level { get; set; }
+        public string Level { get; set; }
 
         [Required]
         [Column("U_L_C", TypeName = "char(1)")]
-        public required string U_L_C { get; set; }
+        public string U_L_C { get; set; }
 
         [Required]
         [Column("P_P", TypeName = "varchar(4)")]
-        public required string P_P { get; set; }
+        public string P_P { get; set; }
 
         [Required]
         [Column("Equipment", TypeName = "char(1)")]
-        public required string Equipment { get; set; }
+        public string Equipment { get; set; }
 
     }
 }
