@@ -35,7 +35,9 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
           <Ionicons name='barbell-outline' size={14} color='grey' />
           <Text style={{ fontSize: 9, color: 'grey' }}>
-            {workout.numOfExercises && workout.numOfExercises > 0 ? `${workout.numOfExercises} Exercises` : 'No Exercises'} 
+            {workout.numOfExercises && workout.numOfExercises > 0
+              ? `${workout.numOfExercises} Exercises`
+              : 'No Exercises'}
           </Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>

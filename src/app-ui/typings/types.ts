@@ -1,4 +1,4 @@
-import {MuscleGroup } from './WorkoutEnums';
+import { MuscleGroup } from './WorkoutEnums';
 export interface IProfile {
   uId: string;
   firstName?: string;

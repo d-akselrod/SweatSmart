@@ -1,22 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { getExercisesByMuscleGroup } from '../../service/WorkoutAPI';
 import { IExercise, IWorkoutCategory } from '../../typings/types';
-import { useNavigation } from '@react-navigation/native';
-import {ExerciseListParams} from '../../typings/types'
 
 export function WorkoutCategories(props: IWorkoutCategory) {
   const { image, categoryName, imgHeight, imgWidth } = props;
   const muscleGroupExercises = useRef<IExercise[]>();
 
-  const navigation = useNavigation();
-  const handleArrowClick = () => {
-    // Navigate to the WorkoutList or another screen when the arrow is clicked
-    // @ts-ignore
-    navigation.navigate('ExerciseList', {name: categoryName, exerciseList: muscleGroupExercises.current})
-  };
+  const [exercises, setExercises] = useState<IExercise[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -24,7 +17,7 @@ export function WorkoutCategories(props: IWorkoutCategory) {
       try {
         if (response.ok) {
           const data = await response.json();
-          muscleGroupExercises.current = data.body;
+          setExercises(data.body);
         } else {
           console.error(response);
         }
@@ -50,7 +43,7 @@ export function WorkoutCategories(props: IWorkoutCategory) {
             {categoryName}
           </Text>
           <Text style={{ fontSize: 12 }}>
-            {muscleGroupExercises.current?.length} Exercises
+            {exercises.length > 0 ? `${exercises.length} Exercises` : ''}
           </Text>
         </View>
       </View>
@@ -63,7 +56,6 @@ export function WorkoutCategories(props: IWorkoutCategory) {
           height: 24,
           borderRadius: 12,
         }}
-        onPress = {() => handleArrowClick()}
       >
         <FontAwesome5 name='arrow-right' size={15} color='black' />
       </TouchableOpacity>
