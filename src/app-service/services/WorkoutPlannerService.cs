@@ -261,30 +261,39 @@ public class WorkoutPlannerService : ControllerBase
     {
         List<Exercise> selectedExercises = new List<Exercise>();
 
-        foreach (var muscleGroup in muscleGroupCounts.Keys)
+        // While there are still exercises to be selected
+        while (muscleGroupCounts.Any(kvp => kvp.Value > 0))
         {
-            var exercisesForMuscleGroup = allExercises
-                .Where(e => e.MuscleGroup == muscleGroup &&
-                            (movementType == null || e.P_P == movementType) &&
-                            (preferences.Equipment == EquipmentAvailable.Full ||
-                            preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment.Contains("D") ||
-                            preferences.Equipment == EquipmentAvailable.None && e.Equipment.Contains("N")) &&
-                            (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level.Contains("A") ||
-                            preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level.Contains("I") ||
-                            preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level.Contains("B")))
-                .ToList();
+            foreach (var muscleGroup in muscleGroupCounts.Keys.ToList())
+            {
+                // Skip this muscle group if no more exercises are needed for it
+                if (muscleGroupCounts[muscleGroup] == 0)
+                    continue;
 
-            // Randomly shuffle the exercises for the muscle group to provide variety
-            Random rnd = new Random();
-            exercisesForMuscleGroup = exercisesForMuscleGroup.OrderBy(x => rnd.Next()).ToList();
+                var exercisesForMuscleGroup = allExercises
+                    .Where(e => e.MuscleGroup == muscleGroup &&
+                                (movementType == null || e.P_P == movementType) &&
+                                (preferences.Equipment == EquipmentAvailable.Full ||
+                                preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment.Contains("D") ||
+                                preferences.Equipment == EquipmentAvailable.None && e.Equipment.Contains("N")) &&
+                                (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level.Contains("A") ||
+                                preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level.Contains("I") ||
+                                preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level.Contains("B")))
+                    .OrderBy(x => rnd.Next()) // Randomly shuffle the exercises
+                    .FirstOrDefault(); // Take only one exercise
 
-            // Add the required number of exercises for this muscle group to the selected exercises
-            selectedExercises.AddRange(exercisesForMuscleGroup.Take(muscleGroupCounts[muscleGroup]));
+                if (exercisesForMuscleGroup != null)
+                {
+                    selectedExercises.Add(exercisesForMuscleGroup);
+                    muscleGroupCounts[muscleGroup]--; // Decrement the count for this muscle group
+                }
+            }
         }
 
         return selectedExercises;
-
     }
+
+
     // only returning one exercise each for some reason.
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
@@ -300,8 +309,8 @@ public class WorkoutPlannerService : ControllerBase
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
-            { "Back", 8 },
-            { "Biceps", 8 }
+            { "Back", 8 }, 
+            { "Biceps", 8 } // basically no beginner+no equipment options, my need to display disclaimer for User with those preferences
         }, "Pull");
     }
 }
