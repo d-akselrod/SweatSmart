@@ -10,10 +10,10 @@ import {
   Image,
   Button,
   View,
-  TouchableOpacity,
 } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveUser } from '../../../redux/slices/userSlice';
+import { updateName, updateUsername } from '../../../service/AccountAPI';
 import { IUser } from '../../../typings/types';
 import { FieldCard } from '../cards/FieldCard';
 
@@ -42,6 +42,86 @@ export const EditProfilePage = () => {
 
   const activeUser: IUser = useSelector((state: any) => state.user);
 
+  const [nameField, setNameField] = useState<string>(
+    activeUser.name ? activeUser.name : '',
+  );
+  const [usernameField, setUsernameField] = useState<string>(
+    activeUser.username,
+  );
+  const [emailField, setEmailField] = useState<string>(activeUser.email);
+
+  const [saveEnabled, setSaveEnabled] = useState<boolean>(false);
+
+  const [statusMessage, setStatusMessage] = useState<string>('');
+
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+
+  const dispatch = useDispatch();
+
+  const handleSave = async () => {
+    setStatusMessage('');
+    setErrorMessages([]);
+
+    if (nameField !== activeUser.name) {
+      try {
+        const response = await updateName(activeUser.username, nameField);
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setActiveUser(data.body as IUser));
+          console.log(data.body);
+        } else {
+          const data = await response.json();
+          setErrorMessages([...errorMessages, data.message]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (usernameField !== activeUser.username) {
+      try {
+        const response = await updateUsername(
+          activeUser.username,
+          usernameField,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setActiveUser(data.body as IUser));
+          console.log(data.body);
+        } else {
+          const data = await response.json();
+          setErrorMessages([...errorMessages, data.message]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (emailField !== activeUser.email) {
+      try {
+        const response = await updateName(activeUser.email, emailField);
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setActiveUser(data.body as IUser));
+          console.log(data.body);
+        } else {
+          const data = await response.json();
+          setErrorMessages([...errorMessages, data.message]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      setStatusMessage('Error saving 1 or more profile changes');
+    } else {
+      setStatusMessage('Profile changes saved');
+    }
+
+    setSaveEnabled(false);
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -58,6 +138,11 @@ export const EditProfilePage = () => {
 
     loadProfilePhoto();
   }, []);
+
+  useEffect(() => {
+    setStatusMessage('');
+    setErrorMessages([]);
+  }, [nameField, usernameField, emailField]);
 
   const handleSelectPhoto = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -112,21 +197,29 @@ export const EditProfilePage = () => {
         <FieldCard
           label='Name'
           placeholder='Your Name'
-          textValue={activeUser.name}
+          value={nameField}
+          onChangeText={(text: string) => setNameField(text)}
         />
         <FieldCard
           label='Username'
           placeholder='Your Username'
-          textValue={activeUser.username}
+          value={usernameField}
+          onChangeText={(text: string) => setUsernameField(text)}
         />
         <FieldCard
           label='Email'
           placeholder='Your Email'
-          textValue={activeUser.email}
+          value={emailField}
+          onChangeText={(text: string) => setEmailField(text)}
         />
-        <View style={styles.saveChanges}>
-          <Button title='Save Changes' onPress={() => {}} />
-        </View>
+        {(activeUser.email !== emailField ||
+          activeUser.name !== nameField ||
+          activeUser.username !== usernameField) && (
+          <View style={styles.saveChanges}>
+            <Button title='Save Changes' onPress={handleSave} />
+          </View>
+        )}
+        <Text style={styles.statusMessage}>{statusMessage}</Text>
       </SafeAreaView>
     </ScrollView>
   );
@@ -160,5 +253,9 @@ const styles = StyleSheet.create({
   },
   saveChanges: {
     marginTop: 20,
+  },
+  statusMessage: {
+    marginTop: 25,
+    color: 'green',
   },
 });

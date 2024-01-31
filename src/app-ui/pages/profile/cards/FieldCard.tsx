@@ -1,15 +1,20 @@
-import { StyleSheet, Text, Switch, View, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Switch,
+  View,
+  TextInput,
+  TextInputProps,
+} from 'react-native';
 
-interface IFieldCardProps {
+interface IFieldCardProps extends TextInputProps {
   label: string;
   description?: string;
-  onChangeText?: () => void;
   placeholder?: string;
-  textValue?: string;
 }
 
 export const FieldCard = (props: IFieldCardProps) => {
-  const { label, description, onChangeText, placeholder, textValue } = props;
+  const { label, description, onChangeText, placeholder, value } = props;
 
   return (
     <View style={styles.container}>
@@ -21,8 +26,11 @@ export const FieldCard = (props: IFieldCardProps) => {
         style={styles.textInput}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        value={textValue}
+        value={value}
         clearButtonMode='while-editing'
+        autoCapitalize='none'
+        autoCorrect={false}
+        spellCheck={false}
       />
     </View>
   );
