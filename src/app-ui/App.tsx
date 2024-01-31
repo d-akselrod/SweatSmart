@@ -10,15 +10,15 @@ import { ChatBotPage } from './pages/chatbot/ChatBotPage';
 import { HomePage } from './pages/home/HomePage';
 import { LoginPage } from './pages/login/LoginPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
-import { ProfilePage } from './pages/profile/ProfilePage';
-import { AboutPage } from './pages/profile/subpages/AboutPage';
-import { AccountSettingsPage } from './pages/profile/subpages/AccountSettingsPage';
-import { AppUsagePage } from './pages/profile/subpages/AppUsagePage';
-import { EditProfilePage } from './pages/profile/subpages/EditProfilePage';
-import { HelpPage } from './pages/profile/subpages/HelpPage';
-import { NotificationsPage } from './pages/profile/subpages/NotificationsPage';
-import { TermsOfServicePage } from './pages/profile/subpages/TermsOfServicePage';
 import { RegisterPage } from './pages/register/RegisterPage';
+import { SettingsPage } from './pages/settings/SettingsPage';
+import { AboutPage } from './pages/settings/subpages/AboutPage';
+import { AccountSettingsPage } from './pages/settings/subpages/AccountSettingsPage';
+import { AppUsagePage } from './pages/settings/subpages/AppUsagePage';
+import { EditProfilePage } from './pages/settings/subpages/EditProfilePage';
+import { HelpPage } from './pages/settings/subpages/HelpPage';
+import { NotificationsPage } from './pages/settings/subpages/NotificationsPage';
+import { TermsOfServicePage } from './pages/settings/subpages/TermsOfServicePage';
 import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
@@ -37,12 +37,12 @@ export type RootStackParamList = {
   };
 };
 
-const ProfileStack = () => (
+const SettingsStack = () => (
   <Stack.Navigator
-    initialRouteName='Profile Page'
+    initialRouteName='Settings Page'
     screenOptions={{ headerShown: false }}
   >
-    <Stack.Screen name='Profile Page' component={ProfilePage} />
+    <Stack.Screen name='Settings Page' component={SettingsPage} />
     <Stack.Screen name='Edit Profile' component={EditProfilePage} />
     <Stack.Screen name='Account Settings' component={AccountSettingsPage} />
     <Stack.Screen name='Notifications' component={NotificationsPage} />
@@ -128,7 +128,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Profile'
-          component={ProfileStack}
+          component={SettingsStack}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (

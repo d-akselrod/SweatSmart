@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveUser } from '../../../redux/slices/userSlice';
-import { updateName, updateUsername } from '../../../service/AccountAPI';
+import {updateEmail, updateName, updateUsername } from '../../../service/AccountAPI';
 import { IUser } from '../../../typings/types';
 import { FieldCard } from '../cards/FieldCard';
 
@@ -99,10 +99,11 @@ export const EditProfilePage = () => {
 
     if (emailField !== activeUser.email) {
       try {
-        const response = await updateName(activeUser.email, emailField);
+        const response = await updateEmail(activeUser.username, emailField);
         if (response.ok) {
           const data = await response.json();
           dispatch(setActiveUser(data.body as IUser));
+          console.log("CHANGE EMAIL")
           console.log(data.body);
         } else {
           const data = await response.json();

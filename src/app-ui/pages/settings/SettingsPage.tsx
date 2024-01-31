@@ -12,17 +12,17 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { LogoutButton } from './LogoutButton';
-import { ProfileHeader } from './ProfileHeader';
-import { ProfileOptionsCard } from './ProfileOptionsCard';
+import { SettingsHeader } from './SettingsHeader';
+import { SettingsOptionsCard } from './SettingsOptionsCard';
 import { SlidingPage } from '../../components/SlideingPage';
 import { IUser } from '../../typings/types';
 
-interface IProfilePageCardData {
+interface ISettingPageCardData {
   label: string;
   icon: JSX.Element;
 }
 
-export function ProfilePage() {
+export function SettingsPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
   const navigation = useNavigation();
@@ -37,11 +37,11 @@ export function ProfilePage() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader activeUser={activeUser} />
+      <SettingsHeader activeUser={activeUser} />
       <ScrollView>
         <View style={styles.optionsCategory}>
           <Text style={styles.categoryHeader}>{'Your Profile'}</Text>
-          <ProfileOptionsCard
+          <SettingsOptionsCard
             label={'Edit Profile'}
             icon={
               <MaterialCommunityIcons
@@ -58,12 +58,12 @@ export function ProfilePage() {
           <Text style={styles.categoryHeader}>
             {'Your Personal Experience'}
           </Text>
-          <ProfileOptionsCard
+          <SettingsOptionsCard
             label={'Notifications'}
             icon={<FontAwesome name='bell-o' size={30} color='black' />}
             onPress={() => handleOpenOptions('Notifications')}
           />
-          <ProfileOptionsCard
+          <SettingsOptionsCard
             label={'App Usage'}
             icon={<Feather name='clock' size={30} color='black' />}
             onPress={() => handleOpenOptions('App Usage')}
@@ -72,17 +72,17 @@ export function ProfilePage() {
         <View style={styles.categoryGap} />
         <View style={styles.optionsCategory}>
           <Text style={styles.categoryHeader}>{'More info and Support'}</Text>
-          <ProfileOptionsCard
+          <SettingsOptionsCard
             label={'About'}
             icon={<AntDesign name='infocirlceo' size={30} color='black' />}
             onPress={() => handleOpenOptions('About')}
           />
-          <ProfileOptionsCard
+          <SettingsOptionsCard
             label={'Help'}
             icon={<AntDesign name='questioncircleo' size={30} color='black' />}
             onPress={() => handleOpenOptions('Help')}
           />
-          <ProfileOptionsCard
+          <SettingsOptionsCard
             label={'Terms of Service'}
             icon={<AntDesign name='filetext1' size={30} color='black' />}
             onPress={() => handleOpenOptions('Terms of Service')}
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: '100%',
   },
-  profileOptionsHeader: {
+  SettingOptionsHeader: {
     width: '90%',
     borderBottomWidth: 1,
     marginTop: 20,
