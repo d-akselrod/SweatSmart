@@ -13,9 +13,11 @@ import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
 import { AboutPage } from './pages/profile/subpages/AboutPage';
 import { AccountSettingsPage } from './pages/profile/subpages/AccountSettingsPage';
+import { EditProfilePage } from './pages/profile/subpages/EditProfilePage';
 import { HelpPage } from './pages/profile/subpages/HelpPage';
 import { NotificationsPage } from './pages/profile/subpages/NotificationsPage';
 import { TermsOfServicePage } from './pages/profile/subpages/TermsOfServicePage';
+import { TimeSpentPage } from './pages/profile/subpages/TimeSpentPage';
 import { RegisterPage } from './pages/register/RegisterPage';
 import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
@@ -41,8 +43,10 @@ const ProfileStack = () => (
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name='Profile Page' component={ProfilePage} />
+    <Stack.Screen name='Edit Profile' component={EditProfilePage} />
     <Stack.Screen name='Account Settings' component={AccountSettingsPage} />
     <Stack.Screen name='Notifications' component={NotificationsPage} />
+    <Stack.Screen name='Time Spent' component={TimeSpentPage} />
     <Stack.Screen name='About' component={AboutPage} />
     <Stack.Screen name='Help' component={HelpPage} />
     <Stack.Screen name='Terms of Service' component={TermsOfServicePage} />

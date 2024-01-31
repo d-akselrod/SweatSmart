@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   text: {
-    color: 'black',
+    color: 'red',
     fontSize: 18,
   },
   label: {
