@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
-import { SettingsCard } from './SettingsCard';
+import { DisplayCard } from '../cards/DisplayCard';
 
 export const AppUsagePage = () => {
   const navigation = useNavigation();
@@ -18,16 +18,14 @@ export const AppUsagePage = () => {
     <ScrollView>
       <SafeAreaView style={styles.container}>
         <Text style={styles.groupHeader}>{'App Usage'}</Text>
-        <SettingsCard
+        <DisplayCard
           label={'Total App Usage'}
           displayMessage={'10 Hours'}
-          type={'display'}
           description={'Total time spent on the app'}
         />
-        <SettingsCard
+        <DisplayCard
           label={'Total Workout Duration'}
           displayMessage={'8 Hours'}
-          type={'display'}
           description={'Total time spent working out'}
         />
       </SafeAreaView>

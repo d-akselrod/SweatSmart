@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
-import { SettingsCard } from './SettingsCard';
+import { SwitchCard } from '../cards/SwitchCard';
 
 export const NotificationsPage = () => {
   const navigation = useNavigation();
@@ -18,27 +18,20 @@ export const NotificationsPage = () => {
     <ScrollView>
       <SafeAreaView style={styles.container}>
         <Text style={styles.groupHeader}>{'Push Notifications'}</Text>
-        <SettingsCard
+        <SwitchCard
           label='Pause All'
           description='Temporarily pause all notifications'
-          type={'switch'}
         />
         <Text style={styles.groupHeader}>{'Customize Alerts'}</Text>
-        <SettingsCard
+        <SwitchCard
           label='Workout Reminders'
           description='Reminders before a workout'
-          type={'switch'}
         />
-        <SettingsCard
+        <SwitchCard
           label='Friend Activity'
           description='Keeping up with your fitness pals'
-          type={'switch'}
         />
-        <SettingsCard
-          label='Motivation'
-          description='Some daily encouragment'
-          type={'switch'}
-        />
+        <SwitchCard label='Motivation' description='Some daily encouragment' />
       </SafeAreaView>
     </ScrollView>
   );

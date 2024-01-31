@@ -54,7 +54,9 @@ export function ProfilePage() {
         </View>
         <View style={styles.categoryGap} />
         <View style={styles.optionsCategory}>
-          <Text style={styles.categoryHeader}>{'How you use SweatSmart'}</Text>
+          <Text style={styles.categoryHeader}>
+            {'Your Personal Experience'}
+          </Text>
           <ProfileOptionsCard
             label={'Notifications'}
             icon={<FontAwesome name='bell-o' size={30} color='black' />}

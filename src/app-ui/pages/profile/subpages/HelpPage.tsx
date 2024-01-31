@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {SafeAreaView, ScrollView, Text, TextInput, StyleSheet, Button} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+} from 'react-native';
 
 export const HelpPage = () => {
   const navigation = useNavigation();
@@ -21,22 +28,19 @@ export const HelpPage = () => {
   };
 
   return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <Text style={styles.headerText}>Submit your feedback</Text>
-          <TextInput
-              style={styles.input}
-              placeholder="Your feedback"
-              value={feedback}
-              onChangeText={setFeedback}
-              multiline
-          />
-          <Button
-              title="Submit Feedback"
-              onPress={handleFeedbackSubmit}
-          />
-        </ScrollView>
-      </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.headerText}>Submit your feedback</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Your feedback'
+          value={feedback}
+          onChangeText={setFeedback}
+          multiline
+        />
+        <Button title='Submit Feedback' onPress={handleFeedbackSubmit} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -62,5 +66,5 @@ const styles = StyleSheet.create({
     minHeight: 300,
     backgroundColor: '#fff',
     textAlignVertical: 'top', // to start text from the top in multiline input
-  }
+  },
 });

@@ -12,7 +12,7 @@ using App_Service.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
-public record UserProfile(Guid uId, string username, string? firstname, string? lastname);
+public record UserProfile(Guid uId, string username, string? name);
 
 public record FilterUsersRequest(string username, string? filter);
 
@@ -40,7 +40,7 @@ public class SocialService : ControllerBase
         {
             return null;
         }
-        return new UserProfile(user.UId, encryptionHelper.Decrypt(user.Username), encryptionHelper.Decrypt(user.FirstName), encryptionHelper.Decrypt(user.LastName));
+        return new UserProfile(user.UId, encryptionHelper.Decrypt(user.Username), encryptionHelper.Decrypt(user.Name));
     }
 
     [Authorize]
@@ -73,7 +73,7 @@ public class SocialService : ControllerBase
         var prioritizedUsers = filteredUsers
             .OrderByDescending(u => friendUsernames.Contains(encryptionHelper.Decrypt(u.Username)))
             .Take(20)
-            .Select(u => new UserProfile(u.UId, encryptionHelper.Decrypt(u.Username), encryptionHelper.Decrypt(u.FirstName), encryptionHelper.Decrypt(u.LastName)))
+            .Select(u => new UserProfile(u.UId, encryptionHelper.Decrypt(u.Username), encryptionHelper.Decrypt(u.Name)))
             .ToList();
 
         return new APIResponse(200, null, prioritizedUsers);
