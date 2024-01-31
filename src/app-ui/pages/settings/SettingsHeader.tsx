@@ -3,11 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity, Image, StyleSheet, View, Text } from 'react-native';
 import { IUser } from '../../typings/types';
 
-interface IProfileHeaderProps {
+interface ISettingsHeaderProps {
   activeUser?: IUser;
 }
 
-export const ProfileHeader = (props: IProfileHeaderProps) => {
+export const SettingsHeader = (props: ISettingsHeaderProps) => {
   const { activeUser } = props;
 
   const [profilePhotoUri, setProfilePhotoUri] = useState<string | null>(null);
