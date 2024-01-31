@@ -11,6 +11,7 @@ import {
   Dimensions,
   Modal,
 } from 'react-native';
+
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
 import { AddWorkoutPage } from './AddWorkoutPage';
@@ -22,6 +23,7 @@ import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
+import { AddWorkout } from './AddWorkout';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -118,7 +120,7 @@ export function HomePage() {
         onRequestClose={() => setShow(false)}
         animationType='slide'
       >
-        <AddWorkoutPage close={() => setShow(false)} />
+        <AddWorkout close={() => setShow(false)} />
       </Modal>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 20 }}>

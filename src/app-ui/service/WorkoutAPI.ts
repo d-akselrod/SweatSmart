@@ -30,3 +30,13 @@ export const getExercisesByMuscleGroup = (muscleGroup: string) => {
     },
   });
 };
+
+export const getAllExercises = () => {
+  return fetch(`${API_URL}/Exercise`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};
