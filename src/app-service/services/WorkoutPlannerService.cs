@@ -309,7 +309,7 @@ public class WorkoutPlannerService : ControllerBase
     {
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
-            { "Back", 8 }, 
+            { "Back", 8 },
             { "Biceps", 8 } // basically no beginner+no equipment options, my need to display disclaimer for User with those preferences
         }, "Pull");
     }
