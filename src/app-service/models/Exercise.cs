@@ -26,7 +26,7 @@ namespace App_Service.Models
 
         [Required]
         [Column("Level", TypeName = "char(1)")]
-        public string Level { get; set; }
+        public char Level { get; set; }
 
         [Required]
         [Column("U_L_C", TypeName = "char(1)")]
@@ -38,7 +38,7 @@ namespace App_Service.Models
 
         [Required]
         [Column("Equipment", TypeName = "char(1)")]
-        public string Equipment { get; set; }
+        public char Equipment { get; set; }
 
     }
 }

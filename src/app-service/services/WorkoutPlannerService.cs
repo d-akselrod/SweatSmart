@@ -199,16 +199,16 @@ public class WorkoutPlannerService : ControllerBase
             (e.U_L_C == ulcCategory) &&
             (e.P_P == ppCategory) &&
             (equipmentPreference == EquipmentAvailable.Full ||
-             equipmentPreference == EquipmentAvailable.Dumbbells && (e.Equipment == "D" || e.Equipment == "N") ||
-             equipmentPreference == EquipmentAvailable.None && e.Equipment == "N") &&
+             equipmentPreference == EquipmentAvailable.Dumbbells && (e.Equipment == 'D' || e.Equipment == 'N') ||
+             equipmentPreference == EquipmentAvailable.None && e.Equipment == 'N') &&
             (experienceLevel == ExperienceLevel.Advanced ||
-             experienceLevel == ExperienceLevel.Intermediate && (e.Level == "I" || e.Level == "B") ||
-             experienceLevel == ExperienceLevel.Beginner && e.Level == "B")).ToList();
+             experienceLevel == ExperienceLevel.Intermediate && (e.Level == 'I' || e.Level == 'B') ||
+             experienceLevel == ExperienceLevel.Beginner && e.Level == 'B')).ToList();
 
         // Select a random exercise from the filtered list
         return filteredExercises.Any() ? filteredExercises[rnd.Next(filteredExercises.Count)] : null;
     }
-    //only adding 4 exercises rather than 5
+
     private List<Exercise> SelectTotalBodyExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Select a balanced mix of exercises covering Upper, Lower, and Core with both Push and Pull movements
@@ -231,7 +231,7 @@ public class WorkoutPlannerService : ControllerBase
             SelectExerciseByType(allExercises, 'C', "Push", preferences.Equipment, preferences.ExperienceLevel),
         }.Where(e => e != null).ToList();
     }
-    //only adding three exercises rather than 4
+
     private List<Exercise> SelectLowerExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Focus on leg exercises that are either push or pull
@@ -274,11 +274,11 @@ public class WorkoutPlannerService : ControllerBase
                     .Where(e => e.MuscleGroup == muscleGroup &&
                                 (movementType == null || e.P_P == movementType) &&
                                 (preferences.Equipment == EquipmentAvailable.Full ||
-                                preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment.Contains("D") ||
-                                preferences.Equipment == EquipmentAvailable.None && e.Equipment.Contains("N")) &&
-                                (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level.Contains("A") ||
-                                preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level.Contains("I") ||
-                                preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level.Contains("B")))
+                                preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment == 'D' ||
+                                preferences.Equipment == EquipmentAvailable.None && e.Equipment == 'N') &&
+                                (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level == 'A') ||
+                                preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level == 'I' ||
+                                preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level == 'B')
                     .OrderBy(x => rnd.Next()) // Randomly shuffle the exercises
                     .FirstOrDefault(); // Take only one exercise
 
