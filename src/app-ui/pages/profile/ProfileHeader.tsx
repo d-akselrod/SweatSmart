@@ -14,10 +14,8 @@ export const ProfileHeader = (props: IProfileHeaderProps) => {
         source={require('../../assets/images/UserAvatar.png')}
       />
       <View id='display-info' style={styles.displayInfo}>
-        {activeUser?.firstName && activeUser.lastName && (
-          <Text
-            style={styles.textName}
-          >{`${activeUser?.firstName} ${activeUser?.lastName}`}</Text>
+        {activeUser?.name && (
+          <Text style={styles.textName}>{activeUser?.name}</Text>
         )}
         <Text>{activeUser?.username}</Text>
         <Text>{activeUser?.email}</Text>
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 20,
+    backgroundColor: 'white',
   },
   displayInfo: {
     flexDirection: 'column',

@@ -67,8 +67,7 @@ public class AccountService : ControllerBase
         {
             var decryptedUser = new User
             {
-                FirstName = !string.IsNullOrEmpty(user.FirstName) ? encryptionHelper.Decrypt(user.FirstName) : null,
-                LastName = !string.IsNullOrEmpty(user.LastName) ? encryptionHelper.Decrypt(user.LastName) : null,
+                Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
                 Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
                 Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
             };

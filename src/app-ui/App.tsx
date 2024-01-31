@@ -11,6 +11,13 @@ import { HomePage } from './pages/home/HomePage';
 import { LoginPage } from './pages/login/LoginPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
+import { AboutPage } from './pages/profile/subpages/AboutPage';
+import { AccountSettingsPage } from './pages/profile/subpages/AccountSettingsPage';
+import { AppUsagePage } from './pages/profile/subpages/AppUsagePage';
+import { EditProfilePage } from './pages/profile/subpages/EditProfilePage';
+import { HelpPage } from './pages/profile/subpages/HelpPage';
+import { NotificationsPage } from './pages/profile/subpages/NotificationsPage';
+import { TermsOfServicePage } from './pages/profile/subpages/TermsOfServicePage';
 import { RegisterPage } from './pages/register/RegisterPage';
 import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
@@ -50,6 +57,22 @@ export type RootStackParamList = {
   };
 };
 
+const ProfileStack = () => (
+  <Stack.Navigator
+    initialRouteName='Profile Page'
+    screenOptions={{ headerShown: false }}
+  >
+    <Stack.Screen name='Profile Page' component={ProfilePage} />
+    <Stack.Screen name='Edit Profile' component={EditProfilePage} />
+    <Stack.Screen name='Account Settings' component={AccountSettingsPage} />
+    <Stack.Screen name='Notifications' component={NotificationsPage} />
+    <Stack.Screen name='App Usage' component={AppUsagePage} />
+    <Stack.Screen name='About' component={AboutPage} />
+    <Stack.Screen name='Help' component={HelpPage} />
+    <Stack.Screen name='Terms of Service' component={TermsOfServicePage} />
+  </Stack.Navigator>
+);
+
 const AppEntry = () => (
   <NavigationContainer>
     <Stack.Navigator
@@ -76,84 +99,83 @@ const AppMain = () => {
   const focusedIconColor = 'black';
   const unfocusedIconColor = 'grey';
   return (
-      <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName='Home'
-            screenOptions={{ headerShown: false }}
-          >
-            <Tab.Screen
-              name='ChatBot'
-              component={ChatBotPage}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                  <Ionicons
-                    name='chatbubbles-outline'
-                    size={iconSize}
-                    color={focused ? focusedIconColor : unfocusedIconColor}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='Progress'
-              component={EmptyPage}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                  <Ionicons
-                    name='trending-up-outline'
-                    size={iconSize}
-                    color={focused ? focusedIconColor : unfocusedIconColor}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='Home'
-              component={HomeStack}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                  <Ionicons
-                    name='barbell-outline'
-                    size={iconSize}
-                    color={focused ? focusedIconColor : unfocusedIconColor}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='Profile'
-              component={ProfilePage}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                  <Ionicons
-                    name='person-outline'
-                    size={iconSize}
-                    color={focused ? focusedIconColor : unfocusedIconColor}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='Social'
-              component={SocialPage}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                  <Ionicons
-                    name='people-outline'
-                    size={iconSize}
-                    color={focused ? focusedIconColor : unfocusedIconColor}
-                  />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-      </NavigationContainer>
-
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName='Home'
+        screenOptions={{ headerShown: false }}
+      >
+        <Tab.Screen
+          name='ChatBot'
+          component={ChatBotPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='chatbubbles-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Progress'
+          component={EmptyPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='trending-up-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Home'
+          component={HomeStack}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='barbell-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Profile'
+          component={ProfileStack}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='person-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Social'
+          component={SocialPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='people-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
