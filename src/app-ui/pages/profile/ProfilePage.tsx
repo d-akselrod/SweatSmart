@@ -61,9 +61,9 @@ export function ProfilePage() {
             onPress={() => handleOpenOptions('Notifications')}
           />
           <ProfileOptionsCard
-            label={'Time Spent'}
+            label={'App Usage'}
             icon={<Feather name='clock' size={30} color='black' />}
-            onPress={() => handleOpenOptions('Time Spent')}
+            onPress={() => handleOpenOptions('App Usage')}
           />
         </View>
         <View style={styles.categoryGap} />

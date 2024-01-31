@@ -4,12 +4,15 @@ import { StyleSheet, Text, Switch, View } from 'react-native';
 interface ISettingsCardProps {
   label: string;
   description?: string;
-  type: 'text' | 'switch';
+  type: 'text' | 'switch' | 'display';
   onValueChange?: () => void;
+  onSubmit?: () => void;
+  displayMessage?: string;
 }
 
 export const SettingsCard = (props: ISettingsCardProps) => {
-  const { label, description, onValueChange } = props;
+  const { label, description, type, onValueChange, onSubmit, displayMessage } =
+    props;
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -20,12 +23,18 @@ export const SettingsCard = (props: ISettingsCardProps) => {
         <Text style={styles.label}>{label}</Text>
         {description && <Text style={styles.description}>{description}</Text>}
       </View>
-      <Switch
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isEnabled ? 'white' : '#f4f3f4'}
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+      {type == 'switch' && (
+        <Switch
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={isEnabled ? 'white' : '#f4f3f4'}
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      )}
+      {type == 'text' && <></>}
+      {type == 'display' && (
+        <Text style={styles.displayMessage}>{displayMessage}</Text>
+      )}
     </View>
   );
 };
@@ -48,5 +57,9 @@ const styles = StyleSheet.create({
   description: {
     color: 'grey',
     fontSize: 12,
+  },
+  displayMessage: {
+    color: 'black',
+    fontSize: 18,
   },
 });
