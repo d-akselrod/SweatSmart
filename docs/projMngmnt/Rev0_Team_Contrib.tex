@@ -146,6 +146,10 @@ Sam & 52 & 16 \\
 
 \section{CICD}
 
-\wss{Say how CICD is used in your project}
+Continuous Integration and Continuous Deployments is handled through GitHub Actions. Multiple workflows in the project are responsible for ensuring code formatting standards, tests passing, and deployments. 
+
+Our project has two sub-projects being the frontend and backend project. Upon pushes, if anything changes in the frontend main app or test app, the frontend workflow will ensure formatting is met and all tests are passed. Meanwhile any change in the backend will also trigger a workflow to check formatting and ensure tests are passed. 
+
+Once a branch is merged into main, if anything in the backend project has changed, GitHuc actions will trigger a deployment script to redploy our backend to an Azure web application.
 
 \end{document}
