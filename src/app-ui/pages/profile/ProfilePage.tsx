@@ -7,7 +7,8 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
-import { SafeAreaView, Text, View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { LogoutButton } from './LogoutButton';
 import { ProfileHeader } from './ProfileHeader';
@@ -23,98 +24,93 @@ interface IProfilePageCardData {
 export function ProfilePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
-  const optionsCards: IProfilePageCardData[] = [
-    {
-      label: 'Account Settings',
-      icon: <Ionicons name='settings-outline' size={24} color='black' />,
-    },
-    {
-      label: 'Privacy Settings',
-      icon: (
-        <MaterialCommunityIcons
-          name='shield-account-outline'
-          size={24}
-          color='black'
-        />
-      ),
-    },
-    {
-      label: 'Notifications',
-      icon: <FontAwesome name='bell-o' size={24} color='black' />,
-    },
-    {
-      label: 'About',
-      icon: (
-        <Ionicons name='information-circle-outline' size={24} color='black' />
-      ),
-    },
-    {
-      label: 'Help',
-      icon: <Ionicons name='help-circle-outline' size={24} color='black' />,
-    },
-    {
-      label: 'Terms of Service',
-      icon: <AntDesign name='filetext1' size={24} color='black' />,
-    },
-  ];
+  const navigation = useNavigation();
 
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleOpenOptions = (label: string) => {
-    setOptionsVisible(true);
-    setSelectedOption(label);
+    // @ts-ignore
+    navigation.navigate(label);
   };
-
-  const handleCloseOptions = () => {
-    setOptionsVisible(false);
-  };
-
-  const MainPage = (
-    <SafeAreaView style={styles.container}>
-      <ProfileHeader activeUser={activeUser} />
-      <View id='cards' style={styles.cards}>
-        <View id='settings-cards' style={styles.optionsCards}>
-          {optionsCards.map((settingCard, key) => (
-            <ProfileOptionsCard
-              key={key}
-              label={settingCard.label}
-              icon={settingCard.icon}
-              onPress={() => handleOpenOptions(settingCard.label)}
-            />
-          ))}
-        </View>
-        <LogoutButton />
-      </View>
-    </SafeAreaView>
-  );
-
-  interface ISubPages {
-    [key: string]: JSX.Element;
-  }
-
-  const subPages: ISubPages = {};
-
-  const SubPage = (
-    <SlidingPage
-      isVisible={optionsVisible}
-      onClose={handleCloseOptions}
-      pageHeader={selectedOption}
-    >
-      <SafeAreaView>{subPages[selectedOption]}</SafeAreaView>
-    </SlidingPage>
-  );
 
   return (
-    <>
-      {MainPage}
-      {SubPage}
-    </>
+    <SafeAreaView style={styles.container}>
+      <ProfileHeader activeUser={activeUser} />
+      <ScrollView>
+        <View style={styles.optionsCategory}>
+          <Text style={styles.categoryHeader}>{'Your Profile'}</Text>
+          <ProfileOptionsCard
+            label={'Edit Profile'}
+            icon={
+              <MaterialCommunityIcons
+                name='account-edit-outline'
+                size={30}
+                color='black'
+              />
+            }
+            onPress={() => handleOpenOptions('Edit Profile')}
+          />
+        </View>
+        <View style={styles.categoryGap} />
+        <View style={styles.optionsCategory}>
+          <Text style={styles.categoryHeader}>{'How you use SweatSmart'}</Text>
+          <ProfileOptionsCard
+            label={'Notifications'}
+            icon={<FontAwesome name='bell-o' size={30} color='black' />}
+            onPress={() => handleOpenOptions('Notifications')}
+          />
+          <ProfileOptionsCard
+            label={'Time Spent'}
+            icon={<Feather name='clock' size={30} color='black' />}
+            onPress={() => handleOpenOptions('Time Spent')}
+          />
+        </View>
+        <View style={styles.categoryGap} />
+        <View style={styles.optionsCategory}>
+          <Text style={styles.categoryHeader}>{'More info and Support'}</Text>
+          <ProfileOptionsCard
+            label={'About'}
+            icon={<AntDesign name='infocirlceo' size={30} color='black' />}
+            onPress={() => handleOpenOptions('About')}
+          />
+          <ProfileOptionsCard
+            label={'Help'}
+            icon={<AntDesign name='questioncircleo' size={30} color='black' />}
+            onPress={() => handleOpenOptions('Help')}
+          />
+          <ProfileOptionsCard
+            label={'Terms of Service'}
+            icon={<AntDesign name='filetext1' size={30} color='black' />}
+            onPress={() => handleOpenOptions('Terms of Service')}
+          />
+        </View>
+        <View style={styles.categoryGap} />
+        <View style={styles.optionsCategory}>
+          <Text style={styles.categoryHeader}>{'Login'}</Text>
+          <LogoutButton />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
+  profileOptionsHeader: {
+    width: '90%',
+    borderBottomWidth: 1,
+    marginTop: 20,
+  },
+  categoryHeader: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: 'grey',
+    marginLeft: 20,
+  },
   cards: {
     display: 'flex',
     alignItems: 'center',
@@ -127,5 +123,17 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     gap: 15,
+  },
+  optionsCategory: {
+    width: '100%',
+    backgroundColor: 'white',
+    marginTop: 10,
+  },
+  accountHeader: {
+    backgroundColor: 'white',
+  },
+  categoryGap: {
+    backgroundColor: '#f0f0f0',
+    height: 6,
   },
 });

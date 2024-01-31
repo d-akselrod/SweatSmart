@@ -17,7 +17,7 @@ export const ProfileOptionsCard = (props: IProfileOptionsCardProps) => {
           {icon}
           <Text style={styles.text}>{label}</Text>
         </View>
-        <AntDesign name='right' size={24} color='black' />
+        <AntDesign name='right' size={20} color='grey' />
       </TouchableOpacity>
     </View>
   );
@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 5,
+    marginBottom: 5,
   },
   text: {
     color: 'black',

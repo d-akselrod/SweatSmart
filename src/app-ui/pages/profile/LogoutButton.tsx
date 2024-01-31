@@ -1,5 +1,7 @@
+import React from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { clear } from '../../redux/slices/recentProfileSearchesSlice';
 import { logout } from '../../redux/slices/userSlice';
@@ -15,24 +17,35 @@ export const LogoutButton = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={handleLogout}>
-      <Text style={styles.text}>Log Out</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={handleLogout}>
+        <View style={styles.label}>
+          <MaterialIcons name='logout' size={30} color='black' />
+          <Text style={styles.text}>Log Out</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '97%',
     height: 40,
-    backgroundColor: 'blue',
     borderRadius: 10,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 10,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: 'black',
     fontSize: 18,
+  },
+  label: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginLeft: 20,
   },
 });
