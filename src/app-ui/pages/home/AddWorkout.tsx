@@ -7,17 +7,50 @@ import {
     SafeAreaView,
     TextInput,
     Pressable,
-    Image
+    Image,
+    Modal
 } from 'react-native';
+import { getAllExercises } from '../../service/WorkoutAPI'
+import { AddExercisesPage } from './AddExercisesPage'
+import { IExercise } from '../../typings/types';
+import { getExerciseSortedList } from '../../service/ExerciseAPI';
 interface IAddWorkoutProps {
     close: Function;
 }
 export function AddWorkout(props: IAddWorkoutProps) {
     const [name, setName] = useState('')
     const [option, setOption] = useState(0)
+    const [exercises, setExercises] = useState<IExercise[]>()
+    const [show, setShow] = useState<boolean>(false);
+
+    const handleApply = () => {
+        getExercises();
+        setShow(true)
+    }
     
+    const getExercises = async() => {
+        try{
+            const response = await getAllExercises();
+            if(response.ok){
+                const data = await response.json();
+                setExercises(data)
+            }
+            else{
+                const data = await response.json();
+                console.log("ERROR HAS OCCURED!")
+            }
+        }
+        catch(error){
+            console.error(error)
+        }
+    }
+    
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#F6F6F6'}}>
+            <Modal animationType =  {'slide'} visible={show} onRequestClose={() => setShow(false)}>
+                {exercises && <AddExercisesPage exercises={exercises} close={() => setShow(false)} />}
+            </Modal>
             <Pressable style = {{marginLeft: 10}} onPress = {() => props.close()}>
                 <Text style = {{fontSize: 18}}>Close</Text>
             </Pressable>
@@ -45,7 +78,7 @@ export function AddWorkout(props: IAddWorkoutProps) {
                         </View>
                     </Pressable>                
                 </View>
-                <Pressable style = {{width: '100%', padding: 15, backgroundColor: '#7F87CD', borderRadius: 10}}>
+                <Pressable style = {{width: '100%', padding: 15, backgroundColor: '#7F87CD', borderRadius: 10}} onPress = {() => handleApply()}>
                     <Text style = {{textAlign: 'center', color: 'white', fontSize: 17, fontWeight: 'bold'}}>Apply</Text>
                 </Pressable>
             </View>
