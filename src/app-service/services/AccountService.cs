@@ -67,8 +67,7 @@ public class AccountService : ControllerBase
         {
             var decryptedUser = new User
             {
-                FirstName = !string.IsNullOrEmpty(user.FirstName) ? encryptionHelper.Decrypt(user.FirstName) : null,
-                LastName = !string.IsNullOrEmpty(user.LastName) ? encryptionHelper.Decrypt(user.LastName) : null,
+                Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
                 Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
                 Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
             };
@@ -109,6 +108,75 @@ public class AccountService : ControllerBase
         };
 
         await userController.AddUser(encryptedUser);
+        return new APIResponse(200, null, decryptedUser);
+    }
+
+    [Authorize]
+    [HttpPut("Update/{username}/Username")]
+    public async Task<IActionResult> UpdateUserByUsername(string username, string newUsername)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        user.Username = encryptionHelper.Encrypt(newUsername);
+        await database.SaveChangesAsync();
+
+        var decryptedUser = new User
+        {
+            Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+            Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+            Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+        };
+
+        return new APIResponse(200, null, decryptedUser);
+    }
+
+    [Authorize]
+    [HttpPut("Update/{username}/Email")]
+    public async Task<IActionResult> UpdateEmailByUsername(string username, string newEmail)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        user.Email = encryptionHelper.Encrypt(newEmail);
+        await database.SaveChangesAsync();
+
+        var decryptedUser = new User
+        {
+            Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+            Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+            Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+        };
+
+        return new APIResponse(200, null, decryptedUser);
+    }
+
+    [Authorize]
+    [HttpPut("Update/{username}/Name")]
+    public async Task<IActionResult> UpdateNameByUsername(string username, string newName)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        user.Name = encryptionHelper.Encrypt(newName);
+        await database.SaveChangesAsync();
+
+        var decryptedUser = new User
+        {
+            Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+            Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+            Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+        };
+
         return new APIResponse(200, null, decryptedUser);
     }
 }

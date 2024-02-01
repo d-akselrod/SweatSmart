@@ -1,13 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-interface IProfileOptionsCardProps {
+interface ISettingsOptionsCardProps {
   label: string;
   icon: JSX.Element;
   onPress: () => void;
 }
 
-export const ProfileOptionsCard = (props: IProfileOptionsCardProps) => {
+export const SettingsOptionsCard = (props: ISettingsOptionsCardProps) => {
   const { label, icon, onPress } = props;
 
   return (
