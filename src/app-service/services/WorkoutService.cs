@@ -86,6 +86,16 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
+    [HttpGet("GetExercises/{workoutId}")]
+    public async Task<IActionResult> GetExercisesByWorkout(Guid workoutId)
+    {
+        var workoutExercises = await database.WorkoutPlans.Where(w => w.WId == workoutId).ToListAsync();
+        var identifications = workoutExercises.Select(w => w.EId);
+        var exercises = await database.Exercises.Where(e => identifications.Contains(e.EId)).ToListAsync();
+        return new APIResponse(200, null, exercises);
+    }
+    
+    [Authorize]
     [HttpGet("MuscleGroup/{muscleGroup}")]
     public async Task<IActionResult> GetExercisesByMuscleGroup(string muscleGroup)
     {
