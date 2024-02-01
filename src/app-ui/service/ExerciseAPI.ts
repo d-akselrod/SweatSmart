@@ -28,7 +28,6 @@ export function getExerciseSortedList(exercises: IExercise[]) {
     Object.entries(dataWithLetters).forEach(([key, value]) => {
         data.push({title: key, data: value})
     });
-    console.log(data)
     return data
 }
 

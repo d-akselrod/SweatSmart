@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, TouchableHighlight, Pressable, SectionList} from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, TouchableHighlight, Pressable, SectionList, Dimensions} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
 import {IExercise} from '../../typings/types'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { SearchBar } from '../../components/SearchBar';
-import {getExerciseSortedList} from '../../service/ExerciseAPI'
+import {getExerciseSortedList} from '../../service/ExerciseAPI';
 
 interface IExerciseProps {
     exercises: IExercise[];
@@ -15,7 +15,9 @@ interface IExerciseProps {
 export function AddExercisesPage(props: IExerciseProps){
     const {exercises, close} = props;
     const [searchFocused, setSearchFocused] = useState(false);
-    const [text, setSearch] = useState('')
+    const [text, setSearch] = useState('');
+    const [selectedExercises, setSelectedExercises] = useState<IExercise[]>([])
+    const width = Dimensions.get('window').width
     
     const handleFocus = () => {
         setSearchFocused(true);
@@ -37,19 +39,33 @@ export function AddExercisesPage(props: IExerciseProps){
             }))
             .filter((section: any) => section.data.length > 0);
     }
+    
+    const handleSelectedExercise = (exercise: IExercise) => {
+        const isSelected = selectedExercises.some(val => val.eId === exercise.eId)
+        
+        if(!isSelected){
+            setSelectedExercises((prev) => [...prev, exercise])
+        }
+        else{
+            setSelectedExercises(selectedExercises.filter(val => val.eId !== exercise.eId))
+        }
+    }
     const ExerciseList = (props : { exercise: IExercise }) => {
         const {exercise} = props;
+        const isSelected = selectedExercises.includes(exercise)
         return(
             <View>
-                <TouchableHighlight style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2'}} activeOpacity={0.8} underlayColor="#efefef" onPress={() => console.log('hi')}>
+                <Pressable style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2', backgroundColor: isSelected ? '#f6f6f6' : 'white'}} onPress={() => handleSelectedExercise(exercise)}>
                     <View style={[styles.exerciseContainer]}>
                         <View style={{gap: 5}}>
                             <Text style={styles.exerciseName}>{exercise.name}</Text>
                             <Text style={{fontSize: 13}}>{exercise.targetMuscle}</Text>
                         </View>
-                        <AntDesign name="right" size={20} color="black"/>
+                        <View style = {[styles.checkbox, {backgroundColor: isSelected ? '#6f7896' : 'white'}]}>
+                            {isSelected && <AntDesign name="check" size={15} color="#f6f6f6"/>}
+                        </View>
                     </View>
-                </TouchableHighlight>
+                </Pressable>
             </View>
         )
     }
@@ -76,6 +92,14 @@ export function AddExercisesPage(props: IExerciseProps){
                 )}
                 stickySectionHeadersEnabled = {false}
             />
+            <View style = {[styles.footer]}>
+                <TouchableOpacity style = {{backgroundColor: 'grey', borderRadius: 10, width: '30%'}}>
+                    <Text style = {styles.buttonTitle}>Clear</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {{backgroundColor: '#e75252', borderRadius: 10, width: '60%'}}>
+                    <Text style = {styles.buttonTitle}>Add Exercises</Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     )
 }
@@ -101,9 +125,37 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#4d4d4d'
     },
+    
+    buttonTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        padding: 15,
+        color: 'white',
+        textAlign: 'center',
+    },
 
     search: {
         paddingVertical: 15
+    },
+    
+    footer: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 40,
+        width: '100%',
+        justifyContent: 'center',
+        gap: 5
+    },
+    
+    checkbox: {
+        height: 20,
+        width: 20,
+        borderWidth: 1.3,
+        borderColor: '#6f7896',
+        borderRadius: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 
 })

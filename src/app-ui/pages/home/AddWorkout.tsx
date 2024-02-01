@@ -79,7 +79,7 @@ export function AddWorkout(props: IAddWorkoutProps) {
                     </Pressable>                
                 </View>
                 <Pressable style = {{width: '100%', padding: 15, backgroundColor: '#7F87CD', borderRadius: 10}} onPress = {() => handleApply()}>
-                    <Text style = {{textAlign: 'center', color: 'white', fontSize: 17, fontWeight: 'bold'}}>Apply</Text>
+                    <Text style = {{textAlign: 'center', color: 'white', fontSize: 17, fontWeight: 'bold'}}>Continue</Text>
                 </Pressable>
             </View>
         </SafeAreaView>
@@ -118,7 +118,9 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ababab'
+        borderColor: '#ababab',
+        fontSize: 20,
+        textAlign: 'center'
     },
     
     radioButton: {
