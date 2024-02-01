@@ -1,0 +1,157 @@
+\documentclass{article}
+
+\usepackage{float}
+\restylefloat{table}
+
+\usepackage{booktabs}
+
+\title{Team Contributions: Rev 0\\\progname}
+
+\author{\authname}
+
+\date{}
+
+\input{../Comments}
+\input{../Common}
+
+\begin{document}
+
+\maketitle
+
+\section{Demo Plans}
+
+\begin{itemize}
+    \item Build your own workout.
+    \item Generate a workout through the app's workout generation algorithm.
+    \item Track a live workout.
+    \item View workout history of a user.
+    \item View and add friends.
+\end{itemize}
+
+\section{Meeting Attendance}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Student} & \textbf{Meetings}\\
+\midrule
+Total & 11\\
+Daniel & 8\\
+Jonathan & 9\\
+Sophie & 11\\
+Sam & 11\\
+\bottomrule
+\end{tabular}
+\caption{Meeting Attendance since November 17, 2023}
+\end{table}
+
+\section{Lecture Attendance}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Student} & \textbf{Lectures}\\
+\midrule
+Total & 2\\
+Daniel & 0\\
+Jonathan & 0\\
+Sophie & 2\\
+Sam & 0\\
+\bottomrule
+\end{tabular}
+\caption{Lecture Attendance since November 17, 2023}
+\end{table}
+
+For better time allocation, we decided to have one person attend lectures and relay back to the team any important information discussed.
+
+\section{Commits}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
+\midrule
+Total & 27 & 100\% \\
+Daniel & 11 & 41\% \\
+Jonathan & 4 & 15\% \\
+Sophie & 6 & 22\% \\
+Sam & 6 & 22\% \\
+\bottomrule
+\end{tabular}
+\caption{Commits in Main branch since November 17, 2023}
+\end{table}
+
+Note, Daniel and Jonathan have been working on large features yet to be merged in. These commits are very large in quanitity of code changed which can be seen in github. These commits contain thousands of lines of code. Probably 6k+.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Branch} & \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
+\midrule
+daniel/profile\_page & Total & 49 & 100\% \\
+& Daniel & 23 & 47\% \\
+& Jonathan & 26 & 53\% \\
+& Sophie & 0 & 0\% \\
+& Sam & 0 & 0\% \\
+\hline
+daniel/social\_page & Total & 29 & 100\% \\
+& Daniel & 15 & 52\% \\
+& Jonathan & 14 & 48\% \\
+& Sophie & 0 & 0\% \\
+& Sam & 0 & 0\% \\
+\hline
+jonathan/home\_page & Total & 49 & 100\% \\
+& Daniel & 23 & 47\% \\
+& Jonathan & 26 & 53\% \\
+& Sophie & 0 & 0\% \\
+& Sam & 0 & 0\% \\
+\hline
+sam/WorkoutServicePlan & Total & 16 & 100\% \\
+& Daniel & 5 & 31\% \\
+& Jonathan & 0 & 10\% \\
+& Sophie & 1 & 6\% \\
+& Sam & 10 & 63\% \\
+\hline
+sophie/WorkoutServicePlan & Total & 3 & 100\% \\
+& Daniel & 0 & 0\% \\
+& Jonathan & 0 & 0\% \\
+& Sophie & 3 & 100\% \\
+& Sam & 0 & 0\% \\
+\bottomrule
+\end{tabular}
+\caption{Commits in unmerged branches since November 17, 2023}
+\end{table}
+
+Note: There was a lot of time being put into looking at the data collection/gathering for our intended machine learning models that we did not end up implementing, as we decided that a more prescribed algorithm was best with the knowledge gained from our supervisors. This work was mostly done by Sam and Sophie, however no commits were made from this. 
+
+
+\section{Issue Tracker}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Student} & \textbf{Authored (O+C)} & \textbf{Assigned (C only)}\\
+\midrule
+Daniel & 12 & 18 \\
+Jonathan & 1 & 11 \\
+Sophie & 36 & 12 \\
+Sam & 52 & 16 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{CICD}
+
+Continuous Integration and Continuous Deployments is handled through GitHub Actions. Multiple workflows in the project are responsible for ensuring code formatting standards, tests passing, and deployments. 
+
+Our project has two sub-projects being the frontend and backend project. Upon pushes, if anything changes in the frontend main app or test app, the frontend workflow will ensure formatting is met and all tests are passed. Meanwhile any change in the backend will also trigger a workflow to check formatting and ensure tests are passed. 
+
+Once a branch is merged into main, if anything in the backend project has changed, GitHuc actions will trigger a deployment script to redploy our backend to an Azure web application.
+
+\end{document}
