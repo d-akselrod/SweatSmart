@@ -23,7 +23,14 @@ export interface IWorkout {
   name: string;
   date: Date;
   duration?: number;
-  numOfExercises?: number;
+}
+
+export interface IWorkoutPlan {
+  wID: string;
+  eID: string;
+  sets: number;
+  reps: number;
+  PercentageOfOneRepMac: number;
 }
 
 export interface IFeaturedWorkout {

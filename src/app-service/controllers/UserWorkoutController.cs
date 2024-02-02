@@ -49,6 +49,8 @@ public class UserWorkoutController : ControllerBase
         return Ok(userWorkout);
     }
 
+    [Authorize]
+    [HttpDelete("{wid}")]
     public async Task<IActionResult> GetUserWorkoutByWID(Guid wid)
     {
         var userWorkout = await database.UserWorkouts.FindAsync(wid);
