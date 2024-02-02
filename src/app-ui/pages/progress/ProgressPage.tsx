@@ -6,14 +6,19 @@ import { getWorkouts } from '../../service/WorkoutAPI';
 import { IUser } from '../../typings/types';
 import { getWorkoutPlanByWid } from '../../service/WorkoutPlanAPI';
 import { getUserWorkoutByWid } from '../../service/UserWorkoutAPI';
+import { PastWorkoutsHeader } from './PastWorkoutsHeader'; 
+import { StatisticsHeader } from './StatisticsHeader'; 
 
 export function ProgressPage() {
+    const workoutsCompleted = 0; //need to implement this
+    const weeklyGoal = '0/3 days'; //need to implement this
+    const totalExercises = 0; // need to implement this
     const activeUser: IUser = useSelector((state: any) => state.user);
     const [workouts, setWorkouts] = useState<IWorkoutCardProps[]>([]);
     const [workoutPlan, setWorkoutPlan] = useState<IWorkoutCardProps[]>([]);
     const [joinedWorkouts, setJoinedWorkouts] = useState<IWorkoutCardProps[]>([]);
     // const activeUser = {username: 'testuser'}
-    // for testing the UI without the need to login
+    // //for testing the UI without the need to login
     // const [joinedWorkouts, setJoinedWorkouts] = useState<IWorkoutCardProps[]>([
     //     {
     //         wId: "1",
@@ -26,7 +31,8 @@ export function ProgressPage() {
     //             'Lunges'
     //         ],
     //         sets: [4, 4, 4],
-    //         reps: [10, 10, 10]
+    //         reps: [10, 10, 10],
+    //         PercentageOfOneRepMax: [60, 70, 80]
     //     },
     //     {
     //         wId: "2",
@@ -39,7 +45,8 @@ export function ProgressPage() {
     //             'Dumbbell Flys'
     //         ],
     //         sets: [4, 4, 4],
-    //         reps: [10, 10, 10]
+    //         reps: [10, 10, 10],
+    //         PercentageOfOneRepMax: [60, 70, 80]
     //     },
     //     {
     //         wId: "3",
@@ -52,7 +59,8 @@ export function ProgressPage() {
     //             'Rows'
     //         ],
     //         sets: [4, 4, 4],
-    //         reps: [10, 10, 10]
+    //         reps: [10, 10, 10],
+    //         PercentageOfOneRepMax: [60, 70, 80]
     //     },
     //     {
     //         wId: "4",
@@ -65,7 +73,8 @@ export function ProgressPage() {
     //             'Hammer Curls'
     //         ],
     //         sets: [4, 4, 4],
-    //         reps: [10, 10, 10]
+    //         reps: [10, 10, 10],
+    //         PercentageOfOneRepMax: [60, 70, 80]
     //     }
         
     // ]);
@@ -145,30 +154,31 @@ useEffect(() => {
     }
 
     return (
-        <SafeAreaView>
-            <ScrollView style={styles.container}>
-                <View>
-                    <Text style={styles.header}>{activeUser.username}</Text>
-                    <Text style={styles.title}>Past Workouts</Text>
-                </View>
-                <View style={styles.container}>
-                    <FlatList
-                        data={ joinedWorkouts } 
-                        renderItem={({item}) => renderWorkouts(item)}
-                    />
-                </View>
-            </ScrollView>
+        
+        <SafeAreaView style={styles.safeArea}>
+            <StatisticsHeader workouts={workoutsCompleted} goal={weeklyGoal} exercises={totalExercises} />
+            <PastWorkoutsHeader username={activeUser.username} onAddWorkout={function (): void { //need to implement this clickable function, should navigate to log page
+                throw new Error('Function not implemented.');
+            } } />
+            <FlatList
+                data={joinedWorkouts}
+                renderItem={({ item }) => renderWorkouts(item)} 
+            />
         </SafeAreaView>
     );
 }
     
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1
+      },
     container: {
         marginTop: 10,
     },
     header: {
         fontSize: 15,
         fontWeight: 'bold',
+        textAlign: 'center'
     },
     title: {
         fontSize: 16,
