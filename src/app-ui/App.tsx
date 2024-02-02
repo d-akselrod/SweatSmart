@@ -22,8 +22,6 @@ import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
 
-import { ProgressPage } from './pages/progress/ProgressPage';
-
 const debugRedux = false;
 
 const Tab = createBottomTabNavigator();
@@ -52,25 +50,24 @@ const ProfileStack = () => (
 );
 
 const AppEntry = () => (
-  // <NavigationContainer>
-  //   <Stack.Navigator
-  //     initialRouteName='Entry'
-  //     screenOptions={{
-  //       headerShown: false,
-  //       cardStyleInterpolator: ({ current }) => ({
-  //         cardStyle: {
-  //           opacity: current.progress,
-  //         },
-  //       }),
-  //     }}
-  //   >
-  //     <Stack.Screen name='Entry' component={EntryPage} />
-  //     <Stack.Screen name='Login' component={LoginPage} />
-  //     <Stack.Screen name='Registration' component={RegisterPage} />
-  //     <Stack.Screen name='OnboardingPage' component={OnboardingPage} />
-  //   </Stack.Navigator>
-  // </NavigationContainer>
-  <ProgressPage/>
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName='Entry'
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: ({ current }) => ({
+          cardStyle: {
+            opacity: current.progress,
+          },
+        }),
+      }}
+    >
+      <Stack.Screen name='Entry' component={EntryPage} />
+      <Stack.Screen name='Login' component={LoginPage} />
+      <Stack.Screen name='Registration' component={RegisterPage} />
+      <Stack.Screen name='OnboardingPage' component={OnboardingPage} />
+    </Stack.Navigator>
+  </NavigationContainer>
 );
 
 const AppMain = () => {
@@ -99,7 +96,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Progress'
-          component={ProgressPage}
+          component={EmptyPage}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (
