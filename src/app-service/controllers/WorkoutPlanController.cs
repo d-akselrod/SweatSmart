@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
 using App_Service.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App_Service.Controllers
 {
@@ -15,6 +16,7 @@ namespace App_Service.Controllers
             this.database = database;
         }
 
+        [Authorize]
         [HttpGet("{wid}")]
         public async Task<ActionResult<WorkoutPlan>> GetWorkoutPlanByWID(Guid wid)
         {
