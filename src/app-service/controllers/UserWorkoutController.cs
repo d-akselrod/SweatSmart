@@ -48,4 +48,16 @@ public class UserWorkoutController : ControllerBase
         await database.SaveChangesAsync();
         return Ok(userWorkout);
     }
+
+    public async Task<IActionResult> GetUserWorkoutByWID(Guid wid)
+    {
+        var userWorkout = await database.UserWorkouts.FindAsync(wid);
+
+        if (userWorkout == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(userWorkout);
+    }
 }
