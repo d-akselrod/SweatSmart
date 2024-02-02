@@ -45,7 +45,7 @@ export function WorkoutExercisesPage(){
     }
 
     getWorkoutExercises();
-  }, []);
+  }, [showPage]);
 
   const getExercises = async() => {
     try{
@@ -101,7 +101,7 @@ export function WorkoutExercisesPage(){
     <View>
       <ScrollView style = {{marginLeft: 20, height: '100%'}}>
         <Modal animationType = {"slide"} onRequestClose={() => setShow(false)} visible = {showPage}>
-          {exercises && <AddExercisesPage exercises={filterExercises()} close={() => setShow(false)} />}
+          {exercises && <AddExercisesPage exercises={filterExercises()} close={() => setShow(false)} wId = {wId}/>}
         </Modal>
         <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <Text style = {styles.header}>{workoutExercises.length} Exercises</Text>

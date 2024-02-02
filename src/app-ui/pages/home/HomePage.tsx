@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -24,6 +24,7 @@ import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
 import { AddWorkout } from './AddWorkout';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -31,7 +32,7 @@ export function HomePage() {
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
   const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
   const [showAddPage, setShow] = useState(false);
-
+  const navigation = useNavigation();
   const workoutView: string[] = [
     'All Programs',
     'AI generated',
@@ -110,18 +111,15 @@ export function HomePage() {
     };
 
     loadWorkouts();
-  }, [showAddPage]);
+  }, [showAddPage, useIsFocused]);
   
+  const handleNavigation = () => {
+    // @ts-ignore
+    navigation.navigate('WorkoutPage')
+  }
 
   return (
     <SafeAreaView>
-      <Modal
-        visible={showAddPage}
-        onRequestClose={() => setShow(false)}
-        animationType='none'
-      >
-        <AddWorkout close={() => setShow(false)} />
-      </Modal>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 20 }}>
           <Text
@@ -132,7 +130,7 @@ export function HomePage() {
           <View id={'my-programs'} style={styles.section}>
             <View style={[styles.myProgramsHeader, { marginHorizontal: 15 }]}>
               <Text style={styles.title}>My Programs</Text>
-              <AddProgramButton onPress={() => setShow(true)} />
+              <AddProgramButton onPress={() => handleNavigation()} />
             </View>
             <View style={[styles.selectionContainer, { marginHorizontal: 15 }]}>
               {showWorkoutView()}

@@ -2,22 +2,27 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, TouchableHighlight, Pressable, SectionList, Dimensions} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
-import {IExercise} from '../../typings/types'
+import {IExercise, IUser} from '../../typings/types'
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { SearchBar } from '../../components/SearchBar';
 import {getExerciseSortedList} from '../../service/ExerciseAPI';
+import { postExercises, postWorkout } from '../../service/WorkoutAPI';
+import { useSelector } from 'react-redux';
 
 interface IExerciseProps {
     exercises: IExercise[];
     close: Function;
+    wId?: string;
+    workoutName?: string
 }
 
 export function AddExercisesPage(props: IExerciseProps){
-    const {exercises, close} = props;
+    const activeUser: IUser = useSelector((state: any) => state.user);
+    const {exercises, close, wId, workoutName} = props;
     const [searchFocused, setSearchFocused] = useState(false);
     const [text, setSearch] = useState('');
     const [selectedExercises, setSelectedExercises] = useState<IExercise[]>([])
-    const width = Dimensions.get('window').width
+    
     
     const handleFocus = () => {
         setSearchFocused(true);
@@ -50,6 +55,40 @@ export function AddExercisesPage(props: IExerciseProps){
             setSelectedExercises(selectedExercises.filter(val => val.eId !== exercise.eId))
         }
     }
+
+    const addExercises = async () => {
+        let workoutId: string | undefined = wId;
+
+        try {
+            if (!workoutId) {
+                const workout = {
+                    name: workoutName,
+                    date: new Date(),
+                    duration: 0,
+                };
+
+                const response = await postWorkout(activeUser.username, workout);
+                if(response.ok){
+                    const data = await response.json();
+                    workoutId = data.body;
+                }
+                else{
+                    console.log("ERROR")
+                }
+            }
+
+            const response = await postExercises(selectedExercises.map(val => val.eId), workoutId!);
+
+            if (response.ok) {
+                const data = await response.json();
+                close();
+            } else {
+                console.log(response.status);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     const ExerciseList = (props : { exercise: IExercise, index: number }) => {
         const {exercise, index} = props;
         const isSelected = selectedExercises.includes(exercise)
@@ -96,7 +135,7 @@ export function AddExercisesPage(props: IExerciseProps){
                 <TouchableOpacity style = {{backgroundColor: selectedExercises.length === 0 ? '#494949' : '#B0B0B0', borderRadius: 10, width: '30%'}} disabled = {selectedExercises.length === 0} onPress = {() => setSelectedExercises([])}>
                     <Text style = {[styles.buttonTitle, {color: selectedExercises.length === 0 ? '#ffffff50' : '#ffffff'}]}>Clear</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{backgroundColor: selectedExercises.length === 0 ? '#4e547e' : '#7F87CD', borderRadius: 10, width: '60%'}} disabled = {selectedExercises.length === 0}>
+                <TouchableOpacity style = {{backgroundColor: selectedExercises.length === 0 ? '#4e547e' : '#7F87CD', borderRadius: 10, width: '60%'}} disabled = {selectedExercises.length === 0} onPress = {() => addExercises()}>
                     <Text style = {[styles.buttonTitle, {color: selectedExercises.length === 0 ? '#ffffff50' : '#ffffff'}]}>{selectedExercises.length <= 1 ? 'Add Exercise' : `Add ${selectedExercises.length} Exercises`}</Text>
                 </TouchableOpacity>
             </View>

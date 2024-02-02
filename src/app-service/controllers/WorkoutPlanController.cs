@@ -24,11 +24,11 @@ public class WorkoutPlanController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddExercisesToWorkout(List<int> exerciseIdList, Guid workoutId)
+    public async Task<IActionResult> AddExercisesToWorkout(AddExercisesRequest request)
     {
-        var workoutPlans = exerciseIdList.Select(id => new WorkoutPlan
+        var workoutPlans = request.exerciseIdList.Select(id => new WorkoutPlan
         {
-            WId = workoutId,
+            WId = request.workoutId,
             EId = id,
             Sets = 3,
             Reps = 10,

@@ -14,14 +14,14 @@ import { getAllExercises } from '../../service/WorkoutAPI'
 import { AddExercisesPage } from './AddExercisesPage'
 import { IExercise } from '../../typings/types';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
-interface IAddWorkoutProps {
-    close: Function;
-}
-export function AddWorkout(props: IAddWorkoutProps) {
+import { useNavigation } from '@react-navigation/native';
+
+export function AddWorkout() {
     const [name, setName] = useState('')
     const [option, setOption] = useState(0)
     const [exercises, setExercises] = useState<IExercise[]>()
     const [show, setShow] = useState<boolean>(false);
+    const navigation = useNavigation();
 
     const handleApply = () => {
         getExercises();
@@ -49,10 +49,10 @@ export function AddWorkout(props: IAddWorkoutProps) {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#F6F6F6'}}>
             <Modal animationType =  {'slide'} visible={show} onRequestClose={() => setShow(false)}>
-                {exercises && <AddExercisesPage exercises={exercises} close={() => setShow(false)} />}
+                {exercises && <AddExercisesPage exercises={exercises} close={() => setShow(false)} workoutName = {name}/>}
             </Modal>
-            <Pressable style = {{marginLeft: 10}} onPress = {() => props.close()}>
-                <Text style = {{fontSize: 18, fontWeight: '700'}}>Cancel</Text>
+            <Pressable style = {{marginLeft: 10}} onPress = {() => {navigation.goBack()}}>
+                <Text style = {{fontSize: 18, fontWeight: '700'}}>Back</Text>
             </Pressable>
             <View style = {styles.container}>
                 <Text style = {styles.title}>Build a new workout</Text>

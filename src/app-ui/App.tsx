@@ -25,6 +25,8 @@ import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
 import { ExercisePage } from './pages/home/ExercisePage';
 import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
+import { AddWorkout } from './pages/home/AddWorkout';
+import { AddExercisesPage } from './pages/home/AddExercisesPage';
 
 const debugRedux = false;
 
@@ -32,12 +34,20 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const HomeStack = () => (
-    <Stack.Navigator initialRouteName="HomePage">
+    <Stack.Navigator initialRouteName="HomePage" screenOptions = {{presentation: "card"}}>
         <Stack.Screen name="HomePage" component={HomePage} options = {{headerShown: false}}/>
         <Stack.Screen name="ExerciseList" component={ExercisePage} options = {{headerShown: true}}/>
         <Stack.Screen name="WorkoutExerciseList" component={WorkoutExercisesPage} options = {{headerShown: true}} />
+        <Stack.Screen name="WorkoutPage" component={AddWorkout} options = {{headerShown: false}}/>
     </Stack.Navigator>
 );
+
+// const ExerciseStack = () => {
+//   <Stack.Navigator initialRouteName="WorkoutPage" screenOptions = {{presentation: "modal"}}>
+//     <Stack.Screen name="WorkoutPage" component={AddWorkout} options = {{headerShown: false}}/>
+//     <Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false}}/>
+//   </Stack.Navigator>
+// }
 
 function HomeTabs() {
     return (
