@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App_Service.controllers;
 
-public record AddExerciseRequest(int exerciseId, Guid workoutId);
+public record AddExercisesRequest(List<int> exerciseIdList, Guid workoutId);
 
 [ApiController]
 [Route("[controller]")]
@@ -24,19 +24,20 @@ public class WorkoutPlanController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddExerciseToWorkout(AddExerciseRequest body)
+    public async Task<IActionResult> AddExercisesToWorkout(List<int> exerciseIdList, Guid workoutId)
     {
-        var workoutPlan = new WorkoutPlan
+        var workoutPlans = exerciseIdList.Select(id => new WorkoutPlan
         {
-            WId = body.workoutId,
-            EId = body.exerciseId,
+            WId = workoutId,
+            EId = id,
             Sets = 3,
             Reps = 10,
             PercentageOfOneRepMax = 0
-        };
-        await database.WorkoutPlans.AddAsync(workoutPlan);
+        });
+
+        await database.WorkoutPlans.AddRangeAsync(workoutPlans);
         await database.SaveChangesAsync();
 
-        return new APIResponse(200, null, workoutPlan);
+        return new APIResponse(200, null, null);
     }
 }

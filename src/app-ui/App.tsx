@@ -23,7 +23,8 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
-import { ExercisePage } from './pages/home/ExercisePage'
+import { ExercisePage } from './pages/home/ExercisePage';
+import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
 
 const debugRedux = false;
 
@@ -33,7 +34,8 @@ const Stack = createStackNavigator();
 const HomeStack = () => (
     <Stack.Navigator initialRouteName="HomePage">
         <Stack.Screen name="HomePage" component={HomePage} options = {{headerShown: false}}/>
-        <Stack.Screen name="ExerciseList" component={ExercisePage} options = {{headerShown: true}} />
+        <Stack.Screen name="ExerciseList" component={ExercisePage} options = {{headerShown: true}}/>
+        <Stack.Screen name="WorkoutExerciseList" component={WorkoutExercisesPage} options = {{headerShown: true}} />
     </Stack.Navigator>
 );
 

@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import { ProgressBar } from './ProgressBar';
 import { IWorkout } from '../../typings/types';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { getExercisesByWId } from '../../service/WorkoutAPI';
 
 interface IWorkoutProgramProps {
   workout: IWorkout;
@@ -17,8 +20,35 @@ interface IWorkoutProgramProps {
 const width = Dimensions.get('window').width;
 export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
   const { workout, index, workouts } = props;
+  const navigation = useNavigation();
+  const [numOfExercises, setNumOfExercises] = useState(0)
+  const handleNavigtion = () => {
+    // @ts-ignore
+    navigation.navigate('WorkoutExerciseList', {workoutName: workout.name, id: workout.wId})
+  }
+
+  useEffect(() => {
+    const getExercises = async () => {
+      try{
+        const response = await getExercisesByWId(workout.wId)
+        if(response.ok){
+          const data = await response.json();
+          setNumOfExercises(data.body.length)
+        }
+        else{
+          console.log("NO RESPONSE")
+        }
+      }
+      catch (error){
+        console.error(error)
+      }
+    }
+    
+    getExercises();
+  }, []);
+
   return (
-    <TouchableOpacity style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]}>
+    <TouchableOpacity style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]} onPress = {() => handleNavigtion()}>
       <View
         style={{
           flexDirection: 'row',
@@ -35,8 +65,8 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
           <Ionicons name='barbell-outline' size={14} color='grey' />
           <Text style={{ fontSize: 9, color: 'grey' }}>
-            {workout.numOfExercises && workout.numOfExercises > 0
-              ? `${workout.numOfExercises} Exercises`
+            {numOfExercises && numOfExercises > 0
+              ? `${numOfExercises} Exercises`
               : 'No Exercises'}
           </Text>
         </View>

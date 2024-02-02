@@ -52,10 +52,10 @@ export function AddWorkout(props: IAddWorkoutProps) {
                 {exercises && <AddExercisesPage exercises={exercises} close={() => setShow(false)} />}
             </Modal>
             <Pressable style = {{marginLeft: 10}} onPress = {() => props.close()}>
-                <Text style = {{fontSize: 18}}>Close</Text>
+                <Text style = {{fontSize: 18, fontWeight: '700'}}>Cancel</Text>
             </Pressable>
             <View style = {styles.container}>
-                <Text style = {styles.title}>Start a new workout</Text>
+                <Text style = {styles.title}>Build a new workout</Text>
                 <TextInput placeholder = {"Name of workout"} style = {styles.input} onChangeText = {text => setName(text)}/>
                 <View style = {{width: '100%', height: '45%',flexDirection: 'row', justifyContent: 'space-between'}}>
                     <Pressable style = {[styles.button, {borderColor: option === 0 ? "#A9ABF1" : "white"}]} onPress = {() => setOption(0)}>

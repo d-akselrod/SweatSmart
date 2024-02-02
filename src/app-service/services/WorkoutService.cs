@@ -1,3 +1,4 @@
+using App_Service.controllers;
 using App_Service.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
@@ -8,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App_Service.services;
 
-public record AddWorkoutRequest(string username, Workout workout);
+public record AddWorkoutRequest(string username, Workout workout, List<int> exerciseIdList);
+
 
 [ApiController]
 [Route("[controller]")]
@@ -20,6 +22,7 @@ public class WorkoutService : ControllerBase
     private readonly WorkoutController workoutController;
     private readonly UserController userController;
     private readonly UserWorkoutController userWorkoutController;
+    private readonly WorkoutPlanController workoutPlanController;
 
     public WorkoutService(DatabaseContext database, IConfiguration configuration)
     {
@@ -78,20 +81,50 @@ public class WorkoutService : ControllerBase
             UId = user.UId,
             Status = 0
         };
-
+        
         await workoutController.AddWorkout(workout);
         await userWorkoutController.AddUserWorkout(userWorkout);
+        
+        var workoutPlans = body.exerciseIdList.Select(id => new WorkoutPlan
+        {
+            WId = wId,
+            EId = id,
+            Sets = 3,
+            Reps = 10,
+            PercentageOfOneRepMax = 0
+        });
+
+        await database.WorkoutPlans.AddRangeAsync(workoutPlans);
+        await database.SaveChangesAsync();
+        // await workoutPlanController.AddExercisesToWorkout(body.exerciseIdList, wId);
 
         return new APIResponse(200, null, null);
     }
+    
 
     [Authorize]
     [HttpGet("GetExercises/{workoutId}")]
     public async Task<IActionResult> GetExercisesByWorkout(Guid workoutId)
     {
-        var workoutExercises = await database.WorkoutPlans.Where(w => w.WId == workoutId).ToListAsync();
-        var identifications = workoutExercises.Select(w => w.EId);
-        var exercises = await database.Exercises.Where(e => identifications.Contains(e.EId)).ToListAsync();
+        // var workoutExercises = await database.WorkoutPlans.Where(w => w.WId == workoutId).ToListAsync();
+        // var identifications = workoutExercises.Select(w => w.EId);
+        // var exercises = await database.Exercises.Where(e => identifications.Contains(e.EId)).ToListAsync();
+        // return new APIResponse(200, null, exercises);
+        
+        var exercises = await (
+            from workoutPlan in database.WorkoutPlans
+            where workoutPlan.WId == workoutId
+            join exercise in database.Exercises on workoutPlan.EId equals exercise.EId
+            select new
+            {
+                ExerciseId = exercise.EId,
+                MuscleGroup = exercise.MuscleGroup,
+                ExerciseName = exercise.Name,
+                Sets = workoutPlan.Sets,
+                Reps = workoutPlan.Reps
+            }
+        ).ToListAsync();
+
         return new APIResponse(200, null, exercises);
     }
     

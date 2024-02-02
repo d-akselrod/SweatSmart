@@ -118,7 +118,7 @@ export function HomePage() {
       <Modal
         visible={showAddPage}
         onRequestClose={() => setShow(false)}
-        animationType='slide'
+        animationType='none'
       >
         <AddWorkout close={() => setShow(false)} />
       </Modal>

@@ -50,12 +50,12 @@ export function AddExercisesPage(props: IExerciseProps){
             setSelectedExercises(selectedExercises.filter(val => val.eId !== exercise.eId))
         }
     }
-    const ExerciseList = (props : { exercise: IExercise }) => {
-        const {exercise} = props;
+    const ExerciseList = (props : { exercise: IExercise, index: number }) => {
+        const {exercise, index} = props;
         const isSelected = selectedExercises.includes(exercise)
         return(
             <View>
-                <Pressable style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2', backgroundColor: isSelected ? '#f6f6f6' : 'white'}} onPress={() => handleSelectedExercise(exercise)}>
+                <Pressable style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2', backgroundColor: isSelected ? '#f6f6f6' : 'white', paddingBottom: 0}} onPress={() => handleSelectedExercise(exercise)}>
                     <View style={[styles.exerciseContainer]}>
                         <View style={{gap: 5}}>
                             <Text style={styles.exerciseName}>{exercise.name}</Text>
@@ -84,8 +84,8 @@ export function AddExercisesPage(props: IExerciseProps){
             </View>
             <SectionList
                 sections = {text.length > 0 ? filterDataBySearch(getExerciseSortedList(exercises), text) : getExerciseSortedList(exercises)}
-                renderItem = {({item, index}) => <ExerciseList exercise={item}/>}
-                style = {styles.container}
+                renderItem = {({item, index}) => <ExerciseList exercise={item} index = {index}/>}
+                style = {[styles.container]}
                 showsVerticalScrollIndicator = {false}
                 renderSectionHeader={({section: {title}}) => (
                     <Text style = {{paddingHorizontal: 20, paddingTop: 20,fontWeight: 'bold', color: 'grey'}}>{title}</Text>
@@ -93,11 +93,11 @@ export function AddExercisesPage(props: IExerciseProps){
                 stickySectionHeadersEnabled = {false}
             />
             <View style = {[styles.footer]}>
-                <TouchableOpacity style = {{backgroundColor: 'grey', borderRadius: 10, width: '30%'}}>
-                    <Text style = {styles.buttonTitle}>Clear</Text>
+                <TouchableOpacity style = {{backgroundColor: selectedExercises.length === 0 ? '#494949' : '#B0B0B0', borderRadius: 10, width: '30%'}} disabled = {selectedExercises.length === 0} onPress = {() => setSelectedExercises([])}>
+                    <Text style = {[styles.buttonTitle, {color: selectedExercises.length === 0 ? '#ffffff50' : '#ffffff'}]}>Clear</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{backgroundColor: '#e75252', borderRadius: 10, width: '60%'}}>
-                    <Text style = {styles.buttonTitle}>Add Exercises</Text>
+                <TouchableOpacity style = {{backgroundColor: selectedExercises.length === 0 ? '#4e547e' : '#7F87CD', borderRadius: 10, width: '60%'}} disabled = {selectedExercises.length === 0}>
+                    <Text style = {[styles.buttonTitle, {color: selectedExercises.length === 0 ? '#ffffff50' : '#ffffff'}]}>{selectedExercises.length <= 1 ? 'Add Exercise' : `Add ${selectedExercises.length} Exercises`}</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontStyle: 'italic',
         padding: 15,
-        color: 'white',
+        color: '#ffffff50',
         textAlign: 'center',
     },
 
