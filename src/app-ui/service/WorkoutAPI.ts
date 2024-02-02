@@ -40,3 +40,14 @@ export const getAllExercises = () => {
     },
   });
 };
+
+export const getExercisesByWId = (wId: string) => {
+  return fetch(`${API_URL}/WorkoutService/GetExercises/${wId}`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};
+
