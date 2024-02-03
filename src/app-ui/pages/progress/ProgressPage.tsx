@@ -119,36 +119,25 @@ useEffect(() => {
 
 useEffect(() => {
     if (workouts && workoutPlan) {
-        const loadUserWorkouts = async () => {
-            const joinedData = await Promise.all(workouts.map(async (workout) => {
-                const correspondingPlan = workoutPlan.find(plan => plan.wId === workout.wId);
-                const response = await getUserWorkoutByWid(workout.wId);
-                if (response.ok) {
-                    const data = await response.json();
-                    return {
-                        ...workout,
-                        ...correspondingPlan,
-                        status: data.body.status
-                    };
-                } else {
-                    return null;
-                }
-            }));
+        const joinedData = workouts.map(workout => {
+            const correspondingPlan = workoutPlan.find(plan => plan.wId === workout.wId);
+            return {
+                ...workout,
+                ...correspondingPlan,
+            };
+        });
 
-            const completedWorkouts = joinedData.filter(workout => workout && workout.status === 'completed');
-            setJoinedWorkouts(completedWorkouts as IWorkoutCardProps[]);
-            setWorkoutsCompleted(completedWorkouts.length);
-            const totalCompletedExercises = completedWorkouts.reduce((total, workout) => {
-                if (workout && workout.exercises) {
-                    return total + workout.exercises.length;
-                } else {
-                    return total;
-                }
-            }, 0);
-            setTotalCompletedExercises(totalCompletedExercises);
-        };
+        setJoinedWorkouts(joinedData as IWorkoutCardProps[]);
+        setWorkoutsCompleted(joinedData.length);
 
-        loadUserWorkouts();
+        const totalCompletedExercises = joinedData.reduce((total, workout) => {
+            if (workout && workout.exercises) {
+                return total + workout.exercises.length;
+            } else {
+                return total;
+            }
+        }, 0);
+        setTotalCompletedExercises(totalCompletedExercises);
     }
 }, [workouts, workoutPlan]);
 
