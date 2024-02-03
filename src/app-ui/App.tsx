@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
 import { ChatBotPage } from './pages/chatbot/ChatBotPage';
+import { ProgressPage } from './pages/progress/ProgressPage'
 import { HomePage } from './pages/home/HomePage';
 import { LoginPage } from './pages/login/LoginPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
@@ -100,7 +101,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Progress'
-          component={EmptyPage}
+          component={ProgressPage}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (

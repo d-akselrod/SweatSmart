@@ -10,6 +10,17 @@ export const getWorkouts = (username: string) => {
   });
 };
 
+export const getCompletedWorkouts = (username: string) => {
+  return fetch(`${API_URL}/WorkoutService/${username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};
+
+
 export const postWorkout = (username: string, workout: Object) => {
   return fetch(`${API_URL}/WorkoutService`, {
     method: 'POST',
