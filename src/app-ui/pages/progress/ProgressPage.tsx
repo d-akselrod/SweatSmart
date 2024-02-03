@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, ScrollView, SafeAreaView, Text, FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { IWorkoutCardProps, WorkoutCard } from './WorkoutCard';
-import { getWorkouts } from '../../service/WorkoutAPI';
+import { getCompletedWorkouts } from '../../service/WorkoutAPI';
 import { IUser } from '../../typings/types';
 import { getWorkoutPlanByWid } from '../../service/WorkoutPlanAPI';
 import { getUserWorkoutByWid } from '../../service/UserWorkoutAPI';
@@ -82,7 +82,7 @@ export function ProgressPage() {
 useEffect(() => {
     const loadWorkouts = async () => {
         try {
-            const response = await getWorkouts(activeUser.username);
+            const response = await getCompletedWorkouts(activeUser.username);
             if (response.ok) {
                 const data = await response.json();
                 setWorkouts(data.body);

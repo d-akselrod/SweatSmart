@@ -96,7 +96,7 @@ export function LoginPage() {
           </Text>
         </TouchableOpacity>
         <View style={styles.registerContainer}>
-          <Text>{`Don't have an account?`}</Text>
+          <Text>{`Don't have an account? `}</Text>
           <TouchableOpacity onPress={handleRegisterInstead}>
             <Text style={{ color: '#6C96E8', fontWeight: 'bold' }}>
               Sign Up

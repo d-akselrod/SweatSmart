@@ -92,4 +92,28 @@ public class WorkoutService : ControllerBase
         var exercises = await database.Exercises.Where(exercise => exercise.MuscleGroup == muscleGroup).ToListAsync();
         return new APIResponse(200, null, exercises);
     }
+    
+    [Authorize]
+    [HttpGet("CompletedWorkouts{username}")]
+    public async Task<IActionResult> GetCompletedWorkoutsByUser(string username)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+        var userWorkouts = await database.UserWorkouts
+            .Where(workout => workout.UId == user.UId && workout.Status == WorkoutStatus.Completed)
+            .ToListAsync();
+
+        var workoutIds = userWorkouts.Select(workout => workout.WId);
+
+        var workouts = await database.Workouts
+            .Where(workout => workoutIds.Contains(workout.WId))
+            .OrderByDescending(workout => workout.date)
+            .ToListAsync();
+
+        return new APIResponse(200, null, workouts);
+    }
 }
