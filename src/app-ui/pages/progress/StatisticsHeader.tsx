@@ -1,17 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export function StatisticsHeader({ workouts, goal, exercises }: { workouts: any, goal: any, exercises: any }) {
+export function StatisticsHeader({ workouts, exercises }: { workouts: any, exercises: any }) {
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statItem}>
         <Text style={styles.statNumber}>{workouts}</Text>
         <Text style={styles.statLabel}>Workouts</Text>
       </View>
-      <View style={[styles.statItem, styles.statDivider]}>
+      {/* <View style={[styles.statItem, styles.statDivider]}>
         <Text style={styles.statNumber}>{goal}</Text>
         <Text style={styles.statLabel}>Weekly Goal</Text>
-      </View>
+      </View> */}
       <View style={styles.statItem}>
         <Text style={styles.statNumber}>{exercises}</Text>
         <Text style={styles.statLabel}>Exercises</Text>

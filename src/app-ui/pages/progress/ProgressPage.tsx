@@ -10,13 +10,12 @@ import { PastWorkoutsHeader } from './PastWorkoutsHeader';
 import { StatisticsHeader } from './StatisticsHeader'; 
 
 export function ProgressPage() {
-    const workoutsCompleted = 0; //need to implement this
-    const weeklyGoal = '0/3 days'; //need to implement this
-    const totalExercises = 0; // need to implement this
     const activeUser: IUser = useSelector((state: any) => state.user);
     const [workouts, setWorkouts] = useState<IWorkoutCardProps[]>([]);
+    const [workoutsCompleted, setWorkoutsCompleted] = useState<number>(0);
     const [workoutPlan, setWorkoutPlan] = useState<IWorkoutCardProps[]>([]);
     const [joinedWorkouts, setJoinedWorkouts] = useState<IWorkoutCardProps[]>([]);
+    const [totalCompletedExercises, setTotalCompletedExercises] = useState<number>(0);
     // const activeUser = {username: 'testuser'}
     // //for testing the UI without the need to login
     // const [joinedWorkouts, setJoinedWorkouts] = useState<IWorkoutCardProps[]>([
@@ -138,6 +137,15 @@ useEffect(() => {
 
             const completedWorkouts = joinedData.filter(workout => workout && workout.status === 'completed');
             setJoinedWorkouts(completedWorkouts as IWorkoutCardProps[]);
+            setWorkoutsCompleted(completedWorkouts.length);
+            const totalCompletedExercises = completedWorkouts.reduce((total, workout) => {
+                if (workout && workout.exercises) {
+                    return total + workout.exercises.length;
+                } else {
+                    return total;
+                }
+            }, 0);
+            setTotalCompletedExercises(totalCompletedExercises);
         };
 
         loadUserWorkouts();
@@ -156,7 +164,7 @@ useEffect(() => {
     return (
         
         <SafeAreaView style={styles.safeArea}>
-            <StatisticsHeader workouts={workoutsCompleted} goal={weeklyGoal} exercises={totalExercises} />
+            <StatisticsHeader workouts={workoutsCompleted} exercises={totalCompletedExercises} />
             <PastWorkoutsHeader username={activeUser.username} onAddWorkout={function (): void { //need to implement this clickable function, should navigate to log page
                 throw new Error('Function not implemented.');
             } } />
