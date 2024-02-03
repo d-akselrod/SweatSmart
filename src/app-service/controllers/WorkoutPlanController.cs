@@ -17,10 +17,10 @@ namespace App_Service.Controllers
         }
 
         [Authorize]
-        [HttpGet("{wid}")]
-        public async Task<ActionResult<WorkoutPlan>> GetWorkoutPlan(Guid wid)
+        [HttpGet("{wid}/{eid}")]
+        public async Task<ActionResult<WorkoutPlan>> GetWorkoutPlan(Guid wid, int eid)
         {
-            var workoutPlan = await database.WorkoutPlans.FindAsync(wid);
+            var workoutPlan = await database.WorkoutPlans.FindAsync(wid, eid);
 
             if (workoutPlan == null)
             {
