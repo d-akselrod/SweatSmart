@@ -4,36 +4,19 @@ import { IWorkout } from '../../typings/types';
 //import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 
-export interface IWorkoutCardProps extends IWorkout{
+export interface IWorkoutCardProps extends IWorkout {
+    [x: string]: any;
     exercises: string[];
     sets: number[];
     reps: number[];
-    PercentageOfOneRepMax: number[];
+    percentageOfOneRepMax: number[];
 }
 
-// export function WorkoutCard(props: IWorkoutCardProps) {
-//     const { name, date, duration, exercises, sets, reps, PercentageOfOneRepMax } = props;
-//     const numOfExercises = exercises.length;
-//     const formattedDate = date.toLocaleDateString();
-//     return (
-//         <View style={styles.container}>
-//             <Text style={styles.date}>{formattedDate}</Text>
-//             <Text style={styles.title}>{name}</Text>
-//             <Text style={styles.content}>{`${duration} minutes`}</Text>
-//             {exercises.map((exercise, index) => (
-//                 <Text key={index} style={styles.content}>
-//                     {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${PercentageOfOneRepMax[index]}% of 1RM.`}
-//                 </Text>
-//             ))}
-//         </View>
-//     );
-// }
-
 export function WorkoutCard(props: IWorkoutCardProps) {
-    const { name, date, duration, exercises= [], sets, reps, PercentageOfOneRepMax } = props;
+    const { name, date, duration, exercises = [], sets = [], reps = [], percentageOfOneRepMax = [] } = props;
     const [expanded, setExpanded] = useState(false);
-    
-    const formattedDate = date instanceof Date ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }): "";
+
+    const formattedDate = date instanceof Date ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "";
 
     return (
         <View style={styles.card}>
@@ -47,7 +30,7 @@ export function WorkoutCard(props: IWorkoutCardProps) {
             </View>
             {expanded && exercises.map((exercise, index) => (
                 <Text key={index} style={styles.content}>
-                    {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${PercentageOfOneRepMax[index]}% of 1RM`}
+                    {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${percentageOfOneRepMax[index]}% of 1RM`}
                 </Text>
             ))}
             <TouchableOpacity onPress={() => setExpanded(!expanded)} style={styles.expandButton}>
@@ -56,18 +39,6 @@ export function WorkoutCard(props: IWorkoutCardProps) {
         </View>
     );
 }
-            {/* <Picker
-                selectedValue={numOfExercises}
-                style={{ height: 50, width: 150 }}
-            >
-                {exercises.map((exercise, index) => (
-                    <Picker.Item 
-                        key={index} 
-                        label={`${exercise} - ${sets[index]} sets of ${reps[index]} reps`} 
-                        value={exercise} 
-                    />
-                ))}
-            </Picker> */}
 const styles = StyleSheet.create({
     card: {
         backgroundColor: 'white',

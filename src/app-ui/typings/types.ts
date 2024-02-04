@@ -29,7 +29,7 @@ export interface IWorkoutPlan {
   eID: string;
   sets: number;
   reps: number;
-  PercentageOfOneRepMac: number;
+  percentageOfOneRepMax: number;
 }
 
 export interface IFeaturedWorkout {
