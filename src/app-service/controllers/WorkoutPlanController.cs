@@ -18,7 +18,7 @@ namespace App_Service.Controllers
         {
             this.database = database;
         }
-        
+
         [Authorize]
         [HttpGet("{wid}")]
         public async Task<IActionResult> GetWorkoutPlan(string wid)

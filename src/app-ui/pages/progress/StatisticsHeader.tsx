@@ -1,7 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export function StatisticsHeader({ workouts, exercises }: { workouts: any, exercises: any }) {
+export function StatisticsHeader({
+  workouts,
+  exercises,
+}: {
+  workouts: any;
+  exercises: any;
+}) {
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statItem}>

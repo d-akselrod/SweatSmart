@@ -13,7 +13,11 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveUser } from '../../../redux/slices/userSlice';
-import {updateEmail, updateName, updateUsername } from '../../../service/AccountAPI';
+import {
+  updateEmail,
+  updateName,
+  updateUsername,
+} from '../../../service/AccountAPI';
 import { IUser } from '../../../typings/types';
 import { FieldCard } from '../cards/FieldCard';
 
@@ -103,7 +107,7 @@ export const EditProfilePage = () => {
         if (response.ok) {
           const data = await response.json();
           dispatch(setActiveUser(data.body as IUser));
-          console.log("CHANGE EMAIL")
+          console.log('CHANGE EMAIL');
           console.log(data.body);
         } else {
           const data = await response.json();

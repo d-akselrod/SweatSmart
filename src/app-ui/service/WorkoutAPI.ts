@@ -20,7 +20,6 @@ export const getCompletedWorkouts = (username: string) => {
   });
 };
 
-
 export const postWorkout = (username: string, workout: Object) => {
   return fetch(`${API_URL}/WorkoutService`, {
     method: 'POST',

@@ -92,7 +92,7 @@ public class WorkoutService : ControllerBase
         var exercises = await database.Exercises.Where(exercise => exercise.MuscleGroup == muscleGroup).ToListAsync();
         return new APIResponse(200, null, exercises);
     }
-    
+
     [Authorize]
     [HttpGet("CompletedWorkouts/{username}")]
     public async Task<IActionResult> GetCompletedWorkoutsByUser(string username)

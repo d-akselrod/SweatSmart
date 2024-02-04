@@ -48,7 +48,7 @@ export function HomePage() {
           style={[
             styles.selectWorkout,
             {
-              backgroundColor: chosenWorkoutIdx == index ? '#546cff' : 'white',
+              backgroundColor: chosenWorkoutIdx == index ? '#7f91ff' : 'white',
               borderColor: '#546cff',
               borderWidth: 1,
             },
