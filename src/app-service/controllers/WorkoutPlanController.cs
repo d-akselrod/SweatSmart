@@ -1,12 +1,15 @@
+using System.Collections;
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
 using App_Service.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace App_Service.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class WorkoutPlanController : ControllerBase
     {
         private readonly DatabaseContext database;
@@ -15,19 +18,20 @@ namespace App_Service.Controllers
         {
             this.database = database;
         }
-
+        
         [Authorize]
-        [HttpGet("{wid}/{eid}")]
-        public async Task<ActionResult<WorkoutPlan>> GetWorkoutPlan(Guid wid, int eid)
+        [HttpGet("{wid}")]
+        public async Task<IActionResult> GetWorkoutPlan(string wid)
         {
-            var workoutPlan = await database.WorkoutPlans.FindAsync(wid, eid);
+            Guid guidWid = Guid.Parse(wid);
+            var workoutPlan = await database.WorkoutPlans.Where(workoutPlan => workoutPlan.WId == guidWid).ToListAsync();
 
-            if (workoutPlan == null)
+            if (!workoutPlan.Any())
             {
-                return NotFound();
+                return APIResponse.NotFound;
             }
 
-            return Ok(workoutPlan);
+            return new APIResponse(200, null, workoutPlan);
         }
     }
 }

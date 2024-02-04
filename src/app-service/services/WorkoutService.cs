@@ -94,7 +94,7 @@ public class WorkoutService : ControllerBase
     }
     
     [Authorize]
-    [HttpGet("CompletedWorkouts{username}")]
+    [HttpGet("CompletedWorkouts/{username}")]
     public async Task<IActionResult> GetCompletedWorkoutsByUser(string username)
     {
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));

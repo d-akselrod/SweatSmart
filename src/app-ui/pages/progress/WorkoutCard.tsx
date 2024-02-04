@@ -30,10 +30,10 @@ export interface IWorkoutCardProps extends IWorkout{
 // }
 
 export function WorkoutCard(props: IWorkoutCardProps) {
-    const { name, date, duration, exercises, sets, reps, PercentageOfOneRepMax } = props;
+    const { name, date, duration, exercises= [], sets, reps, PercentageOfOneRepMax } = props;
     const [expanded, setExpanded] = useState(false);
-
-    const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    
+    const formattedDate = date instanceof Date ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }): "";
 
     return (
         <View style={styles.card}>

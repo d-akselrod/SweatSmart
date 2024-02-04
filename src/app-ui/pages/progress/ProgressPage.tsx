@@ -77,34 +77,15 @@ export function ProgressPage() {
     //     }
         
     // ]);
-
-
-useEffect(() => {
-    const loadWorkouts = async () => {
-        try {
-            const response = await getCompletedWorkouts(activeUser.username);
-            if (response.ok) {
-                const data = await response.json();
-                setWorkouts(data.body);
-            } else {
-                console.error(response);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    loadWorkouts();
-}, []);
-
-useEffect(() => {
-    if (workouts.length > 0) {
-        const loadWorkoutPlan = async () => {
+    
+    useEffect(() => {
+        const loadWorkouts = async () => {
             try {
-                const response = await getWorkoutPlanByWid(workouts[0].wId);
+                const response = await getCompletedWorkouts(activeUser.username);
                 if (response.ok) {
                     const data = await response.json();
-                    setWorkoutPlan(data.body);
+                    console.log("Workouts data:", data.body);
+                    setWorkouts(data.body);
                 } else {
                     console.error(response);
                 }
@@ -112,39 +93,85 @@ useEffect(() => {
                 console.log(error);
             }
         };
+        loadWorkouts();
+    }, []);
 
-        loadWorkoutPlan();
-    }
-}, [workouts]);
+    // useEffect(() => {
+    //     if (workouts.length > 0) {
+    //         const loadWorkoutPlan = async () => {
+    //             try {
+    //                 const response = await getWorkoutPlanByWid(workouts[0].wId);
+    //                 if (response.ok) {
+    //                     const data = await response.json();
+    //                     setWorkoutPlan(data.body);
+    //                 } else {
+    //                     console.error(response);
+    //                 }
+    //             } catch (error) {
+    //                 console.log(error);
+    //             }
+    //         };
+    //         loadWorkoutPlan();
+    //     }
+    // }, [workouts]);
 
-useEffect(() => {
-    if (workouts && workoutPlan) {
-        const joinedData = workouts.map(workout => {
-            const correspondingPlan = workoutPlan.find(plan => plan.wId === workout.wId);
-            return {
-                ...workout,
-                ...correspondingPlan,
+    useEffect(() => {
+        if (workouts.length > 0) {
+            const loadWorkoutPlans = async () => {
+                try {
+                    const plansPromises = workouts.map(async (workout) => {
+                        const response = await getWorkoutPlanByWid(workout.wId);
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log(`Workout plan for ${workout.wId}:`, data.body);
+                            return data.body;
+                        } else {
+                            console.log(`Error for ${workout.wId}:`, response.status, response.statusText);
+                            //console.error(response);
+                            return null;
+                        }
+                    });
+
+                    const plans = await Promise.all(plansPromises);
+                    console.log("All workout plans:", plans);
+                    setWorkoutPlan(plans.filter(plan => plan !== null));
+                } catch (error) {
+                    console.log(error);
+                }
             };
-        });
 
-        setJoinedWorkouts(joinedData as IWorkoutCardProps[]);
-        setWorkoutsCompleted(joinedData.length);
+            loadWorkoutPlans();
+        }
+    }, [workouts]);
 
-        const totalCompletedExercises = joinedData.reduce((total, workout) => {
-            if (workout && workout.exercises) {
-                return total + workout.exercises.length;
-            } else {
-                return total;
-            }
-        }, 0);
-        setTotalCompletedExercises(totalCompletedExercises);
-    }
-}, [workouts, workoutPlan]);
+    useEffect(() => {
+        if (workouts && workoutPlan) {
+            const joinedData = workouts.map(workout => {
+                const correspondingPlan = workoutPlan.find(plan => plan.wId === workout.wId);
+                return {
+                    ...workout,
+                    ...correspondingPlan,
+                };
+            });
+    
+            setJoinedWorkouts(joinedData as IWorkoutCardProps[]);
+            setWorkoutsCompleted(joinedData.length);
+    
+            const totalCompletedExercises = joinedData.reduce((total, workout) => {
+                if (workout && workout.exercises) {
+                    return total + workout.exercises.length;
+                } else {
+                    return total;
+                }
+            }, 0);
+            setTotalCompletedExercises(totalCompletedExercises);
+        }
+    }, [workouts, workoutPlan]);
 
-<FlatList
-    data={joinedWorkouts}
-    renderItem={({item}) => renderWorkouts(item)}
-/>
+    <FlatList
+        data={joinedWorkouts}
+        renderItem={({item}) => renderWorkouts(item)}
+    />
 
     const renderWorkouts = (item: IWorkoutCardProps) => {
         return <WorkoutCard {...item} />

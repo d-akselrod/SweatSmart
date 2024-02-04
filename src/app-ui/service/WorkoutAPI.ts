@@ -11,7 +11,7 @@ export const getWorkouts = (username: string) => {
 };
 
 export const getCompletedWorkouts = (username: string) => {
-  return fetch(`${API_URL}/WorkoutService/${username}`, {
+  return fetch(`${API_URL}/WorkoutService/CompletedWorkouts/${username}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
