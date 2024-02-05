@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import {FontAwesome, Ionicons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+  Octicons,
+} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -178,10 +183,11 @@ const AppMain = () => {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons 
-                name="robot-outline" 
-                size={iconSize} 
-                color={focused ? focusedIconColor : unfocusedIconColor} />
+            <MaterialCommunityIcons
+              name='robot-outline'
+              size={iconSize}
+              color={focused ? focusedIconColor : unfocusedIconColor}
+            />
           ),
         }}
       />
@@ -219,7 +225,11 @@ const AppMain = () => {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-              <Octicons name="gear" size={iconSize} color={focused ? focusedIconColor : unfocusedIconColor} />
+            <Octicons
+              name='gear'
+              size={iconSize}
+              color={focused ? focusedIconColor : unfocusedIconColor}
+            />
           ),
         }}
       />
