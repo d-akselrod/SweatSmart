@@ -260,6 +260,7 @@ public class WorkoutPlannerService : ControllerBase
     private List<Exercise> SelectExercisesByMuscleGroups(IEnumerable<Exercise> allExercises, UserPreferences preferences, Dictionary<string, int> muscleGroupCounts, string movementType)
     {
         List<Exercise> selectedExercises = new List<Exercise>();
+        HashSet<Guid> selectedExerciseIds = new HashSet<Guid>(); // Track selected exercise IDs
 
         // While there are still exercises to be selected
         while (muscleGroupCounts.Any(kvp => kvp.Value > 0))
@@ -272,6 +273,7 @@ public class WorkoutPlannerService : ControllerBase
 
                 var exercisesForMuscleGroup = allExercises
                     .Where(e => e.MuscleGroup == muscleGroup &&
+                                !selectedExerciseIds.Contains(e.EId) && // Exclude already selected exercises
                                 (movementType == null || e.P_P == movementType) &&
                                 (preferences.Equipment == EquipmentAvailable.Full ||
                                 preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment == 'D' ||
@@ -285,6 +287,7 @@ public class WorkoutPlannerService : ControllerBase
                 if (exercisesForMuscleGroup != null)
                 {
                     selectedExercises.Add(exercisesForMuscleGroup);
+                    selectedExerciseIds.Add(exercisesForMuscleGroup.EId); // Add to the set of selected IDs
                     muscleGroupCounts[muscleGroup]--; // Decrement the count for this muscle group
                 }
             }
@@ -292,6 +295,7 @@ public class WorkoutPlannerService : ControllerBase
 
         return selectedExercises;
     }
+
 
 
     // only returning one exercise each for some reason.
