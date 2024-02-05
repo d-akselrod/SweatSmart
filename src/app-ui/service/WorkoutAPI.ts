@@ -62,3 +62,21 @@ export const postExercises = (exerciseIdList: number[], workoutId: string) => {
   })
 }
 
+export const generateWorkout = (username: string, workoutType: number) => {
+  const requestBody = {
+    username,
+    workoutType,
+  }
+  
+  console.log(requestBody)
+  
+  return fetch(`${API_URL}/WorkoutPlannerService/GenerateWorkout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+    body: JSON.stringify(requestBody),
+  });
+}
+

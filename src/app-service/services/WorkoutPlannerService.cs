@@ -31,7 +31,7 @@ public class WorkoutPlannerService : ControllerBase
     }
 
     [Authorize]
-    [HttpPost]
+    [HttpPost("GenerateWorkout")]
     public async Task<IActionResult> GenerateWorkout(GenerateWorkoutRequest body)
     {
         var username = body.username;
@@ -40,13 +40,13 @@ public class WorkoutPlannerService : ControllerBase
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
         if (user == null)
         {
-            return APIResponse.NotFound;
+            return new APIResponse(404, "User not found", null);
         }
 
         var preferences = await database.UserPreferences.SingleOrDefaultAsync(userPreferences => userPreferences.UId == user.UId);
         if (preferences == null)
         {
-            return APIResponse.NotFound;
+            return new APIResponse(404, "Preferences not found", null);
         }
 
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);

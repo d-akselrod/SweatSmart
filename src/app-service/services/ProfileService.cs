@@ -11,7 +11,7 @@ using App_Service.Typings;
 
 namespace App_Service.services;
 
-public record UserPreferencesRequest(string Goal, string ExperienceLevel, int Frequency, string Equipment, int TimeAvailable);
+public record UserPreferencesRequest(PersonalGoal goal, ExperienceLevel experienceLevel, int frequency, EquipmentAvailable equipment, int timeAvailable);
 
 [ApiController]
 [Route("[controller]")]
@@ -40,18 +40,21 @@ public class ProfileService : ControllerBase
         }
 
         var originalPreferences = await database.UserPreferences.SingleOrDefaultAsync(preference => preference.UId == user.UId);
+        
+        if(originalPreferences != null)
+        {
+            database.UserPreferences.Remove(originalPreferences);
+        }
 
         var newPreferences = new UserPreferences()
         {
             UId = user.UId,
-            Goal = Enum.TryParse<PersonalGoal>(body.Goal, out var goal) ? goal : PersonalGoal.generalHealth,
-            ExperienceLevel = Enum.TryParse<ExperienceLevel>(body.ExperienceLevel, out var experienceLevel) ? experienceLevel : ExperienceLevel.Beginner,
-            Frequency = body.Frequency,
-            Equipment = Enum.TryParse<EquipmentAvailable>(body.Equipment, out var equipment) ? equipment : EquipmentAvailable.None,
-            TimeAvailable = body.TimeAvailable
+            Goal = body.goal,
+            ExperienceLevel =  body.experienceLevel,
+            Frequency = body.frequency,
+            Equipment = body.equipment,
+            TimeAvailable = body.timeAvailable
         };
-
-        database.UserPreferences.Remove(originalPreferences);
 
         await database.UserPreferences.AddAsync(newPreferences);
 

@@ -33,7 +33,6 @@ export function AddWorkoutPage(props: IAddWorkoutProps) {
         close();
       } else {
         const data = await response.json();
-        console.log(data);
       }
     } catch (error) {
       //LOGIC

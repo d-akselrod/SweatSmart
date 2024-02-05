@@ -4,19 +4,17 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 const TimerApp = () => {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  let interval = useRef(0);
+  const interval = useRef(0);
 
   useEffect(() => {
-
     if (isRunning) {
       interval.current = setInterval(() => {
-        setSeconds((prevSeconds) => prevSeconds + 1);
+        setSeconds(prevSeconds => prevSeconds + 1);
       }, 100);
     } else {
       clearInterval(interval.current);
     }
-    
-    }, [isRunning]);
+  }, [isRunning]);
 
   const startTimer = () => {
     setIsRunning(true);
@@ -37,7 +35,7 @@ const TimerApp = () => {
     const seconds = timeInSeconds % 60;
 
     const formattedTime = `${String(hours).padStart(2, '0')}:${String(
-      minutes
+      minutes,
     ).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
     return formattedTime;
@@ -47,9 +45,9 @@ const TimerApp = () => {
     <View style={styles.container}>
       <Text style={styles.timerText}>{formatTime(seconds)}</Text>
       <View style={styles.buttonContainer}>
-        <Button title="Start" onPress={startTimer} />
-        <Button title="Stop" onPress={stopTimer} />
-        <Button title="Reset" onPress={resetTimer} />
+        <Button title='Start' onPress={startTimer} />
+        <Button title='Stop' onPress={stopTimer} />
+        <Button title='Reset' onPress={resetTimer} />
       </View>
     </View>
   );

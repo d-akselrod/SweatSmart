@@ -63,6 +63,7 @@ export const MyFitnessPage = () => {
     fitnessExperienceItems[0].value,
   );
   const [fitnessGoals, setFitnessGoals] = useState(fitnessGoalItems[0].value);
+  
   const [workoutFrequency, setWorkoutFrequency] = useState(
     workoutFrequencyItems[2].value,
   );
@@ -73,21 +74,20 @@ export const MyFitnessPage = () => {
 
   const handleSave = async () => {
     const requestBody = {
-      goal: fitnessGoals,
-      experienceLevel: fitnessExperience,
-      frequency: workoutFrequency,
-      equipment: equipmentAvailable,
-      timeAvailable: duration,
+      goal: +fitnessGoals,
+      experienceLevel: +fitnessExperience,
+      frequency: +workoutFrequency,
+      equipment: +equipmentAvailable,
+      timeAvailable: +duration,
     };
 
     try {
       const response = await setPreferences(activeUser.username, requestBody);
       if (response.ok) {
         // @ts-ignore
-        navigation.navigate('Settings Page');
+        navigation.goBack();
       } else {
         console.log('Error saving preferences');
-        console.log(response);
       }
     } catch (error) {
       console.log('Error saving preferences');

@@ -19,7 +19,12 @@ const width = Dimensions.get('window').width;
 export function FeaturedProgramComponent(props: IFeaturedProgram) {
   const { workout, index, workouts } = props;
   return (
-    <View style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]}>
+    <View
+      style={[
+        styles.container,
+        { marginRight: index === workouts.length - 1 ? 15 : 0 },
+      ]}
+    >
       <TouchableOpacity style={styles.play}>
         <Ionicons name='play' size={24} color='#e74341' />
       </TouchableOpacity>

@@ -81,13 +81,13 @@ public class WorkoutService : ControllerBase
             UId = user.UId,
             Status = 0
         };
-        
+
         await workoutController.AddWorkout(workout);
         await userWorkoutController.AddUserWorkout(userWorkout);
 
         return new APIResponse(200, null, wId);
     }
-    
+
 
     [Authorize]
     [HttpGet("GetExercises/{workoutId}")]
@@ -97,7 +97,7 @@ public class WorkoutService : ControllerBase
         // var identifications = workoutExercises.Select(w => w.EId);
         // var exercises = await database.Exercises.Where(e => identifications.Contains(e.EId)).ToListAsync();
         // return new APIResponse(200, null, exercises);
-        
+
         var exercises = await (
             from workoutPlan in database.WorkoutPlans
             where workoutPlan.WId == workoutId
@@ -116,7 +116,7 @@ public class WorkoutService : ControllerBase
 
         return new APIResponse(200, null, exercises);
     }
-    
+
     [Authorize]
     [HttpGet("MuscleGroup/{muscleGroup}")]
     public async Task<IActionResult> GetExercisesByMuscleGroup(string muscleGroup)

@@ -74,7 +74,7 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
           <FontAwesome5 name='clock' size={14} color='grey' />
           <Text style={{ fontSize: 9, color: 'grey' }}>
-            {workout.duration ? `${workout.duration} Minutes` : '0 Minutes'}
+            {workout.duration ? `${Math.floor(workout.duration/60)} Minutes` : '0 Minutes'}
           </Text>
         </View>
       </View>

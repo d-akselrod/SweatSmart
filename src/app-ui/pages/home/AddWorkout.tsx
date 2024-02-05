@@ -10,14 +10,16 @@ import {
     Image,
     Modal
 } from 'react-native';
-import { getAllExercises } from '../../service/WorkoutAPI'
+import {generateWorkout, getAllExercises } from '../../service/WorkoutAPI'
 import { AddExercisesPage } from './AddExercisesPage'
-import { IExercise } from '../../typings/types';
+import { IExercise, IUser } from '../../typings/types';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
+import {useSelector} from "react-redux";
 
 export function AddWorkout() {
+    const activeUser: IUser = useSelector((state: any) => state.user);
     const [name, setName] = useState('')
     const [option, setOption] = useState(0)
     const [exercises, setExercises] = useState<IExercise[]>()
@@ -30,7 +32,24 @@ export function AddWorkout() {
     const handleApply = () => {
         // // @ts-ignore
         // navigation.navigate("AddExercisePage", {exercises: exercises, workoutName: name})
-        setShow(true)
+        option === 0 ? setShow(true) : handleGenerateWorkout()
+    }
+    
+    const handleGenerateWorkout = async() => {
+        try{
+            const response = await generateWorkout(activeUser.username, 1);
+            if(response.ok){
+                const data = await response.json();
+                navigation.goBack()
+            }
+            else{
+                const data = await response.json();
+                console.log("ERROR HAS OCCURED!")
+            }
+        }
+        catch (e) {
+            console.error(e)
+        }
     }
     
     const getExercises = async() => {
