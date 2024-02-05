@@ -30,16 +30,6 @@ const styles = StyleSheet.create({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: 'white',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: -2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.1,
-    elevation: 3,
   },
   statItem: {
     alignItems: 'center',
