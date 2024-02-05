@@ -9,10 +9,12 @@ import { getExerciseByEid } from '../../service/ExerciseAPI';
 //import { getUserWorkoutByWid } from '../../service/UserWorkoutAPI';
 import { getCompletedWorkouts } from '../../service/WorkoutAPI';
 import { getWorkoutPlanByWid } from '../../service/WorkoutPlanAPI';
-import { IUser } from '../../typings/types';
+import { IUser, IWorkout } from '../../typings/types';
 
 export function ProgressPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
+  const activeWorkout: IWorkout = useSelector((state: any) => state.workout);
+
   const [workouts, setWorkouts] = useState<IWorkoutCardProps[]>([]);
   const [workoutsCompleted, setWorkoutsCompleted] = useState<number>(0);
   const [workoutPlan, setWorkoutPlan] = useState<IWorkoutCardProps[]>([]);
@@ -36,7 +38,7 @@ export function ProgressPage() {
       }
     };
     loadWorkouts();
-  }, []);
+  }, [activeWorkout]);
 
   useEffect(() => {
     if (workouts.length > 0) {
@@ -85,8 +87,8 @@ export function ProgressPage() {
 
         return {
           wId: workout.wId,
-          date: new Date(workout.date),
-          duration: workout.duration / 60,
+          date: workout.date ? new Date(workout.date) : new Date(),
+          duration: workout.duration ? workout.duration / 60 : 0,
           name: workout.name,
           exercises: exerciseNames,
           sets: correspondingPlans.flatMap(plan => plan.sets),

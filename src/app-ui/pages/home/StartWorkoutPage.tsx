@@ -12,8 +12,9 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Timer from '../../components/Timer';
+import { end } from '../../redux/slices/workoutSlice';
 import { completeWorkout } from '../../service/WorkoutAPI';
 import { IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
 
@@ -24,6 +25,8 @@ interface IExerciseProps {
 export function StartWorkoutPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
   const activeWorkout: IWorkout = useSelector((state: any) => state.workout);
+
+  const dispatch = useDispatch();
 
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
@@ -62,6 +65,7 @@ export function StartWorkoutPage() {
   const handleCompleteWorkout = async () => {
     try {
       await completeWorkout(activeUser.username, activeWorkout.wId);
+      dispatch(end());
       console.log();
     } catch (error) {
       console.log(error);

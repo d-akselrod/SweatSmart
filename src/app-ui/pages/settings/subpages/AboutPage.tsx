@@ -29,8 +29,8 @@ export const AboutPage = () => {
             Founded in 2023, our team consists of dedicated fitness enthusiasts,
             experienced developers, and health professionals, all united by a
             passion for accessible and effective fitness solutions. SweatSmart
-            is more than just an app; it&apos;s a community dedicated to promoting a
-            healthy lifestyle.
+            is more than just an app; it&apos;s a community dedicated to
+            promoting a healthy lifestyle.
           </Text>
           <Text style={styles.headerText}>Our Vision</Text>
           <Text style={styles.paragraph}>

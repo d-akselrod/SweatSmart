@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { IWorkout } from '../../typings/types';
 //import { Picker } from '@react-native-picker/picker';
@@ -35,20 +35,26 @@ export function WorkoutCard(props: IWorkoutCardProps) {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.date}>{formattedDate}</Text>
-      <Text style={styles.title}>{name}</Text>
-      <View style={styles.details}>
-        <Ionicons name='ios-time-outline' size={16} color='black' />
-        <Text style={styles.detailText}>{`${duration} min`}</Text>
-        <Ionicons name='ios-fitness-outline' size={16} color='black' />
-        <Text style={styles.detailText}>{`${exercises.length} exercises`}</Text>
+      <View>
+        <Text style={styles.date}>{formattedDate}</Text>
+        <Text style={styles.title}>{name}</Text>
+        <View style={styles.details}>
+          <FontAwesome5 name='clock' size={14} color='grey' />
+          <Text style={styles.detailText}>{`${duration} min`}</Text>
+        </View>
+        <View style={styles.details}>
+          <Ionicons name='barbell-outline' size={14} color='grey' />
+          <Text
+            style={styles.detailText}
+          >{`${exercises.length} exercises`}</Text>
+        </View>
+        {expanded &&
+          exercises.map((exercise, index) => (
+            <Text key={index} style={styles.content}>
+              {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${percentageOfOneRepMax[index]}% of 1RM`}
+            </Text>
+          ))}
       </View>
-      {expanded &&
-        exercises.map((exercise, index) => (
-          <Text key={index} style={styles.content}>
-            {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${percentageOfOneRepMax[index]}% of 1RM`}
-          </Text>
-        ))}
       <TouchableOpacity
         onPress={() => setExpanded(!expanded)}
         style={styles.expandButton}
@@ -74,6 +80,8 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 0.1,
     elevation: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   date: {
     fontSize: 12,
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   content: {
-    fontSize: 12,
+    fontSize: 10,
     marginTop: 4,
   },
   expandButton: {
