@@ -107,6 +107,8 @@ public class WorkoutService : ControllerBase
                 ExerciseId = exercise.EId,
                 MuscleGroup = exercise.MuscleGroup,
                 ExerciseName = exercise.Name,
+                TargetMuscle = exercise.TargetMuscle,
+                level = exercise.Level,
                 Sets = workoutPlan.Sets,
                 Reps = workoutPlan.Reps
             }

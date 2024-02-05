@@ -42,13 +42,11 @@ export function StartWorkoutPage(){
   };
 
   const handleNavigation = (exercise: IWorkoutExercise) => {
-    console.log(exercise)
     // @ts-ignore
     navigation.navigate("ExerciseDetails", {exerciseData: exercise})
   }
 
   const ExerciseList = (props : IExerciseProps) => (
-    <View>
       <TouchableHighlight style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2'}} activeOpacity={0.5} underlayColor="#efefef" onPress={() => handleNavigation(props.exercise)}>
         <View style={[styles.exerciseContainer]}>
           <View style={{gap: 5}}>
@@ -63,7 +61,6 @@ export function StartWorkoutPage(){
           <AntDesign name="ellipsis1" size={20} color="black"/>
         </View>
       </TouchableHighlight>
-    </View>
   )
   
   return(
