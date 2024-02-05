@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
 
   progress: {
     borderRadius: 5,
-    height: '100%',
+    height: '0%',
   },
 });
