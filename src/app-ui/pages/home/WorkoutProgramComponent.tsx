@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { ProgressBar } from './ProgressBar';
 import { IWorkout } from '../../typings/types';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { getExercisesByWId } from '../../service/WorkoutAPI';
 
@@ -22,6 +22,7 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
   const { workout, index, workouts } = props;
   const navigation = useNavigation();
   const [numOfExercises, setNumOfExercises] = useState(0)
+  const isFocused = useIsFocused()
   const handleNavigtion = () => {
     // @ts-ignore
     navigation.navigate('WorkoutExerciseList', {workoutName: workout.name, id: workout.wId})
@@ -45,7 +46,7 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
     }
     
     getExercises();
-  }, []);
+  }, [isFocused]);
 
   return (
     <TouchableOpacity style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]} onPress = {() => handleNavigtion()}>

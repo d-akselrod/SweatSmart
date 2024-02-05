@@ -12,17 +12,25 @@ import { useSelector } from 'react-redux';
 interface IExerciseProps {
     exercises: IExercise[];
     close: Function;
+    navigate?: Function;
     wId?: string;
     workoutName?: string
 }
 
 export function AddExercisesPage(props: IExerciseProps){
     const activeUser: IUser = useSelector((state: any) => state.user);
-    const {exercises, close, wId, workoutName} = props;
+    const {exercises, close, wId, workoutName, navigate} = props;
     const [searchFocused, setSearchFocused] = useState(false);
     const [text, setSearch] = useState('');
     const [selectedExercises, setSelectedExercises] = useState<IExercise[]>([])
-    
+    const navigation = useNavigation();
+    const route = useRoute();
+    // // @ts-ignore
+    // const exercises = route.params?.exercises;
+    // // @ts-ignore
+    // const wId = route.params?.wId
+    // // @ts-ignore
+    // const workoutName = route.params?.workoutName;
     
     const handleFocus = () => {
         setSearchFocused(true);
@@ -78,10 +86,13 @@ export function AddExercisesPage(props: IExerciseProps){
             }
 
             const response = await postExercises(selectedExercises.map(val => val.eId), workoutId!);
-
+            
             if (response.ok) {
                 const data = await response.json();
-                close();
+                // @ts-ignore
+                // workoutName ? navigation.popToTop() : navigation.goBack();
+                navigate ? navigate(wId,workoutName) : null
+                close()
             } else {
                 console.log(response.status);
             }
@@ -111,7 +122,9 @@ export function AddExercisesPage(props: IExerciseProps){
 
     return(
         <SafeAreaView style = {styles.container}>
-            <Pressable onPress = {() => close()}><Text style = {{fontSize: 18, marginLeft: 10}}>Close</Text></Pressable>
+            <Pressable onPress = {() => close()} style = {{alignSelf: 'flex-start', marginLeft: 15}}>
+                <AntDesign name="close" size={24} color="black" />
+            </Pressable>
             <View style = {styles.search}>
                 <SearchBar
                     placeholder={'Search'}

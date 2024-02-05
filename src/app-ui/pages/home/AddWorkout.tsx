@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -15,6 +15,7 @@ import { AddExercisesPage } from './AddExercisesPage'
 import { IExercise } from '../../typings/types';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 
 export function AddWorkout() {
     const [name, setName] = useState('')
@@ -23,8 +24,12 @@ export function AddWorkout() {
     const [show, setShow] = useState<boolean>(false);
     const navigation = useNavigation();
 
+    useEffect(() => {
+        getExercises()
+    }, []);
     const handleApply = () => {
-        getExercises();
+        // // @ts-ignore
+        // navigation.navigate("AddExercisePage", {exercises: exercises, workoutName: name})
         setShow(true)
     }
     
@@ -45,15 +50,20 @@ export function AddWorkout() {
         }
     }
     
+    const handleClose = () => {
+        setShow(false)
+    }
+    
+    const handleNavigation = (wId: string, name: string) => {
+        navigation.goBack()
+    }
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#F6F6F6'}}>
             <Modal animationType =  {'slide'} visible={show} onRequestClose={() => setShow(false)}>
-                {exercises && <AddExercisesPage exercises={exercises} close={() => setShow(false)} workoutName = {name}/>}
+                {exercises && <AddExercisesPage exercises={exercises} close={() => handleClose()} workoutName = {name} navigate = {(wId: string, name: string) => handleNavigation(wId, name)}/>}
             </Modal>
-            <Pressable style = {{marginLeft: 10}} onPress = {() => {navigation.goBack()}}>
-                <Text style = {{fontSize: 18, fontWeight: '700'}}>Back</Text>
-            </Pressable>
+            
             <View style = {styles.container}>
                 <Text style = {styles.title}>Build a new workout</Text>
                 <TextInput placeholder = {"Name of workout"} style = {styles.input} onChangeText = {text => setName(text)}/>

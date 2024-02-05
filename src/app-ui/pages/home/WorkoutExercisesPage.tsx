@@ -1,10 +1,11 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, FlatList, ScrollView, TouchableOpacity, Modal, Dimensions } from 'react-native';
 import {getAllExercises, getExercisesByWId } from '../../service/WorkoutAPI';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import {IExercise, IWorkoutExercise } from '../../typings/types';
 import { AddExercisesPage } from './AddExercisesPage';
+import { StartWorkoutPage } from './StartWorkoutPage';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
@@ -16,6 +17,9 @@ export function WorkoutExercisesPage(){
   const [workoutExercises, setWorkoutExercises] = useState<IWorkoutExercise[]>([])
   const [exercises, setExercises] = useState<IExercise[]>([])
   const [showPage, setShow] = useState<boolean>(false)
+  const [showStartWorkout, setStartWorkout] = useState<boolean>(false)
+  const isFocused = useIsFocused();
+
   // @ts-ignore
   const workoutName = route.params?.workoutName;
   // @ts-ignore
@@ -27,7 +31,7 @@ export function WorkoutExercisesPage(){
       title: workoutName,
       headerBackTitle: 'Home'
     });
-
+    
     const getWorkoutExercises = async () => {
       try{
         const response = await getExercisesByWId(wId)
@@ -45,7 +49,8 @@ export function WorkoutExercisesPage(){
     }
 
     getWorkoutExercises();
-  }, [showPage]);
+    getExercises()
+  }, [isFocused, showPage]);
 
   const getExercises = async() => {
     try{
@@ -65,13 +70,21 @@ export function WorkoutExercisesPage(){
   }
   
   const openModal = () => {
-    getExercises();
+    const exercises = filterExercises()
+    // @ts-ignore
+    // navigation.navigate("AddExercisePage", {exercises: exercises, wId: wId})
     setShow(true)
+  }
+  
+  const handleNavigation = (exercise: IWorkoutExercise) => {
+    console.log(exercise)
+    // @ts-ignore
+    navigation.navigate("ExerciseDetails", {exerciseData: exercise})
   }
 
   const ExerciseList = (props : IExerciseProps) => (
     <View>
-      <TouchableHighlight style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2'}} activeOpacity={0.8} underlayColor="#efefef" onPress={() => console.log('hi')}>
+      <TouchableHighlight style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2'}} activeOpacity={0.8} underlayColor="#efefef" onPress={() => handleNavigation(props.exercise)}>
         <View style={[styles.exerciseContainer]}>
           <View style={{gap: 5}}>
             <Text style={styles.exerciseName}>{props.exercise.exerciseName}</Text>
@@ -97,6 +110,11 @@ export function WorkoutExercisesPage(){
     return filtered
   }
   
+  const startWorkout = () => {
+    // @ts-ignore
+    navigation.navigate("StartWorkout", {exercises: workoutExercises})
+  }
+  
   return(
     <View>
       <ScrollView style = {{marginLeft: 20, height: '100%'}}>
@@ -111,7 +129,7 @@ export function WorkoutExercisesPage(){
         </View>
         {workoutExercises.map((val, index) => <ExerciseList exercise={val} index={index} key = {index}/>)}
       </ScrollView>
-      <TouchableOpacity style = {{backgroundColor: '#f14343', borderRadius: 10, position: 'absolute', bottom: '3%', width: '80%', left: '50%', transform: [{translateX: -width/2.5}]}}>
+      <TouchableOpacity style = {{backgroundColor: '#be4949', borderRadius: 10, position: 'absolute', bottom: '10%', width: '80%', alignSelf: 'center'}} onPress = {() => startWorkout()}>
         <Text style = {{color: 'white', padding: 10, fontSize: 18, fontWeight: '700', textAlign: 'center'}}>Start Workout</Text>
       </TouchableOpacity>
     </View>

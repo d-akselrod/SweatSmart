@@ -27,6 +27,8 @@ import { ExercisePage } from './pages/home/ExercisePage';
 import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
 import { AddWorkout } from './pages/home/AddWorkout';
 import { AddExercisesPage } from './pages/home/AddExercisesPage';
+import { ExerciseDetailsPage } from './pages/home/ExerciseDetailsPage';
+import { StartWorkoutPage } from './pages/home/StartWorkoutPage';
 
 const debugRedux = false;
 
@@ -34,29 +36,50 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const HomeStack = () => (
-    <Stack.Navigator initialRouteName="HomePage" screenOptions = {{presentation: "card"}}>
-        <Stack.Screen name="HomePage" component={HomePage} options = {{headerShown: false}}/>
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="HomePage" screenOptions = {{presentation: 'card'}}>
+        <Stack.Screen name="HomePage" component={AppMain} options = {{headerShown: false}}/>
         <Stack.Screen name="ExerciseList" component={ExercisePage} options = {{headerShown: true}}/>
         <Stack.Screen name="WorkoutExerciseList" component={WorkoutExercisesPage} options = {{headerShown: true}} />
-        <Stack.Screen name="WorkoutPage" component={AddWorkout} options = {{headerShown: false}}/>
+        <Stack.Screen name="WorkoutPage" component={AddWorkout} options = {{headerShown: true, title: "Add Workout", headerBackTitle: 'Home'}}/>
+        <Stack.Screen name="ExerciseDetails" component={ExerciseDetailsPage} options = {{headerShown: false}}/>
+        <Stack.Screen name="StartWorkout" component={StartWorkoutPage} options = {{headerShown: false}}/>
+      {/*<Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false, presentation: 'modal'}}/>*/}
     </Stack.Navigator>
+  </NavigationContainer>
 );
 
-// const ExerciseStack = () => {
-//   <Stack.Navigator initialRouteName="WorkoutPage" screenOptions = {{presentation: "modal"}}>
-//     <Stack.Screen name="WorkoutPage" component={AddWorkout} options = {{headerShown: false}}/>
-//     <Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false}}/>
+// const ExerciseStack = () => (
+//   <Stack.Navigator initialRouteName="WorkoutExercise" screenOptions = {{presentation: "modal"}}>
+//     <Stack.Screen name="WorkoutExercise" component={WorkoutExercisesPage} options = {{headerShown: false}}/>
+//     <Stack.Screen name="AddExercisePage" component={EmptyPage} options = {{headerShown: false}}/>
 //   </Stack.Navigator>
-// }
+// )
 
 function HomeTabs() {
+  const iconSize = 40;
+  const focusedIconColor = 'black';
+  const unfocusedIconColor = 'grey';
     return (
         <Tab.Navigator
             initialRouteName='Home'
             screenOptions={{ headerShown: false }}
         >
             <Tab.Screen name="Home" component={HomePage} />
-            <Tab.Screen name="Feed" component={ChatBotPage} />
+          <Tab.Screen
+            name='ChatBot'
+            component={ChatBotPage}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: ({ focused }) => (
+                <Ionicons
+                  name='chatbubbles-outline'
+                  size={iconSize}
+                  color={focused ? focusedIconColor : unfocusedIconColor}
+                />
+              ),
+            }}
+          />
             <Tab.Screen name="Notifications" component={SocialPage} />
         </Tab.Navigator>
     );
@@ -111,7 +134,6 @@ const AppMain = () => {
   const focusedIconColor = 'black';
   const unfocusedIconColor = 'grey';
   return (
-    <NavigationContainer>
       <Tab.Navigator
         initialRouteName='Home'
         screenOptions={{ headerShown: false }}
@@ -146,7 +168,7 @@ const AppMain = () => {
         />
         <Tab.Screen
           name='Home'
-          component={HomeStack}
+          component={HomePage}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => (
@@ -187,14 +209,13 @@ const AppMain = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 };
 
 const App = () => {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
-  return activeUser == undefined ? <AppEntry /> : <AppMain />;
+  return activeUser == undefined ? <AppEntry /> : <HomeStack />;
 };
 
 export default function Root() {

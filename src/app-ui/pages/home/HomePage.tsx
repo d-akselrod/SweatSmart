@@ -32,6 +32,7 @@ export function HomePage() {
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
   const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
   const [showAddPage, setShow] = useState(false);
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const workoutView: string[] = [
     'All Programs',
@@ -111,7 +112,7 @@ export function HomePage() {
     };
 
     loadWorkouts();
-  }, [showAddPage, useIsFocused]);
+  }, [showAddPage, isFocused]);
   
   const handleNavigation = () => {
     // @ts-ignore
