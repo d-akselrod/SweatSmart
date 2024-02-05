@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -11,9 +12,9 @@ import {
   Dimensions,
   Modal,
 } from 'react-native';
-
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
+import { AddWorkout } from './AddWorkout';
 import { AddWorkoutPage } from './AddWorkoutPage';
 import { FeaturedProgramComponent } from './FeaturedProgramComponent';
 import { WorkoutCategories } from './WorkoutCategories';
@@ -23,8 +24,6 @@ import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
-import { AddWorkout } from './AddWorkout';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -113,11 +112,11 @@ export function HomePage() {
 
     loadWorkouts();
   }, [showAddPage, isFocused]);
-  
+
   const handleNavigation = () => {
     // @ts-ignore
-    navigation.navigate('WorkoutPage')
-  }
+    navigation.navigate('WorkoutPage');
+  };
 
   return (
     <SafeAreaView>
@@ -138,7 +137,13 @@ export function HomePage() {
             </View>
             <FlatList
               data={workouts}
-              renderItem={({ item, index }) => <WorkoutProgramComponent workout={item} index = {index} workouts = {workouts} />}
+              renderItem={({ item, index }) => (
+                <WorkoutProgramComponent
+                  workout={item}
+                  index={index}
+                  workouts={workouts}
+                />
+              )}
               horizontal
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={() => (
@@ -162,7 +167,13 @@ export function HomePage() {
             </Text>
             <FlatList
               data={featuredWorkouts}
-              renderItem={({ item, index }) => <FeaturedProgramComponent workout={item} index = {index} workouts = {featuredWorkouts}/>}
+              renderItem={({ item, index }) => (
+                <FeaturedProgramComponent
+                  workout={item}
+                  index={index}
+                  workouts={featuredWorkouts}
+                />
+              )}
               horizontal
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={() => (

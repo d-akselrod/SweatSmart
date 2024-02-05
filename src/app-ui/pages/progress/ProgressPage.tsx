@@ -92,7 +92,7 @@ export function ProgressPage() {
         return {
           wId: workout.wId,
           date: new Date(workout.date),
-          duration: workout.duration,
+          duration: workout.duration / 60,
           name: workout.name,
           exercises: exerciseNames,
           sets: correspondingPlans.flatMap(plan => plan.sets),

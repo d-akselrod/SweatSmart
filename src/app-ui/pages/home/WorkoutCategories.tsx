@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Pressable,
+} from 'react-native';
 import { getExercisesByMuscleGroup } from '../../service/WorkoutAPI';
 import { IExercise, IWorkoutCategory } from '../../typings/types';
-import { useNavigation } from '@react-navigation/native';
 
 export function WorkoutCategories(props: IWorkoutCategory) {
   const { image, categoryName, imgHeight, imgWidth } = props;
@@ -29,14 +36,17 @@ export function WorkoutCategories(props: IWorkoutCategory) {
 
     loadData();
   }, []);
-  
+
   const handleNavigation = () => {
     // @ts-ignore
-    navigation.navigate('ExerciseList', {name: categoryName, exerciseList: exercises})
-  }
+    navigation.navigate('ExerciseList', {
+      name: categoryName,
+      exerciseList: exercises,
+    });
+  };
 
   return (
-    <Pressable style={styles.container} onPress = {() => handleNavigation()}>
+    <Pressable style={styles.container} onPress={() => handleNavigation()}>
       <View style={styles.container2}>
         <View style={{ width: 68, alignItems: 'center' }}>
           <Image
@@ -53,7 +63,7 @@ export function WorkoutCategories(props: IWorkoutCategory) {
           </Text>
         </View>
       </View>
-      <AntDesign name="right" size={20} color="black" />
+      <AntDesign name='right' size={20} color='black' />
     </Pressable>
   );
 }

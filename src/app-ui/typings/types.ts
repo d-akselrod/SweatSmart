@@ -21,7 +21,7 @@ export interface IWorkout {
   wId: string;
   name: string;
   date: Date;
-  duration?: number;
+  duration: number;
 }
 
 export interface IWorkoutPlan {

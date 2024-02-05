@@ -53,7 +53,7 @@ export const getAllExercises = () => {
 
 export const getExercisesByWId = (wId: string) => {
   return fetch(`${API_URL}/WorkoutService/GetExercises/${wId}`, {
-    method: "GET",
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: API_AUTH,
@@ -69,6 +69,5 @@ export const postExercises = (exerciseIdList: number[], workoutId: string) => {
       Authorization: API_AUTH,
     },
     body: JSON.stringify({ workoutId, exerciseIdList }),
-  })
-}
-
+  });
+};
