@@ -34,8 +34,22 @@ export interface IFeaturedWorkout {
 }
 
 export interface IExercise {
-  eId: string;
+  eId: number;
   muscleGroup: MuscleGroup;
-  TargetMuscle: string;
+  targetMuscle: string;
   name: string;
+  level: string;
+  equipment: string;
+}
+
+export interface IWorkoutExercise {
+  exerciseId: number;
+  muscleGroup: MuscleGroup;
+  exerciseName: string;
+  sets: number;
+  reps: number;
+}
+
+export interface ExerciseListParams {
+  exerciseList?: string; // Adjust the type according to your actual data type
 }

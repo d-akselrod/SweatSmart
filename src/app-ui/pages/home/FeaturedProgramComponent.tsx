@@ -11,13 +11,15 @@ import { IFeaturedWorkout } from '../../typings/types';
 
 interface IFeaturedProgram {
   workout: IFeaturedWorkout;
+  index: number;
+  workouts: IFeaturedWorkout[];
 }
 
 const width = Dimensions.get('window').width;
 export function FeaturedProgramComponent(props: IFeaturedProgram) {
-  const { workout } = props;
+  const { workout, index, workouts } = props;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]}>
       <TouchableOpacity style={styles.play}>
         <Ionicons name='play' size={24} color='#e74341' />
       </TouchableOpacity>

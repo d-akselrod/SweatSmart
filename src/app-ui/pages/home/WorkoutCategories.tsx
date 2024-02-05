@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { createEntityAdapter } from '@reduxjs/toolkit';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Pressable } from 'react-native';
 import { getExercisesByMuscleGroup } from '../../service/WorkoutAPI';
 import { IExercise, IWorkoutCategory } from '../../typings/types';
+import { useNavigation } from '@react-navigation/native';
 
 export function WorkoutCategories(props: IWorkoutCategory) {
   const { image, categoryName, imgHeight, imgWidth } = props;
   const muscleGroupExercises = useRef<IExercise[]>();
 
   const [exercises, setExercises] = useState<IExercise[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const loadData = async () => {
@@ -28,9 +29,14 @@ export function WorkoutCategories(props: IWorkoutCategory) {
 
     loadData();
   }, []);
+  
+  const handleNavigation = () => {
+    // @ts-ignore
+    navigation.navigate('ExerciseList', {name: categoryName, exerciseList: exercises})
+  }
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress = {() => handleNavigation()}>
       <View style={styles.container2}>
         <View style={{ width: 68, alignItems: 'center' }}>
           <Image
@@ -47,19 +53,8 @@ export function WorkoutCategories(props: IWorkoutCategory) {
           </Text>
         </View>
       </View>
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#d3dcff',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 24,
-          height: 24,
-          borderRadius: 12,
-        }}
-      >
-        <FontAwesome5 name='arrow-right' size={15} color='black' />
-      </TouchableOpacity>
-    </View>
+      <AntDesign name="right" size={20} color="black" />
+    </Pressable>
   );
 }
 

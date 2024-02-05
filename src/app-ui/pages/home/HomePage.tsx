@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   Dimensions,
   Modal,
 } from 'react-native';
+
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
 import { AddWorkoutPage } from './AddWorkoutPage';
@@ -22,6 +23,8 @@ import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
+import { AddWorkout } from './AddWorkout';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -29,7 +32,8 @@ export function HomePage() {
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
   const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
   const [showAddPage, setShow] = useState(false);
-
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
   const workoutView: string[] = [
     'All Programs',
     'AI generated',
@@ -108,25 +112,15 @@ export function HomePage() {
     };
 
     loadWorkouts();
-  }, [showAddPage]);
-
-  const renderWorkoutPrograms = (item: IWorkout) => {
-    return <WorkoutProgramComponent workout={item} />;
-  };
-
-  const renderFeaturedPrograms = (item: IFeaturedWorkout) => {
-    return <FeaturedProgramComponent workout={item} />;
-  };
+  }, [showAddPage, isFocused]);
+  
+  const handleNavigation = () => {
+    // @ts-ignore
+    navigation.navigate('WorkoutPage')
+  }
 
   return (
     <SafeAreaView>
-      <Modal
-        visible={showAddPage}
-        onRequestClose={() => setShow(false)}
-        animationType='slide'
-      >
-        <AddWorkoutPage close={() => setShow(false)} />
-      </Modal>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 20 }}>
           <Text
@@ -137,14 +131,14 @@ export function HomePage() {
           <View id={'my-programs'} style={styles.section}>
             <View style={[styles.myProgramsHeader, { marginHorizontal: 15 }]}>
               <Text style={styles.title}>My Programs</Text>
-              <AddProgramButton onPress={() => setShow(true)} />
+              <AddProgramButton onPress={() => handleNavigation()} />
             </View>
             <View style={[styles.selectionContainer, { marginHorizontal: 15 }]}>
               {showWorkoutView()}
             </View>
             <FlatList
               data={workouts}
-              renderItem={({ item }) => renderWorkoutPrograms(item)}
+              renderItem={({ item, index }) => <WorkoutProgramComponent workout={item} index = {index} workouts = {workouts} />}
               horizontal
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={() => (
@@ -168,7 +162,7 @@ export function HomePage() {
             </Text>
             <FlatList
               data={featuredWorkouts}
-              renderItem={({ item }) => renderFeaturedPrograms(item)}
+              renderItem={({ item, index }) => <FeaturedProgramComponent workout={item} index = {index} workouts = {featuredWorkouts}/>}
               horizontal
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={() => (

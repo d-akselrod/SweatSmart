@@ -11,7 +11,7 @@ export const getWorkouts = (username: string) => {
 };
 
 export const postWorkout = (username: string, workout: Object) => {
-  return fetch(`${API_URL}/WorkoutService`, {
+  return fetch(`${API_URL}/WorkoutService/CreateWorkout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -30,3 +30,35 @@ export const getExercisesByMuscleGroup = (muscleGroup: string) => {
     },
   });
 };
+
+export const getAllExercises = () => {
+  return fetch(`${API_URL}/Exercise`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};
+
+export const getExercisesByWId = (wId: string) => {
+  return fetch(`${API_URL}/WorkoutService/GetExercises/${wId}`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};
+
+export const postExercises = (exerciseIdList: number[], workoutId: string) => {
+  return fetch(`${API_URL}/WorkoutPlan`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+    body: JSON.stringify({ workoutId, exerciseIdList }),
+  })
+}
+
