@@ -48,16 +48,13 @@ export function ProgressPage() {
             const response = await getWorkoutPlanByWid(workout.wId);
             if (response.ok) {
               const data = await response.json();
-              console.log(`Workout plan for ${workout.wId}:`, data.body);
               return data.body;
             } else {
-              console.error(`Full response:`, response.status);
               return null;
             }
           });
 
           const plans = await Promise.all(plansPromises);
-          console.log('All workout plans:', plans);
           setWorkoutPlan(plans.filter(plan => plan !== null));
         } catch (error) {
           console.error('Error while loading workout plans:', error);
@@ -100,7 +97,6 @@ export function ProgressPage() {
       });
 
       Promise.all(joinedDataPromises).then(joinedData => {
-        console.log('Joined Date:', joinedData);
         setJoinedWorkouts(joinedData as IWorkoutCardProps[]);
         setWorkoutsCompleted(joinedData.length);
 

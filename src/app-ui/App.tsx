@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import {FontAwesome, Ionicons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -90,7 +90,7 @@ const HomeStack = () => (
 // )
 
 function HomeTabs() {
-  const iconSize = 40;
+  const iconSize = 30;
   const focusedIconColor = 'black';
   const unfocusedIconColor = 'grey';
   return (
@@ -164,7 +164,7 @@ const AppEntry = () => (
 );
 
 const AppMain = () => {
-  const iconSize = 40;
+  const iconSize = 35;
   const focusedIconColor = 'black';
   const unfocusedIconColor = 'grey';
   return (
@@ -178,11 +178,10 @@ const AppMain = () => {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name='chatbubbles-outline'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
+            <MaterialCommunityIcons 
+                name="robot-outline" 
+                size={iconSize} 
+                color={focused ? focusedIconColor : unfocusedIconColor} />
           ),
         }}
       />
@@ -220,11 +219,7 @@ const AppMain = () => {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name='person-outline'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
+              <Octicons name="gear" size={iconSize} color={focused ? focusedIconColor : unfocusedIconColor} />
           ),
         }}
       />
