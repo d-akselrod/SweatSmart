@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   AntDesign,
-  Feather,
   FontAwesome5,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -13,7 +12,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Pressable,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
 

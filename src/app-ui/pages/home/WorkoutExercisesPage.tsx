@@ -10,14 +10,13 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
-  FlatList,
   ScrollView,
   TouchableOpacity,
   Modal,
   Dimensions,
 } from 'react-native';
 import { AddExercisesPage } from './AddExercisesPage';
-import { StartWorkoutPage } from './StartWorkoutPage';
+//import { StartWorkoutPage } from './StartWorkoutPage';
 import { getAllExercises, getExercisesByWId } from '../../service/WorkoutAPI';
 import { IExercise, IWorkoutExercise } from '../../typings/types';
 
@@ -33,14 +32,14 @@ export function WorkoutExercisesPage() {
   );
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const [showPage, setShow] = useState<boolean>(false);
-  const [showStartWorkout, setStartWorkout] = useState<boolean>(false);
+  //const [showStartWorkout, setStartWorkout] = useState<boolean>(false);
   const isFocused = useIsFocused();
 
   // @ts-ignore
   const workoutName = route.params?.workoutName;
   // @ts-ignore
   const wId = route.params?.id;
-  const width = Dimensions.get('window').width;
+  //const width = Dimensions.get('window').width;
 
   useEffect(() => {
     navigation.setOptions({
@@ -73,7 +72,7 @@ export function WorkoutExercisesPage() {
         const data = await response.json();
         setExercises(data);
       } else {
-        const data = await response.json();
+        //const data = await response.json();
         console.log('ERROR HAS OCCURED!');
       }
     } catch (error) {
@@ -82,7 +81,7 @@ export function WorkoutExercisesPage() {
   };
 
   const openModal = () => {
-    const exercises = filterExercises();
+    //const exercises = filterExercises();
     // @ts-ignore
     // navigation.navigate("AddExercisePage", {exercises: exercises, wId: wId})
     setShow(true);

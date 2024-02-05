@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Switch, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface IDisplayCardProps {
   label: string;

@@ -1,21 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
-  TouchableOpacity,
   SafeAreaView,
   StyleSheet,
   Pressable,
   FlatList,
   ScrollView,
-  Dimensions,
-  Modal,
+  Dimensions
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AddProgramButton } from './AddProgramButton';
-import { AddWorkout } from './AddWorkout';
-import { AddWorkoutPage } from './AddWorkoutPage';
+//import { AddWorkout } from './AddWorkout';
+//import { AddWorkoutPage } from './AddWorkoutPage';
 import { FeaturedProgramComponent } from './FeaturedProgramComponent';
 import { WorkoutCategories } from './WorkoutCategories';
 import { WorkoutProgramComponent } from './WorkoutProgramComponent';
@@ -23,14 +21,14 @@ import { getWorkouts } from '../../service/WorkoutAPI';
 import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
-import { IWorkout, IFeaturedWorkout } from '../../typings/types';
+import { IWorkout } from '../../typings/types';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
   const [chosenWorkoutIdx, setChosenWorkoutIdx] = useState(0);
-  const [showAddPage, setShow] = useState(false);
+  const [showAddPage] = useState(false);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const workoutView: string[] = [
@@ -101,7 +99,7 @@ export function HomePage() {
           );
           setWorkouts(mappedWorkouts);
         } else {
-          const data = await response.json();
+          //const data = await response.json();
           console.log('RESPONSE NOT OK');
         }
       } catch (error) {

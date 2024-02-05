@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  ScrollView,
   View,
   Text,
   StyleSheet,
@@ -52,7 +51,7 @@ export const SocialPage = () => {
         const filteredUsers: IProfile[] = JSON.parse(JSON.stringify(data.body));
         setFilteredUsers(filteredUsers);
       } else {
-        const data = await response.json();
+        //const data = await response.json();
       }
     } catch (error) {
       console.error(error);

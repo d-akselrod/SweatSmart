@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-  View,
-  ScrollView,
   SafeAreaView,
-  Text,
   FlatList,
   StyleSheet,
 } from 'react-native';
@@ -12,10 +9,11 @@ import { PastWorkoutsHeader } from './PastWorkoutsHeader';
 import { StatisticsHeader } from './StatisticsHeader';
 import { IWorkoutCardProps, WorkoutCard } from './WorkoutCard';
 import { getExerciseByEid } from '../../service/ExerciseAPI';
-import { getUserWorkoutByWid } from '../../service/UserWorkoutAPI';
+//import { getUserWorkoutByWid } from '../../service/UserWorkoutAPI';
 import { getCompletedWorkouts } from '../../service/WorkoutAPI';
 import { getWorkoutPlanByWid } from '../../service/WorkoutPlanAPI';
 import { IUser } from '../../typings/types';
+import React from 'react';
 
 export function ProgressPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -101,6 +99,7 @@ export function ProgressPage() {
             plan => plan.percentageOfOneRepMax,
           ),
         };
+        
       });
 
       Promise.all(joinedDataPromises).then(joinedData => {

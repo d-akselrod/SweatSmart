@@ -1,6 +1,6 @@
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 interface IAddProgramButton {
   onPress: () => void;

@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   Image,
   Pressable,
@@ -14,7 +13,7 @@ import { IExercise, IWorkoutCategory } from '../../typings/types';
 
 export function WorkoutCategories(props: IWorkoutCategory) {
   const { image, categoryName, imgHeight, imgWidth } = props;
-  const muscleGroupExercises = useRef<IExercise[]>();
+  //const muscleGroupExercises = useRef<IExercise[]>();
 
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const navigation = useNavigation();

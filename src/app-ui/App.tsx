@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
 import { ChatBotPage } from './pages/chatbot/ChatBotPage';
-import { AddExercisesPage } from './pages/home/AddExercisesPage';
+//import { AddExercisesPage } from './pages/home/AddExercisesPage';
 import { AddWorkout } from './pages/home/AddWorkout';
 import { ExerciseDetailsPage } from './pages/home/ExerciseDetailsPage';
 import { ExercisePage } from './pages/home/ExercisePage';

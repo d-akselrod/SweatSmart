@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AntDesign,
   Feather,
   FontAwesome,
-  Ionicons,
   MaterialCommunityIcons,
-  MaterialIcons,
 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { LogoutButton } from './LogoutButton';
 import { SettingsHeader } from './SettingsHeader';
 import { SettingsOptionsCard } from './SettingsOptionsCard';
-import { SlidingPage } from '../../components/SlideingPage';
+//import { SlidingPage } from '../../components/SlideingPage';
 import { IUser } from '../../typings/types';
 
-interface ISettingPageCardData {
-  label: string;
-  icon: JSX.Element;
-}
+// interface ISettingPageCardData {
+//   label: string;
+//   icon: JSX.Element;
+// }
 
 export function SettingsPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
   const navigation = useNavigation();
 
-  const [optionsVisible, setOptionsVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  //const [optionsVisible, setOptionsVisible] = useState(false);
+  //const [selectedOption, setSelectedOption] = useState('');
 
   const handleOpenOptions = (label: string) => {
     // @ts-ignore

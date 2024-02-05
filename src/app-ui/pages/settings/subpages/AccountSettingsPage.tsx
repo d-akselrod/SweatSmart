@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 export const AccountSettingsPage = () => {
   const navigation = useNavigation();

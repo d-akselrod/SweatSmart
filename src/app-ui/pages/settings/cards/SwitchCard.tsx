@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, Switch, View, TextInput } from 'react-native';
+import { StyleSheet, Text, Switch, View } from 'react-native';
 
 interface ISwitchCardProps {
   label: string;
@@ -9,7 +9,7 @@ interface ISwitchCardProps {
 }
 
 export const SwitchCard = (props: ISwitchCardProps) => {
-  const { label, description, onValueChange, displayMessage } = props;
+  const { label, description } = props;
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);

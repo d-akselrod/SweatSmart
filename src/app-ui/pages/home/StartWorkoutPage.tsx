@@ -1,18 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { AntDesign, Entypo, Feather, Fontisto } from '@expo/vector-icons';
+import { AntDesign, Entypo, Fontisto } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   View,
   Text,
   SafeAreaView,
   StyleSheet,
-  Pressable,
-  TextInput,
   ScrollView,
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
-import Timer from '../../components/Timer';
+//import Timer from '../../components/Timer';
 import { IWorkoutExercise } from '../../typings/types';
 
 interface IExerciseProps {
@@ -21,7 +19,7 @@ interface IExerciseProps {
 }
 export function StartWorkoutPage() {
   const [seconds, setSeconds] = useState(0);
-  const [isRunning, setIsRunning] = useState(true);
+  const [isRunning] = useState(true);
   const interval = useRef(0);
   const navigation = useNavigation();
   const route = useRoute();

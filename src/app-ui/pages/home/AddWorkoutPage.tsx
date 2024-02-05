@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { postWorkout } from '../../service/WorkoutAPI';
-import { IUser, IWorkout } from '../../typings/types';
+import { IUser } from '../../typings/types';
 
 interface IAddWorkoutProps {
   close: Function;

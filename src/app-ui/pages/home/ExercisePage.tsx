@@ -7,7 +7,6 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   SafeAreaView,
   TouchableHighlight,
 } from 'react-native';
@@ -21,7 +20,7 @@ interface IExerciseProps {
 export function ExercisePage() {
   const route = useRoute();
   const navigation = useNavigation();
-  const [searchFocused, setSearchFocused] = useState(false);
+  const [, setSearchFocused] = useState(false);
   const [text, setSearch] = useState('');
   const letterCategory = useRef('');
   // @ts-ignore

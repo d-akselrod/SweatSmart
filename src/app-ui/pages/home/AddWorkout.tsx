@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { AntDesign } from '@expo/vector-icons';
+///import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
   StyleSheet,
-  Button,
   SafeAreaView,
   TextInput,
   Pressable,
@@ -13,7 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import { AddExercisesPage } from './AddExercisesPage';
-import { getExerciseSortedList } from '../../service/ExerciseAPI';
+//import { getExerciseSortedList } from '../../service/ExerciseAPI';
 import { getAllExercises } from '../../service/WorkoutAPI';
 import { IExercise } from '../../typings/types';
 

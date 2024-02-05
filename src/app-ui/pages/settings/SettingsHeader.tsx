@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TouchableOpacity, Image, StyleSheet, View, Text } from 'react-native';
+import { Image, StyleSheet, View, Text } from 'react-native';
 import { IUser } from '../../typings/types';
 
 interface ISettingsHeaderProps {
