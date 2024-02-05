@@ -11,10 +11,13 @@ namespace App_Service.Controllers;
 public class UserController : ControllerBase
 {
     private readonly DatabaseContext database;
-
-    public UserController(DatabaseContext database)
+    private readonly EncryptionHelper encryptionHelper;
+    
+    public UserController(DatabaseContext database, IConfiguration configuration)
     {
         this.database = database;
+        var encryptionKey = configuration["EncryptionKey"];
+        encryptionHelper = new EncryptionHelper(encryptionKey);    
     }
 
     [Authorize]
@@ -29,7 +32,7 @@ public class UserController : ControllerBase
     [HttpGet("{username}")]
     public async Task<IActionResult> GetUserByUsername(string username)
     {
-        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == username);
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
 
         if (user == null)
         {

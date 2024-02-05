@@ -26,7 +26,7 @@ public class AccountService : ControllerBase
     public AccountService(DatabaseContext database, IConfiguration configuration)
     {
         this.database = database;
-        userController = new UserController(database);
+        userController = new UserController(database, configuration);
 
         var encryptionKey = configuration["EncryptionKey"];
         encryptionHelper = new EncryptionHelper(encryptionKey);
