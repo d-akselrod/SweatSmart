@@ -1,3 +1,4 @@
+using App_Service.controllers;
 using App_Service.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
@@ -10,6 +11,7 @@ namespace App_Service.services;
 
 public record AddWorkoutRequest(string username, Workout workout);
 
+
 [ApiController]
 [Route("[controller]")]
 public class WorkoutService : ControllerBase
@@ -20,6 +22,7 @@ public class WorkoutService : ControllerBase
     private readonly WorkoutController workoutController;
     private readonly UserController userController;
     private readonly UserWorkoutController userWorkoutController;
+    private readonly WorkoutPlanController workoutPlanController;
 
     public WorkoutService(DatabaseContext database, IConfiguration configuration)
     {
@@ -56,8 +59,8 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("AddWorkout")]
-    public async Task<IActionResult> AddWorkoutsByUsername(AddWorkoutRequest body)
+    [HttpPost("CreateWorkout")]
+    public async Task<IActionResult> CreateWorkout(AddWorkoutRequest body)
     {
         var username = body.username;
         var workout = body.workout;
@@ -78,13 +81,42 @@ public class WorkoutService : ControllerBase
             UId = user.UId,
             Status = 0
         };
-
+        
         await workoutController.AddWorkout(workout);
         await userWorkoutController.AddUserWorkout(userWorkout);
 
-        return new APIResponse(200, null, null);
+        return new APIResponse(200, null, wId);
     }
+    
 
+    [Authorize]
+    [HttpGet("GetExercises/{workoutId}")]
+    public async Task<IActionResult> GetExercisesByWorkout(Guid workoutId)
+    {
+        // var workoutExercises = await database.WorkoutPlans.Where(w => w.WId == workoutId).ToListAsync();
+        // var identifications = workoutExercises.Select(w => w.EId);
+        // var exercises = await database.Exercises.Where(e => identifications.Contains(e.EId)).ToListAsync();
+        // return new APIResponse(200, null, exercises);
+        
+        var exercises = await (
+            from workoutPlan in database.WorkoutPlans
+            where workoutPlan.WId == workoutId
+            join exercise in database.Exercises on workoutPlan.EId equals exercise.EId
+            select new
+            {
+                ExerciseId = exercise.EId,
+                MuscleGroup = exercise.MuscleGroup,
+                ExerciseName = exercise.Name,
+                TargetMuscle = exercise.TargetMuscle,
+                level = exercise.Level,
+                Sets = workoutPlan.Sets,
+                Reps = workoutPlan.Reps
+            }
+        ).ToListAsync();
+
+        return new APIResponse(200, null, exercises);
+    }
+    
     [Authorize]
     [HttpGet("MuscleGroup/{muscleGroup}")]
     public async Task<IActionResult> GetExercisesByMuscleGroup(string muscleGroup)

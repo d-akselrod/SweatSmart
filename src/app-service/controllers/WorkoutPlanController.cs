@@ -1,37 +1,43 @@
-using System.Collections;
+using App_Service.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using App_Service.Database;
 using App_Service.Models;
+using App_Service.services;
+using App_Service.Typings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
+namespace App_Service.controllers;
 
-namespace App_Service.Controllers
+public record AddExercisesRequest(List<int> exerciseIdList, Guid workoutId);
+
+[ApiController]
+[Route("[controller]")]
+public class WorkoutPlanController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WorkoutPlanController : ControllerBase
+    private readonly DatabaseContext database;
+
+    public WorkoutPlanController(DatabaseContext database)
     {
-        private readonly DatabaseContext database;
+        this.database = database;
+    }
 
-        public WorkoutPlanController(DatabaseContext database)
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> AddExercisesToWorkout(AddExercisesRequest request)
+    {
+        var workoutPlans = request.exerciseIdList.Select(id => new WorkoutPlan
         {
-            this.database = database;
-        }
+            WId = request.workoutId,
+            EId = id,
+            Sets = 3,
+            Reps = 10,
+            PercentageOfOneRepMax = 0
+        });
 
-        [Authorize]
-        [HttpGet("{wid}")]
-        public async Task<IActionResult> GetWorkoutPlan(string wid)
-        {
-            Guid guidWid = Guid.Parse(wid);
-            var workoutPlan = await database.WorkoutPlans.Where(workoutPlan => workoutPlan.WId == guidWid).ToListAsync();
+        await database.WorkoutPlans.AddRangeAsync(workoutPlans);
+        await database.SaveChangesAsync();
 
-            if (!workoutPlan.Any())
-            {
-                return APIResponse.NotFound;
-            }
-
-            return new APIResponse(200, null, workoutPlan);
-        }
+        return new APIResponse(200, null, null);
     }
 }
