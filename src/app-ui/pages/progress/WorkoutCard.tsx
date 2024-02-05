@@ -36,17 +36,31 @@ export function WorkoutCard(props: IWorkoutCardProps) {
   return (
     <View style={styles.card}>
       <View>
-        <Text style={styles.date}>{formattedDate}</Text>
-        <Text style={styles.title}>{name}</Text>
-        <View style={styles.details}>
-          <FontAwesome5 name='clock' size={14} color='grey' />
-          <Text style={styles.detailText}>{`${duration} min`}</Text>
-        </View>
-        <View style={styles.details}>
-          <Ionicons name='barbell-outline' size={14} color='grey' />
-          <Text
-            style={styles.detailText}
-          >{`${exercises.length} exercises`}</Text>
+        <View style={styles.cardHeader}>
+          <View>
+            <Text style={styles.date}>{formattedDate}</Text>
+            <Text style={styles.title}>{name}</Text>
+            <View style={styles.details}>
+              <FontAwesome5 name='clock' size={14} color='grey' />
+              <Text style={styles.detailText}>{`${duration} min`}</Text>
+            </View>
+            <View style={styles.details}>
+              <Ionicons name='barbell-outline' size={14} color='grey' />
+              <Text
+                  style={styles.detailText}
+              >{`${exercises.length} exercises`}</Text>
+            </View>
+          </View>
+          <TouchableOpacity
+              onPress={() => setExpanded(!expanded)}
+              style={styles.expandButton}
+          >
+            <Ionicons
+                name={expanded ? 'ios-chevron-up' : 'ios-chevron-down'}
+                size={24}
+                color='#007AFF'
+            />
+          </TouchableOpacity>
         </View>
         {expanded &&
           exercises.map((exercise, index) => (
@@ -55,16 +69,6 @@ export function WorkoutCard(props: IWorkoutCardProps) {
             </Text>
           ))}
       </View>
-      <TouchableOpacity
-        onPress={() => setExpanded(!expanded)}
-        style={styles.expandButton}
-      >
-        <Ionicons
-          name={expanded ? 'ios-chevron-up' : 'ios-chevron-down'}
-          size={24}
-          color='#007AFF'
-        />
-      </TouchableOpacity>
     </View>
   );
 }
@@ -113,4 +117,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#007AFF',
   },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+  }
 });

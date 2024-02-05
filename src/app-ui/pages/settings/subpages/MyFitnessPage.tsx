@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
   View,
-  Button,
+  Button, KeyboardAvoidingView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { setPreferences } from '../../../service/ProfileAPI';
@@ -129,14 +129,16 @@ export const MyFitnessPage = () => {
           onValueChange={(itemValue: any) => setEquipmentAvailable(itemValue)}
           selectedValue={equipmentAvailable}
         />
-        <View style={styles.gap} />
-        <FieldCard
-          label={'Duration'}
-          description={'How long are your workouts'}
-          keyboardType={'numeric'}
-          value={duration}
-          onChangeText={(text: string) => setDuration(text)}
-        />
+        <KeyboardAvoidingView behavior='padding'>
+          <View style={styles.gap} />
+          <FieldCard
+              label={'Duration'}
+              description={'Workout Duration'}
+              keyboardType={'numeric'}
+              value={duration}
+              onChangeText={(text: string) => setDuration(text)}
+          />
+        </KeyboardAvoidingView>
         <Button title='Save' onPress={handleSave} />
       </SafeAreaView>
     </ScrollView>
@@ -161,6 +163,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   gap: {
-    height: 140, // Adjust according to your layout needs
+    height: 130,
   },
 });
