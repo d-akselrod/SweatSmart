@@ -12,12 +12,12 @@ public class UserController : ControllerBase
 {
     private readonly DatabaseContext database;
     private readonly EncryptionHelper encryptionHelper;
-    
+
     public UserController(DatabaseContext database, IConfiguration configuration)
     {
         this.database = database;
         var encryptionKey = configuration["EncryptionKey"];
-        encryptionHelper = new EncryptionHelper(encryptionKey);    
+        encryptionHelper = new EncryptionHelper(encryptionKey);
     }
 
     [Authorize]

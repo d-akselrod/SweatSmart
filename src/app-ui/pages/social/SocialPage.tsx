@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import { SearchProfileCard } from './SearchProfileCard';
 import { SearchBar } from '../../components/SearchBar';

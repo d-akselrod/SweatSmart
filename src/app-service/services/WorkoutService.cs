@@ -148,4 +148,29 @@ public class WorkoutService : ControllerBase
 
         return new APIResponse(200, null, workouts);
     }
+
+    [Authorize]
+    [HttpPost("CompleteWorkout")]
+    public async Task<IActionResult> CompleteWorkout(string username, Guid wId)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+
+        if (user == null)
+        {
+            return new APIResponse(409, "User not found", null);
+        }
+
+        var userWorkout = await database.UserWorkouts.SingleOrDefaultAsync(workout => workout.UId == user.UId && workout.WId == wId);
+
+        if (userWorkout == null)
+        {
+            return new APIResponse(409, "Workout not found", null);
+        }
+
+        userWorkout.Status = WorkoutStatus.Completed;
+
+        await database.SaveChangesAsync();
+
+        return APIResponse.Ok;
+    }
 }

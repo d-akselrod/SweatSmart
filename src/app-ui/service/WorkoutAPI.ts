@@ -69,17 +69,17 @@ export const postExercises = (exerciseIdList: number[], workoutId: string) => {
       Authorization: API_AUTH,
     },
     body: JSON.stringify({ workoutId, exerciseIdList }),
-  })
-}
+  });
+};
 
 export const generateWorkout = (username: string, workoutType: number) => {
   const requestBody = {
     username,
     workoutType,
-  }
-  
-  console.log(requestBody)
-  
+  };
+
+  console.log(requestBody);
+
   return fetch(`${API_URL}/WorkoutPlannerService/GenerateWorkout`, {
     method: 'POST',
     headers: {
@@ -88,5 +88,17 @@ export const generateWorkout = (username: string, workoutType: number) => {
     },
     body: JSON.stringify(requestBody),
   });
-}
+};
 
+export const completeWorkout = (username: string, wId: string) => {
+  return fetch(
+    `${API_URL}/WorkoutService/CompleteWorkout?username=${username}&wId=${wId}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: API_AUTH,
+      },
+    },
+  );
+};

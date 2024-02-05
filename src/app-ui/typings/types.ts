@@ -19,9 +19,9 @@ export interface IWorkoutCategory {
 
 export interface IWorkout {
   wId: string;
-  name: string;
-  date: Date;
-  duration: number;
+  name?: string;
+  date?: Date;
+  duration?: number;
 }
 
 export interface IWorkoutPlan {

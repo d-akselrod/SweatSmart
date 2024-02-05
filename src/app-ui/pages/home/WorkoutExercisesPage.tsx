@@ -16,16 +16,20 @@ import {
   Modal,
   Dimensions,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
 import { StartWorkoutPage } from './StartWorkoutPage';
+import { start } from '../../redux/slices/workoutSlice';
 import { getAllExercises, getExercisesByWId } from '../../service/WorkoutAPI';
-import { IExercise, IWorkoutExercise } from '../../typings/types';
+import { IExercise, IWorkout, IWorkoutExercise } from '../../typings/types';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
   index: number;
 }
 export function WorkoutExercisesPage() {
+  const dispatch = useDispatch();
+
   const route = useRoute();
   const navigation = useNavigation();
   const [workoutExercises, setWorkoutExercises] = useState<IWorkoutExercise[]>(
@@ -132,6 +136,12 @@ export function WorkoutExercisesPage() {
   };
 
   const startWorkout = () => {
+    const activeWorkout: IWorkout = {
+      wId: wId,
+    };
+    console.log(activeWorkout);
+    dispatch(start(activeWorkout));
+
     // @ts-ignore
     navigation.navigate('StartWorkout', { exercises: workoutExercises });
   };

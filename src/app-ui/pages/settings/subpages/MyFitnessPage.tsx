@@ -63,7 +63,7 @@ export const MyFitnessPage = () => {
     fitnessExperienceItems[0].value,
   );
   const [fitnessGoals, setFitnessGoals] = useState(fitnessGoalItems[0].value);
-  
+
   const [workoutFrequency, setWorkoutFrequency] = useState(
     workoutFrequencyItems[2].value,
   );

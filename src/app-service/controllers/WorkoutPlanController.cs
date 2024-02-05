@@ -40,7 +40,7 @@ public class WorkoutPlanController : ControllerBase
 
         return new APIResponse(200, null, null);
     }
-    
+
     [Authorize]
     [HttpGet("{wid}")]
     public async Task<IActionResult> GetWorkoutPlan(string wid)

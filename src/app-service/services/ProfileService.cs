@@ -40,8 +40,8 @@ public class ProfileService : ControllerBase
         }
 
         var originalPreferences = await database.UserPreferences.SingleOrDefaultAsync(preference => preference.UId == user.UId);
-        
-        if(originalPreferences != null)
+
+        if (originalPreferences != null)
         {
             database.UserPreferences.Remove(originalPreferences);
         }
@@ -50,7 +50,7 @@ public class ProfileService : ControllerBase
         {
             UId = user.UId,
             Goal = body.goal,
-            ExperienceLevel =  body.experienceLevel,
+            ExperienceLevel = body.experienceLevel,
             Frequency = body.frequency,
             Equipment = body.equipment,
             TimeAvailable = body.timeAvailable

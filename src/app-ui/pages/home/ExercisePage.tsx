@@ -64,39 +64,39 @@ export function ExercisePage() {
     if (exerciseName.charAt(0) !== letterCategory.current) {
       letterCategory.current = exerciseName.charAt(0);
       return (
-          <View>
-            <Text
-                style={{
-                  paddingHorizontal: 20,
-                  paddingTop: 20,
-                  fontWeight: 'bold',
-                  color: 'grey',
-                }}
-            >
-              {exerciseName.charAt(0).toUpperCase()}
-            </Text>
-          </View>
+        <View>
+          <Text
+            style={{
+              paddingHorizontal: 20,
+              paddingTop: 20,
+              fontWeight: 'bold',
+              color: 'grey',
+            }}
+          >
+            {exerciseName.charAt(0).toUpperCase()}
+          </Text>
+        </View>
       );
     }
   };
   const ExerciseList = (props: IExerciseProps) => (
-      <View>
-        {renderLetter(props.exercise.name)}
-        <TouchableHighlight
-            style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
-            activeOpacity={0.8}
-            underlayColor='#efefef'
-            onPress={() => console.log('hi')}
-        >
-          <View style={[styles.exerciseContainer]}>
-            <View style={{ gap: 5 }}>
-              <Text style={styles.exerciseName}>{props.exercise.name}</Text>
-              <Text style={{ fontSize: 13 }}>{props.exercise.targetMuscle}</Text>
-            </View>
-            <AntDesign name='right' size={20} color='black' />
+    <View>
+      {renderLetter(props.exercise.name)}
+      <TouchableHighlight
+        style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
+        activeOpacity={0.8}
+        underlayColor='#efefef'
+        onPress={() => console.log('hi')}
+      >
+        <View style={[styles.exerciseContainer]}>
+          <View style={{ gap: 5 }}>
+            <Text style={styles.exerciseName}>{props.exercise.name}</Text>
+            <Text style={{ fontSize: 13 }}>{props.exercise.targetMuscle}</Text>
           </View>
-        </TouchableHighlight>
-      </View>
+          <AntDesign name='right' size={20} color='black' />
+        </View>
+      </TouchableHighlight>
+    </View>
   );
 
   useEffect(() => {
@@ -107,27 +107,27 @@ export function ExercisePage() {
   }, []);
 
   return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.search}>
-          <SearchBar
-              placeholder={'Search'}
-              onSearch={() => {}}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              onChangeText={text => setSearch(text)}
-          />
-        </View>
-        <FlatList
-            data={
-              text.length > 0 ? searchObjectsByName(sortedList, text) : sortedList
-            }
-            renderItem={({ item, index }) => (
-                <ExerciseList exercise={item} index={index} />
-            )}
-            style={styles.container}
-            showsVerticalScrollIndicator={false}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.search}>
+        <SearchBar
+          placeholder={'Search'}
+          onSearch={() => {}}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChangeText={text => setSearch(text)}
         />
-      </SafeAreaView>
+      </View>
+      <FlatList
+        data={
+          text.length > 0 ? searchObjectsByName(sortedList, text) : sortedList
+        }
+        renderItem={({ item, index }) => (
+          <ExerciseList exercise={item} index={index} />
+        )}
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
   );
 }
 
