@@ -36,10 +36,12 @@ public class SocialService : ControllerBase
     private UserProfile GetUserProfile(Guid uId)
     {
         var user = database.Users.Find(uId);
+
         if (user == null)
         {
             return null;
         }
+
         return new UserProfile(user.UId, encryptionHelper.Decrypt(user.Username), encryptionHelper.Decrypt(user.Name));
     }
 

@@ -17,6 +17,7 @@ import { AccountSettingsPage } from './pages/settings/subpages/AccountSettingsPa
 import { AppUsagePage } from './pages/settings/subpages/AppUsagePage';
 import { EditProfilePage } from './pages/settings/subpages/EditProfilePage';
 import { HelpPage } from './pages/settings/subpages/HelpPage';
+import { MyFitnessPage } from './pages/settings/subpages/MyFitnessPage';
 import { NotificationsPage } from './pages/settings/subpages/NotificationsPage';
 import { TermsOfServicePage } from './pages/settings/subpages/TermsOfServicePage';
 import { SocialPage } from './pages/social/SocialPage';
@@ -44,6 +45,7 @@ const SettingsStack = () => (
   >
     <Stack.Screen name='Settings Page' component={SettingsPage} />
     <Stack.Screen name='Edit Profile' component={EditProfilePage} />
+    <Stack.Screen name='My Fitness' component={MyFitnessPage} />
     <Stack.Screen name='Account Settings' component={AccountSettingsPage} />
     <Stack.Screen name='Notifications' component={NotificationsPage} />
     <Stack.Screen name='App Usage' component={AppUsagePage} />

@@ -14,7 +14,8 @@ interface IFieldCardProps extends TextInputProps {
 }
 
 export const FieldCard = (props: IFieldCardProps) => {
-  const { label, description, onChangeText, placeholder, value } = props;
+  const { label, description, onChangeText, placeholder, value, keyboardType } =
+    props;
 
   return (
     <View style={styles.container}>
@@ -31,6 +32,7 @@ export const FieldCard = (props: IFieldCardProps) => {
         autoCapitalize='none'
         autoCorrect={false}
         spellCheck={false}
+        keyboardType={keyboardType}
       />
     </View>
   );

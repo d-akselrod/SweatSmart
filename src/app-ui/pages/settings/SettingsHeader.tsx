@@ -32,18 +32,26 @@ export const SettingsHeader = (props: ISettingsHeaderProps) => {
     loadProfilePhoto();
   }, []);
 
+  // Use the profilePhotoUri as a key for the Image component
+  const imageKey = profilePhotoUri ? 'userPhoto' : 'placeholder';
+
   return (
     <View style={styles.profileHeader}>
       {profilePhotoUri ? (
-        <Image source={{ uri: profilePhotoUri }} style={styles.profilePhoto} />
+        <Image
+          key={imageKey}
+          source={{ uri: profilePhotoUri }}
+          style={styles.profilePhoto}
+        />
       ) : (
         <Image
+          key={imageKey}
           source={require('../../assets/images/UserAvatar.png')}
           style={styles.profilePhoto}
         />
       )}
 
-      <View id='display-info' style={styles.displayInfo}>
+      <View style={styles.displayInfo}>
         {activeUser?.name && (
           <Text style={styles.textName}>{activeUser?.name}</Text>
         )}
@@ -55,13 +63,6 @@ export const SettingsHeader = (props: ISettingsHeaderProps) => {
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
   profileHeader: {
     flexDirection: 'row',
     alignItems: 'center',

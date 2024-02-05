@@ -52,6 +52,11 @@ export function SettingsPage() {
             }
             onPress={() => handleOpenOptions('Edit Profile')}
           />
+          <SettingsOptionsCard
+            label={'My Fitness'}
+            icon={<Ionicons name='fitness-outline' size={30} i color='black' />}
+            onPress={() => handleOpenOptions('My Fitness')}
+          />
         </View>
         <View style={styles.categoryGap} />
         <View style={styles.optionsCategory}>
