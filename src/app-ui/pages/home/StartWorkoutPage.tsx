@@ -43,7 +43,7 @@ export function StartWorkoutPage() {
     const seconds = timeInSeconds % 60;
 
     const formattedTime = `${String(hours).padStart(2, '0')}:${String(
-      minutes,
+        minutes,
     ).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
     return formattedTime;
@@ -55,55 +55,55 @@ export function StartWorkoutPage() {
   };
 
   const ExerciseList = (props: IExerciseProps) => (
-    <TouchableHighlight
-      style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
-      activeOpacity={0.5}
-      underlayColor='#efefef'
-      onPress={() => handleNavigation(props.exercise)}
-    >
-      <View style={[styles.exerciseContainer]}>
-        <View style={{ gap: 5 }}>
-          <Text style={styles.exerciseName}>{props.exercise.exerciseName}</Text>
-          <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
-            <Entypo name='dot-single' size={15} color='black' />
-            <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>
+      <TouchableHighlight
+          style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
+          activeOpacity={0.5}
+          underlayColor='#efefef'
+          onPress={() => handleNavigation(props.exercise)}
+      >
+        <View style={[styles.exerciseContainer]}>
+          <View style={{ gap: 5 }}>
+            <Text style={styles.exerciseName}>{props.exercise.exerciseName}</Text>
+            <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
+              <Entypo name='dot-single' size={15} color='black' />
+              <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>
+            </View>
           </View>
+          <AntDesign name='ellipsis1' size={20} color='black' />
         </View>
-        <AntDesign name='ellipsis1' size={20} color='black' />
-      </View>
-    </TouchableHighlight>
+      </TouchableHighlight>
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ marginHorizontal: 20 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            gap: 5,
-            alignItems: 'center',
-            width: '100%',
-            justifyContent: 'center',
-            height: '30%',
-          }}
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={{ marginHorizontal: 20 }}>
+          <View
+              style={{
+                flexDirection: 'row',
+                gap: 5,
+                alignItems: 'center',
+                width: '100%',
+                justifyContent: 'center',
+                height: '30%',
+              }}
+          >
+            <Fontisto name='stopwatch' size={20} color='black' />
+            <Text style={styles.timerText}>{formatTime(seconds)}</Text>
+          </View>
+          <Text style={styles.header}>{exercises.length} Exercises</Text>
+          {exercises.map((val: IWorkoutExercise, index: number) => (
+              <ExerciseList exercise={val} index={index} key={index} />
+          ))}
+        </ScrollView>
+        <TouchableOpacity
+            style={styles.stopButton}
+            onPress={() => navigation.goBack()}
         >
-          <Fontisto name='stopwatch' size={20} color='black' />
-          <Text style={styles.timerText}>{formatTime(seconds)}</Text>
-        </View>
-        <Text style={styles.header}>{exercises.length} Exercises</Text>
-        {exercises.map((val: IWorkoutExercise, index: number) => (
-          <ExerciseList exercise={val} index={index} key={index} />
-        ))}
-      </ScrollView>
-      <TouchableOpacity
-        style={styles.stopButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Entypo name='controller-stop' size={30} color='white' />
-      </TouchableOpacity>
-    </SafeAreaView>
+          <Entypo name='controller-stop' size={30} color='white' />
+        </TouchableOpacity>
+      </SafeAreaView>
   );
 }
 

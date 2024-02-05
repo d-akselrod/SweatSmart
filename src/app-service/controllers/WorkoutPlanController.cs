@@ -40,4 +40,20 @@ public class WorkoutPlanController : ControllerBase
 
         return new APIResponse(200, null, null);
     }
+    
+    [Authorize]
+    [HttpGet("{wid}")]
+    public async Task<IActionResult> GetWorkoutPlan(string wid)
+    {
+        Guid guidWid = Guid.Parse(wid);
+        var workoutPlan = await database.WorkoutPlans.Where(workoutPlan => workoutPlan.WId == guidWid).ToListAsync();
+
+        if (!workoutPlan.Any())
+        {
+            return APIResponse.NotFound;
+        }
+
+        return new APIResponse(200, null, workoutPlan);
+    }
 }
+

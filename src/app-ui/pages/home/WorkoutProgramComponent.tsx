@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Ionicons, FontAwesome5, Feather } from '@expo/vector-icons';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -7,10 +9,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { ProgressBar } from './ProgressBar';
-import { IWorkout } from '../../typings/types';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
 import { getExercisesByWId } from '../../service/WorkoutAPI';
+import { IWorkout } from '../../typings/types';
 
 interface IWorkoutProgramProps {
   workout: IWorkout;
@@ -21,35 +21,42 @@ const width = Dimensions.get('window').width;
 export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
   const { workout, index, workouts } = props;
   const navigation = useNavigation();
-  const [numOfExercises, setNumOfExercises] = useState(0)
-  const isFocused = useIsFocused()
+  const [numOfExercises, setNumOfExercises] = useState(0);
+  const isFocused = useIsFocused();
   const handleNavigtion = () => {
     // @ts-ignore
-    navigation.navigate('WorkoutExerciseList', {workoutName: workout.name, id: workout.wId})
-  }
+    navigation.navigate('WorkoutExerciseList', {
+      workoutName: workout.name,
+      id: workout.wId,
+    });
+  };
 
   useEffect(() => {
     const getExercises = async () => {
-      try{
-        const response = await getExercisesByWId(workout.wId)
-        if(response.ok){
+      try {
+        const response = await getExercisesByWId(workout.wId);
+        if (response.ok) {
           const data = await response.json();
-          setNumOfExercises(data.body.length)
+          setNumOfExercises(data.body.length);
+        } else {
+          console.log('NO RESPONSE');
         }
-        else{
-          console.log("NO RESPONSE")
-        }
+      } catch (error) {
+        console.error(error);
       }
-      catch (error){
-        console.error(error)
-      }
-    }
-    
+    };
+
     getExercises();
   }, [isFocused]);
 
   return (
-    <TouchableOpacity style={[styles.container, {marginRight: index === workouts.length-1 ? 15 : 0}]} onPress = {() => handleNavigtion()}>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        { marginRight: index === workouts.length - 1 ? 15 : 0 },
+      ]}
+      onPress={() => handleNavigtion()}
+    >
       <View
         style={{
           flexDirection: 'row',

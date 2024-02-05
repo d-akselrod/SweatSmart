@@ -54,7 +54,7 @@ export const EditProfilePage = () => {
   );
   const [emailField, setEmailField] = useState<string>(activeUser.email);
 
-  const [saveEnabled, setSaveEnabled] = useState<boolean>(false);
+  const [, setSaveEnabled] = useState<boolean>(false);
 
   const [statusMessage, setStatusMessage] = useState<string>('');
 

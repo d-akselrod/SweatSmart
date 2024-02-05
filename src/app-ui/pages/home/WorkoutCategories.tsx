@@ -46,25 +46,25 @@ export function WorkoutCategories(props: IWorkoutCategory) {
   };
 
   return (
-    <Pressable style={styles.container} onPress={() => handleNavigation()}>
-      <View style={styles.container2}>
-        <View style={{ width: 68, alignItems: 'center' }}>
-          <Image
-            source={image}
-            style={{ width: imgWidth, height: imgHeight }}
-          />
+      <Pressable style={styles.container} onPress={() => handleNavigation()}>
+        <View style={styles.container2}>
+          <View style={{ width: 68, alignItems: 'center' }}>
+            <Image
+                source={image}
+                style={{ width: imgWidth, height: imgHeight }}
+            />
+          </View>
+          <View>
+            <Text style={{ fontWeight: 'bold', fontSize: 15 }}>
+              {categoryName}
+            </Text>
+            <Text style={{ fontSize: 12 }}>
+              {exercises.length > 0 ? `${exercises.length} Exercises` : ''}
+            </Text>
+          </View>
         </View>
-        <View>
-          <Text style={{ fontWeight: 'bold', fontSize: 15 }}>
-            {categoryName}
-          </Text>
-          <Text style={{ fontSize: 12 }}>
-            {exercises.length > 0 ? `${exercises.length} Exercises` : ''}
-          </Text>
-        </View>
-      </View>
-      <AntDesign name='right' size={20} color='black' />
-    </Pressable>
+        <AntDesign name='right' size={20} color='black' />
+      </Pressable>
   );
 }
 
