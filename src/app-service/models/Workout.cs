@@ -15,10 +15,10 @@ public class Workout
     [MaxLength(32)]
     public string name { get; set; }
 
-    [Column("Date", TypeName = "Date")]
-    [MaxLength(32)]
+    [Column("Date", TypeName = "datetime")]
     public DateTime? date { get; set; }
 
-    [Column("Duration", TypeName = "Time(0)")]
-    public TimeSpan? duration { get; set; }
+    [Column("Duration", TypeName = "int")]
+    public int? duration { get; set; }
+
 }

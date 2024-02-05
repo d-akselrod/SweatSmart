@@ -18,7 +18,7 @@ export const data: IOnboardingSections[] = [
     title: 'AI Workout Generator',
     description:
       'Create customized workouts tailored to your fitness level, goals, and preferences',
-    image: require('../../assets/AI.png'),
+    image: require('../../assets/images/AI.png'),
   },
 
   {
@@ -26,7 +26,7 @@ export const data: IOnboardingSections[] = [
     title: 'Easy Progress Tracking',
     description:
       'Monitor your performance, see your improvements, and stay motivated',
-    image: require('../../assets/Progress.png'),
+    image: require('../../assets/images/Progress.png'),
   },
 
   {
@@ -34,6 +34,6 @@ export const data: IOnboardingSections[] = [
     title: 'Meet FitBot',
     description:
       'Say hello to your virtual fitness coach! Get guidance, motivation, and expert tips to ensure you stay on track with your fitness goals',
-    image: require('../../assets/Chatbot.png'),
+    image: require('../../assets/images/Chatbot.png'),
   },
 ];

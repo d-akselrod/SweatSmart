@@ -2,7 +2,7 @@ import { API_AUTH, API_URL } from './config';
 import { IChatMessage } from '../pages/chatbot/types';
 
 export const sendPrompt = (history: IChatMessage[]) => {
-  return fetch(`${API_URL}/ChatBot`, {
+  return fetch(`${API_URL}/ChatBotService`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

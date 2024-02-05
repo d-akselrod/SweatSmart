@@ -39,3 +39,39 @@ export const loginAccount = (usernameOrEmail: string, password: string) => {
     body: JSON.stringify(requestBody),
   });
 };
+
+export const updateUsername = (username: string, newUsername: string) => {
+  return fetch(
+    `${API_URL}/AccountService/Update/${username}/Username?newUsername=${newUsername}`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: API_AUTH,
+      },
+    },
+  );
+};
+
+export const updateEmail = (username: string, newEmail: string) => {
+  return fetch(
+    `${API_URL}/AccountService/Update/${username}/Email?newEmail=${newEmail}`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: API_AUTH,
+      },
+    },
+  );
+};
+
+export const updateName = (username: string, newName: string) => {
+  return fetch(
+    `${API_URL}/AccountService/Update/${username}/Name?newName=${newName}`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: API_AUTH,
+      },
+    },
+  );
+};
