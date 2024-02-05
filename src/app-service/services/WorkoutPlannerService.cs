@@ -192,67 +192,67 @@ public class WorkoutPlannerService : ControllerBase
         return selectedExercises;
     }
     //make sure this is correct for pulling from the database
-    private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, string ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
+    private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, char ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
     {
         // Filter exercises based on the U/L/C, P/P category, equipment availability, and experience level.
         var filteredExercises = exercises.Where(e =>
             (e.U_L_C == ulcCategory) &&
             (e.P_P == ppCategory) &&
             (equipmentPreference == EquipmentAvailable.Full ||
-             equipmentPreference == EquipmentAvailable.Dumbbells && (e.Equipment == "D" || e.Equipment == "N") ||
-             equipmentPreference == EquipmentAvailable.None && e.Equipment == "N") &&
+             equipmentPreference == EquipmentAvailable.Dumbbells && (e.Equipment == 'D' || e.Equipment == 'N') ||
+             equipmentPreference == EquipmentAvailable.None && e.Equipment == 'N') &&
             (experienceLevel == ExperienceLevel.Advanced ||
-             experienceLevel == ExperienceLevel.Intermediate && (e.Level == "I" || e.Level == "B") ||
-             experienceLevel == ExperienceLevel.Beginner && e.Level == "B")).ToList();
+             experienceLevel == ExperienceLevel.Intermediate && (e.Level == 'I' || e.Level == 'B') ||
+             experienceLevel == ExperienceLevel.Beginner && e.Level == 'B')).ToList();
 
         // Select a random exercise from the filtered list
         return filteredExercises.Any() ? filteredExercises[rnd.Next(filteredExercises.Count)] : null;
     }
-    //only adding 4 exercises rather than 5
+
     private List<Exercise> SelectTotalBodyExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Select a balanced mix of exercises covering Upper, Lower, and Core with both Push and Pull movements
         return new List<Exercise>
         {
-            SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "C", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "C", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "U", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "U", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "C", "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'U', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'U', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'C', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'U', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'U', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'C', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'U', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'U', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'C', "Push", preferences.Equipment, preferences.ExperienceLevel),
         }.Where(e => e != null).ToList();
     }
-    //only adding three exercises rather than 4
+
     private List<Exercise> SelectLowerExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
         // Focus on leg exercises that are either push or pull
         return new List<Exercise>
         {
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Push", preferences.Equipment, preferences.ExperienceLevel),
-            SelectExerciseByType(allExercises, "L", "Pull", preferences.Equipment, preferences.ExperienceLevel)
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Push", preferences.Equipment, preferences.ExperienceLevel),
+            SelectExerciseByType(allExercises, 'L', "Pull", preferences.Equipment, preferences.ExperienceLevel)
         }.Where(e => e != null).ToList(); // Remove any null entries if an exercise was not found
     }
 
@@ -261,30 +261,39 @@ public class WorkoutPlannerService : ControllerBase
     {
         List<Exercise> selectedExercises = new List<Exercise>();
 
-        foreach (var muscleGroup in muscleGroupCounts.Keys)
+        // While there are still exercises to be selected
+        while (muscleGroupCounts.Any(kvp => kvp.Value > 0))
         {
-            var exercisesForMuscleGroup = allExercises
-                .Where(e => e.MuscleGroup == muscleGroup &&
-                            (movementType == null || e.P_P == movementType) &&
-                            (preferences.Equipment == EquipmentAvailable.Full ||
-                            preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment.Contains("D") ||
-                            preferences.Equipment == EquipmentAvailable.None && e.Equipment.Contains("N")) &&
-                            (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level.Contains("A") ||
-                            preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level.Contains("I") ||
-                            preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level.Contains("B")))
-                .ToList();
+            foreach (var muscleGroup in muscleGroupCounts.Keys.ToList())
+            {
+                // Skip this muscle group if no more exercises are needed for it
+                if (muscleGroupCounts[muscleGroup] == 0)
+                    continue;
 
-            // Randomly shuffle the exercises for the muscle group to provide variety
-            Random rnd = new Random();
-            exercisesForMuscleGroup = exercisesForMuscleGroup.OrderBy(x => rnd.Next()).ToList();
+                var exercisesForMuscleGroup = allExercises
+                    .Where(e => e.MuscleGroup == muscleGroup &&
+                                (movementType == null || e.P_P == movementType) &&
+                                (preferences.Equipment == EquipmentAvailable.Full ||
+                                preferences.Equipment == EquipmentAvailable.Dumbbells && e.Equipment == 'D' ||
+                                preferences.Equipment == EquipmentAvailable.None && e.Equipment == 'N') &&
+                                (preferences.ExperienceLevel == ExperienceLevel.Advanced && e.Level == 'A') ||
+                                preferences.ExperienceLevel == ExperienceLevel.Intermediate && e.Level == 'I' ||
+                                preferences.ExperienceLevel == ExperienceLevel.Beginner && e.Level == 'B')
+                    .OrderBy(x => rnd.Next()) // Randomly shuffle the exercises
+                    .FirstOrDefault(); // Take only one exercise
 
-            // Add the required number of exercises for this muscle group to the selected exercises
-            selectedExercises.AddRange(exercisesForMuscleGroup.Take(muscleGroupCounts[muscleGroup]));
+                if (exercisesForMuscleGroup != null)
+                {
+                    selectedExercises.Add(exercisesForMuscleGroup);
+                    muscleGroupCounts[muscleGroup]--; // Decrement the count for this muscle group
+                }
+            }
         }
 
         return selectedExercises;
-
     }
+
+
     // only returning one exercise each for some reason.
     private List<Exercise> SelectUpperPushExercises(IEnumerable<Exercise> allExercises, UserPreferences preferences)
     {
@@ -301,7 +310,7 @@ public class WorkoutPlannerService : ControllerBase
         return SelectExercisesByMuscleGroups(allExercises, preferences, new Dictionary<string, int>
         {
             { "Back", 8 },
-            { "Biceps", 8 }
+            { "Biceps", 8 } // basically no beginner+no equipment options, my need to display disclaimer for User with those preferences
         }, "Pull");
     }
 }
