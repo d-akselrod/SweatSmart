@@ -62,4 +62,21 @@ public class ProfileService : ControllerBase
 
         return APIResponse.Ok;
     }
+    
+    [Authorize]
+    [HttpGet("GetFrequency/{uId}")]
+    public async Task<IActionResult> GetUserFrequency(Guid uId)
+    {
+        var userPreferences = await database.UserPreferences.SingleOrDefaultAsync(user => user.UId == uId);
+
+        if (userPreferences == null)
+        {
+            return NotFound();
+        }
+
+        var frequency = userPreferences.Frequency;
+
+        return Ok(frequency);
+    }
+
 }

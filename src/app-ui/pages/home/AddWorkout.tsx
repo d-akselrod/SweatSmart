@@ -15,29 +15,39 @@ import {
 import { useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
-import { generateWorkout, getAllExercises } from '../../service/WorkoutAPI';
+import { generateWorkout, generateWorkoutPlan, getAllExercises } from '../../service/WorkoutAPI';
 import { IExercise, IUser } from '../../typings/types';
+import { getFrequency } from '../../service/ProfileAPI';
 
 export function AddWorkout() {
   const activeUser: IUser = useSelector((state: any) => state.user);
   const [name, setName] = useState('');
   const [option, setOption] = useState(0);
+  const [workoutType, setWorkoutType] = useState(0);
+  const [frequency, setFrequency] = useState<number>(0);
   const [exercises, setExercises] = useState<IExercise[]>();
   const [show, setShow] = useState<boolean>(false);
   const navigation = useNavigation();
 
   useEffect(() => {
     getExercises();
+    fetchUserFrequency();
   }, []);
   const handleApply = () => {
     // // @ts-ignore
     // navigation.navigate("AddExercisePage", {exercises: exercises, workoutName: name})
-    option === 0 ? setShow(true) : handleGenerateWorkout();
+    if (option === 0) {
+      setShow(true);
+    } else if (option === 1) {
+      handleGenerateWorkout();
+    } else if (option === 2) {
+      handleGenerateWorkoutPlan()
+    }
   };
 
   const handleGenerateWorkout = async () => {
     try {
-      const response = await generateWorkout(activeUser.username, 1);
+      const response = await generateWorkout(activeUser.username, workoutType);
       if (response.ok) {
         const data = await response.json();
         navigation.goBack();
@@ -49,6 +59,34 @@ export function AddWorkout() {
       console.error(e);
     }
   };
+
+  const fetchUserFrequency = async () => {
+    try {
+      const response = await getFrequency(activeUser.uId);
+      if (response.ok) {
+        const data = await response.json();
+        setFrequency(data.frequency);
+      } else {
+        console.log('ERROR HAS OCCURED!');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleGenerateWorkoutPlan = async () => {
+    try {
+      const response = await generateWorkoutPlan(activeUser.username, frequency);
+      if (response.ok) {
+        const data = await response.json();
+        navigation.goBack();
+      } else {
+        const data = await response.json();
+        console.log('ERROR HAS OCCURED!');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   const getExercises = async () => {
     try {

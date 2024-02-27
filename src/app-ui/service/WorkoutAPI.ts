@@ -80,7 +80,25 @@ export const generateWorkout = (username: string, workoutType: number) => {
 
   console.log(requestBody);
 
-  return fetch(`${API_URL}/WorkoutPlannerService/GenerateWorkout`, {
+  return fetch(`${API_URL}/WorkoutPlannerService/SingularWorkout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+    body: JSON.stringify(requestBody),
+  });
+};
+
+export const generateWorkoutPlan = (username: string, frequency: number) => {
+  const requestBody = {
+    username,
+    frequency,
+  };
+
+  console.log(requestBody);
+
+  return fetch(`${API_URL}/WorkoutPlannerService/WeeklyWorkoutPlan`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
