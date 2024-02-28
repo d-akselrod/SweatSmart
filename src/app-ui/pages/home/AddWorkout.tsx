@@ -52,25 +52,29 @@ export function AddWorkout() {
     }
   };
 
-  const loadUserFrequency = async () => {
-    try {
-      const response = await getFrequency(activeUser.username);
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        setFrequency(data);
-      } else {
-        const data = await response.json();
-        console.log('ERROR HAS OCCURED!');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
+  useEffect(() => {
+    const loadUserFrequency = async () => {
+      try {
+        const response = await getFrequency(activeUser.username);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setFrequency(data);
+        } else {
+          const data = await response.json();
+          console.log('ERROR HAS OCCURED!');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    
+    loadUserFrequency()
+  }, []);
   const handleGenerateWorkoutPlan = async () => {
     try {
-      await loadUserFrequency();
       const response = await generateWorkoutPlan(
         activeUser.username,
         frequency,
