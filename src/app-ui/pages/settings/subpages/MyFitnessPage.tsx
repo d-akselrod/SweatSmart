@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import {useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,7 +9,7 @@ import {
   Button, KeyboardAvoidingView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { setPreferences } from '../../../service/ProfileAPI';
+import {getPreferences, setPreferences } from '../../../service/ProfileAPI';
 import { IUser } from '../../../typings/types';
 import { FieldCard } from '../cards/FieldCard';
 import { PickerCard } from '../cards/PickerCard'; // Ensure this import path is correct
@@ -18,6 +18,26 @@ export const MyFitnessPage = () => {
   const navigation = useNavigation();
   const activeUser: IUser = useSelector((state: any) => state.user);
 
+  // useEffect(() => {
+  //   const loadPreferences = async() => {
+  //     try{
+  //       const response = await getPreferences(activeUser.username)
+  //       console.log(response.status)
+  //       if(response.ok){
+  //         const data = await response.json();
+  //       }
+  //       else{
+  //         console.log("error occured")
+  //       }
+  //     }
+  //     catch(error){
+  //       console.log(error)
+  //     }
+  //   }
+  //  
+  //   loadPreferences()
+  // }, [isFocus]);
+  
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
