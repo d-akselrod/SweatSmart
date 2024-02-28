@@ -43,11 +43,12 @@ export function AddWorkout() {
   const handleApply = () => {
     // // @ts-ignore
     // navigation.navigate("AddExercisePage", {exercises: exercises, workoutName: name})
-    option === 0 ? setShowExercisesModal(true) : setShowWorkoutTypeModal(true);
     if (option === 0) {
-      setShowExercisesModal(true)
+      setShowExercisesModal(true);
     } else if (option === 2) {
       handleGenerateWorkoutPlan();
+    } else if (option === 1) {
+      setShowWorkoutTypeModal(true);
     }
   };
 
