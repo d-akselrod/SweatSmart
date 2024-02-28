@@ -29,7 +29,7 @@ export function ExerciseDetailsPage() {
     new Array(exercise.sets).fill(false),
   );
   const [focusedIdx, setFocusIdx] = useState<number>(1);
-  const [numOfSets, setNumOfSets] = useState(exercise.sets)
+  const [numOfSets, setNumOfSets] = useState(exercise.sets);
   const height = Dimensions.get('window').height;
 
   const SetDetailsComponent = (props: {
@@ -112,16 +112,66 @@ export function ExerciseDetailsPage() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style = {{flex: 1}} contentContainerStyle = {{paddingBottom: 50}}>
-      <View style={{height: height/4, justifyContent: 'space-between', margin: 20 }}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <AntDesign name='arrowleft' size={24} color='black' />
-        </Pressable>
-        <View style={{ gap: 10 }}>
-          <Text style={styles.header}>{exercise.exerciseName}</Text>
-          <Text style={{ fontSize: 18, fontWeight: '600' }}>
-            {exercise.muscleGroup}
-          </Text>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 50 }}
+      >
+        <View
+          style={{
+            height: height / 4,
+            justifyContent: 'space-between',
+            margin: 20,
+          }}
+        >
+          <Pressable onPress={() => navigation.goBack()}>
+            <AntDesign name='arrowleft' size={24} color='black' />
+          </Pressable>
+          <View style={{ gap: 10 }}>
+            <Text style={styles.header}>{exercise.exerciseName}</Text>
+            <Text style={{ fontSize: 18, fontWeight: '600' }}>
+              {exercise.muscleGroup}
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <View
+                style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}
+              >
+                <MaterialCommunityIcons name='target' size={15} color='black' />
+                <Text>{exercise.targetMuscle}</Text>
+              </View>
+              <View
+                style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}
+              >
+                <MaterialIcons name='speed' size={15} color='black' />
+                <Text>
+                  {exercise.level === 'A'
+                    ? 'Beginner'
+                    : exercise.level === 'B'
+                    ? 'Intermediate'
+                    : 'Advanced'}
+                </Text>
+              </View>
+              <View
+                style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}
+              >
+                <FontAwesome5 name='dumbbell' size={15} color='black' />
+                <Text>
+                  {exercise.equipment === 'N'
+                    ? 'None'
+                    : exercise.level === 'D'
+                    ? 'Dumbbells'
+                    : 'Full Equip'}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={{ marginHorizontal: 20 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -130,75 +180,46 @@ export function ExerciseDetailsPage() {
             }}
           >
             <View
-              style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}
-            >
-              <MaterialCommunityIcons name='target' size={15} color='black' />
-              <Text>{exercise.targetMuscle}</Text>
-            </View>
+              style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
+            />
+            <Text>{exercise.sets} SETS</Text>
             <View
-              style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}
+              style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
+            />
+          </View>
+          <View style={{ gap: 30, marginTop: 20 }}>
+            {renderSets()}
+            <Pressable
+              onPress={() => {
+                setNumOfSets(numOfSets + 1);
+                setFocusIdx(numOfSets + 1);
+                setCompleted(prev => [...prev, false]);
+              }}
+              style={{
+                flexDirection: 'row',
+                gap: 10,
+                paddingHorizontal: 17,
+                alignItems: 'center',
+              }}
             >
-              <MaterialIcons name='speed' size={15} color='black' />
-              <Text>
-                {exercise.level === 'A'
-                  ? 'Beginner'
-                  : exercise.level === 'B'
-                  ? 'Intermediate'
-                  : 'Advanced'}
+              <View style={styles.addSet}>
+                <Entypo name='plus' size={20} color='black' />
+              </View>
+              <Text
+                style={{ fontSize: 15, fontWeight: 'bold', color: 'black' }}
+              >
+                Add Another Set
               </Text>
-            </View>
-            <View
-              style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}
-            >
-              <FontAwesome5 name='dumbbell' size={15} color='black' />
-              <Text>
-                {exercise.equipment === 'N'
-                  ? 'None'
-                  : exercise.level === 'D'
-                  ? 'Dumbbells'
-                  : 'Full Equip'}
-              </Text>
-            </View>
+            </Pressable>
           </View>
         </View>
-      </View>
-      <View style={{marginHorizontal: 20 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <View
-            style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
-          />
-          <Text>{exercise.sets} SETS</Text>
-          <View
-            style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
-          />
-        </View>
-        <View style={{ gap: 30, marginTop: 20 }}>
-          {renderSets()}
-          <Pressable onPress = {() => {
-            setNumOfSets(numOfSets + 1)
-            setFocusIdx(numOfSets + 1)
-            setCompleted(prev => [...prev, false])
-          }} style = {{flexDirection: 'row', gap: 10, paddingHorizontal: 17, alignItems: 'center'}}>
-            <View style = {styles.addSet}>
-              <Entypo name="plus" size={20} color="black" />
-            </View>
-            <Text style = {{fontSize: 15, fontWeight: 'bold', color: 'black'}}>Add Another Set</Text>
-          </Pressable>
-        </View>
-      </View>
       </ScrollView>
       <TouchableOpacity
         style={[
           styles.button,
           {
             backgroundColor: completed.every(val => val) ? 'white' : '#be4949',
-            width: '40%'
+            width: '40%',
           },
         ]}
         onPress={() => updateValueAtIndex(focusedIdx - 1)}
@@ -232,14 +253,14 @@ const styles = StyleSheet.create({
     bottom: 10,
     alignSelf: 'center',
   },
-  
+
   addSet: {
-    width: 40, 
-    height: 40, 
+    width: 40,
+    height: 40,
     borderRadius: 20,
     borderColor: 'black',
     borderWidth: 2,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

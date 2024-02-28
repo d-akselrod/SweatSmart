@@ -20,6 +20,7 @@ import { HomePage } from './pages/home/HomePage';
 import { StartWorkoutPage } from './pages/home/StartWorkoutPage';
 import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
 import { LoginPage } from './pages/login/LoginPage';
+import { AddPreferencesPage } from './pages/onboarding/AddPreferencesPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { ProgressPage } from './pages/progress/ProgressPage';
 import { RegisterPage } from './pages/register/RegisterPage';
@@ -36,7 +37,6 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
-import { AddPreferencesPage } from './pages/onboarding/AddPreferencesPage';
 
 const debugRedux = false;
 
@@ -44,46 +44,46 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const HomeStack = () => (
-    <Stack.Navigator
-      initialRouteName='HomePage'
-      screenOptions={{ presentation: 'card' }}
-    >
-      <Stack.Screen
-        name='HomePage'
-        component={HomePage}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='ExerciseList'
-        component={ExercisePage}
-        options={{ headerShown: true }}
-      />
-      <Stack.Screen
-        name='WorkoutExerciseList'
-        component={WorkoutExercisesPage}
-        options={{ headerShown: true }}
-      />
-      <Stack.Screen
-        name='WorkoutPage'
-        component={AddWorkout}
-        options={{
-          headerShown: true,
-          title: 'Add Workout',
-          headerBackTitle: 'Home',
-        }}
-      />
-      <Stack.Screen
-        name='ExerciseDetails'
-        component={ExerciseDetailsPage}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='StartWorkout'
-        component={StartWorkoutPage}
-        options={{ headerShown: false }}
-      />
-      {/*<Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false, presentation: 'modal'}}/>*/}
-    </Stack.Navigator>
+  <Stack.Navigator
+    initialRouteName='HomePage'
+    screenOptions={{ presentation: 'card' }}
+  >
+    <Stack.Screen
+      name='HomePage'
+      component={HomePage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='ExerciseList'
+      component={ExercisePage}
+      options={{ headerShown: true }}
+    />
+    <Stack.Screen
+      name='WorkoutExerciseList'
+      component={WorkoutExercisesPage}
+      options={{ headerShown: true }}
+    />
+    <Stack.Screen
+      name='WorkoutPage'
+      component={AddWorkout}
+      options={{
+        headerShown: true,
+        title: 'Add Workout',
+        headerBackTitle: 'Home',
+      }}
+    />
+    <Stack.Screen
+      name='ExerciseDetails'
+      component={ExerciseDetailsPage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='StartWorkout'
+      component={StartWorkoutPage}
+      options={{ headerShown: false }}
+    />
+    {/*<Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false, presentation: 'modal'}}/>*/}
+  </Stack.Navigator>
 );
 
 // const ExerciseStack = () => (
@@ -157,14 +157,14 @@ const AppEntry = () => (
             opacity: current.progress,
           },
         }),
-        gestureEnabled: false
+        gestureEnabled: false,
       }}
     >
       <Stack.Screen name='Entry' component={EntryPage} />
       <Stack.Screen name='Login' component={LoginPage} />
       <Stack.Screen name='Registration' component={RegisterPage} />
       <Stack.Screen name='OnboardingPage' component={OnboardingPage} />
-      <Stack.Screen name='UserPreferences' component={AddPreferencesPage}/>
+      <Stack.Screen name='UserPreferences' component={AddPreferencesPage} />
     </Stack.Navigator>
   </NavigationContainer>
 );

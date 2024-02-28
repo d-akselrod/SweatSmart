@@ -98,7 +98,10 @@ export function StartWorkoutPage() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ marginLeft: 20 }} contentContainerStyle = {{paddingBottom: 100}}>
+      <ScrollView
+        style={{ marginLeft: 20 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <View
           style={{
             flexDirection: 'row',

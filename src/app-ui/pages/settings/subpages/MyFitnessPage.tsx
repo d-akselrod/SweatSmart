@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import {useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   SafeAreaView,
   ScrollView,
   Text,
   StyleSheet,
   View,
-  Button, KeyboardAvoidingView,
+  Button,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import {getPreferences, setPreferences } from '../../../service/ProfileAPI';
+import { getPreferences, setPreferences } from '../../../service/ProfileAPI';
 import { IUser } from '../../../typings/types';
 import { FieldCard } from '../cards/FieldCard';
 import { PickerCard } from '../cards/PickerCard'; // Ensure this import path is correct
@@ -34,10 +35,10 @@ export const MyFitnessPage = () => {
   //       console.log(error)
   //     }
   //   }
-  //  
+  //
   //   loadPreferences()
   // }, [isFocus]);
-  
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -152,11 +153,11 @@ export const MyFitnessPage = () => {
         <KeyboardAvoidingView behavior='padding'>
           <View style={styles.gap} />
           <FieldCard
-              label={'Workout Duration'}
-              description={'Duration in min'}
-              keyboardType={'numeric'}
-              value={duration}
-              onChangeText={(text: string) => setDuration(text)}
+            label={'Workout Duration'}
+            description={'Duration in min'}
+            keyboardType={'numeric'}
+            value={duration}
+            onChangeText={(text: string) => setDuration(text)}
           />
         </KeyboardAvoidingView>
         <Button title='Save' onPress={handleSave} />

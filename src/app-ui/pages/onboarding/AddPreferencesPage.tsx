@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import {RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
   SafeAreaView,
   ScrollView,
   Text,
   StyleSheet,
   View,
-  Button, KeyboardAvoidingView,
+  Button,
+  KeyboardAvoidingView,
 } from 'react-native';
-import {useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStackParamList } from '../../App';
+import { setActiveUser } from '../../redux/slices/userSlice';
 import { setPreferences } from '../../service/ProfileAPI';
 import { IUser } from '../../typings/types';
 import { FieldCard } from '../settings/cards/FieldCard';
 import { PickerCard } from '../settings/cards/PickerCard'; // Ensure this import path is correct
-import { RootStackParamList } from '../../App';
-import { setActiveUser } from '../../redux/slices/userSlice';
 
 export const AddPreferencesPage = () => {
   const route = useRoute();
@@ -26,7 +27,7 @@ export const AddPreferencesPage = () => {
     label: string;
     value: string; // Ensure this matches the expected type for your picker items
   }
-  console.log(activeUser)
+  console.log(activeUser);
 
   const fitnessExperienceItems: IPreferenceItem[] = [
     { label: 'Beginner', value: '0' },
@@ -77,10 +78,10 @@ export const AddPreferencesPage = () => {
       equipment: +equipmentAvailable,
       timeAvailable: +duration,
     };
-    console.log(activeUser.username, requestBody)
+    console.log(activeUser.username, requestBody);
     try {
       const response = await setPreferences(activeUser.username, requestBody);
-      console.log(response.ok)
+      console.log(response.ok);
       if (response.ok) {
         dispatch(setActiveUser(activeUser));
       } else {
@@ -93,7 +94,7 @@ export const AddPreferencesPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <ScrollView style = {{flex: 1}} contentContainerStyle = {{gap: 100}}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: 100 }}>
         <Text style={styles.groupHeader}>Please fill out form below!</Text>
         <PickerCard
           label='Fitness Experience'
@@ -133,7 +134,7 @@ export const AddPreferencesPage = () => {
           />
         </KeyboardAvoidingView>
         <Button title='Finish' onPress={handleSave} />
-    </ScrollView>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 5,
     alignContent: 'center',
-    marginLeft: 20
+    marginLeft: 20,
   },
   groupHeader: {
     fontSize: 20,
@@ -156,5 +157,3 @@ const styles = StyleSheet.create({
     height: 130,
   },
 });
-
-
