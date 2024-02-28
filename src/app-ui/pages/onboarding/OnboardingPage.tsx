@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
   StyleSheet,
   FlatList,
@@ -15,10 +15,12 @@ import { OnboardingItem } from './OnboardingItem';
 import { RootStackParamList } from '../../App';
 import Paginator from '../../components/Paginator';
 import { setActiveUser } from '../../redux/slices/userSlice';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export function OnboardingPage() {
   const route = useRoute<RouteProp<RootStackParamList, 'OnboardingPage'>>();
   const activeUser = route.params.user;
+  const navigation = useNavigation();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef<FlatList | null>(null);
@@ -44,7 +46,7 @@ export function OnboardingPage() {
       slideRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else if (currentIndex == data.length - 1) {
       // @ts-ignore
-      dispatch(setActiveUser(activeUser));
+      navigation.navigate('UserPreferences', {activeUser: activeUser})
     }
   };
 

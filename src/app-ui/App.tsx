@@ -36,6 +36,7 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
+import { AddPreferencesPage } from './pages/onboarding/AddPreferencesPage';
 
 const debugRedux = false;
 
@@ -156,12 +157,14 @@ const AppEntry = () => (
             opacity: current.progress,
           },
         }),
+        gestureEnabled: false
       }}
     >
       <Stack.Screen name='Entry' component={EntryPage} />
       <Stack.Screen name='Login' component={LoginPage} />
       <Stack.Screen name='Registration' component={RegisterPage} />
       <Stack.Screen name='OnboardingPage' component={OnboardingPage} />
+      <Stack.Screen name='UserPreferences' component={AddPreferencesPage}/>
     </Stack.Navigator>
   </NavigationContainer>
 );
