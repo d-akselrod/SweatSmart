@@ -148,7 +148,10 @@ export function WorkoutExercisesPage() {
 
   return (
     <View>
-      <ScrollView style={{ marginLeft: 20, height: '100%' }}>
+      <ScrollView
+        style={{ marginLeft: 20, height: '100%' }}
+        contentContainerStyle={{ paddingBottom: 70 }}
+      >
         <Modal
           animationType={'slide'}
           onRequestClose={() => setShow(false)}
@@ -188,8 +191,8 @@ export function WorkoutExercisesPage() {
           backgroundColor: '#be4949',
           borderRadius: 10,
           position: 'absolute',
-          bottom: '10%',
-          width: '80%',
+          bottom: 10,
+          width: width - 40,
           alignSelf: 'center',
         }}
         onPress={() => startWorkout()}

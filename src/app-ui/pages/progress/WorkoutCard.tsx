@@ -47,18 +47,18 @@ export function WorkoutCard(props: IWorkoutCardProps) {
             <View style={styles.details}>
               <Ionicons name='barbell-outline' size={14} color='grey' />
               <Text
-                  style={styles.detailText}
+                style={styles.detailText}
               >{`${exercises.length} exercises`}</Text>
             </View>
           </View>
           <TouchableOpacity
-              onPress={() => setExpanded(!expanded)}
-              style={styles.expandButton}
+            onPress={() => setExpanded(!expanded)}
+            style={styles.expandButton}
           >
             <Ionicons
-                name={expanded ? 'ios-chevron-up' : 'ios-chevron-down'}
-                size={24}
-                color='#007AFF'
+              name={expanded ? 'ios-chevron-up' : 'ios-chevron-down'}
+              size={24}
+              color='#007AFF'
             />
           </TouchableOpacity>
         </View>
@@ -121,5 +121,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '80%',
-  }
+  },
 });

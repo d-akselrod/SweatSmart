@@ -86,4 +86,17 @@ public class ProfileService : ControllerBase
     }
 
 
+
+    [Authorize]
+    [HttpGet("UserPreferences/{username}")]
+    public async Task<IActionResult> GetUserPreferences(string username)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return new APIResponse(500, "wrong username", null);
+        }
+        var preferences = await database.UserPreferences.SingleOrDefaultAsync(u => user.UId == u.UId);
+        return new APIResponse(200, null, preferences);
+    }
 }

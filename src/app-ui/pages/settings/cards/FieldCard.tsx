@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    width: 90,
+    width: 150,
   },
   description: {
     color: 'grey',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   textInput: {
     color: 'black',
     fontSize: 18,
-    width: '65%',
+    width: '40%',
     borderBottomWidth: 0.3,
     borderColor: 'grey',
     paddingBottom: 5,
