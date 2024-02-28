@@ -6,7 +6,8 @@ import {
   Text,
   StyleSheet,
   View,
-  Button, KeyboardAvoidingView,
+  Button,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { setPreferences } from '../../../service/ProfileAPI';
@@ -132,11 +133,11 @@ export const MyFitnessPage = () => {
         <KeyboardAvoidingView behavior='padding'>
           <View style={styles.gap} />
           <FieldCard
-              label={'Duration'}
-              description={'Workout Duration'}
-              keyboardType={'numeric'}
-              value={duration}
-              onChangeText={(text: string) => setDuration(text)}
+            label={'Duration'}
+            description={'Workout Duration'}
+            keyboardType={'numeric'}
+            value={duration}
+            onChangeText={(text: string) => setDuration(text)}
           />
         </KeyboardAvoidingView>
         <Button title='Save' onPress={handleSave} />

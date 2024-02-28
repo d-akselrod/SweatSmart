@@ -99,10 +99,30 @@ public class WorkoutPlannerService : ControllerBase
             }
         }
 
+        string workoutName;
+        switch (workoutType)
+        {
+            case WorkoutType.TotalBody:
+                workoutName = "Total Body";
+                break;
+            case WorkoutType.UpperPush:
+                workoutName = "Upper Body Push";
+                break;
+            case WorkoutType.UpperPull:
+                workoutName = "Upper Body Pull";
+                break;
+            case WorkoutType.Lower:
+                workoutName = "Lower Body";
+                break;
+            default:
+                workoutName = "Workout";
+                break;
+        }
+
         var newWorkout = new Workout
         {
             WId = WId,
-            name = workoutType.ToString(),
+            name = workoutName,
             date = DateTime.Now,
             duration = totalWorkoutTime
         };

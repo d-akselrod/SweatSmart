@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
+import { ChoseWorkoutType } from './ChoseWorkoutType';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
 import { generateWorkout, getAllExercises } from '../../service/WorkoutAPI';
 import { IExercise, IUser } from '../../typings/types';
@@ -23,8 +24,11 @@ export function AddWorkout() {
   const [name, setName] = useState('');
   const [option, setOption] = useState(0);
   const [exercises, setExercises] = useState<IExercise[]>();
-  const [show, setShow] = useState<boolean>(false);
   const navigation = useNavigation();
+
+  const [showExercisesModal, setShowExercisesModal] = useState<boolean>(false);
+  const [showWorkoutTypeModal, setShowWorkoutTypeModal] =
+    useState<boolean>(false);
 
   useEffect(() => {
     getExercises();
@@ -32,22 +36,7 @@ export function AddWorkout() {
   const handleApply = () => {
     // // @ts-ignore
     // navigation.navigate("AddExercisePage", {exercises: exercises, workoutName: name})
-    option === 0 ? setShow(true) : handleGenerateWorkout();
-  };
-
-  const handleGenerateWorkout = async () => {
-    try {
-      const response = await generateWorkout(activeUser.username, 1);
-      if (response.ok) {
-        const data = await response.json();
-        navigation.goBack();
-      } else {
-        const data = await response.json();
-        console.log('ERROR HAS OCCURED!');
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    option === 0 ? setShowExercisesModal(true) : setShowWorkoutTypeModal(true);
   };
 
   const getExercises = async () => {
@@ -66,7 +55,8 @@ export function AddWorkout() {
   };
 
   const handleClose = () => {
-    setShow(false);
+    setShowExercisesModal(false);
+    setShowWorkoutTypeModal(false);
   };
 
   const handleNavigation = (wId: string, name: string) => {
@@ -77,8 +67,8 @@ export function AddWorkout() {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6F6F6' }}>
       <Modal
         animationType={'slide'}
-        visible={show}
-        onRequestClose={() => setShow(false)}
+        visible={showExercisesModal}
+        onRequestClose={() => setShowExercisesModal(false)}
       >
         {exercises && (
           <AddExercisesPage
@@ -90,6 +80,14 @@ export function AddWorkout() {
             }
           />
         )}
+      </Modal>
+
+      <Modal
+        animationType={'slide'}
+        visible={showWorkoutTypeModal}
+        onRequestClose={() => setShowWorkoutTypeModal(false)}
+      >
+        <ChoseWorkoutType close={() => handleClose()} />
       </Modal>
 
       <View style={styles.container}>
@@ -190,6 +188,7 @@ export function AddWorkout() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-evenly',
+    flex: 1,
     alignItems: 'center',
     marginHorizontal: 30,
     height: '80%',
@@ -247,5 +246,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontStyle: 'italic',
     fontWeight: '200',
+  },
+  buttonTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    padding: 15,
+    color: '#ffffff50',
+    textAlign: 'center',
   },
 });
