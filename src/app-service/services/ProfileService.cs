@@ -62,28 +62,28 @@ public class ProfileService : ControllerBase
 
         return APIResponse.Ok;
     }
-    
+
     [Authorize]
     [HttpGet("GetFrequency/{username}")]
     public async Task<IActionResult> GetUserFrequency(string username)
     {
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
-       
+
         if (user == null)
         {
             return NotFound();
         }
         var userPreferences = await database.UserPreferences.SingleOrDefaultAsync(userPreferences => userPreferences.UId == user.UId);
-    
+
         if (userPreferences == null)
         {
             return NotFound();
         }
-    
+
         var frequency = userPreferences.Frequency;
-    
+
         return Ok(frequency);
     }
-    
+
 
 }

@@ -15,9 +15,13 @@ import {
 import { useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
-import { generateWorkout, generateWorkoutPlan, getAllExercises } from '../../service/WorkoutAPI';
-import { IExercise, IUser } from '../../typings/types';
 import { getFrequency } from '../../service/ProfileAPI';
+import {
+  generateWorkout,
+  generateWorkoutPlan,
+  getAllExercises,
+} from '../../service/WorkoutAPI';
+import { IExercise, IUser } from '../../typings/types';
 
 export function AddWorkout() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -58,7 +62,7 @@ export function AddWorkout() {
       console.error(e);
     }
   };
-  
+
   const loadUserFrequency = async () => {
     try {
       const response = await getFrequency(activeUser.username);
@@ -74,11 +78,14 @@ export function AddWorkout() {
       console.error(error);
     }
   };
-  
+
   const handleGenerateWorkoutPlan = async () => {
     try {
       await loadUserFrequency();
-      const response = await generateWorkoutPlan(activeUser.username, frequency);
+      const response = await generateWorkoutPlan(
+        activeUser.username,
+        frequency,
+      );
       if (response.ok) {
         const data = await response.json();
         console.log(frequency);
@@ -142,28 +149,28 @@ export function AddWorkout() {
           onChangeText={text => setName(text)}
         />
         <Pressable
-            style={[
-              styles.weeklybutton,
-              { borderColor: option === 2 ? '#A9ABF1' : 'white' },
-            ]}
-            onPress={() => setOption(2)}
+          style={[
+            styles.weeklybutton,
+            { borderColor: option === 2 ? '#A9ABF1' : 'white' },
+          ]}
+          onPress={() => setOption(2)}
         >
           <Image
-              style={{ height: '60%', width: '90%' }}
-              source={require('../../assets/images/weeklygenerator.png')}
+            style={{ height: '60%', width: '90%' }}
+            source={require('../../assets/images/weeklygenerator.png')}
           />
           <View style={{ alignItems: 'center', gap: 10 }}>
             <Text style={styles.text}>Generate Weekly Workout Plan</Text>
             <View style={styles.radioButton}>
               {option === 2 && (
-                  <View
-                      style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 5,
-                        backgroundColor: '#A9ABF1',
-                      }}
-                  />
+                <View
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    backgroundColor: '#A9ABF1',
+                  }}
+                />
               )}
             </View>
           </View>
@@ -312,7 +319,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     borderWidth: 2,
   },
-  
+
   weeklybutton: {
     width: '100%',
     height: '30%',
