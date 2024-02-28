@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,48 +9,25 @@ import {
   Button,
   KeyboardAvoidingView,
 } from 'react-native';
-import { useSelector } from 'react-redux';
-import { getPreferences, setPreferences } from '../../../service/ProfileAPI';
-import { IUser } from '../../../typings/types';
-import { FieldCard } from '../cards/FieldCard';
-import { PickerCard } from '../cards/PickerCard'; // Ensure this import path is correct
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStackParamList } from '../../App';
+import { setActiveUser } from '../../redux/slices/userSlice';
+import { setPreferences } from '../../service/ProfileAPI';
+import { IUser } from '../../typings/types';
+import { FieldCard } from '../settings/cards/FieldCard';
+import { PickerCard } from '../settings/cards/PickerCard'; // Ensure this import path is correct
 
-export const MyFitnessPage = () => {
-  const navigation = useNavigation();
-  const activeUser: IUser = useSelector((state: any) => state.user);
-
-  // useEffect(() => {
-  //   const loadPreferences = async() => {
-  //     try{
-  //       const response = await getPreferences(activeUser.username)
-  //       console.log(response.status)
-  //       if(response.ok){
-  //         const data = await response.json();
-  //       }
-  //       else{
-  //         console.log("error occured")
-  //       }
-  //     }
-  //     catch(error){
-  //       console.log(error)
-  //     }
-  //   }
-  //
-  //   loadPreferences()
-  // }, [isFocus]);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      headerBackTitle: 'Settings',
-      title: 'My Fitness',
-    });
-  }, [navigation]);
+export const AddPreferencesPage = () => {
+  const route = useRoute();
+  // @ts-ignore
+  const activeUser = route.params.activeUser;
+  const dispatch = useDispatch();
 
   interface IPreferenceItem {
     label: string;
     value: string; // Ensure this matches the expected type for your picker items
   }
+  console.log(activeUser);
 
   const fitnessExperienceItems: IPreferenceItem[] = [
     { label: 'Beginner', value: '0' },
@@ -101,12 +78,12 @@ export const MyFitnessPage = () => {
       equipment: +equipmentAvailable,
       timeAvailable: +duration,
     };
-
+    console.log(activeUser.username, requestBody);
     try {
       const response = await setPreferences(activeUser.username, requestBody);
+      console.log(response.ok);
       if (response.ok) {
-        // @ts-ignore
-        navigation.goBack();
+        dispatch(setActiveUser(activeUser));
       } else {
         console.log('Error saving preferences');
       }
@@ -116,9 +93,9 @@ export const MyFitnessPage = () => {
   };
 
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.groupHeader}>Personal Fitness Portfolio</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: 100 }}>
+        <Text style={styles.groupHeader}>Please fill out form below!</Text>
         <PickerCard
           label='Fitness Experience'
           description='Your Experience'
@@ -126,7 +103,6 @@ export const MyFitnessPage = () => {
           onValueChange={(itemValue: any) => setFitnessExperience(itemValue)}
           selectedValue={fitnessExperience}
         />
-        <View style={styles.gap} />
         <PickerCard
           label='Fitness Goals'
           description='Your Goals'
@@ -134,7 +110,6 @@ export const MyFitnessPage = () => {
           onValueChange={(itemValue: any) => setFitnessGoals(itemValue)}
           selectedValue={fitnessGoals}
         />
-        <View style={styles.gap} />
         <PickerCard
           label='Workout Frequency'
           description='Workouts per Week?'
@@ -142,7 +117,6 @@ export const MyFitnessPage = () => {
           onValueChange={(itemValue: any) => setWorkoutFrequency(itemValue)}
           selectedValue={workoutFrequency}
         />
-        <View style={styles.gap} />
         <PickerCard
           label='Equipment Available'
           description='What do you have?'
@@ -151,7 +125,6 @@ export const MyFitnessPage = () => {
           selectedValue={equipmentAvailable}
         />
         <KeyboardAvoidingView behavior='padding'>
-          <View style={styles.gap} />
           <FieldCard
             label={'Workout Duration'}
             description={'Duration in min'}
@@ -160,27 +133,24 @@ export const MyFitnessPage = () => {
             onChangeText={(text: string) => setDuration(text)}
           />
         </KeyboardAvoidingView>
-        <Button title='Save' onPress={handleSave} />
-      </SafeAreaView>
-    </ScrollView>
+        <Button title='Finish' onPress={handleSave} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
+    flex: 1,
+    marginVertical: 5,
     alignContent: 'center',
-    marginTop: 5,
-    marginBottom: 5,
+    marginLeft: 20,
   },
   groupHeader: {
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
     width: '100%',
-    marginLeft: 20,
     marginTop: 15,
   },
   gap: {

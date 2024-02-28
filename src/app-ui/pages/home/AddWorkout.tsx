@@ -14,17 +14,28 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
+import { ChoseWorkoutType } from './ChoseWorkoutType';
 import { getExerciseSortedList } from '../../service/ExerciseAPI';
-import { generateWorkout, getAllExercises } from '../../service/WorkoutAPI';
+import { getFrequency } from '../../service/ProfileAPI';
+import {
+  generateWorkout,
+  generateWorkoutPlan,
+  getAllExercises,
+} from '../../service/WorkoutAPI';
 import { IExercise, IUser } from '../../typings/types';
 
 export function AddWorkout() {
   const activeUser: IUser = useSelector((state: any) => state.user);
   const [name, setName] = useState('');
   const [option, setOption] = useState(0);
+  const [workoutType, setWorkoutType] = useState(0);
+  const [frequency, setFrequency] = useState<number>(0);
   const [exercises, setExercises] = useState<IExercise[]>();
-  const [show, setShow] = useState<boolean>(false);
   const navigation = useNavigation();
+
+  const [showExercisesModal, setShowExercisesModal] = useState<boolean>(false);
+  const [showWorkoutTypeModal, setShowWorkoutTypeModal] =
+    useState<boolean>(false);
 
   useEffect(() => {
     getExercises();
@@ -32,18 +43,45 @@ export function AddWorkout() {
   const handleApply = () => {
     // // @ts-ignore
     // navigation.navigate("AddExercisePage", {exercises: exercises, workoutName: name})
-    option === 0 ? setShow(true) : handleGenerateWorkout();
+    if (option === 0) {
+      setShowExercisesModal(true);
+    } else if (option === 2) {
+      handleGenerateWorkoutPlan();
+    } else if (option === 1) {
+      setShowWorkoutTypeModal(true);
+    }
   };
 
-  const handleGenerateWorkout = async () => {
+  const loadUserFrequency = async () => {
     try {
-      const response = await generateWorkout(activeUser.username, 1);
+      const response = await getFrequency(activeUser.username);
       if (response.ok) {
         const data = await response.json();
-        navigation.goBack();
+        console.log(data);
+        setFrequency(data);
       } else {
         const data = await response.json();
         console.log('ERROR HAS OCCURED!');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGenerateWorkoutPlan = async () => {
+    try {
+      await loadUserFrequency();
+      const response = await generateWorkoutPlan(
+        activeUser.username,
+        frequency,
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(frequency);
+        navigation.goBack();
+      } else {
+        const data = await response.json();
+        //console.log('ERROR HAS OCCURED!');
       }
     } catch (e) {
       console.error(e);
@@ -66,7 +104,8 @@ export function AddWorkout() {
   };
 
   const handleClose = () => {
-    setShow(false);
+    setShowExercisesModal(false);
+    setShowWorkoutTypeModal(false);
   };
 
   const handleNavigation = (wId: string, name: string) => {
@@ -77,8 +116,8 @@ export function AddWorkout() {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6F6F6' }}>
       <Modal
         animationType={'slide'}
-        visible={show}
-        onRequestClose={() => setShow(false)}
+        visible={showExercisesModal}
+        onRequestClose={() => setShowExercisesModal(false)}
       >
         {exercises && (
           <AddExercisesPage
@@ -92,6 +131,14 @@ export function AddWorkout() {
         )}
       </Modal>
 
+      <Modal
+        animationType={'slide'}
+        visible={showWorkoutTypeModal}
+        onRequestClose={() => setShowWorkoutTypeModal(false)}
+      >
+        <ChoseWorkoutType close={() => handleClose()} />
+      </Modal>
+
       <View style={styles.container}>
         <Text style={styles.title}>Build a new workout</Text>
         <TextInput
@@ -99,6 +146,33 @@ export function AddWorkout() {
           style={styles.input}
           onChangeText={text => setName(text)}
         />
+        <Pressable
+          style={[
+            styles.weeklybutton,
+            { borderColor: option === 2 ? '#A9ABF1' : 'white' },
+          ]}
+          onPress={() => setOption(2)}
+        >
+          <Image
+            style={{ height: '60%', width: '90%' }}
+            source={require('../../assets/images/weeklygenerator.png')}
+          />
+          <View style={{ alignItems: 'center', gap: 10 }}>
+            <Text style={styles.text}>Generate Weekly Workout Plan</Text>
+            <View style={styles.radioButton}>
+              {option === 2 && (
+                <View
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    backgroundColor: '#A9ABF1',
+                  }}
+                />
+              )}
+            </View>
+          </View>
+        </Pressable>
         <View
           style={{
             width: '100%',
@@ -146,7 +220,7 @@ export function AddWorkout() {
               source={require('../../assets/images/generator.png')}
             />
             <View style={{ alignItems: 'center', gap: 10 }}>
-              <Text style={styles.text}>Generate Workout</Text>
+              <Text style={styles.text}>Generate Singular Workout</Text>
               <View style={styles.radioButton}>
                 {option === 1 && (
                   <View
@@ -190,9 +264,10 @@ export function AddWorkout() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-evenly',
+    flex: 1,
     alignItems: 'center',
     marginHorizontal: 30,
-    height: '80%',
+    height: '95%',
     // borderWidth: 1
   },
   header: {
@@ -236,6 +311,17 @@ const styles = StyleSheet.create({
 
   button: {
     width: '47%',
+    height: '80%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderWidth: 2,
+  },
+
+  weeklybutton: {
+    width: '100%',
+    height: '30%',
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
@@ -247,5 +333,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontStyle: 'italic',
     fontWeight: '200',
+  },
+  buttonTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    padding: 15,
+    color: '#ffffff50',
+    textAlign: 'center',
   },
 });

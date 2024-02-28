@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 
 public record GenerateWorkoutRequest(string username, WorkoutType workoutType);
 
+public record GenerateWorkoutPlanRequest(string username, int frequency);
+
 [ApiController]
 [Route("[controller]")]
 public class WorkoutPlannerService : ControllerBase
@@ -31,8 +33,40 @@ public class WorkoutPlannerService : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("GenerateWorkout")]
-    public async Task<IActionResult> GenerateWorkout(GenerateWorkoutRequest body)
+    [HttpPost("SingularWorkout")]
+    public async Task<IActionResult> GenerateSingularWorkout(GenerateWorkoutRequest body)
+    {
+        var workoutExercises = await GenerateWorkout(body);
+
+        if (workoutExercises.Count == 0)
+        {
+            return APIResponse.NotFound;
+        }
+
+        return new APIResponse(200, null, workoutExercises);
+    }
+
+    [Authorize]
+    [HttpPost("WeeklyWorkoutPlan")]
+    public async Task<IActionResult> GenerateWorkoutPlan(GenerateWorkoutPlanRequest body)
+    {
+        var username = body.username;
+        var frequency = body.frequency;
+
+        var workoutSplit = DetermineWorkoutSplit(frequency);
+
+        var weeklyWorkoutPlan = new List<List<WorkoutPlan>>();
+
+        foreach (var workoutType in workoutSplit)
+        {
+            var workoutPlan = await GenerateWorkout(new GenerateWorkoutRequest(username, workoutType));
+            weeklyWorkoutPlan.Add(workoutPlan);
+        }
+
+        return new APIResponse(200, null, weeklyWorkoutPlan);
+    }
+
+    private async Task<List<WorkoutPlan>> GenerateWorkout(GenerateWorkoutRequest body)
     {
         var username = body.username;
         var workoutType = body.workoutType;
@@ -40,29 +74,28 @@ public class WorkoutPlannerService : ControllerBase
         var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
         if (user == null)
         {
-            return new APIResponse(404, "User not found", null);
+            return null; // Handle not found case appropriately
         }
 
         var preferences = await database.UserPreferences.SingleOrDefaultAsync(userPreferences => userPreferences.UId == user.UId);
         if (preferences == null)
         {
-            return new APIResponse(404, "Preferences not found", null);
+            return null; // Handle not found case appropriately
         }
 
         var exercises = await SelectExercisesForWorkout(preferences, workoutType);
 
         int sets = preferences.Goal == PersonalGoal.strength ? 3 : 4;
         int reps = preferences.Goal == PersonalGoal.strength ? 5 : (preferences.Goal == PersonalGoal.endurance ? 12 : 10);
-
-        float percOneRM = (float)(1 - 0.025 * reps); // Need to integrate this so it is displayed alongside sets and reps for each exercise. 
+        float percOneRM = (float)(1 - 0.025 * reps);
 
         int timePerRep = 3;
         int restBetweenSets = 60;
         int restBetweenExercises = 60 * 5;
         int totalWorkoutTime = 0;
+        Guid WId = Guid.NewGuid();
 
         var workoutExercises = new List<WorkoutPlan>();
-        Guid WId = Guid.NewGuid();
 
         foreach (var exercise in exercises)
         {
@@ -99,10 +132,30 @@ public class WorkoutPlannerService : ControllerBase
             }
         }
 
+        string workoutName;
+        switch (workoutType)
+        {
+            case WorkoutType.TotalBody:
+                workoutName = "Total Body";
+                break;
+            case WorkoutType.UpperPush:
+                workoutName = "Upper Body Push";
+                break;
+            case WorkoutType.UpperPull:
+                workoutName = "Upper Body Pull";
+                break;
+            case WorkoutType.Lower:
+                workoutName = "Lower Body";
+                break;
+            default:
+                workoutName = "Workout";
+                break;
+        }
+
         var newWorkout = new Workout
         {
             WId = WId,
-            name = workoutType.ToString(),
+            name = workoutName,
             date = DateTime.Now,
             duration = totalWorkoutTime
         };
@@ -135,8 +188,7 @@ public class WorkoutPlannerService : ControllerBase
 
         await database.SaveChangesAsync();
 
-
-        return new APIResponse(200, null, workoutExercises);
+        return workoutExercises;
     }
 
     private int CalculateExerciseTime(int sets, int reps, int timePerRep, int restBetweenSets, int restBetweenExercises)
@@ -191,7 +243,6 @@ public class WorkoutPlannerService : ControllerBase
 
         return selectedExercises;
     }
-    //make sure this is correct for pulling from the database
     private Exercise SelectExerciseByType(IEnumerable<Exercise> exercises, char ulcCategory, string ppCategory, EquipmentAvailable equipmentPreference, ExperienceLevel experienceLevel)
     {
         // Filter exercises based on the U/L/C, P/P category, equipment availability, and experience level.

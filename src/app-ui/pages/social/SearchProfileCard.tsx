@@ -57,9 +57,7 @@ export const SearchProfileCard = (props: ISearchUserCardProps) => {
       <View style={styles.profilePhoto} />
       <View style={styles.accountInfo}>
         <Text style={styles.username}>{profile.username}</Text>
-        <Text
-          style={styles.name}
-        >{`${profile.firstName} ${profile.lastName}`}</Text>
+        <Text style={styles.name}>{profile.name}</Text>
       </View>
       <TouchableOpacity onPress={handleClear}>
         <Ionicons name='md-close' size={24} color='grey' />

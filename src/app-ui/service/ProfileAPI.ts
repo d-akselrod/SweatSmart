@@ -13,3 +13,23 @@ export const setPreferences = (username: string, userPreferences: Object) => {
     },
   );
 };
+
+export const getFrequency = (username: string) => {
+  return fetch(`${API_URL}/ProfileService/GetFrequency/${username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};
+
+export const getPreferences = (username: string) => {
+  return fetch(`${API_URL}/ProfileService/UserPreferences/${username}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};

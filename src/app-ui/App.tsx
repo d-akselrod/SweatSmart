@@ -20,6 +20,7 @@ import { HomePage } from './pages/home/HomePage';
 import { StartWorkoutPage } from './pages/home/StartWorkoutPage';
 import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
 import { LoginPage } from './pages/login/LoginPage';
+import { AddPreferencesPage } from './pages/onboarding/AddPreferencesPage';
 import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { ProgressPage } from './pages/progress/ProgressPage';
 import { RegisterPage } from './pages/register/RegisterPage';
@@ -43,48 +44,46 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const HomeStack = () => (
-  <NavigationContainer>
-    <Stack.Navigator
-      initialRouteName='HomePage'
-      screenOptions={{ presentation: 'card' }}
-    >
-      <Stack.Screen
-        name='HomePage'
-        component={AppMain}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='ExerciseList'
-        component={ExercisePage}
-        options={{ headerShown: true }}
-      />
-      <Stack.Screen
-        name='WorkoutExerciseList'
-        component={WorkoutExercisesPage}
-        options={{ headerShown: true }}
-      />
-      <Stack.Screen
-        name='WorkoutPage'
-        component={AddWorkout}
-        options={{
-          headerShown: true,
-          title: 'Add Workout',
-          headerBackTitle: 'Home',
-        }}
-      />
-      <Stack.Screen
-        name='ExerciseDetails'
-        component={ExerciseDetailsPage}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='StartWorkout'
-        component={StartWorkoutPage}
-        options={{ headerShown: false }}
-      />
-      {/*<Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false, presentation: 'modal'}}/>*/}
-    </Stack.Navigator>
-  </NavigationContainer>
+  <Stack.Navigator
+    initialRouteName='HomePage'
+    screenOptions={{ presentation: 'card' }}
+  >
+    <Stack.Screen
+      name='HomePage'
+      component={HomePage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='ExerciseList'
+      component={ExercisePage}
+      options={{ headerShown: true }}
+    />
+    <Stack.Screen
+      name='WorkoutExerciseList'
+      component={WorkoutExercisesPage}
+      options={{ headerShown: true }}
+    />
+    <Stack.Screen
+      name='WorkoutPage'
+      component={AddWorkout}
+      options={{
+        headerShown: true,
+        title: 'Add Workout',
+        headerBackTitle: 'Home',
+      }}
+    />
+    <Stack.Screen
+      name='ExerciseDetails'
+      component={ExerciseDetailsPage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='StartWorkout'
+      component={StartWorkoutPage}
+      options={{ headerShown: false }}
+    />
+    {/*<Stack.Screen name="AddExercisePage" component={AddExercisesPage} options = {{headerShown: false, presentation: 'modal'}}/>*/}
+  </Stack.Navigator>
 );
 
 // const ExerciseStack = () => (
@@ -158,12 +157,14 @@ const AppEntry = () => (
             opacity: current.progress,
           },
         }),
+        gestureEnabled: false,
       }}
     >
       <Stack.Screen name='Entry' component={EntryPage} />
       <Stack.Screen name='Login' component={LoginPage} />
       <Stack.Screen name='Registration' component={RegisterPage} />
       <Stack.Screen name='OnboardingPage' component={OnboardingPage} />
+      <Stack.Screen name='UserPreferences' component={AddPreferencesPage} />
     </Stack.Navigator>
   </NavigationContainer>
 );
@@ -173,88 +174,90 @@ const AppMain = () => {
   const focusedIconColor = 'black';
   const unfocusedIconColor = 'grey';
   return (
-    <Tab.Navigator
-      initialRouteName='Home'
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen
-        name='ChatBot'
-        component={ChatBotPage}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons
-              name='robot-outline'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='Progress'
-        component={ProgressPage}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name='trending-up-outline'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='Home'
-        component={HomePage}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name='barbell-outline'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='Profile'
-        component={SettingsStack}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <Octicons
-              name='gear'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='Social'
-        component={SocialPage}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name='people-outline'
-              size={iconSize}
-              color={focused ? focusedIconColor : unfocusedIconColor}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName='Home'
+        screenOptions={{ headerShown: false }}
+      >
+        <Tab.Screen
+          name='ChatBot'
+          component={ChatBotPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name='robot-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Progress'
+          component={ProgressPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='trending-up-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Home'
+          component={HomeStack}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='barbell-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Profile'
+          component={SettingsStack}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Octicons
+                name='gear'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name='Social'
+          component={SocialPage}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name='people-outline'
+                size={iconSize}
+                color={focused ? focusedIconColor : unfocusedIconColor}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
 const App = () => {
   const activeUser: IUser = useSelector((state: any) => state.user);
 
-  return activeUser == undefined ? <AppEntry /> : <HomeStack />;
+  return activeUser == undefined ? <AppEntry /> : <AppMain />;
 };
 
 export default function Root() {

@@ -98,7 +98,10 @@ export function StartWorkoutPage() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ marginHorizontal: 20 }}>
+      <ScrollView
+        style={{ marginLeft: 20 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <View
           style={{
             flexDirection: 'row',
@@ -106,7 +109,7 @@ export function StartWorkoutPage() {
             alignItems: 'center',
             width: '100%',
             justifyContent: 'center',
-            height: '30%',
+            height: 100,
           }}
         >
           <Fontisto name='stopwatch' size={20} color='black' />
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: '10%',
+    bottom: 10,
     alignSelf: 'center',
   },
 });
