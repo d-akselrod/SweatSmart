@@ -14,15 +14,13 @@ export const setPreferences = (username: string, userPreferences: Object) => {
   );
 };
 
-export const getFrequency = (uId: string) => {
-    return fetch(
-        `${API_URL}/ProfileService/GetFrequency/${uId}`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: API_AUTH,
-            },
+export const getFrequency = (username: string) => {
+    return fetch(`${API_URL}/ProfileService/GetFrequency/${username}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: API_AUTH,
         },
-    );
+    });
 };
+

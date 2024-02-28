@@ -64,19 +64,26 @@ public class ProfileService : ControllerBase
     }
     
     [Authorize]
-    [HttpGet("GetFrequency/{uId}")]
-    public async Task<IActionResult> GetUserFrequency(Guid uId)
+    [HttpGet("GetFrequency/{username}")]
+    public async Task<IActionResult> GetUserFrequency(string username)
     {
-        var userPreferences = await database.UserPreferences.SingleOrDefaultAsync(user => user.UId == uId);
-
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+       
+        if (user == null)
+        {
+            return NotFound();
+        }
+        var userPreferences = await database.UserPreferences.SingleOrDefaultAsync(userPreferences => userPreferences.UId == user.UId);
+    
         if (userPreferences == null)
         {
             return NotFound();
         }
-
+    
         var frequency = userPreferences.Frequency;
-
+    
         return Ok(frequency);
     }
+    
 
 }

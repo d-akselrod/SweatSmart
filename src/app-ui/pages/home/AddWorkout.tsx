@@ -31,7 +31,6 @@ export function AddWorkout() {
 
   useEffect(() => {
     getExercises();
-    fetchUserFrequency();
   }, []);
   const handleApply = () => {
     // // @ts-ignore
@@ -41,7 +40,7 @@ export function AddWorkout() {
     } else if (option === 1) {
       handleGenerateWorkout();
     } else if (option === 2) {
-      handleGenerateWorkoutPlan()
+      handleGenerateWorkoutPlan();
     }
   };
 
@@ -59,34 +58,39 @@ export function AddWorkout() {
       console.error(e);
     }
   };
-
-  const fetchUserFrequency = async () => {
+  
+  const loadUserFrequency = async () => {
     try {
-      const response = await getFrequency(activeUser.uId);
+      const response = await getFrequency(activeUser.username);
       if (response.ok) {
         const data = await response.json();
-        setFrequency(data.frequency);
+        console.log(data);
+        setFrequency(data);
       } else {
+        const data = await response.json();
         console.log('ERROR HAS OCCURED!');
       }
     } catch (error) {
       console.error(error);
     }
   };
+  
   const handleGenerateWorkoutPlan = async () => {
     try {
+      await loadUserFrequency();
       const response = await generateWorkoutPlan(activeUser.username, frequency);
       if (response.ok) {
         const data = await response.json();
+        console.log(frequency);
         navigation.goBack();
       } else {
         const data = await response.json();
-        console.log('ERROR HAS OCCURED!');
+        //console.log('ERROR HAS OCCURED!');
       }
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   const getExercises = async () => {
     try {
@@ -145,12 +149,8 @@ export function AddWorkout() {
             onPress={() => setOption(2)}
         >
           <Image
-              style={{ height: '20%', width: '40%' }}
-              source={require('../../assets/images/generator.png')}
-          />
-          <Image
-              style={{ height: '20%', width: '40%' }}
-              source={require('../../assets/images/generator.png')}
+              style={{ height: '60%', width: '90%' }}
+              source={require('../../assets/images/weeklygenerator.png')}
           />
           <View style={{ alignItems: 'center', gap: 10 }}>
             <Text style={styles.text}>Generate Weekly Workout Plan</Text>
