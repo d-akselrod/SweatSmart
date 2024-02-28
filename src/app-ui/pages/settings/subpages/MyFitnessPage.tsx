@@ -132,8 +132,8 @@ export const MyFitnessPage = () => {
         <KeyboardAvoidingView behavior='padding'>
           <View style={styles.gap} />
           <FieldCard
-              label={'Duration'}
-              description={'Workout Duration'}
+              label={'Workout Duration'}
+              description={'Duration in min'}
               keyboardType={'numeric'}
               value={duration}
               onChangeText={(text: string) => setDuration(text)}
