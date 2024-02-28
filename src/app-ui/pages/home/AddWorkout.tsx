@@ -137,6 +137,37 @@ export function AddWorkout() {
           style={styles.input}
           onChangeText={text => setName(text)}
         />
+        <Pressable
+            style={[
+              styles.weeklybutton,
+              { borderColor: option === 2 ? '#A9ABF1' : 'white' },
+            ]}
+            onPress={() => setOption(2)}
+        >
+          <Image
+              style={{ height: '20%', width: '40%' }}
+              source={require('../../assets/images/generator.png')}
+          />
+          <Image
+              style={{ height: '20%', width: '40%' }}
+              source={require('../../assets/images/generator.png')}
+          />
+          <View style={{ alignItems: 'center', gap: 10 }}>
+            <Text style={styles.text}>Generate Weekly Workout Plan</Text>
+            <View style={styles.radioButton}>
+              {option === 2 && (
+                  <View
+                      style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 5,
+                        backgroundColor: '#A9ABF1',
+                      }}
+                  />
+              )}
+            </View>
+          </View>
+        </Pressable>
         <View
           style={{
             width: '100%',
@@ -184,7 +215,7 @@ export function AddWorkout() {
               source={require('../../assets/images/generator.png')}
             />
             <View style={{ alignItems: 'center', gap: 10 }}>
-              <Text style={styles.text}>Generate Workout</Text>
+              <Text style={styles.text}>Generate Singular Workout</Text>
               <View style={styles.radioButton}>
                 {option === 1 && (
                   <View
@@ -230,7 +261,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     marginHorizontal: 30,
-    height: '80%',
+    height: '95%',
     // borderWidth: 1
   },
   header: {
@@ -274,6 +305,17 @@ const styles = StyleSheet.create({
 
   button: {
     width: '47%',
+    height: '80%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderWidth: 2,
+  },
+  
+  weeklybutton: {
+    width: '100%',
+    height: '30%',
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
