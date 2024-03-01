@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
   SafeAreaView,
@@ -6,22 +6,28 @@ import {
   Text,
   StyleSheet,
   View,
-  Button,
   KeyboardAvoidingView,
+  Pressable,
+  Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootStackParamList } from '../../App';
 import { setActiveUser } from '../../redux/slices/userSlice';
 import { setPreferences } from '../../service/ProfileAPI';
-import { IUser } from '../../typings/types';
-import { FieldCard } from '../settings/cards/FieldCard';
-import { PickerCard } from '../settings/cards/PickerCard'; // Ensure this import path is correct
+import { AntDesign } from '@expo/vector-icons';
+import {ProgressBar} from '../home/ProgressBar'
+
 
 export const AddPreferencesPage = () => {
   const route = useRoute();
   // @ts-ignore
   const activeUser = route.params.activeUser;
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const width = Dimensions.get('window').width;
+  const slideRef = useRef<ScrollView | null>(null);
+  const currentX = useRef(0)
+  const [currentIdx, setCurrentIdx] = useState(1)
 
   interface IPreferenceItem {
     label: string;
@@ -92,49 +98,63 @@ export const AddPreferencesPage = () => {
     }
   };
 
+  const handleSlide = () => {
+    if(currentX.current === width*4) return
+    currentX.current+=width;
+    slideRef.current?.scrollTo({x: currentX.current, animated: false});
+    setCurrentIdx(prev => prev + 1)
+  };
+  
+  const goBack = () => {
+    if(currentX.current === 0) return
+    currentX.current-=width;
+    slideRef.current?.scrollTo({x: currentX.current, animated: false});
+    setCurrentIdx(prev => prev - 1)
+  }
+  
+  const Option = (props: {title: string, index: number}) => (
+    <Pressable style = {[styles.option, {backgroundColor: props.index === +fitnessExperience ? '#4f538c' : 'white'}]} onPress = {() => setFitnessExperience(fitnessExperienceItems[props.index].value)}>
+      <Text style = {[styles.optionText,{color: props.index === +fitnessExperience ? 'white' : '#6c6c6c'}]}>{props.title}</Text>
+    </Pressable>
+  )
+  console.log(fitnessGoals)
+  const renderFitnessLevelOptions = () => {
+    return ["Beginner", "Intermediate", "Advanced"].map((val, index) => {
+      return <Option title={val} key = {index} index = {index}/>
+    })
+  }
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: 100 }}>
-        <Text style={styles.groupHeader}>Please fill out form below!</Text>
-        <PickerCard
-          label='Fitness Experience'
-          description='Your Experience'
-          items={fitnessExperienceItems}
-          onValueChange={(itemValue: any) => setFitnessExperience(itemValue)}
-          selectedValue={fitnessExperience}
-        />
-        <PickerCard
-          label='Fitness Goals'
-          description='Your Goals'
-          items={fitnessGoalItems}
-          onValueChange={(itemValue: any) => setFitnessGoals(itemValue)}
-          selectedValue={fitnessGoals}
-        />
-        <PickerCard
-          label='Workout Frequency'
-          description='Workouts per Week?'
-          items={workoutFrequencyItems}
-          onValueChange={(itemValue: any) => setWorkoutFrequency(itemValue)}
-          selectedValue={workoutFrequency}
-        />
-        <PickerCard
-          label='Equipment Available'
-          description='What do you have?'
-          items={equipmentAvailableItems}
-          onValueChange={(itemValue: any) => setEquipmentAvailable(itemValue)}
-          selectedValue={equipmentAvailable}
-        />
-        <KeyboardAvoidingView behavior='padding'>
-          <FieldCard
-            label={'Workout Duration'}
-            description={'Duration in min'}
-            keyboardType={'numeric'}
-            value={duration}
-            onChangeText={(text: string) => setDuration(text)}
-          />
-        </KeyboardAvoidingView>
-        <Button title='Finish' onPress={handleSave} />
+      <View style = {{marginHorizontal: 20, gap: 10}}>
+        <Pressable onPress = {goBack}>        
+          <AntDesign name="arrowleft" size={24} color="black" />
+        </Pressable>
+        <Text style = {{fontWeight: '500', color: '#808080'}}>Question {currentIdx} of 5</Text>
+        <ProgressBar percent = {(currentIdx/5)*100} color = {'#2c41af'}/>
+      </View>
+      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator = {false} ref = {slideRef}>
+        <View style = {[styles.pageContainer, {width}]}>
+          <Text style = {styles.question}>What is your Fitness Level?</Text>
+          <View style = {styles.optionContainer}>
+            {renderFitnessLevelOptions()}
+          </View>
+        </View>
+        <View style = {[styles.pageContainer, {width}]}>
+          <Text style = {styles.question}>What is your goal?</Text>
+        </View>
+        <View style = {[styles.pageContainer, {width}]}>
+          <Text style = {styles.question}>How often can you workout?</Text>
+        </View>
+        <View style = {[styles.pageContainer, {width}]}>
+          <Text style = {styles.question}>What equipment do you have?</Text>
+        </View>
+        <View style = {[styles.pageContainer, {width}]}>
+          <Text style = {styles.question}>How long can you workout?</Text>
+        </View>
       </ScrollView>
+      <TouchableOpacity style = {styles.button} onPress = {handleSlide}>
+        <Text style = {{padding: 10, color: 'white', fontWeight: '600', fontSize: 16, textAlign: 'center'}}>{currentIdx < 5 ? "Next" : "Finish"}</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -142,18 +162,41 @@ export const AddPreferencesPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 5,
-    alignContent: 'center',
-    marginLeft: 20,
   },
-  groupHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    alignSelf: 'flex-start',
+  
+  button: {
+    backgroundColor: '#1a2264',
+    borderRadius: 20,
+    marginHorizontal: 20
+  },
+  
+  question: {
+    fontSize: 18,
+    fontWeight: '500'
+  },
+  
+  pageContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  
+  option: {
     width: '100%',
-    marginTop: 15,
+    borderColor: '#808080',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: '15%'
   },
-  gap: {
-    height: 130,
+  
+  optionContainer: {
+    justifyContent: 'center',
+    gap: 10,
+    height: '100%',
   },
+  
+  optionText:{
+    paddingLeft: 20, 
+    fontWeight: '500', 
+    fontSize: 17,
+  }
 });

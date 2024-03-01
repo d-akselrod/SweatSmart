@@ -87,7 +87,6 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           </Text>
         </View>
       </View>
-      <ProgressBar />
     </TouchableOpacity>
   );
 }
