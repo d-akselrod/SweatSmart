@@ -10,12 +10,14 @@ import {
   Pressable,
   Dimensions,
   TouchableOpacity,
+  Image
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveUser } from '../../redux/slices/userSlice';
 import { setPreferences } from '../../service/ProfileAPI';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import {ProgressBar} from '../home/ProgressBar'
+import Slider from '@react-native-community/slider';
 
 
 export const AddPreferencesPage = () => {
@@ -69,7 +71,7 @@ export const AddPreferencesPage = () => {
   const [fitnessGoals, setFitnessGoals] = useState(fitnessGoalItems[0].value);
 
   const [workoutFrequency, setWorkoutFrequency] = useState(
-    workoutFrequencyItems[2].value,
+    workoutFrequencyItems[3].value,
   );
   const [equipmentAvailable, setEquipmentAvailable] = useState(
     equipmentAvailableItems[0].value,
@@ -112,17 +114,52 @@ export const AddPreferencesPage = () => {
     setCurrentIdx(prev => prev - 1)
   }
   
-  const Option = (props: {title: string, index: number}) => (
-    <Pressable style = {[styles.option, {backgroundColor: props.index === +fitnessExperience ? '#4f538c' : 'white'}]} onPress = {() => setFitnessExperience(fitnessExperienceItems[props.index].value)}>
-      <Text style = {[styles.optionText,{color: props.index === +fitnessExperience ? 'white' : '#6c6c6c'}]}>{props.title}</Text>
+  const FitnessLevelOption = (props: {title: string, index: number}) => (
+    <Pressable style = {[styles.option, {borderColor: props.index === +fitnessExperience ? '#376cf8' : 'white', backgroundColor: props.index === +fitnessExperience ? '#bfdeff40' : 'white'}]} onPress = {() => setFitnessExperience(fitnessExperienceItems[props.index].value)}>
+      <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20}}>
+        <Text style = {[styles.optionText,{color: props.index === +fitnessExperience ? '#376cf8' : 'black'}]}>{props.title}</Text>
+        <MaterialCommunityIcons name={props.title === 'Beginner' ? "walk" : props.title === 'Intermediate' ? "run" : "run-fast"} size={40} color={props.index === +fitnessExperience ? '#376cf8' : "black"} />
+      </View>
     </Pressable>
   )
-  console.log(fitnessGoals)
+
+  const GoalOption = (props: {title: string, index: number}) => (
+    <Pressable style = {[styles.option, {borderColor: props.index === +fitnessGoals ? '#376cf8' : 'white', backgroundColor: props.index === +fitnessGoals ? '#bfdeff40' : 'white'}]} onPress = {() => setFitnessGoals(fitnessGoalItems[props.index].value)}>
+      <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20}}>
+        <Text style = {[styles.optionText,{color: props.index === +fitnessGoals ? '#376cf8' : 'black'}]}>{props.title}</Text>
+        {
+          props.title === 'Strength' ? <MaterialIcons name="fitness-center" size={40} color={props.index === +fitnessGoals ? '#376cf8' : "black"} /> 
+          : props.title === 'Endurance' ? <Ionicons name="fitness" size={40} color={props.index === +fitnessGoals ? '#376cf8' : "black"} />
+          : <MaterialCommunityIcons name="google-fit" size={40} color={props.index === +fitnessGoals ? '#376cf8' : "black"} />
+        }
+      </View>
+    </Pressable>
+  )
   const renderFitnessLevelOptions = () => {
     return ["Beginner", "Intermediate", "Advanced"].map((val, index) => {
-      return <Option title={val} key = {index} index = {index}/>
+      return <FitnessLevelOption title={val} key = {index} index = {index}/>
     })
   }
+  const renderGoalOptions = () => {
+    return ["Strength", "Endurance", "General Health"].map((val, index) => {
+      return <GoalOption title={val} key = {index} index = {index}/>
+    })
+  }
+
+  const renderCalendarImage = () => {
+    const imagePaths: any = {
+      1: require('../../assets/calendarImages/onetime.png'),
+      2: require('../../assets/calendarImages/twotimes.png'),
+      3: require('../../assets/calendarImages/threetimes.png'),
+      4: require('../../assets/calendarImages/fourtimes.png'),
+      5: require('../../assets/calendarImages/fivetimes.png'),
+      6: require('../../assets/calendarImages/sixtimes.png'),
+      7: require('../../assets/calendarImages/seventimes.png'),
+    };
+    const image = imagePaths[+workoutFrequency] || null;
+    return image && <Image source={image} style={{ width: '50%', height: '30%', alignSelf: 'center' }} />;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style = {{marginHorizontal: 20, gap: 10}}>
@@ -132,18 +169,26 @@ export const AddPreferencesPage = () => {
         <Text style = {{fontWeight: '500', color: '#808080'}}>Question {currentIdx} of 5</Text>
         <ProgressBar percent = {(currentIdx/5)*100} color = {'#2c41af'}/>
       </View>
-      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator = {false} ref = {slideRef}>
+      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator = {false} ref = {slideRef} scrollEnabled = {false}>
         <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>What is your Fitness Level?</Text>
-          <View style = {styles.optionContainer}>
-            {renderFitnessLevelOptions()}
+          <Text style = {styles.question}>What's your fitness level?</Text>
+          <View style = {{backgroundColor: '#bfdeff40', borderRadius: 20}}>
+            <Text style = {{fontSize: 15, color: '#444444', padding: 20, fontWeight: '400', lineHeight: 20, fontFamily: 'Apple SD Gothic Neo'}}>We're eager to calibrate your workouts precisely to your abilities to ensure that each session is challenging yet achievable.</Text>
           </View>
+          {renderFitnessLevelOptions()}
         </View>
         <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>What is your goal?</Text>
+          <Text style = {styles.question}>What's your goal?</Text>
+          <View style = {{backgroundColor: '#bfdeff40', borderRadius: 20}}>
+            <Text style = {{fontSize: 15, color: '#444444', padding: 20, fontWeight: '400', lineHeight: 20, fontFamily: 'Apple SD Gothic Neo'}}>We're here to customize and curate a program perfectly tailored to your aspirations and fitness objectives.</Text>
+          </View>
+          {renderGoalOptions()}
         </View>
         <View style = {[styles.pageContainer, {width}]}>
           <Text style = {styles.question}>How often can you workout?</Text>
+          {renderCalendarImage()}
+          <Text style = {{fontSize: 20, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{workoutFrequency} times / week</Text>
+          <Slider step = {1} maximumValue ={6} value = {3} onValueChange = {(val) => setWorkoutFrequency(workoutFrequencyItems[val].value)}></Slider>
         </View>
         <View style = {[styles.pageContainer, {width}]}>
           <Text style = {styles.question}>What equipment do you have?</Text>
@@ -153,11 +198,12 @@ export const AddPreferencesPage = () => {
         </View>
       </ScrollView>
       <TouchableOpacity style = {styles.button} onPress = {handleSlide}>
-        <Text style = {{padding: 10, color: 'white', fontWeight: '600', fontSize: 16, textAlign: 'center'}}>{currentIdx < 5 ? "Next" : "Finish"}</Text>
+        <Text style = {{padding: 15, color: 'white', fontWeight: '600', fontSize: 20, textAlign: 'center'}}>{currentIdx < 5 ? "Next" : "Finish"}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -171,32 +217,29 @@ const styles = StyleSheet.create({
   },
   
   question: {
-    fontSize: 18,
-    fontWeight: '500'
+    fontSize: 30,
+    fontWeight: '600',
+    textAlign: 'center',
+    fontFamily: 'Apple SD Gothic Neo'
   },
   
   pageContainer: {
     marginTop: 20,
     paddingHorizontal: 20,
+    justifyContent: 'space-around'
   },
   
   option: {
     width: '100%',
-    borderColor: '#808080',
     justifyContent: 'center',
-    borderRadius: 10,
-    height: '15%'
-  },
-  
-  optionContainer: {
-    justifyContent: 'center',
-    gap: 10,
-    height: '100%',
+    borderRadius: 20,
+    height: '20%',
+    borderWidth: 2,
   },
   
   optionText:{
-    paddingLeft: 20, 
-    fontWeight: '500', 
-    fontSize: 17,
+    fontWeight: 'bold', 
+    fontSize: 20,
+    fontFamily: 'Apple SD Gothic Neo'
   }
 });
