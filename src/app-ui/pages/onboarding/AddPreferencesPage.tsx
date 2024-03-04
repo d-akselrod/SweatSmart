@@ -188,11 +188,10 @@ export const AddPreferencesPage = () => {
       <View style = {{width: '100%', height: '40%', gap: 40}}>
         <Image source={image} style={{ width: '50%', height: '70%', alignSelf: 'center' }} />
         <Text style = {{fontSize: 25, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{workoutFrequency} {+workoutFrequency == 1 ? "time" : "times"} / week</Text>
-        <Slider step = {1} lowerLimit = {0} maximumValue ={6} value = {4} onValueChange = {(val) => setWorkoutFrequency(workoutFrequencyItems[val].value)}></Slider>
+        <Slider step = {1} lowerLimit = {0} maximumValue ={6} value = {3} onValueChange = {(val) => setWorkoutFrequency(workoutFrequencyItems[val].value)}></Slider>
       </View>
     ) 
   }
-  
 
   return (
     <SafeAreaView style={styles.container}>
