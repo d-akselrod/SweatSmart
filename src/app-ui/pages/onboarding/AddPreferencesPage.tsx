@@ -18,6 +18,7 @@ import { setPreferences } from '../../service/ProfileAPI';
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import {ProgressBar} from '../home/ProgressBar'
 import Slider from '@react-native-community/slider';
+import WheelPicker from '../../components/WheelPicker'
 
 
 export const AddPreferencesPage = () => {
@@ -76,7 +77,7 @@ export const AddPreferencesPage = () => {
   const [equipmentAvailable, setEquipmentAvailable] = useState(
     equipmentAvailableItems[0].value,
   );
-  const [duration, setDuration] = useState('');
+  const [duration, setDuration] = useState(60);
 
   const handleSave = async () => {
     const requestBody = {
@@ -101,7 +102,10 @@ export const AddPreferencesPage = () => {
   };
 
   const handleSlide = () => {
-    if(currentX.current === width*4) return
+    if(currentX.current === width*4){
+      handleSave()
+      return
+    }
     currentX.current+=width;
     slideRef.current?.scrollTo({x: currentX.current, animated: false});
     setCurrentIdx(prev => prev + 1)
@@ -135,9 +139,32 @@ export const AddPreferencesPage = () => {
       </View>
     </Pressable>
   )
+
+  const EquipmentOption = (props: {title: string, index: number}) => {
+    return (
+      <Pressable style = {[styles.option, {borderColor: props.index === +equipmentAvailable ? '#376cf8' : 'white', backgroundColor: props.index === +equipmentAvailable ? '#bfdeff40' : 'white'}]} onPress = {() => setEquipmentAvailable(equipmentAvailableItems[props.index].value)}>
+        <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20}}>
+          <Text style = {[styles.optionText,{color: props.index === +equipmentAvailable ? '#376cf8' : 'black'}]}>{props.title}</Text>
+          {
+            props.index === 0 ? <Image source = {require(`../../assets/images/bodyweight.png`)} style = {{width: 50, height: 50}}/> :
+              props.index === 1 ? <Image source = {require(`../../assets/images/dumbells.png`)} style = {{width: 50, height: 50}}/> :
+                <Image source = {require(`../../assets/images/fullgym.png`)} style = {{width: 50, height: 50}}/>
+          }
+        </View>
+      </Pressable>
+    )
+  }
+  
+  console.log(equipmentAvailable)
   const renderFitnessLevelOptions = () => {
     return ["Beginner", "Intermediate", "Advanced"].map((val, index) => {
       return <FitnessLevelOption title={val} key = {index} index = {index}/>
+    })
+  }
+
+  const renderEquipmentOptions = () => {
+    return ["None, Bodyweight Only", "Dumbbells Only", "Full Equipment"].map((val, index) => {
+      return <EquipmentOption title={val} key = {index} index = {index}/>
     })
   }
   const renderGoalOptions = () => {
@@ -157,8 +184,15 @@ export const AddPreferencesPage = () => {
       7: require('../../assets/calendarImages/seventimes.png'),
     };
     const image = imagePaths[+workoutFrequency] || null;
-    return image && <Image source={image} style={{ width: '50%', height: '30%', alignSelf: 'center' }} />;
+    return (
+      <View style = {{width: '100%', height: '40%', gap: 40}}>
+        <Image source={image} style={{ width: '50%', height: '70%', alignSelf: 'center' }} />
+        <Text style = {{fontSize: 25, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{workoutFrequency} {+workoutFrequency == 1 ? "time" : "times"} / week</Text>
+        <Slider step = {1} lowerLimit = {0} maximumValue ={6} value = {4} onValueChange = {(val) => setWorkoutFrequency(workoutFrequencyItems[val].value)}></Slider>
+      </View>
+    ) 
   }
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -185,16 +219,24 @@ export const AddPreferencesPage = () => {
           {renderGoalOptions()}
         </View>
         <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>How often can you workout?</Text>
-          {renderCalendarImage()}
-          <Text style = {{fontSize: 20, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{workoutFrequency} times / week</Text>
-          <Slider step = {1} maximumValue ={6} value = {3} onValueChange = {(val) => setWorkoutFrequency(workoutFrequencyItems[val].value)}></Slider>
+          <Text style = {styles.question}>How much equipment?</Text>
+          <View style = {{backgroundColor: '#bfdeff40', borderRadius: 20}}>
+            <Text style = {{fontSize: 15, color: '#444444', padding: 20, fontWeight: '400', lineHeight: 20, fontFamily: 'Apple SD Gothic Neo'}}>Gear up for success! Share the extent of your gym equipment collection, so we'll be aware of what you can use in your workout programs.</Text>
+          </View>
+          {renderEquipmentOptions()}
         </View>
         <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>What equipment do you have?</Text>
+          <Text style = {styles.question}>How often would you workout?</Text>
+          {renderCalendarImage()}
+          <View/>
         </View>
         <View style = {[styles.pageContainer, {width}]}>
           <Text style = {styles.question}>How long can you workout?</Text>
+          <View style = {{gap: 20}}>
+            <Text style = {{fontSize: 50, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{duration} min</Text>
+            <Slider step = {1} lowerLimit = {20} maximumValue ={180} value = {60} onValueChange = {(val) => setDuration(val)}></Slider>
+          </View>
+          <View/>
         </View>
       </ScrollView>
       <TouchableOpacity style = {styles.button} onPress = {handleSlide}>
@@ -224,9 +266,9 @@ const styles = StyleSheet.create({
   },
   
   pageContainer: {
-    marginTop: 20,
+    marginVertical: 20,
     paddingHorizontal: 20,
-    justifyContent: 'space-around'
+    justifyContent: 'space-between'
   },
   
   option: {
