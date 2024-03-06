@@ -11,9 +11,16 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{geometry}
 
 \input{../Comments}
 \input{../Common}
+
+\newcounter{mnum}
+\newcommand{\mthemnum}{M\themnum}
+\newcommand{\mref}[1]{M\ref{#1}}
 
 \begin{document}
 
@@ -30,8 +37,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Mar. 6, 2024 & 1.0 & first draft of document\\
 \bottomrule
 \end{tabularx}
 
@@ -62,807 +68,11 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-\setlength\parindent{0pt}
-\section{\textbf{General Information}}
+This document ...
 
-\subsection{Summary}
-
-This document outlines the Verification and Validation (V\&V) plan for SweatSmart, an AI workout application. The purpose of this V\&V plan is to detail the methodologies, processes, and activities employed to ensure that SweatSmart meets the requirements laid out in our team’s software requirements specification (SRS) document.
-
-\subsection{Objectives}
-
-The primary objectives of this plan are as follows: \newline
-
-\textbf{Verification: }To ensure that the algorithms, user interfaces, data model, and other design elements of the application align with the intended specifications. \newline
-
-\textbf{Validation: }To ascertain that when users utilize SweatSmart in their daily workouts, they experience the promised personalized touch, and the app contributes positively to their fitness journey. We also aim to validate that on the technical side, the application is working as expected and as we plan on from the beginning. \newline
-
-\textbf{User Experience Assurance: }While the technical aspects of the application are of utmost importance, this plan also seeks to verify and validate the intuitiveness, ease of navigation, and overall user satisfaction derived from using the application. \newline
-
-\textbf{Data Integrity and Privacy: }Given the sensitivity of health and fitness data, a crucial reason for this V\&V plan is to ensure that data collection, storage, and processing adhere to the required standards of security and privacy. \newline
-
-\textbf{Continuous Feedback and Improvement: }To set up a mechanism that gathers useful user feedback, ensuring that any discrepancies, issues, or potential improvements are identified during the V\&V process so they can be addressed before or during rollout of the application. \newline
-
-\subsection{Relevant Documentation}
-
-The main supporting document for this V\&V plan is our Software Requirements Specification which enumerates the features, functionalities, and performance requirements that SweatSmart must adhere to. 
 \section{Functional Requirements Evaluation}
 
 \section{Nonfunctional Requirements Evaluation}
-
-\setlength\parindent{0pt}
-\maketitle
-
-\section{Test for Nonfunctional Requirements  }
-
-\subsection{Appearance Requirements }
-
-\subsubsection*{\textbf{NFT\_APR-1: Interface Design}}
-
-\textbf{Description:} The app shall have an intuitive and user-friendly interface with minimalist design. 
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State:} App opened for the first time.
-
-\textbf{Input/Condition:} User interacts with the app interface.
-
-\textbf{Output/Result:} The user finds the interface intuitive and user-friendly with a minimalist design
-
-\textbf{How the test will be performed:} A group of users unfamiliar with the app will interact with it and provide feedback through a usability survey on the intuitiveness of the design. The survey is shown in section 6.2, question 1.  
-
-\subsubsection*{\textbf{NFT\_APR-2: Screen adaptability}}
-
-\textbf{Description:} The app shall be able to adapt to a variety of screen sizes and aspect ratios.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State:} App opened on various device sizes and aspect ratios.
-
-\textbf{Input/Condition:} Design team views the app's layout and graphics.
-
-\textbf{Output/Result:} The app adapts smoothly to different screen sizes and aspect ratios.
-
-\textbf{How the test will be performed:} The app will be tested on devices with varying screen sizes and aspect ratios to ensure consistent appearance/proper display for each. .
-
-
-\subsubsection*{\textbf{NFT\_APR-3: Feedback}}
-
-
-\textbf{Description:} The app shall provide visual feedback whenever a user action takes place.
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State:} User performs various actions (e.g., button presses, form submissions).
-
-\textbf{Input/Condition: }User actions.
-
-\textbf{Output/Result:} Visual feedback (e.g., animations, button color changes) is observed.
-
-\textbf{How the test will be performed:} Testers will interact with the app and note any visual feedback that occurs upon their actions.
-
-
-\subsubsection*{\textbf{NFT\_APR-4: Reducing delays}}
-
-
-\textbf{Description: }The app shall load data at a reasonable time so there are no noticeable delays for users.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State}: App opened with data-dependent pages.
-
-\textbf{Input/Condition: }User navigates the app.
-
-\textbf{Output/Result:} Data loads without noticeable delays.
-
-\textbf{How test will be performed: }Testers will navigate through various data-dependent sections of the app and measure the time it takes for data to load, ensuring our internet connection is consistent with the typical expected user. 
-
-
-\subsubsection*{\textbf{NFT\_APR-5: Portrait Mode}}
-
-
-\textbf{Description:} The app shall only support portrait mode.
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State:} App opened on a device.
-
-\textbf{Input/Condition:} User attempts to change the device orientation.
-
-\textbf{Output/Result: }The app remains in portrait mode and does not adjust to landscape.
-
-\textbf{How test will be performed:} Testers will attempt to change the orientation of their devices to landscape mode and note the app's behavior.
-\newline
-\subsection{Styling Requirements}
-
-
-\subsubsection*{\textbf{NFT\_STR-1: Color and styling}}
-
-\textbf{Description:} The app should have consistent styling and design throughout by using the same colour palette. 
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State:} App opened with various pages visible.
-
-\textbf{Input/Condition:} User navigates through these pages. 
-
-\textbf{Output/Result: }Consistent styling and design is observed and noted.
-
-\textbf{How the test will be performed: }Users will provide feedback for this requirement in our user experience survey, as shown in section 6.2, question 4. 
-
-
-\subsubsection*{\textbf{NFT\_STR-2: Modern styling}
-}
-
-\textbf{Description: }The application’s styling should be modern and similar to iOS apps.
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State:} App opened for the first time.
-
-\textbf{Input/Condition:} User observes app styling
-
-\textbf{Output/Result: }Styling is modern and mirrors that of typical iOS apps. 
-
-\textbf{How the test will be performed: }A comparison will be made between the app's styling and that of popular iOS apps by the user as prompted by question 8 in the survey in section 6.2. 
-
-
-\subsubsection*{\textbf{NFT\_STR-3: Visual appeal}
-}
-
-\textbf{Description:} The styling should be visually appealing and align with the app’s logo or theme.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State: }App opened with branding elements visible (e.g., logo).
-
-\textbf{Input/Condition: }User observes app's styling elements.
-
-\textbf{Output/Result: }Styling observed to be aligned with the app's logo or overarching theme.
-
-\textbf{How test will be performed:} The usability survey in section 6.2, question 4 will help to test this requirement.
-
-
-{Ease of Use Requirements}
-
-
-\subsubsection*{\textbf{NFT\_EUR-1: Intuitiveness of System}
-}
-
-\textbf{Description: }The system shall be intuitive such that new users can quickly understand basic functions and commands by using intuitive icons.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State:} App opened for the first time by a new user.
-
-\textbf{Input/Condition:} User attempts to use basic functions and commands.
-
-\textbf{Output/Result:} The user can quickly understand and use basic functions without any guidance.
-
-\textbf{How test will be performed:} New users will be given tasks to perform using the app. Their ease and speed of understanding will be evaluated. They will also be asked about their experience in question 1 of section 6.2. 
-
-
-\subsubsection*{\textbf{NFT\_EUR-2: Consistency}
-}
-
-\textbf{Description: }The user interface elements, terminology, and interactions should remain consistent throughout the application’s various pages.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State: }User navigates through various pages of the app.
-
-\textbf{Input/Condition:} User interaction with different elements.
-
-\textbf{Output/Result: }User interface elements and interactions remain consistent throughout the app.
-
-\textbf{How test will be performed: }Users will note if UI elements, terms, and interactions are consistent across different pages when asked about it in question 10 of the survey in section 6.2. 
-\newline
-\subsection{Personalization Requirements}
-
-
-\subsubsection*{\textbf{NFT\_PER-1: Date and Time}
-}
-
-\textbf{Description: }The app will support local date/time formats based on the user’s device settings.
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State: }App opened on a device set to a non-default date/time format.
-
-\textbf{Input/Condition: }User observes date and time displays.
-
-\textbf{Output/Result: }The app displays date/time according to the user's device settings.
-
-\textbf{How test will be performed:} Devices with various date/time formats will be used to verify the app's adaptability.
-
-
-\subsubsection*{\textbf{NFT\_PER-2: Personalization settings}
-}
-
-\textbf{Description: }The app shall stay consistent with the personalization settings on the user’s device regarding display and font.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State}: App opened on a device with specific display and font settings such as dark mode and bolded font size.
-
-\textbf{Input/Condition: }User observes app display and font.
-
-\textbf{Output/Result:} The app's display and font are consistent with the user’s device settings.
-
-\textbf{How test will be performed:} Devices with various display and font settings will be used to test the app's consistency.
-\newline
-\subsection{Learning Requirements}
-
-
-\subsubsection*{\textbf{NFT\_LER-1: Required Prior Knowledge}
-}
-
-\textbf{Description: }Users shall not require external resources to navigate the application; everything they need to know to use the app should be taught in-app.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State:} App opened by a user unfamiliar with it.
-
-\textbf{Input/Condition: }User attempts to navigate and use the app.
-
-\textbf{Output/Result:} User does not need external resources to understand and use the app.
-
-\textbf{How test will be performed:} New users will be asked to perform tasks without external assistance. Their ability to navigate and use the app will be evaluated. They will then be asked about their experience in the survey in section 6.2. 
-\newline
-\subsection{Understandability and Politeness Requirements}
-
-
-\subsubsection*{\textbf{NFT\_UPR1: Tutorial}
-}
-
-\textbf{Description: }The system should provide a tutorial for first-time users. 
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State:} App opened for the first time.
-
-\textbf{Input/Condition: }User starts using the app.
-
-\textbf{Output/Result: }A tutorial is provided for first-time users.
-
-\textbf{How test will be performed: }First-time users will be observed to see if a tutorial is presented upon initial app use.
-
-
-\subsubsection*{\textbf{NFT\_UPR-2}
-}
-
-\textbf{Description: }The application shall contain an FAQ to answer expected questions about the application.
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State:} User accesses the help or settings section.
-
-\textbf{Input/Condition:} User looks for an FAQ section.
-
-\textbf{Output/Result: }An FAQ section is available to answer questions about the app.
-
-\textbf{How test will be performed: }Testers will navigate to the app's help or settings sections to locate and review the FAQ.
-\newline
-\subsection{Accessibility Requirements}
-
-
-\subsubsection*{\textbf{NFT\_ACR-1: }Accessibility Guidelines}
-
-\textbf{Description: }The system will follow Apple’s design guidelines regarding accessible applications.
-
-\textbf{Type:} Dynamic, functional, manual
-
-\textbf{Initial State:} App installed on a device.
-
-\textbf{Input/Condition: }User with accessibility needs uses the app.
-
-\textbf{Output/Result: }The app follows Apple’s design guidelines for accessible applications.
-
-\textbf{How test will be performed:} Testers with accessibility needs (e.g., vision or hearing impairment) will use the app, and the design team will note how easily they are able to navigate the app. 
-\newline
-\subsection{Performance Requirements}
-
-
-\subsubsection*{\textbf{NFT\_PR-1: System Capacity}
-}
-
-\textbf{Description: }The system shall be capable of handling a minimum of 1000 simultaneous users and processing 200 transactions per minute while maintaining performance standards.
-
-\textbf{Type: }Automated, functional, automated
-
-\textbf{Initial State:} Simulation of 100 simultaneous users using the app at once. 
-
-\textbf{Input/Condition: }Users start processing transactions.
-
-\textbf{Output/Result:} The system can handle 1000 users and process 200 transactions per minute.
-
-\textbf{How test will be performed:} Automated load testing tools will simulate 1000 users connecting and processing transactions.
-
-
-\subsubsection*{\textbf{NFT\_PR-2: Availability}
-}
-
-\textbf{Description: }The system shall achieve a minimum of 99.9\% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.
-
-\textbf{Type: }Non-functional, dynamic, automated
-
-\textbf{Initial State: }System running continuously.
-
-\textbf{Input/Condition: }Monitor system availability over a month.
-
-\textbf{Output/Result:} The system achieves a minimum of 99.9\% availability.
-
-\textbf{How test will be performed:} System monitoring tools will track uptime over a specified period, to be determined closer to the testing date. 
-
-\subsubsection*{\textbf{NFT\_PR-3: Required Throughput}}
-
-\textbf{Description: }The system shall support a data throughput of at least 200 Mbps to ensure data transmission between the server and users is seamless and efficient under peak usage.
-
-\textbf{Type: }Dynamic, non-functional, automated
-
-\textbf{Initial State}: Peak usage period.
-
-\textbf{Input/Condition:} Large data transfer between server and users.
-
-\textbf{Output/Result: }Data throughput is at least 200 Mbps.
-
-\textbf{How test will be performed:} While testing capacity of the system, we will also automate data transfers of more than 200Mbps and measure the system’s performance. 
-
-
-\subsubsection*{\textbf{NFT\_PR-4: Response Time}
-}
-
-\textbf{Description: }The system shall deliver a response time of no more than 2 seconds for 99\% of the transaction processed under standard operating conditions.
-
-\textbf{Type:} Dynamic, non-functional, automated
-
-\textbf{Initial State:} System under standard operating conditions.
-
-\textbf{Input/Condition: }User sends a request to the server.
-
-\textbf{Output/Result:} Response time is no more than 2 seconds for 99\% of the transactions.
-
-\textbf{How test will be performed:} Response times will be logged and analyzed to ensure 99\% fall under the 2-second threshold.
-\newline
-\subsection{Operational and Environment Requirements}
-
-
-\subsubsection*{\textbf{NFT\_OER-1: Locational Requirements}
-}
-
-\textbf{Description: }The system shall be able to be used in a gym/workout facility or home workout room. 
-
-\textbf{Type: }Dynamic, functional, manual
-
-\textbf{Initial State: }App installed on a device.
-
-\textbf{Input/Condition:} User tries to use the app in a gym/workout facility or home workout room.
-
-\textbf{Output/Result:} The app functions correctly without any environmental interference.
-
-\textbf{How test will be performed:} A user will test the app in various gym/workout environments to ensure functionality.
-
-
-\subsubsection*{\textbf{NFT\_OER-2: OS Requirements}
-}
-
-\textbf{Description: }The system shall be able to run on an iOS phone.
-
-\textbf{Type:} Non-functional, dynamic, manual
-
-\textbf{Initial State:} App is ready to be installed
-
-\textbf{Input/Condition:} User tries to install the app on an iOS phone.
-
-\textbf{Output/Result:} The app installs, opens, and functions correctly.
-
-\textbf{How test will be performed:} Installation and basic functionality test on an iOS device.
-
-
-\subsubsection*{\textbf{NFT\_OER-3: Audio Functionality }
-}
-
-\textbf{Description: }The system shall allow the audio output to be transmitted through the device’s speakers or a connected Bluetooth device.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State:} App running with audio features activated.
-
-\textbf{Input/Condition: }User connects to device’s speakers or a Bluetooth device.
-
-\textbf{Output/Result:} Audio is transmitted clearly without any issues.
-
-\textbf{How test will be performed: }Test audio output on device’s speakers and on different Bluetooth devices.
-
-
-\subsubsection*{\textbf{NFT\_OER-4: Network Connection}
-}
-
-\textbf{Description: }The system should connect to the internet for back-end services.
-
-\textbf{Type: }Non-functional, dynamic, manual
-
-\textbf{Initial State: }App installed and requires backend services.
-
-\textbf{Input/Condition: }User tries to use features that require internet connection.
-
-\textbf{Output/Result:} App connects to the internet and back-end services function correctly.
-
-\textbf{How test will be performed:} Use the app with an active internet connection and verify backend services.
-\newline
-\subsection{Test for Maintainability and Support}
-
-
-\subsubsection*{\textbf{NFT\_MSR-1:} Error Detection}
-
-\textbf{Description: }The system shall automatically detect, log, and report any errors or system failures to the development and support team without requiring user intervention. 
-
-\textbf{Type: }Functional, dynamic, automated
-
-\textbf{Initial State: }The app is functioning with intentional errors introduced.
-
-\textbf{Input/Condition:} App is running and encounters an error.
-
-\textbf{Output/Result: }The app should automatically detect, log, and report the error.
-
-\textbf{How test will be performed:} Developers will introduce intentional errors, run the app, and verify if errors are detected and reported with the necessary feedback statements. 
-
-
-\subsubsection*{\textbf{NFT\_MSR-2: User Feedback}
-}
-
-\textbf{Description: }The system shall incorporate an accessible user feedback mechanism to enable users to easily report issues.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State: }App is open and functional.
-
-\textbf{Input/Condition:} User accesses the feedback section and submits feedback.
-
-\textbf{Output/Result:} The feedback is successfully sent and recorded.
-
-\textbf{How test will be performed: }Testers will send mock feedback and check if the feedback mechanism is accessible and works properly.
-
-
-\subsubsection*{\textbf{NFT\_MSR-3: Update Mechanism}
-}
-
-\textbf{Description: }The system shall support periodic, backward-compatible software updates, notifying users of availability and enabling convenient download and installation while providing information about the changes.
-
-\textbf{Type:} Non-functional, dynamic, manual
-
-\textbf{Initial State:} An older version of the app is installed.
-
-\textbf{Input/Condition:} A new update is available.
-
-\textbf{Output/Result:} The user is notified of the update, and upon choosing to update, the app updates smoothly with information about the changes.
-
-\textbf{How test will be performed:} An older version of the app will be installed on a device. When a new update is rolled out, testers will verify the update mechanism by downloading and installing the application and running tests to check for new features/bug fixes. 
-\newline
-\subsection{Test for Compliance Requirements}
-
-
-\subsubsection*{\textbf{NFT\_COMR-1: Data Protection Laws}
-}
-
-\textbf{Description: }The application will adhere to all data protection laws in the region(s) it operates within.
-
-\textbf{Type:} Non-functional, static, manual
-
-\textbf{Initial State:} The app is designed and ready for review.
-
-\textbf{Input/Condition:} The app's data handling and storage methods.
-
-\textbf{Output/Result:} The app should adhere to all data protection laws in the region it operates within.
-
-\textbf{How test will be performed:} The design team will consult all applicable Canadian laws regarding digital privacy and ensure proper precautions have been made to protect data. Or, where data cannot be protected, users are informed in accordance with the law of the risks associated with using SweatSmart. 
-
-
-\subsubsection*{\textbf{NFT\_COMR-2: Informed Consent}
-}
-
-\textbf{Description: }The informed consent of users shall be obtained before collecting and processing their personal data.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State:} User is registering or using a feature that requires personal data.
-
-\textbf{Input/Condition:} Registration or usage of personal data-dependent features.
-
-\textbf{Output/Result:} A clear and comprehensive consent form should be presented to the user.
-
-\textbf{How test will be performed:} Testers will simulate user registration and verify that informed consent is properly obtained.
-
-
-\subsubsection*{\textbf{NFT\_COMR-3: Security Measures}
-}
-
-\textbf{Description: }Robust security measures will be put in place to safeguard user data.
-
-\textbf{Type:} Non-functional, dynamic, manual
-
-\textbf{Initial State:} App is functioning and storing user data.
-
-\textbf{Input/Condition: App's data storage and security measures.}
-
-\textbf{Output/Result: }The app should have robust security measures that safeguard user data.
-
-\textbf{How test will be performed:} The design team will perform a security audit on the app to validate its data safeguarding measures.
-
-
-\subsubsection*{\textbf{NFT\_COMR4: Data Collection Transparency}
-}
-
-\textbf{Description: }The application will be transparent about its data collection.
-
-\textbf{Type:} Non-functional, static, manual
-
-\textbf{Initial State: }App is downloaded and installed.
-
-\textbf{Input/Condition}: User's first interaction with the app.
-
-\textbf{Output/Result:} Clear information about data collection practices should be presented.
-
-\textbf{How test will be performed: }Testers will initiate the app for the first time and verify that the app is transparent about its data collection.
-
-
-\subsubsection*{\textbf{NFT\_COMR-5: Safe Fitness Guidance}
-}
-
-\textbf{Description: }The app shall always recommend safe and proven fitness guidance and information.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State: }App is open and provides fitness guidance.
-
-\textbf{Input/Condition:} User accesses fitness guidance or information sections.
-
-\textbf{Output/Result: }Only safe and proven fitness guidance should be provided.
-
-\textbf{How test will be performed:} Design team will compare fitness advice from the application to that from experts in fitness for the 50 most common exercises. 
-
-
-\subsubsection*{\textbf{NFT\_COMR-6: Injury Disclaimer}
-}
-
-\textbf{Description: }The system must state that the application is not responsible for any injuries or accidents resulting from its use.
-
-\textbf{Type: }Non-functional, static, manual
-
-\textbf{Initial State: }App is installed and opened.
-
-\textbf{Input/Condition:} User's first interaction with fitness guidance or exercise tutorials.
-
-\textbf{Output/Result:} A clear disclaimer about potential injuries should be presented.
-
-\textbf{How test will be performed:} Testers will access fitness guidance or tutorials and ensure that the app clearly states its non-responsibility for injuries.
-\newline
-\subsection{Access Requirements}
-
-
-\subsubsection*{\textbf{NFT\_ACR-1: Strong Password Restrictions}
-}
-
-\textbf{Description: }The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State:} User is at the registration or password change page.
-
-\textbf{Input/Condition:} User attempts to set or change a password.
-
-\textbf{Output/Result:} Password meets specified strength criteria.
-
-\textbf{How test will be performed:} Testers will attempt to register or change passwords using weak and strong password examples and verify that only strong passwords are accepted.
-
-
-\subsubsection*{\textbf{NFT\_ACR-2: Authentication Credentials}
-}
-
-\textbf{Description: }Users shall authenticate themselves with their credentials securely.
-
-\textbf{Type: }Functional, dynamic, manual
-
-\textbf{Initial State:} User is at the login page.
-
-\textbf{Input/Condition: }User inputs their credentials.
-
-\textbf{Output/Result: }Successful login with valid credentials; unsuccessful login with invalid credentials.
-
-\textbf{How test will be performed:} Testers will use valid and invalid credentials to ensure proper authentication.
-
-
-\subsubsection*{\textbf{NFT\_ACR-3: Authorized Data Access}
-}
-
-\textbf{Description: }Users will only have access to data and features for which they are authorized.
-
-\textbf{Type: }Functional, dynamic, manual
-
-\textbf{Initial State:} User is logged in.
-
-\textbf{Input/Condition: }User tries to access data/features.
-
-\textbf{Output/Result:} Users can only access authorized data/features.
-
-\textbf{How test will be performed: }Different user profiles will be created with different levels of authorization. Testers will try accessing restricted areas to ensure authorization controls are working.
-\newline
-\subsection{Integrity Requirements}
-
-
-\subsubsection*{\textbf{NFT\_INR-1: Restrict Sensitive Data}
-}
-
-\textbf{Description: }Sensitive data shall be restricted from the users of the app. 
-
-\textbf{Type: }Non-functional, static, manual
-
-\textbf{Initial State:} App is functioning and displaying user data.
-
-\textbf{Input/Condition:} Review of displayed data in user profile or other sections.
-
-\textbf{Output/Result:} No sensitive data is displayed.
-
-\textbf{How test will be performed:} Testers will review user data sections to ensure no sensitive data is revealed.
-
-\subsubsection*{\textbf{NFT\_INR-2: Data Encryption API}}
-
-\textbf{Description: }Data between the app and the server should be encrypted when an API call is made.
-
-\textbf{Type}: Non-functional, dynamic, manual
-
-\textbf{Initial State: }Data is being transmitted between the app and the server.
-
-\textbf{Input/Condition: }Sending or receiving data via API.
-
-\textbf{Output/Result: }Data transmission is encrypted.
-
-\textbf{How test will be performed: }Design team will monitor data transmissions for encryption.
-
-\textbf{
-\subsubsection*{NFT\_INR-3: Data Backup}
-}
-
-\textbf{Description: }The system should regularly back up data automatically to prevent data loss in the event of database failures.
-
-\textbf{Type:} Non-functional, dynamic, automated
-
-\textbf{Initial State:} System is operational.
-
-\textbf{Input/Condition: }Automated process to backup data.
-
-\textbf{Output/Result:} Successful backup of data without loss.
-
-\textbf{How test will be performed:} Testers will trigger the backup process, then will retrieve and verify the data from the backup storage.
-
-
-\subsubsection*{\textbf{NFT\_INR-4: Local Data Storage}
-}
-\textbf{Description: }Unstored data should be stored locally if the data cannot be updated.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State:} Data cannot be updated to the main database.
-
-\textbf{Input/Condition: }Application tries to save user data.
-
-\textbf{Output/Result: }Unstored data is saved locally.
-
-\textbf{How test will be performed:} Testers will simulate server connection failures and see if the app saves data locally.
-
-
-\subsubsection*{\textbf{NFT\_INR-5: Unique Primary Key}
-}
-
-\textbf{Description: }The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database. 
-
-\textbf{Type: }Functional, dynamic, automated
-
-\textbf{Initial State:} Database with existing user accounts.
-
-\textbf{Input/Condition:} Registering a new user or changing primary key of an existing user.
-
-\textbf{Output/Result:} System ensures the uniqueness of primary keys.
-
-\textbf{How test will be performed:} Testers will attempt to register users with duplicate primary keys or modify existing keys to mimic another user's primary key. The system should reject these attempts.
-
-
-\subsubsection*{\textbf{NFT\_INR-6: Progress Save On Interruption}
-}
-
-\textbf{Description: }The system must have a mechanism to store the user’s progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
-
-\textbf{Type: }Functional, dynamic, manual
-
-\textbf{Initial State:} User is in the middle of a live workout.
-
-\textbf{Input/Condition:} Application is forcefully closed or interrupted.
-
-\textbf{Output/Result: }User's progress is saved.
-
-\textbf{How test will be performed: }While in the middle of a live workout, testers will forcefully close the app and then reopen it to check if the progress is saved and can be resumed.
-
-
-\subsubsection*{\textbf{NFT\_INR-7: Exercise Safety Warnings}
-}
-
-\textbf{Description: }The system should display clear and prominent warnings to users regarding exercise safety.
-
-\textbf{Type: }Functional, dynamic, manual
-
-\textbf{Initial State:} User is accessing exercise instructions.
-
-\textbf{Input/Condition: }User views different exercises.
-
-\textbf{Output/Result:} Clear and prominent warnings are displayed for exercises that might pose risks.
-
-\textbf{How test will be performed: }Testers will navigate through different exercise instructions and ensure safety warnings are prominently displayed.
-
-
-\subsubsection*{\textbf{NFT\_INR-8: AI Model Updates}
-}
-
-\textbf{Description: }The AI model system should be constantly updated with accurate practices and the data should be reviewed
-
-\textbf{Type: }Non-functional, dynamic, automated
-
-\textbf{Initial State:} AI model is operational.
-
-\textbf{Input/Condition:} Feeding the AI model with new practices and reviewing data.
-
-\textbf{Output/Result:} The AI model should be updated with accurate practices.
-
-\textbf{How test will be performed:} AI experts will feed new accurate data into the model and monitor how it incorporates the updates.
-\newline
-\subsection{Privacy Requirements}
-
-
-\subsubsection*{\textbf{NFT\_PRR-1: Encrypted Data}
-}
-
-\textbf{Description: }Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access.
-
-\textbf{Type: }Non-functional, dynamic, manual
-
-\textbf{Initial State: }User data is stored or being transmitted.
-
-\textbf{Input/Condition}: Review of how data is stored and transmitted.
-
-\textbf{Output/Result: }Data is encrypted in both transit and at rest.
-
-\textbf{How test will be performed:} Design team will analyze the data storage and transmission methods to ensure encryption.
-\newline
-\subsection{Error Handling Requirements}
-
-
-\subsubsection*{\textbf{NFT\_EHR-1: Error Handling}}
-
-
-\textbf{Description: }The system should have robust error handling that doesn’t reveal sensitive system information to users in error messages.
-
-\textbf{Type:} Functional, dynamic, manual
-
-\textbf{Initial State:} An error occurs in the application.
-
-\textbf{Input/Condition:} Triggering various errors in the application.
-
-\textbf{Output/Result: }Error handling mechanisms work and no sensitive system information is shown.
-
-\textbf{How test will be performed:} Testers will deliberately induce errors in the application to observe how they are handled.
-
-\subsubsection*{\textbf{NFT\_EHR-2: User Feedback Mechanism}}
-
-\subsection{\textbf{Description: }The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures.}
-
-\textbf{Type: }Functional, dynamic, manual
-
-\textbf{Initial State: }User wants to report an issue.
-
-\textbf{Input/Condition: }User accesses the feedback mechanism.
-
-\textbf{Output/Result:} Users can successfully send feedback.
-
-\textbf{How test will be performed: }Testers will use the feedback mechanism to send feedback and see if it reaches the desired destination. 
 
 \subsection{Usability}
 		
@@ -886,8 +96,259 @@ should be highlighted.}
 \section{Automated Testing}
 		
 \section{Trace to Requirements}
+The traceability between the functional requirements and the test cases is shown in Table 1. The traceability between the nonfunctional requirements and the test cases is shown in Table 2, 3, and 4. 
+
+\afterpage{
+\newgeometry{left=1cm, right=0cm, top=0cm, bottom=0cm}
+\begin{landscape}
+
+\begin{table}[h!]
+\footnotesize
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+   & UA1 & UA2 & UA3 & UA4 & UA5 & AI1 & AI2 & AI3 & AI4 & AI5 & UC1 & UC2 & UC3 & UC4 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 & AF4 & AF5\\
+ \hline
+ STF-UA-1 & X & & & X & X & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-2 & X & & & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-3 & X & & & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-4 & & & & X & X & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-5 & & X & & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-6 & & X & & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-7 & & X & & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-8 & & X & & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-UA-9 & & & X & & & & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-AI-1 & & & & & & X & & & & & & & & & & & & & & & & & 
+ \hline
+ STF-AI-2 & & & & & & & X & & & & & & & & & & & & & & & & 
+ \hline
+ STF-AI-3 & & & & & & & & X & & & & & & & & & & & & & & & 
+ \hline
+ STF-AI-4 & & & & & & & & & X & & & & & & & & & & & & & & 
+ \hline
+ STF-AI-5 & & & & & & & & & & X & & & & & & & & & & & & & 
+ \hline
+ STF-UC-1 & & & & & & & & & & & X & & & & & & & & & & & & 
+ \hline
+ STF-UC-2 & & & & & & & & & & & & X & & & & & & & & & & & 
+ \hline
+ STF-UC-3 & & & & & & & & & & & & & X & & & & & & & & & & 
+ \hline
+ STF-UC-4 & & & & & & & & & & & & & X & & & & & & & & & & 
+ \hline
+ STF-UC-5 & & & & & & & & & & & & & & X & & & & & & & & & 
+ \hline
+ STF-WH-1 & & & & & & & & & & & & & & & X & & & & & & & & 
+ \hline
+ STF-WH-2 & & & & & & & & & & & & & & & & X & & & & & & & 
+ \hline
+ STF-DB-1 & & & & & & & & & & & & & & & & & X & & & & & & 
+ \hline
+ STF-AF-1 & & & & & & & & & & & & & & & & & & X & & X & & & 
+ \hline
+ STF-AF-2 & & & & & & & & & & & & & & & & & & & X & & & & 
+ \hline
+ STF-AF-3 & & & & & & & & & & & & & & & & & & & & & X & & 
+ \hline
+ STF-AF-4 & & & & & & & & & & & & & & & & & & & & & & X &
+\hline
+\end{tabular}
+\caption{Traceability Matrix Between Test Cases and Functional Requirements}
+\label{Table:A_trace}
+\end{table}
+
+\begin{table}[h!]
+\footnotesize
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+   & APR1 & APR2 & APR3 & APR4 & APR5 & STR1 & STR2 & STR3 & EUR1 & EUR2 & PER1 & PER2 & LER1 & UPR1 & UPR2 & ACR1 \\
+ \hline
+ STN-APR-1 & X & & & & & & & & & & & & & & & \\
+ \hline
+ STN-APR-2 & & X & & & & & & & & & & & & & & \\
+ \hline
+ STN-APR-3 & & & X & & & & & & & & & & & & & \\
+ \hline
+ STN-APR-4 & & & & X & & & & & & & & & & & & \\
+ \hline
+ STN-APR-5 & & & & & X & & & & & & & & & & & \\
+ \hline
+ STN-STR-1 & & & & & & X & & & & & & & & & & \\
+ \hline
+ STN-STR-2 & & & & & & & X & & & & & & & & & \\
+ \hline
+ STN-STR-3 & & & & & & & & X & & & & & & & & \\
+ \hline
+ STN-EUR-1 & & & & & & & & & X & & & & & & & \\
+ \hline
+ STN-EUR-2 & & & & & & & & & & X & & & & & & \\
+ \hline
+ STN-PER-1 & & & & & & & & & & & X & & & & & \\
+ \hline
+ STN-PER-2 & & & & & & & & & & & & X & & & & \\
+ \hline
+ STN-LER-1 & & & & & & & & & & & & & X & & & \\
+ \hline
+ STN-UPR-1 & & & & & & & & & & & & & & X & & \\
+ \hline
+ STN-UPR-2 & & & & & & & & & & & & & & & X & \\
+ \hline
+ STN-ACR-1 & & & & & & & & & & & & & & & & X \\
+\hline
+\end{tabular}
+\caption{Traceability Matrix Between Test Cases and Nonfunctional Requirements (Part 1)}
+\label{Table:A_trace}
+\end{table}
+
+\begin{table}[h!]
+\footnotesize
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+   & PR1 & PR2 & PR3 & PR4 & OER1 & OER2 & OER3 & OER4 & MSR1 & MSR2 & MSR3 & COMR1 & COMR2 & COMR3 & COMR4 & COMR5 & COMR6\\
+ \hline
+ STN-PR-1 & X & & & & & & & & & & & & & & & & \\
+ \hline
+ STN-PR-2 & & X & & & & & & & & & & & & & & & \\
+ \hline
+ STN-PR-3 & & & X & & & & & & & & & & & & & & \\
+ \hline
+ STN-PR-4 & & & & X & & & & & & & & & & & & & \\
+ \hline
+ STN-OER-1 & & & & & X & & & & & & & & & & & & \\
+ \hline
+ STN-OER-2 & & & & & & X & & & & & & & & & & & \\
+ \hline
+ STN-OER-3 & & & & & & & X & & & & & & & & & & \\
+ \hline
+ STN-OER-4 & & & & & & & & X & & & & & & & & & \\
+ \hline
+ STN-MSR-1 & & & & & & & & & X & & & & & & & & \\
+ \hline
+ STN-MSR-2 & & & & & & & & & & X & & & & & & & \\
+ \hline
+ STN-MSR-3 & & & & & & & & & & & X & & & & & & \\
+ \hline
+ STN-COMR-1 & & & & & & & & & & & & X & & & & & \\
+ \hline
+ STN-COMR-2 & & & & & & & & & & & & & X & & & & \\
+ \hline
+ STN-COMR-3 & & & & & & & & & & & & & & X & & & \\
+ \hline
+ STN-COMR-4 & & & & & & & & & & & & & & & X & & \\
+ \hline
+ STN-COMR-5 & & & & & & & & & & & & & & & & X & \\
+ \hline
+ STN-COMR-6 & & & & & & & & & & & & & & & & & X \\
+\hline
+\end{tabular}
+\caption{Traceability Matrix Between Test Cases and Nonfunctional Requirements (Part 2)}
+\label{Table:A_trace}
+\end{table}
+
+
+\begin{table}[h!]
+\footnotesize
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+   & ACR1 & ACR2 & ACR3 & INR1 & INR2 & INR3 & INR4 & INR5 & INR6 & INR7 & INR8 & PRR1 & EHR1 & EHR2 \\
+ \hline
+ STN-ACR-1 & X & & & & & & & & & & & & & \\
+ \hline
+ STN-ACR-2 & & X & & & & & & & & & & & & \\
+ \hline
+ STN-ACR-3 & & & X & & & & & & & & & & & \\
+ \hline
+ STN-INR-1 & & & & X & & & & & & & & & & \\
+ \hline
+ STN-INR-2 & & & & & X & & & & & & & & & \\
+ \hline
+ STN-INR-3 & & & & & & X & & & & & & & & \\
+ \hline
+ STN-INR-4 & & & & & & & X & & & & & & & \\
+ \hline
+ STN-INR-5 & & & & & & & & X & & & & & & \\
+ \hline
+ STN-INR-6 & & & & & & & & & X & & & & & \\
+ \hline
+ STN-INR-7 & & & & & & & & & & X & & & & \\
+ \hline
+ STN-INR-8 & & & & & & & & & & & X & & & \\
+ \hline
+ STN-PRR-1 & & & & & & & & & & & & X & & \\
+ \hline
+ STN-EHR-1 & & & & & & & & & & & & & X & \\
+ \hline
+ STN-EHR-2 & & & & & & & & & & & & & & X \\
+\hline
+\end{tabular}
+\caption{Traceability Matrix Between Test Cases and Nonfunctional Requirements (Part 3)}
+\label{Table:A_trace}
+\end{table}
+
+\end{landscape}
+}
+\restoregeometry
+
 		
-\section{Trace to Modules}		
+\section{Trace to Modules}	
+Table 5 shows the traceability between the modules and the requirements.
+
+\begin{description}
+\item [\refstepcounter{mnum} \mthemnum \label{mUP}:] User Profile Management Module
+\item [\refstepcounter{mnum} \mthemnum \label{mWG}:] Workout Generation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDM}:] Data Management Module
+\item [\refstepcounter{mnum} \mthemnum \label{mUI}:] User Interaction Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRF}:] Reporting and Feedback Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCI}:] ChatBot Integration Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAS}:] Algorithm Selection Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIF}:] Input Format Module
+\end{description}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Requirement} & \textbf{Modules}\\
+\midrule
+UA1 & \mref{mUP}, \mref{mDM}, \mref{mUI}, \mref{mIF}\\
+UA2 & \mref{mUP}, \mref{mDM}, \mref{mUI}, \mref{mAS}\\
+UA3 & \mref{mUP}, \mref{mDM}, \mref{mUI}, \mref{mAS}\\
+UA4 & \mref{mUP}, \mref{mUI}, \mref{mAS}\\
+UA5 & \mref{mUP}, \mref{mUI}, \mref{mAS}\\
+AI1 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI}, \mref{mAS}\\
+AI2 & \mref{mWG}, \mref{mDM}, \mref{mAS}\\
+AI3 & \mref{mWG}, \mref{mDM}, \mref{mRF}, \mref{mAS}\\
+AI4 & \mref{mDM}, \mref{mUI}, \mref{mCI}\\
+AI5 & \mref{mDM}, \mref{mUI}, \mref{mRF}, \mref{mAS}\\
+UC1 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI}\\
+UC2 & \mref{mUI}, \mref{mRF}\\
+UC3 & \mref{mUP}, \mref{mDM}, \mref{mUI}\\
+UC4 & \mref{mDM}\\
+WH1 & \mref{mUP}, \mref{mDM}\\
+WH2 & \mref{mDM}, \mref{mRF}\\
+DB1 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI}, \mref{mRF}\\
+AF1 & \mref{mUI}, \mref{mAS}\\
+AF2 & \mref{mDM}, \mref{mUI}\\
+AF3 & \mref{mUP}, \mref{mWG}, \mref{mDM}, \mref{mUI} \\
+AF4 & \mref{mUP}, \mref{mDM} \\
+AF5 & \mref{mUP}, \mref{mDM}, \mref{mUI}\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Requirements and Modules}
+\label{TblRT}
+\end{table}
 
 \section{Code Coverage Metrics}
 
