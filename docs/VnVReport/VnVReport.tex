@@ -505,6 +505,8 @@ the feedback from the Rev 0 demo to the supervisor (or to potential users)
 should be highlighted.}
 
 \section{Automated Testing}
+
+GitHub Actions is used for continuous integration, one of its many tasks being to run tests on branch pushes. This includes front-end Jest tests and back-end XUnit tests. Since only branches with successful builds can merge into the main branch, this maintains the integrity of the main branch. The back-end is deployed only if the merged branch builds successfully, ensuring that in the rare scenario where the integration of a branch leads to either a failed compilation or a failed integration build, the integrity of the deployed web application remains unaffected.
 		
 \section{Trace to Requirements}
 The traceability between the functional requirements and the test cases is shown in Table 1. The traceability between the nonfunctional requirements and the test cases is shown in Table 2, 3, and 4. 
