@@ -68,17 +68,299 @@ Mar. 6, 2024 & 1.0 & first draft of document\\
 
 \pagenumbering{arabic}
 
-This document ...
-
 \section{Functional Requirements Evaluation}
+\subsection{User Account}
+\subsubsection{UA1: Account Registration}
+\begin{itemize}
+    \item Evaluation: Ensure users can successfully register an account with basic information.
+    \item Test Method: Conduct manual testing by registering accounts with various sets of valid and invalid input data.
+    \item Expected Outcome: Account should be created successfully with valid input data, and appropriate error messages should be displayed for invalid data. Should be directed to the onboarding page if successful.
+    \item Input Test: email: "avrahamj@gmail.com", username: "avrahamj", password: "Jonny123!"
+    \item Actual Outcome: app was directed to the onboarding page (PASSED)
+\end{itemize} 
+\subsubsection{UA2: Login/Logout}
+\begin{itemize}
+    \item Evaluation: Verify users can log in and log out of their accounts.
+    \item Test Method: Perform manual testing by logging in and out using valid and invalid credentials. 
+    \item Expected Outcome: Users should be able to log in with correct credentials and log out successfully, with sessions terminated. If credentials are in the database, app should navigate to home page. When logged out, app is navigated to login page. 
+    \item Input Test: email: "avrahamj@gmail.com", username: "avrahamj", password: "Jonny123!" (This account exists)
+    \item Actual Outcome: app was directed to the home page (PASSED)
+\end{itemize} 
+\subsubsection{UA3: Profile Creation/Update}
+\begin{itemize}
+    \item Evaluation: Confirm users can create and update their profiles by filling in their name, fitness goals, and characteristics.
+    \item Test Method: Manually test profile creation and update functionalities with various inputs.
+    \item Expected Outcome: Profiles should be successfully created and updated with valid input data. 
+    \item Input Test: name: "Dan Fin", fitness goals: "Gain strength"
+    \item Actual Outcome: Profile was updated and saved
+\end{itemize} 
+\subsection{Workout Generation}
+\subsubsection{AI1: Personalized Workout Plan Generation}
+\begin{itemize}
+    \item Evaluation: Ensure that the system generates personalized workout plans based on user preferences and characteristics.
+    \item Test Method: Given that the user has a completed profile, the app will generate a personalized workout plan that corresponds to the user’s goals and characteristics.
+    \item Expected Outcome: A workout plan is generated and the user is navigated back to the home page.
+    \item Input Test: Fitness level = "Beginner", fitness goals: "Gain strength", workout frequency = "3 times a week".
+    \item Actual Outcome: A workout plan is generated and the user is navigated back to the home page with 3 workouts in their programs section.
+\end{itemize} 
+\subsubsection{AI2: Personalized Single Workout Generation}
+\begin{itemize}
+    \item Evaluation: Ensure that the system generates personalized workout plans based on user preferences and characteristics.
+    \item Test Method: Given that the user has a completed profile, the app will generate a singular personalized workout that corresponds to the user’s goals and characteristics.
+    \item Expected Outcome: A single workout is generated and the user is navigated back to the home page.
+    \item Input Test: Fitness level = "Beginner", fitness goals: "Gain strength"
+    \item Actual Outcome: A single workout is generated and the user is navigated back to the home page.
+\end{itemize} 
+\subsubsection{AI3: Workout plan alteration}
+\begin{itemize}
+    \item Evaluation: Verify that users can alter and revise their workout plans by adding or removing exercises and changing the exercise details
+    \item Test Method: Test workout plan alteration functionality with user requests.
+    \item Expected Outcome: Users should be able to alter their workout plans as needed.
+    \item Input Test: input a review after completed workout
+    \item Actual Outcome: To Be Determined (Fail)
+\end{itemize} 
+\subsubsection{AI4: ChatBot}
+\begin{itemize}
+    \item Evaluation: Verify that users can interact with the AI chatbot.
+    \item Test Method: Test chatbot interaction with various user inputs, including asking questions related to fitness and not related to fitness.
+    \item Expected Outcome: If questions are related to fitness, it is a valid request and an answer will be provided, else, it will not provide an answer.
+    \item Input Test: User asks how to perform a proper push up
+    \item Actual Outcome: A valid response is given on how to perform a proper push up (PASS).
+\end{itemize} 
+\subsection{User Workout Creation}
+\subsubsection{UC1: Calendar Linking}
+\begin{itemize}
+    \item Evaluation: Verify that users can link their calendars to plan workouts.
+    \item Test Method: Perform integration testing with various calendar applications (e.g., Google Calendar, Apple Calendar) to ensure seamless linking functionality.
+    \item Expected Outcome: Users should be able to link their calendars successfully without encountering any errors.
+\end{itemize}
 
+\subsubsection{UC2: Workout Rating}
+\begin{itemize}
+    \item Evaluation: Ensure that users can rate their workouts after completion.
+    \item Test Method: Conduct both manual and automated testing to validate workout rating functionality across different devices and platforms (e.g., iOS, Android).
+    \item Expected Outcome: Users should be able to rate their workouts accurately, and the rating should be recorded correctly in the system.
+\end{itemize}
+
+\subsubsection{UC3: Custom Workout Creation}
+\begin{itemize}
+    \item Evaluation: Verify that users can design and save custom workouts.
+    \item Test Method: Conduct manual testing to simulate user interactions with the custom workout creation interface, covering various scenarios and edge cases.
+    \item Expected Outcome: Users should be able to create and save custom workouts as intended, with all preferences accurately reflected in the saved workout.
+\end{itemize}
+
+\subsubsection{UC4: Exercise Listing}
+\begin{itemize}
+    \item Evaluation: Ensure that the system lists all available exercises.
+    \item Test Method: Perform automated unit testing to verify the completeness and accuracy of the exercise listing functionality, checking against a predefined list of exercises.
+    \item Expected Outcome: The system should display a comprehensive list of exercises without any missing or duplicate entries.
+\end{itemize}
+
+\subsection{Workout History}
+
+\subsubsection{WH1: Display Workout History}
+\begin{itemize}
+    \item Evaluation: Verify that users can view their workout history.
+    \item Test Method: Conduct manual and automated testing to validate the retrieval and display of workout history data, including testing with large datasets to assess performance.
+    \item Expected Outcome: Users should be able to view their workout history accurately, with all relevant details presented in a clear and organized manner.
+\end{itemize}
+
+\subsubsection{WH2: Save Completed Workout}
+\begin{itemize}
+    \item Evaluation: Ensure that completed workouts are saved properly.
+    \item Test Method: Perform automated testing to validate the saving and retrieval of completed workout data from the database, including testing for data integrity and security.
+    \item Expected Outcome: Completed workouts should be saved securely and accurately, with all relevant information preserved for future reference.
+\end{itemize}
+
+\subsection{Databases}
+
+\subsubsection{DB1: Data Storage}
+\begin{itemize}
+    \item Evaluation: Verify that user account information, workout plans, feedback, and history are stored in the database.
+    \item Test Method: Conduct manual and automated testing to assess the reliability and scalability of the database storage mechanisms, including stress testing under heavy loads.
+    \item Expected Outcome: User data should be stored securely and retrievable when needed, with minimal risk of data loss or corruption.
+\end{itemize}
+
+\subsection{Additional Features}
+
+\subsubsection{AF1: Live Workout Tracking}
+\begin{itemize}
+    \item Evaluation: Ensure that users can track live workouts.
+    \item Test Method: Conduct manual testing to simulate live workout sessions and validate real-time tracking functionality, including testing with different workout types and durations.
+    \item Expected Outcome: Users should be able to track their workouts in real-time, with accurate data presented throughout the session.
+\end{itemize}
+
+\subsubsection{AF2: Push Notifications}
+\begin{itemize}
+    \item Evaluation: Verify that push notifications are sent to users.
+    \item Test Method: Perform automated testing to validate the delivery and content of push notifications across different devices and platforms, including testing for reliability and latency.
+    \item Expected Outcome: Users should receive push notifications promptly and consistently, with relevant information conveyed in each notification.
+\end{itemize}
+
+\subsubsection{AF3: Live Workout Sessions}
+\begin{itemize}
+    \item Evaluation: Ensure that users can start and follow live workout sessions.
+    \item Test Method: Perform manual testing to simulate live workout sessions and validate user participation and interaction during the session, including testing for session stability and responsiveness.
+    \item Expected Outcome: Users should be able to join and participate in live workout sessions seamlessly, with minimal disruptions or technical issues.
+\end{itemize}
+
+\subsubsection{AF4: Workout Downloads}
+\begin{itemize}
+    \item Evaluation: Verify that users can download workouts for offline access.
+    \item Test Method: Conduct manual and automated testing to validate the download and synchronization of workout data, including testing for file integrity and download speed.
+    \item Expected Outcome: Users should be able to download workouts for offline access reliably and efficiently, with all downloaded data accessible offline.
+\end{itemize}
+
+\subsubsection{AF5: Social Media Sharing}
+\begin{itemize}
+    \item Evaluation: Ensure that users can share information from the app to social media.
+    \item Test Method: Conduct manual testing to simulate social media sharing functionality with various user information, including testing for compatibility with different social media platforms.
+    \item Expected Outcome: Users should be able to share information from the app to social media platforms seamlessly, with all shared content displayed accurately.
+\end{itemize}
 \section{Nonfunctional Requirements Evaluation}
 
-\subsection{Usability}
-		
-\subsection{Performance}
 
-\subsection{etc.}
+\subsection{Performance Requirements}
+
+\subsubsection{STN-PR-1: System Capacity}
+\begin{itemize}
+    \item Evaluation: Ensure that the system can handle a minimum of 10 simultaneous users and process 5 transactions per minute while maintaining performance standards.
+    \item Test Method: Automated load testing tools will simulate 10 users connecting and processing transactions.
+    \item Expected Outcome: The system can handle 10 users and process 5 transactions per minute.
+    \item Input: Simulation of 10 simultaneous users using the app at once.
+\end{itemize}
+
+\subsubsection{STN-PR-2: Availability}
+\begin{itemize}
+    \item Evaluation: Confirm that the system achieves a minimum of 99.9\% availability, ensuring services are accessible to users at all times.
+    \item Test Method: System monitoring tools will track uptime over a specified period.
+    \item Expected Outcome: The system achieves a minimum of 99.9\% availability.
+    \item Input: Monitoring system availability over a month.
+\end{itemize}
+
+\subsection{Operational and Environment Requirements}
+
+\subsubsection{STN-OER-1: Locational Requirements}
+\begin{itemize}
+    \item Evaluation: Ensure that the system functions correctly without environmental interference in gym/workout facilities or home workout rooms.
+    \item Test Method: A user will test the app in various gym/workout environments to ensure functionality.
+    \item Expected Outcome: The app functions correctly without any environmental interference.
+    \item Input: Testing the app in various gym/workout environments.
+\end{itemize}
+
+\subsubsection{STN-OER-2: OS Requirements}
+\begin{itemize}
+    \item Evaluation: Verify that the system can run on an iOS phone.
+    \item Test Method: Installation and basic functionality test on an iOS device.
+    \item Expected Outcome: The app installs, opens, and functions correctly on an iOS device.
+    \item Input: Attempting to install and run the app on an iOS device.
+\end{itemize}
+
+\subsubsection{STN-OER-3: Audio Functionality}
+\begin{itemize}
+    \item Evaluation: Ensure that the system allows audio output to be transmitted through the device's speakers or a connected Bluetooth device.
+    \item Test Method: Test audio output on device's speakers and on different Bluetooth devices.
+    \item Expected Outcome: Audio is transmitted clearly without any issues.
+    \item Input: Testing audio output on device's speakers and different Bluetooth devices.
+\end{itemize}
+
+\subsubsection{STN-OER-4: Network Connection}
+\begin{itemize}
+    \item Evaluation: Verify that the system can connect to the internet for back-end services.
+    \item Test Method: Use the app with an active internet connection and verify backend services.
+    \item Expected Outcome: App connects to the internet and back-end services function correctly.
+    \item Input: Using the app with an active internet connection.
+\end{itemize}
+
+\subsection{Access Requirements}
+
+\subsubsection{STN-ACR-1: Strong Password Restrictions}
+\begin{itemize}
+    \item Evaluation: Ensure that the app enforces strong password restrictions to protect user data.
+    \item Test Method: Attempt to register or change passwords using weak and strong examples and verify acceptance criteria.
+    \item Expected Outcome: Only strong passwords are accepted.
+    \item Input: Attempting to register or change passwords using weak and strong examples.
+\end{itemize}
+
+\subsubsection{STN-ACR-2: Authentication Credentials}
+\begin{itemize}
+    \item Evaluation: Verify that users can authenticate themselves securely.
+    \item Test Method: Use valid and invalid credentials to ensure proper authentication.
+    \item Expected Outcome: Successful login with valid credentials; unsuccessful login with invalid credentials.
+    \item Input: Using valid and invalid credentials for login.
+\end{itemize}
+
+\subsubsection{STN-ACR-3: Authorized Data Access}
+\begin{itemize}
+    \item Evaluation: Ensure that users can only access authorized data and features.
+    \item Test Method: Create different user profiles with different levels of authorization and attempt to access restricted areas.
+    \item Expected Outcome: Users can only access authorized data and features.
+    \item Input: Attempting to access restricted areas with different user profiles.
+\end{itemize}
+
+\subsection{Integrity Requirements}
+
+\subsubsection{STN-INR-1: Restrict Sensitive Data}
+\begin{itemize}
+    \item Evaluation: Ensure that sensitive data is restricted from users.
+    \item Test Method: Review user data sections to confirm sensitive data is properly restricted.
+    \item Expected Outcome: Sensitive data is not accessible to users.
+    \item Input: Reviewing user data sections for sensitive information.
+\end{itemize}
+
+\subsubsection{STN-INR-2: Data Encryption}
+\begin{itemize}
+    \item Evaluation: Confirm that user data is encrypted to protect it from unauthorized access.
+    \item Test Method: Review encryption methods used and verify data protection mechanisms.
+    \item Expected Outcome: User data is encrypted and protected from unauthorized access.
+    \item Input: Reviewing encryption methods and data protection mechanisms.
+\end{itemize}
+
+\subsection{Privacy Requirements}
+
+\subsubsection{STN-PVR-1: User Consent}
+\begin{itemize}
+    \item Evaluation: Verify that user consent is obtained before collecting personal data.
+    \item Test Method: Review the app's data collection processes and confirm user consent mechanisms.
+    \item Expected Outcome: User consent is required and obtained before collecting personal data.
+    \item Input: Reviewing the app's data collection processes.
+\end{itemize}
+
+\subsubsection{STN-PVR-2: Data Anonymization}
+\begin{itemize}
+    \item Evaluation: Ensure that user data is anonymized to protect user privacy.
+    \item Test Method: Review data storage and processing methods to confirm anonymization.
+    \item Expected Outcome: User data is anonymized to protect user privacy.
+    \item Input: Reviewing data storage and processing methods.
+\end{itemize}
+
+\subsection{Audit Requirements}
+
+\subsubsection{STN-AUR-1: Data Logging}
+\begin{itemize}
+    \item Evaluation: Verify that the system logs user activities for audit purposes.
+    \item Test Method: Review logging mechanisms and confirm logging of user activities.
+    \item Expected Outcome: User activities are logged for audit purposes.
+    \item Input: Reviewing logging mechanisms and user activity logs.
+\end{itemize}
+
+\subsubsection{STN-AUR-2: Access Logs}
+\begin{itemize}
+    \item Evaluation: Ensure that access logs are maintained to track user interactions with the system.
+    \item Test Method: Review access log storage and retrieval processes.
+    \item Expected Outcome: Access logs are maintained and accessible for auditing.
+    \item Input: Reviewing access log storage and retrieval processes.
+\end{itemize}
+
+\subsection{Social Requirements}
+
+\subsubsection{STN-SR-1: Social Media Integration}
+\begin{itemize}
+    \item Evaluation: Ensure that users can share information from the app to social media.
+    \item Test Method: Conduct manual testing to simulate social media sharing functionality with various user information, including testing for compatibility with different social media platforms.
+    \item Expected Outcome: Users should be able to share information from the app to social media platforms seamlessly, with all shared content displayed accurately.
+    \item Input: Testing social media sharing functionality with various user information.
+\end{itemize}
 	
 \section{Comparison to Existing Implementation}
 
