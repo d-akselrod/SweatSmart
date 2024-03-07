@@ -112,6 +112,109 @@ This section will not be appropriate for every project.
 
 \section{Unit Testing}
 
+Unit testing in our app is focused on our back-end infrastructure with client-facing endpoints being tested. Every service has at least 1 unit test pertaining to different input combinations an endpoint may receive and their respective responses. Below are all endpoint and helper methods within their respective module.
+
+\subsection{Account Service}
+\subsubsection{HashPassword}
+\begin{itemize}
+     \item CanHashPassword(): Ensures password hashing works
+\end{itemize}
+\subsubsection{Login}
+\begin{itemize}
+    \item CanLoginWithEmail(): Ensures login via email works
+    \item CanLoginWithUsername(): Ensures login via username works
+    \item BadRequestHandled(): Ensures invalid requests are properly handled
+    \item IncorrectPasswordHandled(): Ensures wrong password does not login and returns error message
+\end{itemize}
+\subsubsection{Register}
+\begin{itemize}
+    \item CanRegisterUser(): Ensures user can register with edge cases for input fields
+    \item BadRequestHandled(): Ensured a bad request is handled and returned to user
+\end{itemize}
+\subsubsection{UpdateUser}
+\begin{itemize}
+    \item CanUpdateUsername(): Ensures a user can update their username.
+    \item CanUpdateEmail(): Ensures a user can update their email.
+    \item CanUpdateName(): Ensures a user can update their name.
+    \item HandleNonExistentUser(): Ensures update fails if the user does not exist.
+\end{itemize}
+
+\subsection{ChatBot Service}
+\subsubsection{GetResponse}
+\begin{itemize}
+    \item CanGetChatResponse(): Tests if the chatbot can provide a response given a valid history.
+    \item ReturnsBadRequestOnInvalidInput(): Ensures a bad request is returned for invalid input data.
+    \item HandlesAPIFailure(): Ensures service handles failures in the OpenAI API correctly.
+    \item MaintainsSystemMessageIntegrity(): Checks if the system message integrity (role and content) is maintained in the response.
+    \item FiltersNonFitnessContent(): Ensures the bot responds correctly to non-fitness related queries, as per system message instructions.
+\end{itemize}
+
+\subsection{Profile Service}
+\subsubsection{UpdateUserPreferences}
+\begin{itemize}
+    \item CanUpdateUserPreferences(): Ensures user preferences are updated correctly.
+    \item HandlesNonExistentUser(): Ensures response for non-existent user is handled correctly.
+    \item OverwritesExistingPreferences(): Checks if existing preferences are correctly overwritten.
+\end{itemize}
+\subsubsection{GetUserPreferences}
+\begin{itemize}
+    \item CanRetrieveUserPreferences(): Tests if the service can retrieve all user preferences.
+    \item HandlesNonExistentUser(): Ensures the service correctly handles a non-existent user.
+    \item HandlesNoPreferencesSet(): Ensures the service handles cases where no preferences are set.
+\end{itemize}
+\subsubsection{GenerateSingularWorkout}
+\begin{itemize}
+    \item CanGenerateSingularWorkout(): Tests if a single workout is generated correctly.
+    \item HandlesNonExistentUser(): Ensures proper handling when the user does not exist.
+    \item HandlesNoPreferences(): Ensures correct handling when user preferences are not set.
+    \item ReturnsEmptyWorkoutForUnavailableTime(): Checks for proper response when user's time availability is insufficient for any workout.
+\end{itemize}
+\subsubsection{GenerateWorkoutPlan}
+\begin{itemize}
+    \item CanGenerateWeeklyWorkoutPlan(): Tests if a weekly workout plan is generated correctly based on frequency.
+    \item HandlesNonExistentUser(): Ensures correct response when the user does not exist.
+    \item HandlesInvalidFrequency(): Checks handling of frequencies outside the valid range.
+\end{itemize}
+
+\subsection{Encryption Helper}
+\subsubsection{Initialization}
+\begin{itemize}
+    \item ConstructorWithValidKey(): Tests if the constructor correctly initializes with a valid encryption key.
+    \item ConstructorWithInvalidKey(): Checks the behavior when an invalid or empty key is provided.
+\end{itemize}
+\subsubsection{Encrypt}
+\begin{itemize}
+    \item EncryptValidString(): Tests if a valid string is correctly encrypted.
+    \item EncryptEmptyString(): Ensures that an empty string is handled appropriately.
+    \item EncryptNullString(): Checks the response to a null string input.
+\end{itemize}
+\subsubsection{Decrypt}
+\begin{itemize}
+    \item DecryptValidString(): Tests if a valid encrypted string is correctly decrypted.
+    \item DecryptEmptyString(): Ensures that an empty string is handled appropriately.
+    \item DecryptNullString(): Checks the response to a null string input.
+    \item DecryptCorruptedData(): Tests the behavior when decrypting corrupted or altered data.
+\end{itemize}
+\subsubsection{Integration}
+\begin{itemize}
+    \item EncryptDecryptCycle(): Validates that a string can be encrypted and then decrypted back to its original form.
+\end{itemize}
+
+\subsection{Social Service}
+\subsubsection{GetUserProfile}
+\begin{itemize}
+    \item GetUserProfileWithValidId(): Tests if a user profile is correctly retrieved with a valid user ID.
+    \item GetUserProfileWithInvalidId(): Checks the behavior when an invalid or non-existing user ID is provided.
+\end{itemize}
+\subsubsection{FilterUsers}
+\begin{itemize}
+    \item FilterUsersWithValidCriteria(): Tests if users are correctly filtered based on provided criteria.
+    \item FilterUsersWithEmptyCriteria(): Ensures that appropriate results are returned when an empty filter is applied.
+    \item FilterUsersWithNullCriteria(): Checks how the method behaves when null is passed as filter criteria.
+    \item PrioritizeFriendsInResults(): Validates if friends are prioritized in the filtered results.
+    \item LimitNumberOfResults(): Ensures that the number of results returned is within the specified limit.
+\end{itemize}
+
 \section{Changes Due to Testing}
 
 \wss{This section should highlight how feedback from the users and from 
