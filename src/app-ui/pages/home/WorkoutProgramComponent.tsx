@@ -62,6 +62,7 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          paddingBottom: 10
         }}
       >
         <Text style={styles.title}>{workout.name}</Text>
@@ -69,18 +70,22 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           <Feather name='info' size={20} color='black' />
         </TouchableOpacity>
       </View>
-      <View>
+      <View style = {{gap: 1}}>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <Ionicons name='barbell-outline' size={14} color='grey' />
-          <Text style={{ fontSize: 9, color: 'grey' }}>
+          <View style = {{borderRadius: 11, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e7ffe3'}}>
+            <Ionicons name='barbell-outline' size={12} color='#34a420' style = {{paddingHorizontal: 5}}/>
+          </View>
+          <Text style={{ fontSize: 9, color: 'grey', fontWeight: 'bold' }}>
             {numOfExercises && numOfExercises > 0
               ? `${numOfExercises} Exercises`
               : 'No Exercises'}
           </Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <FontAwesome5 name='clock' size={14} color='grey' />
-          <Text style={{ fontSize: 9, color: 'grey' }}>
+          <View style = {{borderRadius: 11, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff2e7'}}>
+            <FontAwesome5 name='clock' size={12} color='#fa8e00' style = {{paddingHorizontal: 5}}/>
+          </View>
+          <Text style={{ fontSize: 9, color: 'grey', fontWeight: 'bold' }}>
             {workout.duration
               ? `${Math.floor(workout.duration / 60)} Minutes`
               : '0 Minutes'}
@@ -95,7 +100,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     width: width / 2.4,
-    height: 100,
     borderRadius: 10,
     padding: 10,
     justifyContent: 'space-between',
