@@ -21,7 +21,7 @@ import { AddExercisesPage } from './AddExercisesPage';
 import { StartWorkoutPage } from './StartWorkoutPage';
 import { start } from '../../redux/slices/workoutSlice';
 import { getAllExercises, getExercisesByWId } from '../../service/WorkoutAPI';
-import { IExercise, IWorkout, IWorkoutExercise } from '../../typings/types';
+import { IExercise, IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
@@ -29,7 +29,6 @@ interface IExerciseProps {
 }
 export function WorkoutExercisesPage() {
   const dispatch = useDispatch();
-
   const route = useRoute();
   const navigation = useNavigation();
   const [workoutExercises, setWorkoutExercises] = useState<IWorkoutExercise[]>(
@@ -38,8 +37,9 @@ export function WorkoutExercisesPage() {
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const [showPage, setShow] = useState<boolean>(false);
   const [showStartWorkout, setStartWorkout] = useState<boolean>(false);
+  const activeWorkout: any = useSelector((state: any) => state.workout);
+  console.log(activeWorkout)
   const isFocused = useIsFocused();
-
   // @ts-ignore
   const workoutName = route.params?.workoutName;
   // @ts-ignore
@@ -111,8 +111,9 @@ export function WorkoutExercisesPage() {
             <Text style={styles.exerciseName}>
               {props.exercise.exerciseName}
             </Text>
-            <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
+              <Entypo name='dot-single' size={15} color='black' />
               <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
               <Entypo name='dot-single' size={15} color='black' />
               <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>
@@ -139,7 +140,6 @@ export function WorkoutExercisesPage() {
     const activeWorkout: IWorkout = {
       wId: wId,
     };
-    console.log(activeWorkout);
     dispatch(start(activeWorkout));
 
     // @ts-ignore

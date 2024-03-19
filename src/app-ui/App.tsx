@@ -37,6 +37,7 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
+import { ExerciseLogPage } from './pages/home/ExerciseLogPage';
 
 const debugRedux = false;
 
@@ -75,6 +76,11 @@ const HomeStack = () => (
     <Stack.Screen
       name='ExerciseDetails'
       component={ExerciseDetailsPage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='ExerciseLogger'
+      component={ExerciseLogPage}
       options={{ headerShown: false }}
     />
     <Stack.Screen

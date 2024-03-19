@@ -52,7 +52,6 @@ public class WorkoutPlanController : ControllerBase
         {
             return APIResponse.NotFound;
         }
-
         return new APIResponse(200, null, workoutPlan);
     }
 }

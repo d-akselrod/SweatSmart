@@ -25,7 +25,7 @@ interface IExerciseProps {
 export function StartWorkoutPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
   const activeWorkout: IWorkout = useSelector((state: any) => state.workout);
-
+  
   const dispatch = useDispatch();
 
   const [seconds, setSeconds] = useState(0);
@@ -35,7 +35,6 @@ export function StartWorkoutPage() {
   const route = useRoute();
   // @ts-ignore
   const exercises = route.params?.exercises;
-
   useEffect(() => {
     if (isRunning) {
       interval.current = setInterval(() => {
@@ -59,7 +58,7 @@ export function StartWorkoutPage() {
 
   const handleNavigation = (exercise: IWorkoutExercise) => {
     // @ts-ignore
-    navigation.navigate('ExerciseDetails', { exerciseData: exercise });
+    navigation.navigate('ExerciseLogger', { exerciseData: exercise });
   };
 
   const handleCompleteWorkout = async () => {
@@ -84,8 +83,9 @@ export function StartWorkoutPage() {
       <View style={[styles.exerciseContainer]}>
         <View style={{ gap: 5 }}>
           <Text style={styles.exerciseName}>{props.exercise.exerciseName}</Text>
-          <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
+            <Entypo name='dot-single' size={15} color='black' />
             <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
             <Entypo name='dot-single' size={15} color='black' />
             <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>

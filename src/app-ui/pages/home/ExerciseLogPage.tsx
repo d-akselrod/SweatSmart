@@ -19,22 +19,23 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
+import {addLoggedExercise, end } from '../../redux/slices/workoutSlice';
 
-export function ExerciseDetailsPage() {
+export function ExerciseLogPage() {
   const navigation = useNavigation();
   const route = useRoute();
   const activeWorkout: any = useSelector((state: any) => state.workout);
-  
+  const dispatch = useDispatch()
   // @ts-ignore
   const exercise = route.params?.exerciseData;
   const [completed, setCompleted] = useState<boolean[]>(
-    new Array(exercise.sets).fill(false),
+    activeWorkout.loggedExercises.hasOwnProperty(exercise.exerciseName) ? 
+      activeWorkout.loggedExercises[exercise.exerciseName] :  new Array(exercise.sets).fill(false)
   );
   const [focusedIdx, setFocusIdx] = useState<number>(1);
   const [numOfSets, setNumOfSets] = useState(exercise.sets);
   const height = Dimensions.get('window').height;
-  console.log(exercise.exerciseName)
   const SetDetailsComponent = (props: {
     setNumber: number;
     reps: number;
@@ -106,6 +107,20 @@ export function ExerciseDetailsPage() {
     });
   }, [completed]);
 
+  const updateValueAtIndex = (index: number) => {
+    if (completed.every(val => val)) {
+      dispatch(end())
+      navigation.goBack();
+    }
+    const newArray: boolean[] = [...completed];
+    newArray[index] = true;
+    setCompleted(newArray);
+  };
+  
+  const handleNavigation = () => {
+    dispatch(addLoggedExercise({exercise: exercise.exerciseName, isLoggedList: completed}))
+    navigation.goBack()
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
@@ -119,7 +134,7 @@ export function ExerciseDetailsPage() {
             margin: 20,
           }}
         >
-          <Pressable onPress={() => navigation.goBack()}>
+          <Pressable onPress={() => handleNavigation()}>
             <AntDesign name='arrowleft' size={24} color='black' />
           </Pressable>
           <View style={{ gap: 10 }}>
@@ -210,6 +225,27 @@ export function ExerciseDetailsPage() {
           </View>
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={[
+          styles.button,
+          {
+            backgroundColor: completed.every(val => val) ? 'white' : '#be4949',
+            width: '40%',
+          },
+        ]}
+        onPress={() => updateValueAtIndex(focusedIdx - 1)}
+      >
+        <Text
+          style={{
+            color: completed.every(val => val) ? 'black' : 'white',
+            fontWeight: 'bold',
+            fontSize: 18,
+            padding: 10,
+          }}
+        >
+          {completed.every(val => val) ? 'Done' : 'Log Set'}
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
