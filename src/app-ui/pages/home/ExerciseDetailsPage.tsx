@@ -18,8 +18,11 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  Modal,
+  Button,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import Slider from '@react-native-community/slider';
 
 export function ExerciseDetailsPage() {
   const navigation = useNavigation();
@@ -31,6 +34,9 @@ export function ExerciseDetailsPage() {
   const [completed, setCompleted] = useState<boolean[]>(
     new Array(exercise.sets).fill(false),
   );
+  const [reps, setReps] = useState(exercise.reps)
+  const [weight, setWeight] = useState(100)
+  const [showModal, setShowModal] = useState(false)
   const [focusedIdx, setFocusIdx] = useState<number>(1);
   const [numOfSets, setNumOfSets] = useState(exercise.sets);
   const height = Dimensions.get('window').height;
@@ -80,17 +86,25 @@ export function ExerciseDetailsPage() {
           {weight}
         </Text>
         <Text>lbs</Text>
+        <TouchableOpacity style = {{marginLeft: 'auto'}} onPress = {() => editSet(setNumber)}>
+          <AntDesign name='ellipsis1' size={25} color='black'  />
+        </TouchableOpacity>
       </Pressable>
     );
   };
+
+  const editSet = (setNumber: number) => {
+    setFocusIdx(setNumber)
+    setShowModal(true)
+  }
 
   const renderSets = () => {
     return Array.from({ length: numOfSets }, (val, index) => (
       <SetDetailsComponent
         key={index}
         setNumber={index + 1}
-        reps={exercise.reps}
-        weight={100}
+        reps={reps}
+        weight={weight}
       />
     ));
   };
@@ -108,6 +122,19 @@ export function ExerciseDetailsPage() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+      >
+        <View style = {styles.modalContent}>
+          <Text style = {{fontSize: 17, fontWeight: '600'}}>Reps: </Text>
+          <Slider step = {1} lowerLimit = {1} maximumValue ={30} value = {reps} minimumTrackTintColor = {'#be4949'} onValueChange = {(val) => setReps(val)}></Slider>
+          <Text style = {{fontSize: 17, fontWeight: '600'}}>Weight: </Text>
+          <Slider minimumTrackTintColor = {'#be4949'} step = {5} lowerLimit = {5} maximumValue ={200} value = {weight} onValueChange = {(val) => setWeight(val)}></Slider>
+          <Button title = "Done" onPress  = {() => setShowModal(false)}/>
+        </View>
+      </Modal>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: 50 }}
@@ -237,5 +264,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalContent: {
+    width: '100%', // Takes up full width
+    backgroundColor: '#fff', // Adjust as needed
+    borderTopLeftRadius: 40, // Optional: Rounded corners
+    borderTopRightRadius: 40, // Optional: Rounded corners
+    padding: 20, // Optional: Adjust padding as needed
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0
   },
 });
