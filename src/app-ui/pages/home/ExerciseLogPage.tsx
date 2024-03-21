@@ -109,8 +109,7 @@ export function ExerciseLogPage() {
 
   const updateValueAtIndex = (index: number) => {
     if (completed.every(val => val)) {
-      dispatch(end())
-      navigation.goBack();
+      handleNavigation()
     }
     const newArray: boolean[] = [...completed];
     newArray[index] = true;

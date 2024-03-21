@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import {
   useIsFocused,
@@ -15,6 +15,8 @@ import {
   TouchableOpacity,
   Modal,
   Dimensions,
+  Animated,
+  PanResponder,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
@@ -34,11 +36,29 @@ export function WorkoutExercisesPage() {
   const [workoutExercises, setWorkoutExercises] = useState<IWorkoutExercise[]>(
     [],
   );
+  const pan = useRef(new Animated.ValueXY()).current;
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null, {dx: pan.x}], { useNativeDriver: false }),
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dx < -150) {
+          Animated.spring(pan, {
+            toValue: { x: -300, y: 0 }, // Snap to position if swiped past threshold
+            useNativeDriver: false,
+          }).start();
+        } else {
+          Animated.spring(pan, {
+            toValue: {x: 0, y: 0}, // Return to original position
+            useNativeDriver: false,
+          }).start();
+        }}
+    })
+  ).current;
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const [showPage, setShow] = useState<boolean>(false);
   const [showStartWorkout, setStartWorkout] = useState<boolean>(false);
   const activeWorkout: any = useSelector((state: any) => state.workout);
-  console.log(activeWorkout)
   const isFocused = useIsFocused();
   // @ts-ignore
   const workoutName = route.params?.workoutName;
@@ -114,9 +134,7 @@ export function WorkoutExercisesPage() {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
               <Entypo name='dot-single' size={15} color='black' />
-              <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
-              <Entypo name='dot-single' size={15} color='black' />
-              <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>
+              <Text style={{ fontSize: 13 }}>{props.exercise.sets} Sets</Text>
             </View>
           </View>
           <AntDesign name='ellipsis1' size={20} color='black' />
@@ -149,7 +167,7 @@ export function WorkoutExercisesPage() {
   return (
     <View>
       <ScrollView
-        style={{ marginLeft: 20, height: '100%' }}
+        style={{ paddingLeft: 20, height: '100%' }}
         contentContainerStyle={{ paddingBottom: 70 }}
       >
         <Modal
@@ -235,5 +253,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 15,
     color: '#4d4d4d',
+  },
+  box: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'blue',
+    borderRadius: 5,
   },
 });

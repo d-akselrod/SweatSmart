@@ -5,7 +5,7 @@ interface IProgressBarProps{
   percent: number
   color: string
 }
-export function ProgressBar(props: IProgressBarProps) {
+export const ProgressBar = (props: IProgressBarProps) => {
   const {percent, color} = props;
   const animate = useRef(new Animated.Value(0)).current;
 
@@ -15,11 +15,12 @@ export function ProgressBar(props: IProgressBarProps) {
       duration: 500,
       useNativeDriver: false,
     }).start();
-  }, [percent]);
+  }, [animate, percent]);
 
   const progress = animate.interpolate({
     inputRange: [0, percent+0.0001],
     outputRange: ['0%', percent + 0.0001+ '%'],
+    extrapolate: 'clamp'
   });
 
   return (
