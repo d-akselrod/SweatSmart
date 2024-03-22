@@ -7,6 +7,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
+import Slider from '@react-native-community/slider';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   View,
@@ -22,25 +23,24 @@ import {
   Button,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import Slider from '@react-native-community/slider';
 
 export function ExerciseDetailsPage() {
   const navigation = useNavigation();
   const route = useRoute();
   const activeWorkout: any = useSelector((state: any) => state.workout);
-  
+
   // @ts-ignore
   const exercise = route.params?.exerciseData;
   const [completed, setCompleted] = useState<boolean[]>(
     new Array(exercise.sets).fill(false),
   );
-  const [reps, setReps] = useState(exercise.reps)
-  const [weight, setWeight] = useState(100)
-  const [showModal, setShowModal] = useState(false)
+  const [reps, setReps] = useState(exercise.reps);
+  const [weight, setWeight] = useState(100);
+  const [showModal, setShowModal] = useState(false);
   const [focusedIdx, setFocusIdx] = useState<number>(1);
   const [numOfSets, setNumOfSets] = useState(exercise.sets);
   const height = Dimensions.get('window').height;
-  console.log(exercise.exerciseName)
+  console.log(exercise.exerciseName);
   const SetDetailsComponent = (props: {
     setNumber: number;
     reps: number;
@@ -86,17 +86,20 @@ export function ExerciseDetailsPage() {
           {weight}
         </Text>
         <Text>lbs</Text>
-        <TouchableOpacity style = {{marginLeft: 'auto'}} onPress = {() => editSet(setNumber)}>
-          <AntDesign name='ellipsis1' size={25} color='black'  />
+        <TouchableOpacity
+          style={{ marginLeft: 'auto' }}
+          onPress={() => editSet(setNumber)}
+        >
+          <AntDesign name='ellipsis1' size={25} color='black' />
         </TouchableOpacity>
       </Pressable>
     );
   };
 
   const editSet = (setNumber: number) => {
-    setFocusIdx(setNumber)
-    setShowModal(true)
-  }
+    setFocusIdx(setNumber);
+    setShowModal(true);
+  };
 
   const renderSets = () => {
     return Array.from({ length: numOfSets }, (val, index) => (
@@ -122,17 +125,27 @@ export function ExerciseDetailsPage() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModal}
-      >
-        <View style = {styles.modalContent}>
-          <Text style = {{fontSize: 17, fontWeight: '600'}}>Reps: </Text>
-          <Slider step = {1} lowerLimit = {1} maximumValue ={30} value = {reps} minimumTrackTintColor = {'#be4949'} onValueChange = {(val) => setReps(val)}></Slider>
-          <Text style = {{fontSize: 17, fontWeight: '600'}}>Weight: </Text>
-          <Slider minimumTrackTintColor = {'#be4949'} step = {5} lowerLimit = {5} maximumValue ={200} value = {weight} onValueChange = {(val) => setWeight(val)}></Slider>
-          <Button title = "Done" onPress  = {() => setShowModal(false)}/>
+      <Modal animationType='slide' transparent={true} visible={showModal}>
+        <View style={styles.modalContent}>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: </Text>
+          <Slider
+            step={1}
+            lowerLimit={1}
+            maximumValue={30}
+            value={reps}
+            minimumTrackTintColor={'#be4949'}
+            onValueChange={val => setReps(val)}
+          />
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Weight: </Text>
+          <Slider
+            minimumTrackTintColor={'#be4949'}
+            step={5}
+            lowerLimit={5}
+            maximumValue={200}
+            value={weight}
+            onValueChange={val => setWeight(val)}
+          />
+          <Button title='Done' onPress={() => setShowModal(false)} />
         </View>
       </Modal>
       <ScrollView
@@ -273,6 +286,6 @@ const styles = StyleSheet.create({
     padding: 20, // Optional: Adjust padding as needed
     justifyContent: 'center',
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
   },
 });

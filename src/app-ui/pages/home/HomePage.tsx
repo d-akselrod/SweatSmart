@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   View,
@@ -24,7 +25,6 @@ import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export function HomePage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
@@ -121,7 +121,11 @@ export function HomePage() {
 
   return (
     <SafeAreaView>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false} contentContainerStyle = {{paddingBottom: 40}}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
+      >
         <View style={{ gap: 20 }}>
           <Text
             style={{ fontSize: 30, fontWeight: '600', marginHorizontal: 15 }}
@@ -208,8 +212,8 @@ export function HomePage() {
           </View>
         </View>
       </ScrollView>
-      <Pressable style = {styles.addWorkout} onPress = {() => handleNavigation()}>
-        <AntDesign name="plus" size={30} color="white" />
+      <Pressable style={styles.addWorkout} onPress={() => handleNavigation()}>
+        <AntDesign name='plus' size={30} color='white' />
       </Pressable>
     </SafeAreaView>
   );
@@ -248,7 +252,7 @@ const styles = StyleSheet.create({
   categoriesContainer: {
     gap: 10,
   },
-  
+
   addWorkout: {
     width: 60,
     height: 60,
@@ -258,6 +262,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });

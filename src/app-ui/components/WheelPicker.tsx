@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
 
 const ItemHeight = 50; // Height of each item in the wheel picker
 
-const WheelPicker = (props: { items: number[], onSelect: Function }) => {
-  const {items, onSelect} = props;
+const WheelPicker = (props: { items: number[]; onSelect: Function }) => {
+  const { items, onSelect } = props;
   const [scrollY] = useState(new Animated.Value(0));
 
   const handleScroll = (event: any) => {
@@ -26,8 +33,19 @@ const WheelPicker = (props: { items: number[], onSelect: Function }) => {
         snapToInterval={ItemHeight}
       >
         {items.map((item, index) => (
-          <TouchableOpacity key={index} onPress={() => handleItemSelected(index)}>
-            <Text style={[styles.item, { paddingTop: index === 0 ? 10 : 0, paddingBottom: index === items.length - 1 ? 10 : 0 }]}>
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleItemSelected(index)}
+          >
+            <Text
+              style={[
+                styles.item,
+                {
+                  paddingTop: index === 0 ? 10 : 0,
+                  paddingBottom: index === items.length - 1 ? 10 : 0,
+                },
+              ]}
+            >
               {item}
             </Text>
           </TouchableOpacity>

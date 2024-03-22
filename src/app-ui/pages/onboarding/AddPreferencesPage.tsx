@@ -1,4 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from '@expo/vector-icons';
+import Slider from '@react-native-community/slider';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
   SafeAreaView,
@@ -10,16 +17,13 @@ import {
   Pressable,
   Dimensions,
   TouchableOpacity,
-  Image
+  Image,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import WheelPicker from '../../components/WheelPicker';
 import { setActiveUser } from '../../redux/slices/userSlice';
 import { setPreferences } from '../../service/ProfileAPI';
-import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import {ProgressBar} from '../home/ProgressBar'
-import Slider from '@react-native-community/slider';
-import WheelPicker from '../../components/WheelPicker'
-
+import { ProgressBar } from '../home/ProgressBar';
 
 export const AddPreferencesPage = () => {
   const route = useRoute();
@@ -29,8 +33,8 @@ export const AddPreferencesPage = () => {
   const navigation = useNavigation();
   const width = Dimensions.get('window').width;
   const slideRef = useRef<ScrollView | null>(null);
-  const currentX = useRef(0)
-  const [currentIdx, setCurrentIdx] = useState(1)
+  const currentX = useRef(0);
+  const [currentIdx, setCurrentIdx] = useState(1);
 
   interface IPreferenceItem {
     label: string;
@@ -102,76 +106,193 @@ export const AddPreferencesPage = () => {
   };
 
   const handleSlide = () => {
-    if(currentX.current === width*4){
-      handleSave()
-      return
+    if (currentX.current === width * 4) {
+      handleSave();
+      return;
     }
-    currentX.current+=width;
-    slideRef.current?.scrollTo({x: currentX.current, animated: false});
-    setCurrentIdx(prev => prev + 1)
+    currentX.current += width;
+    slideRef.current?.scrollTo({ x: currentX.current, animated: false });
+    setCurrentIdx(prev => prev + 1);
   };
-  
+
   const goBack = () => {
-    if(currentX.current === 0) return
-    currentX.current-=width;
-    slideRef.current?.scrollTo({x: currentX.current, animated: false});
-    setCurrentIdx(prev => prev - 1)
-  }
-  
-  const FitnessLevelOption = (props: {title: string, index: number}) => (
-    <Pressable style = {[styles.option, {borderColor: props.index === +fitnessExperience ? '#376cf8' : 'white', backgroundColor: props.index === +fitnessExperience ? '#bfdeff40' : 'white'}]} onPress = {() => setFitnessExperience(fitnessExperienceItems[props.index].value)}>
-      <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20}}>
-        <Text style = {[styles.optionText,{color: props.index === +fitnessExperience ? '#376cf8' : 'black'}]}>{props.title}</Text>
-        <MaterialCommunityIcons name={props.title === 'Beginner' ? "walk" : props.title === 'Intermediate' ? "run" : "run-fast"} size={40} color={props.index === +fitnessExperience ? '#376cf8' : "black"} />
-      </View>
-    </Pressable>
-  )
+    if (currentX.current === 0) return;
+    currentX.current -= width;
+    slideRef.current?.scrollTo({ x: currentX.current, animated: false });
+    setCurrentIdx(prev => prev - 1);
+  };
 
-  const GoalOption = (props: {title: string, index: number}) => (
-    <Pressable style = {[styles.option, {borderColor: props.index === +fitnessGoals ? '#376cf8' : 'white', backgroundColor: props.index === +fitnessGoals ? '#bfdeff40' : 'white'}]} onPress = {() => setFitnessGoals(fitnessGoalItems[props.index].value)}>
-      <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20}}>
-        <Text style = {[styles.optionText,{color: props.index === +fitnessGoals ? '#376cf8' : 'black'}]}>{props.title}</Text>
+  const FitnessLevelOption = (props: { title: string; index: number }) => (
+    <Pressable
+      style={[
+        styles.option,
         {
-          props.title === 'Strength' ? <MaterialIcons name="fitness-center" size={40} color={props.index === +fitnessGoals ? '#376cf8' : "black"} /> 
-          : props.title === 'Endurance' ? <Ionicons name="fitness" size={40} color={props.index === +fitnessGoals ? '#376cf8' : "black"} />
-          : <MaterialCommunityIcons name="google-fit" size={40} color={props.index === +fitnessGoals ? '#376cf8' : "black"} />
-        }
+          borderColor: props.index === +fitnessExperience ? '#376cf8' : 'white',
+          backgroundColor:
+            props.index === +fitnessExperience ? '#bfdeff40' : 'white',
+        },
+      ]}
+      onPress={() =>
+        setFitnessExperience(fitnessExperienceItems[props.index].value)
+      }
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingHorizontal: 20,
+        }}
+      >
+        <Text
+          style={[
+            styles.optionText,
+            { color: props.index === +fitnessExperience ? '#376cf8' : 'black' },
+          ]}
+        >
+          {props.title}
+        </Text>
+        <MaterialCommunityIcons
+          name={
+            props.title === 'Beginner'
+              ? 'walk'
+              : props.title === 'Intermediate'
+              ? 'run'
+              : 'run-fast'
+          }
+          size={40}
+          color={props.index === +fitnessExperience ? '#376cf8' : 'black'}
+        />
       </View>
     </Pressable>
-  )
+  );
 
-  const EquipmentOption = (props: {title: string, index: number}) => {
+  const GoalOption = (props: { title: string; index: number }) => (
+    <Pressable
+      style={[
+        styles.option,
+        {
+          borderColor: props.index === +fitnessGoals ? '#376cf8' : 'white',
+          backgroundColor:
+            props.index === +fitnessGoals ? '#bfdeff40' : 'white',
+        },
+      ]}
+      onPress={() => setFitnessGoals(fitnessGoalItems[props.index].value)}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingHorizontal: 20,
+        }}
+      >
+        <Text
+          style={[
+            styles.optionText,
+            { color: props.index === +fitnessGoals ? '#376cf8' : 'black' },
+          ]}
+        >
+          {props.title}
+        </Text>
+        {props.title === 'Strength' ? (
+          <MaterialIcons
+            name='fitness-center'
+            size={40}
+            color={props.index === +fitnessGoals ? '#376cf8' : 'black'}
+          />
+        ) : props.title === 'Endurance' ? (
+          <Ionicons
+            name='fitness'
+            size={40}
+            color={props.index === +fitnessGoals ? '#376cf8' : 'black'}
+          />
+        ) : (
+          <MaterialCommunityIcons
+            name='google-fit'
+            size={40}
+            color={props.index === +fitnessGoals ? '#376cf8' : 'black'}
+          />
+        )}
+      </View>
+    </Pressable>
+  );
+
+  const EquipmentOption = (props: { title: string; index: number }) => {
     return (
-      <Pressable style = {[styles.option, {borderColor: props.index === +equipmentAvailable ? '#376cf8' : 'white', backgroundColor: props.index === +equipmentAvailable ? '#bfdeff40' : 'white'}]} onPress = {() => setEquipmentAvailable(equipmentAvailableItems[props.index].value)}>
-        <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20}}>
-          <Text style = {[styles.optionText,{color: props.index === +equipmentAvailable ? '#376cf8' : 'black'}]}>{props.title}</Text>
+      <Pressable
+        style={[
+          styles.option,
           {
-            props.index === 0 ? <Image source = {require(`../../assets/images/bodyweight.png`)} style = {{width: 50, height: 50}}/> :
-              props.index === 1 ? <Image source = {require(`../../assets/images/dumbells.png`)} style = {{width: 50, height: 50}}/> :
-                <Image source = {require(`../../assets/images/fullgym.png`)} style = {{width: 50, height: 50}}/>
-          }
+            borderColor:
+              props.index === +equipmentAvailable ? '#376cf8' : 'white',
+            backgroundColor:
+              props.index === +equipmentAvailable ? '#bfdeff40' : 'white',
+          },
+        ]}
+        onPress={() =>
+          setEquipmentAvailable(equipmentAvailableItems[props.index].value)
+        }
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 20,
+          }}
+        >
+          <Text
+            style={[
+              styles.optionText,
+              {
+                color:
+                  props.index === +equipmentAvailable ? '#376cf8' : 'black',
+              },
+            ]}
+          >
+            {props.title}
+          </Text>
+          {props.index === 0 ? (
+            <Image
+              source={require(`../../assets/images/bodyweight.png`)}
+              style={{ width: 50, height: 50 }}
+            />
+          ) : props.index === 1 ? (
+            <Image
+              source={require(`../../assets/images/dumbells.png`)}
+              style={{ width: 50, height: 50 }}
+            />
+          ) : (
+            <Image
+              source={require(`../../assets/images/fullgym.png`)}
+              style={{ width: 50, height: 50 }}
+            />
+          )}
         </View>
       </Pressable>
-    )
-  }
-  
-  console.log(equipmentAvailable)
+    );
+  };
+
+  console.log(equipmentAvailable);
   const renderFitnessLevelOptions = () => {
-    return ["Beginner", "Intermediate", "Advanced"].map((val, index) => {
-      return <FitnessLevelOption title={val} key = {index} index = {index}/>
-    })
-  }
+    return ['Beginner', 'Intermediate', 'Advanced'].map((val, index) => {
+      return <FitnessLevelOption title={val} key={index} index={index} />;
+    });
+  };
 
   const renderEquipmentOptions = () => {
-    return ["None, Bodyweight Only", "Dumbbells Only", "Full Equipment"].map((val, index) => {
-      return <EquipmentOption title={val} key = {index} index = {index}/>
-    })
-  }
+    return ['None, Bodyweight Only', 'Dumbbells Only', 'Full Equipment'].map(
+      (val, index) => {
+        return <EquipmentOption title={val} key={index} index={index} />;
+      },
+    );
+  };
   const renderGoalOptions = () => {
-    return ["Strength", "Endurance", "General Health"].map((val, index) => {
-      return <GoalOption title={val} key = {index} index = {index}/>
-    })
-  }
+    return ['Strength', 'Endurance', 'General Health'].map((val, index) => {
+      return <GoalOption title={val} key={index} index={index} />;
+    });
+  };
 
   const renderCalendarImage = () => {
     const imagePaths: any = {
@@ -185,91 +306,180 @@ export const AddPreferencesPage = () => {
     };
     const image = imagePaths[+workoutFrequency] || null;
     return (
-      <View style = {{width: '100%', height: '40%', gap: 40}}>
-        <Image source={image} style={{ width: '50%', height: '70%', alignSelf: 'center' }} />
-        <Text style = {{fontSize: 25, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{workoutFrequency} {+workoutFrequency == 1 ? "time" : "times"} / week</Text>
-        <Slider step = {1} lowerLimit = {0} maximumValue ={6} value = {3} onValueChange = {(val) => setWorkoutFrequency(workoutFrequencyItems[val].value)}></Slider>
+      <View style={{ width: '100%', height: '40%', gap: 40 }}>
+        <Image
+          source={image}
+          style={{ width: '50%', height: '70%', alignSelf: 'center' }}
+        />
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: 'bold',
+            fontFamily: 'Apple SD Gothic Neo',
+            textAlign: 'center',
+          }}
+        >
+          {workoutFrequency} {+workoutFrequency == 1 ? 'time' : 'times'} / week
+        </Text>
+        <Slider
+          step={1}
+          lowerLimit={0}
+          maximumValue={6}
+          value={3}
+          onValueChange={val =>
+            setWorkoutFrequency(workoutFrequencyItems[val].value)
+          }
+        />
       </View>
-    ) 
-  }
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style = {{marginHorizontal: 20, gap: 10}}>
-        <Pressable onPress = {goBack}>        
-          <AntDesign name="arrowleft" size={24} color="black" />
+      <View style={{ marginHorizontal: 20, gap: 10 }}>
+        <Pressable onPress={goBack}>
+          <AntDesign name='arrowleft' size={24} color='black' />
         </Pressable>
-        <Text style = {{fontWeight: '500', color: '#808080'}}>Question {currentIdx} of 5</Text>
-        <ProgressBar percent = {(currentIdx/5)*100} color = {'#2c41af'}/>
+        <Text style={{ fontWeight: '500', color: '#808080' }}>
+          Question {currentIdx} of 5
+        </Text>
+        <ProgressBar percent={(currentIdx / 5) * 100} color={'#2c41af'} />
       </View>
-      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator = {false} ref = {slideRef} scrollEnabled = {false}>
-        <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>What's your fitness level?</Text>
-          <View style = {{backgroundColor: '#bfdeff40', borderRadius: 20}}>
-            <Text style = {{fontSize: 15, color: '#444444', padding: 20, fontWeight: '400', lineHeight: 20, fontFamily: 'Apple SD Gothic Neo'}}>We're eager to calibrate your workouts precisely to your abilities to ensure that each session is challenging yet achievable.</Text>
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        ref={slideRef}
+        scrollEnabled={false}
+      >
+        <View style={[styles.pageContainer, { width }]}>
+          <Text style={styles.question}>What's your fitness level?</Text>
+          <View style={{ backgroundColor: '#bfdeff40', borderRadius: 20 }}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: '#444444',
+                padding: 20,
+                fontWeight: '400',
+                lineHeight: 20,
+                fontFamily: 'Apple SD Gothic Neo',
+              }}
+            >
+              We're eager to calibrate your workouts precisely to your abilities
+              to ensure that each session is challenging yet achievable.
+            </Text>
           </View>
           {renderFitnessLevelOptions()}
         </View>
-        <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>What's your goal?</Text>
-          <View style = {{backgroundColor: '#bfdeff40', borderRadius: 20}}>
-            <Text style = {{fontSize: 15, color: '#444444', padding: 20, fontWeight: '400', lineHeight: 20, fontFamily: 'Apple SD Gothic Neo'}}>We're here to customize and curate a program perfectly tailored to your aspirations and fitness objectives.</Text>
+        <View style={[styles.pageContainer, { width }]}>
+          <Text style={styles.question}>What's your goal?</Text>
+          <View style={{ backgroundColor: '#bfdeff40', borderRadius: 20 }}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: '#444444',
+                padding: 20,
+                fontWeight: '400',
+                lineHeight: 20,
+                fontFamily: 'Apple SD Gothic Neo',
+              }}
+            >
+              We're here to customize and curate a program perfectly tailored to
+              your aspirations and fitness objectives.
+            </Text>
           </View>
           {renderGoalOptions()}
         </View>
-        <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>How much equipment?</Text>
-          <View style = {{backgroundColor: '#bfdeff40', borderRadius: 20}}>
-            <Text style = {{fontSize: 15, color: '#444444', padding: 20, fontWeight: '400', lineHeight: 20, fontFamily: 'Apple SD Gothic Neo'}}>Gear up for success! Share the extent of your gym equipment collection, so we'll be aware of what you can use in your workout programs.</Text>
+        <View style={[styles.pageContainer, { width }]}>
+          <Text style={styles.question}>How much equipment?</Text>
+          <View style={{ backgroundColor: '#bfdeff40', borderRadius: 20 }}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: '#444444',
+                padding: 20,
+                fontWeight: '400',
+                lineHeight: 20,
+                fontFamily: 'Apple SD Gothic Neo',
+              }}
+            >
+              Gear up for success! Share the extent of your gym equipment
+              collection, so we'll be aware of what you can use in your workout
+              programs.
+            </Text>
           </View>
           {renderEquipmentOptions()}
         </View>
-        <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>How often would you workout?</Text>
+        <View style={[styles.pageContainer, { width }]}>
+          <Text style={styles.question}>How often would you workout?</Text>
           {renderCalendarImage()}
-          <View/>
+          <View />
         </View>
-        <View style = {[styles.pageContainer, {width}]}>
-          <Text style = {styles.question}>How long can you workout?</Text>
-          <View style = {{gap: 20}}>
-            <Text style = {{fontSize: 50, fontWeight: 'bold', fontFamily: 'Apple SD Gothic Neo', textAlign: 'center'}}>{duration} min</Text>
-            <Slider step = {1} lowerLimit = {20} maximumValue ={180} value = {60} onValueChange = {(val) => setDuration(val)}></Slider>
+        <View style={[styles.pageContainer, { width }]}>
+          <Text style={styles.question}>How long can you workout?</Text>
+          <View style={{ gap: 20 }}>
+            <Text
+              style={{
+                fontSize: 50,
+                fontWeight: 'bold',
+                fontFamily: 'Apple SD Gothic Neo',
+                textAlign: 'center',
+              }}
+            >
+              {duration} min
+            </Text>
+            <Slider
+              step={1}
+              lowerLimit={20}
+              maximumValue={180}
+              value={60}
+              onValueChange={val => setDuration(val)}
+            />
           </View>
-          <View/>
+          <View />
         </View>
       </ScrollView>
-      <TouchableOpacity style = {styles.button} onPress = {handleSlide}>
-        <Text style = {{padding: 15, color: 'white', fontWeight: '600', fontSize: 20, textAlign: 'center'}}>{currentIdx < 5 ? "Next" : "Finish"}</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSlide}>
+        <Text
+          style={{
+            padding: 15,
+            color: 'white',
+            fontWeight: '600',
+            fontSize: 20,
+            textAlign: 'center',
+          }}
+        >
+          {currentIdx < 5 ? 'Next' : 'Finish'}
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  
+
   button: {
     backgroundColor: '#1a2264',
     borderRadius: 20,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
-  
+
   question: {
     fontSize: 30,
     fontWeight: '600',
     textAlign: 'center',
-    fontFamily: 'Apple SD Gothic Neo'
+    fontFamily: 'Apple SD Gothic Neo',
   },
-  
+
   pageContainer: {
     marginVertical: 20,
     paddingHorizontal: 20,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
-  
+
   option: {
     width: '100%',
     justifyContent: 'center',
@@ -277,10 +487,10 @@ const styles = StyleSheet.create({
     height: '20%',
     borderWidth: 2,
   },
-  
-  optionText:{
-    fontWeight: 'bold', 
+
+  optionText: {
+    fontWeight: 'bold',
     fontSize: 20,
-    fontFamily: 'Apple SD Gothic Neo'
-  }
+    fontFamily: 'Apple SD Gothic Neo',
+  },
 });

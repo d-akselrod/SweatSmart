@@ -23,7 +23,12 @@ import { AddExercisesPage } from './AddExercisesPage';
 import { StartWorkoutPage } from './StartWorkoutPage';
 import { start } from '../../redux/slices/workoutSlice';
 import { getAllExercises, getExercisesByWId } from '../../service/WorkoutAPI';
-import { IExercise, IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
+import {
+  IExercise,
+  IUser,
+  IWorkout,
+  IWorkoutExercise,
+} from '../../typings/types';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
@@ -40,7 +45,9 @@ export function WorkoutExercisesPage() {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null, {dx: pan.x}], { useNativeDriver: false }),
+      onPanResponderMove: Animated.event([null, { dx: pan.x }], {
+        useNativeDriver: false,
+      }),
       onPanResponderRelease: (_, gesture) => {
         if (gesture.dx < -150) {
           Animated.spring(pan, {
@@ -49,11 +56,12 @@ export function WorkoutExercisesPage() {
           }).start();
         } else {
           Animated.spring(pan, {
-            toValue: {x: 0, y: 0}, // Return to original position
+            toValue: { x: 0, y: 0 }, // Return to original position
             useNativeDriver: false,
           }).start();
-        }}
-    })
+        }
+      },
+    }),
   ).current;
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const [showPage, setShow] = useState<boolean>(false);

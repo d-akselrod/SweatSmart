@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {IExercise, IWorkout } from '../../typings/types';
+import { IExercise, IWorkout } from '../../typings/types';
 
-interface LogType{
-  exercise: string,
-  isLoggedList: boolean[]
+interface LogType {
+  exercise: string;
+  isLoggedList: boolean[];
 }
 interface WorkoutState {
   workout: IWorkout | null;
@@ -23,7 +23,7 @@ const workoutSlice = createSlice({
       state.workout = action.payload;
       state.loggedExercises = {}; // Reset logged exercises when starting a new workout
     },
-    end: (state)=> {
+    end: state => {
       state.workout = null;
       state.loggedExercises = {}; // Reset logged exercises when starting a new workout
     },

@@ -15,6 +15,7 @@ import { ChatBotPage } from './pages/chatbot/ChatBotPage';
 import { AddExercisesPage } from './pages/home/AddExercisesPage';
 import { AddWorkout } from './pages/home/AddWorkout';
 import { ExerciseDetailsPage } from './pages/home/ExerciseDetailsPage';
+import { ExerciseLogPage } from './pages/home/ExerciseLogPage';
 import { ExercisePage } from './pages/home/ExercisePage';
 import { HomePage } from './pages/home/HomePage';
 import { StartWorkoutPage } from './pages/home/StartWorkoutPage';
@@ -37,7 +38,6 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
-import { ExerciseLogPage } from './pages/home/ExerciseLogPage';
 
 const debugRedux = false;
 

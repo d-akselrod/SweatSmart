@@ -7,6 +7,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
+import Slider from '@react-native-community/slider';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   View,
@@ -21,23 +22,23 @@ import {
   Modal,
   Button,
 } from 'react-native';
-import {useDispatch, useSelector } from 'react-redux';
-import {addLoggedExercise, end } from '../../redux/slices/workoutSlice';
-import Slider from '@react-native-community/slider';
+import { useDispatch, useSelector } from 'react-redux';
+import { addLoggedExercise, end } from '../../redux/slices/workoutSlice';
 
 export function ExerciseLogPage() {
   const navigation = useNavigation();
   const route = useRoute();
   const activeWorkout: any = useSelector((state: any) => state.workout);
-  const dispatch = useDispatch()
-  const [showModal, setShowModal] = useState(false)
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   // @ts-ignore
   const exercise = route.params?.exerciseData;
-  const [reps, setReps] = useState(exercise.reps)
-  const [weight, setWeight] = useState(100)
+  const [reps, setReps] = useState(exercise.reps);
+  const [weight, setWeight] = useState(100);
   const [completed, setCompleted] = useState<boolean[]>(
-    activeWorkout.loggedExercises.hasOwnProperty(exercise.exerciseName) ? 
-      activeWorkout.loggedExercises[exercise.exerciseName] :  new Array(exercise.sets).fill(false)
+    activeWorkout.loggedExercises.hasOwnProperty(exercise.exerciseName)
+      ? activeWorkout.loggedExercises[exercise.exerciseName]
+      : new Array(exercise.sets).fill(false),
   );
   const [focusedIdx, setFocusIdx] = useState<number>(1);
   const [numOfSets, setNumOfSets] = useState(exercise.sets);
@@ -87,17 +88,20 @@ export function ExerciseLogPage() {
           {weight}
         </Text>
         <Text>lbs</Text>
-        <TouchableOpacity style = {{marginLeft: 'auto'}} onPress = {() => editSet(setNumber)}>
-          <AntDesign name='ellipsis1' size={25} color='black'  />
+        <TouchableOpacity
+          style={{ marginLeft: 'auto' }}
+          onPress={() => editSet(setNumber)}
+        >
+          <AntDesign name='ellipsis1' size={25} color='black' />
         </TouchableOpacity>
       </Pressable>
     );
   };
-  
+
   const editSet = (setNumber: number) => {
-    setFocusIdx(setNumber)
-    setShowModal(true)
-  }
+    setFocusIdx(setNumber);
+    setShowModal(true);
+  };
 
   const renderSets = () => {
     return Array.from({ length: numOfSets }, (val, index) => (
@@ -123,30 +127,45 @@ export function ExerciseLogPage() {
 
   const updateValueAtIndex = (index: number) => {
     if (completed.every(val => val)) {
-      handleNavigation()
+      handleNavigation();
     }
     const newArray: boolean[] = [...completed];
     newArray[index] = true;
     setCompleted(newArray);
   };
-  
+
   const handleNavigation = () => {
-    dispatch(addLoggedExercise({exercise: exercise.exerciseName, isLoggedList: completed}))
-    navigation.goBack()
-  }
+    dispatch(
+      addLoggedExercise({
+        exercise: exercise.exerciseName,
+        isLoggedList: completed,
+      }),
+    );
+    navigation.goBack();
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModal}
-      >
-        <View style = {styles.modalContent}>
-          <Text style = {{fontSize: 17, fontWeight: '600'}}>Reps: </Text>
-          <Slider step = {1} lowerLimit = {1} maximumValue ={30} value = {reps} minimumTrackTintColor = {'#be4949'} onValueChange = {(val) => setReps(val)}></Slider>
-          <Text style = {{fontSize: 17, fontWeight: '600'}}>Weight: </Text>
-          <Slider minimumTrackTintColor = {'#be4949'} step = {5} lowerLimit = {5} maximumValue ={200} value = {weight} onValueChange = {(val) => setWeight(val)}></Slider>
-          <Button title = "Done" onPress  = {() => setShowModal(false)}/>
+      <Modal animationType='slide' transparent={true} visible={showModal}>
+        <View style={styles.modalContent}>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: </Text>
+          <Slider
+            step={1}
+            lowerLimit={1}
+            maximumValue={30}
+            value={reps}
+            minimumTrackTintColor={'#be4949'}
+            onValueChange={val => setReps(val)}
+          />
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Weight: </Text>
+          <Slider
+            minimumTrackTintColor={'#be4949'}
+            step={5}
+            lowerLimit={5}
+            maximumValue={200}
+            value={weight}
+            onValueChange={val => setWeight(val)}
+          />
+          <Button title='Done' onPress={() => setShowModal(false)} />
         </View>
       </Modal>
       <ScrollView
@@ -308,6 +327,6 @@ const styles = StyleSheet.create({
     padding: 20, // Optional: Adjust padding as needed
     justifyContent: 'center',
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
   },
 });

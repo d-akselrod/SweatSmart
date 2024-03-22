@@ -52,8 +52,6 @@ export function AddWorkout() {
     }
   };
 
-  
-
   useEffect(() => {
     const loadUserFrequency = async () => {
       try {
@@ -70,8 +68,8 @@ export function AddWorkout() {
         console.error(error);
       }
     };
-    
-    loadUserFrequency()
+
+    loadUserFrequency();
   }, []);
   const handleGenerateWorkoutPlan = async () => {
     try {

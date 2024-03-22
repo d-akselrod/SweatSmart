@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 
-interface IProgressBarProps{
-  percent: number
-  color: string
+interface IProgressBarProps {
+  percent: number;
+  color: string;
 }
 export const ProgressBar = (props: IProgressBarProps) => {
-  const {percent, color} = props;
+  const { percent, color } = props;
   const animate = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -18,22 +18,19 @@ export const ProgressBar = (props: IProgressBarProps) => {
   }, [animate, percent]);
 
   const progress = animate.interpolate({
-    inputRange: [0, percent+0.0001],
-    outputRange: ['0%', percent + 0.0001+ '%'],
-    extrapolate: 'clamp'
+    inputRange: [0, percent + 0.0001],
+    outputRange: ['0%', percent + 0.0001 + '%'],
+    extrapolate: 'clamp',
   });
 
   return (
     <View style={styles.bar}>
       <Animated.View
-        style={[
-          styles.progress,
-          { width: progress, backgroundColor: color },
-        ]}
+        style={[styles.progress, { width: progress, backgroundColor: color }]}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   bar: {
@@ -44,6 +41,6 @@ const styles = StyleSheet.create({
 
   progress: {
     borderRadius: 5,
-    height: '100%'
+    height: '100%',
   },
 });

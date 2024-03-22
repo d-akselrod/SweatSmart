@@ -62,7 +62,7 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingBottom: 10
+          paddingBottom: 10,
         }}
       >
         <Text style={styles.title}>{workout.name}</Text>
@@ -70,10 +70,22 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           <Feather name='info' size={20} color='black' />
         </TouchableOpacity>
       </View>
-      <View style = {{gap: 1}}>
+      <View style={{ gap: 1 }}>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <View style = {{borderRadius: 11, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e7ffe3'}}>
-            <Ionicons name='barbell-outline' size={12} color='#34a420' style = {{paddingHorizontal: 5}}/>
+          <View
+            style={{
+              borderRadius: 11,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#e7ffe3',
+            }}
+          >
+            <Ionicons
+              name='barbell-outline'
+              size={12}
+              color='#34a420'
+              style={{ paddingHorizontal: 5 }}
+            />
           </View>
           <Text style={{ fontSize: 9, color: 'grey', fontWeight: 'bold' }}>
             {numOfExercises && numOfExercises > 0
@@ -82,8 +94,20 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           </Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <View style = {{borderRadius: 11, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff2e7'}}>
-            <FontAwesome5 name='clock' size={12} color='#fa8e00' style = {{paddingHorizontal: 5}}/>
+          <View
+            style={{
+              borderRadius: 11,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#fff2e7',
+            }}
+          >
+            <FontAwesome5
+              name='clock'
+              size={12}
+              color='#fa8e00'
+              style={{ paddingHorizontal: 5 }}
+            />
           </View>
           <Text style={{ fontSize: 9, color: 'grey', fontWeight: 'bold' }}>
             {workout.duration

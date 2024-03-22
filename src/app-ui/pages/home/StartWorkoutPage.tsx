@@ -13,11 +13,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { ProgressBar } from './ProgressBar';
 import Timer from '../../components/Timer';
 import { end } from '../../redux/slices/workoutSlice';
 import { completeWorkout } from '../../service/WorkoutAPI';
 import { IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
-import { ProgressBar } from './ProgressBar';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
@@ -71,39 +71,51 @@ export function StartWorkoutPage() {
       navigation.goBack();
     }
   };
-  
 
   const ExerciseList = (props: IExerciseProps) => {
-    const someCompleted = !activeWorkout.loggedExercises.hasOwnProperty(props.exercise.exerciseName) ?
-                          false : activeWorkout.loggedExercises[props.exercise.exerciseName].every((val: boolean) => !val) ? false : true
+    const someCompleted = !activeWorkout.loggedExercises.hasOwnProperty(
+      props.exercise.exerciseName,
+    )
+      ? false
+      : activeWorkout.loggedExercises[props.exercise.exerciseName].every(
+          (val: boolean) => !val,
+        )
+      ? false
+      : true;
     return (
       <TouchableHighlight
-        style={{borderBottomWidth: 0.4, borderColor: '#c2c2c2'}}
+        style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
         activeOpacity={0.5}
         underlayColor='#efefef'
         onPress={() => handleNavigation(props.exercise)}
       >
         <View style={[styles.exerciseContainer]}>
-          <View style={{gap: 5}}>
-            <Text style={styles.exerciseName}>{props.exercise.exerciseName}</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 13}}>{props.exercise.muscleGroup}</Text>
-              <Entypo name='dot-single' size={15} color='black'/>
-              <Text style={{fontSize: 13}}>{props.exercise.sets} Sets</Text>
+          <View style={{ gap: 5 }}>
+            <Text style={styles.exerciseName}>
+              {props.exercise.exerciseName}
+            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
+              <Entypo name='dot-single' size={15} color='black' />
+              <Text style={{ fontSize: 13 }}>{props.exercise.sets} Sets</Text>
             </View>
-            {
-              someCompleted && <Text style={{fontSize: 13, fontWeight: '600', color: '#258a21'}}>
-                {activeWorkout.loggedExercises[props.exercise.exerciseName].filter((val: boolean) => val).length + ' of '}
-                {activeWorkout.loggedExercises[props.exercise.exerciseName].length + ' Logged'}
+            {someCompleted && (
+              <Text
+                style={{ fontSize: 13, fontWeight: '600', color: '#258a21' }}
+              >
+                {activeWorkout.loggedExercises[
+                  props.exercise.exerciseName
+                ].filter((val: boolean) => val).length + ' of '}
+                {activeWorkout.loggedExercises[props.exercise.exerciseName]
+                  .length + ' Logged'}
               </Text>
-            }
-            
+            )}
           </View>
-          <AntDesign name='ellipsis1' size={20} color='black'/>
+          <AntDesign name='ellipsis1' size={20} color='black' />
         </View>
       </TouchableHighlight>
-    )
-  }
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
