@@ -170,7 +170,7 @@ public class WorkoutPlannerService : ControllerBase
             Status = WorkoutStatus.NotStarted,
         };
 
-        await database.UserWorkout.AddAsync(workout);
+        await database.UserWorkouts.AddAsync(workout);
         await database.SaveChangesAsync();
 
         foreach (var exercise in workoutExercises)

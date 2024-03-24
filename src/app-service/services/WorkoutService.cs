@@ -88,6 +88,54 @@ public class WorkoutService : ControllerBase
         return new APIResponse(200, null, wId);
     }
 
+    [Authorize]
+    [HttpDelete("Workout")]
+    public async Task<IActionResult> DeleteWorkout(Guid wId)
+    {
+        var userWorkout =
+            await database.UserWorkouts.SingleOrDefaultAsync(userWorkout => userWorkout.WId == wId);
+
+        if (userWorkout == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        var workoutPlans = await database.WorkoutPlans.Where(workoutPlan => workoutPlan.WId == wId).ToListAsync();
+        database.WorkoutPlans.RemoveRange(workoutPlans);
+
+        var workouts = await database.Workouts.Where(workout => workout.WId == wId).ToListAsync();
+        database.Workouts.RemoveRange(workouts);
+
+        database.UserWorkouts.Remove(userWorkout);
+
+        database.SaveChangesAsync();
+
+        return APIResponse.Ok;
+    }
+
+    [Authorize]
+    [HttpDelete("DeleteExerciseFromWorkout")]
+    public async Task<IActionResult> DeleteExerciseFromWorkout(Guid wId, int eId)
+    {
+        var exercise = await database.Exercises.SingleOrDefaultAsync(exercise => exercise.EId == eId);
+
+        if (exercise == null)
+        {
+            return APIResponse.BadRequest;
+        }
+
+        var workoutPlan = await database.WorkoutPlans.SingleOrDefaultAsync(workoutPlan =>
+                workoutPlan.EId == eId && workoutPlan.WId == wId);
+
+        if (workoutPlan == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        database.WorkoutPlans.Remove(workoutPlan);
+        database.SaveChangesAsync();
+        return APIResponse.Ok;
+    }
 
     [Authorize]
     [HttpGet("GetExercises/{workoutId}")]
@@ -97,6 +145,13 @@ public class WorkoutService : ControllerBase
         // var identifications = workoutExercises.Select(w => w.EId);
         // var exercises = await database.Exercises.Where(e => identifications.Contains(e.EId)).ToListAsync();
         // return new APIResponse(200, null, exercises);
+
+        var workoutExists = await database.WorkoutPlans.AnyAsync(workout => workout.WId == workoutId);
+
+        if (workoutExists == false)
+        {
+            return APIResponse.NotFound;
+        }
 
         var exercises = await (
             from workoutPlan in database.WorkoutPlans
