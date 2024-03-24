@@ -138,6 +138,23 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
+    [HttpPut("RenameWorkout")]
+    public async Task<IActionResult> RenameWorkout(Guid wId, string newName)
+    {
+        var workout = await database.Workouts.SingleOrDefaultAsync(workout => workout.WId == wId);
+
+        if (workout == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        workout.name = newName;
+
+        await database.SaveChangesAsync();
+        return APIResponse.Ok;
+    }
+
+    [Authorize]
     [HttpGet("GetExercises/{workoutId}")]
     public async Task<IActionResult> GetExercisesByWorkout(Guid workoutId)
     {
