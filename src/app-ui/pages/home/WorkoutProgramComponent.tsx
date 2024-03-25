@@ -38,8 +38,11 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
         if (response.ok) {
           const data = await response.json();
           setNumOfExercises(data.body.length);
+        } else if (response.status == 404) {
+          setNumOfExercises(0);
         } else {
-          console.log('NO RESPONSE');
+          const data = await response.json();
+          console.log(data.message);
         }
       } catch (error) {
         console.error(error);
@@ -72,21 +75,13 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
       </View>
       <View style={{ gap: 1 }}>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <View
-            style={{
-              borderRadius: 11,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#e7ffe3',
-            }}
-          >
-            <Ionicons
-              name='barbell-outline'
-              size={12}
-              color='#34a420'
-              style={{ paddingHorizontal: 5 }}
-            />
-          </View>
+          <Ionicons
+            name='barbell-outline'
+            size={12}
+            color='grey'
+            style={{ paddingHorizontal: 5 }}
+          />
+
           <Text style={{ fontSize: 9, color: 'grey', fontWeight: 'bold' }}>
             {numOfExercises && numOfExercises > 0
               ? `${numOfExercises} Exercises`
@@ -94,21 +89,12 @@ export function WorkoutProgramComponent(props: IWorkoutProgramProps) {
           </Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <View
-            style={{
-              borderRadius: 11,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#fff2e7',
-            }}
-          >
-            <FontAwesome5
-              name='clock'
-              size={12}
-              color='#fa8e00'
-              style={{ paddingHorizontal: 5 }}
-            />
-          </View>
+          <FontAwesome5
+            name='clock'
+            size={12}
+            color='grey'
+            style={{ paddingHorizontal: 5 }}
+          />
           <Text style={{ fontSize: 9, color: 'grey', fontWeight: 'bold' }}>
             {workout.duration
               ? `${Math.floor(workout.duration / 60)} Minutes`

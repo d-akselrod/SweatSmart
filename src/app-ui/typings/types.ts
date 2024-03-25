@@ -50,11 +50,10 @@ export interface IExercise {
 }
 
 export interface IWorkoutExercise {
-  exerciseId: number;
+  eId: number;
   muscleGroup: MuscleGroup;
   exerciseName: string;
-  sets: number;
-  reps: number;
+  sets: { reps: number; weight: number }[];
 }
 
 export interface ExerciseListParams {

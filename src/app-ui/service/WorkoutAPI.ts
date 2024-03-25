@@ -120,3 +120,16 @@ export const completeWorkout = (username: string, wId: string) => {
     },
   );
 };
+
+export const updateWorkoutName = (wId: string, newName: string) => {
+  return fetch(
+    `${API_URL}/WorkoutService/RenameWorkout?wId=${wId}&newName=${newName}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: API_AUTH,
+      },
+    },
+  );
+};

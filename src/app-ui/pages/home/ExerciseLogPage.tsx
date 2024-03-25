@@ -147,7 +147,7 @@ export function ExerciseLogPage() {
     <SafeAreaView style={{ flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={showModal}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: </Text>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps}</Text>
           <Slider
             step={1}
             lowerLimit={1}
@@ -156,7 +156,9 @@ export function ExerciseLogPage() {
             minimumTrackTintColor={'#be4949'}
             onValueChange={val => setReps(val)}
           />
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Weight: </Text>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>
+            Weight: {weight}
+          </Text>
           <Slider
             minimumTrackTintColor={'#be4949'}
             step={5}

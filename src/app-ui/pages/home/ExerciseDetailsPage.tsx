@@ -32,13 +32,17 @@ export function ExerciseDetailsPage() {
   // @ts-ignore
   const exercise = route.params?.exerciseData;
   const [completed, setCompleted] = useState<boolean[]>(
-    new Array(exercise.sets).fill(false),
+    new Array(exercise.sets.length).fill(false),
   );
-  const [reps, setReps] = useState(exercise.reps);
-  const [weight, setWeight] = useState(100);
+  const [reps, setReps] = useState(
+    exercise.sets.map((val: { reps: number; weight: number }) => val.reps),
+  );
+  const [weight, setWeight] = useState(
+    exercise.sets.map((val: { reps: number; weight: number }) => val.weight),
+  );
   const [showModal, setShowModal] = useState(false);
   const [focusedIdx, setFocusIdx] = useState<number>(1);
-  const [numOfSets, setNumOfSets] = useState(exercise.sets);
+  const [numOfSets, setNumOfSets] = useState(exercise.sets.length);
   const height = Dimensions.get('window').height;
   console.log(exercise.exerciseName);
   const SetDetailsComponent = (props: {
@@ -127,7 +131,7 @@ export function ExerciseDetailsPage() {
     <SafeAreaView style={{ flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={showModal}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: </Text>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps}</Text>
           <Slider
             step={1}
             lowerLimit={1}
@@ -136,7 +140,9 @@ export function ExerciseDetailsPage() {
             minimumTrackTintColor={'#be4949'}
             onValueChange={val => setReps(val)}
           />
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Weight: </Text>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>
+            Weight: {weight}
+          </Text>
           <Slider
             minimumTrackTintColor={'#be4949'}
             step={5}

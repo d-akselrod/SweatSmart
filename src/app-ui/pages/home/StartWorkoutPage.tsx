@@ -11,6 +11,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProgressBar } from './ProgressBar';
@@ -43,6 +44,20 @@ export function StartWorkoutPage() {
       clearInterval(interval.current);
     }
   }, [isRunning]);
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      'Incomplete Workout',
+      'You have not logged all of your sets. Are you sure you want to finish?',
+      [
+        {
+          text: 'Resume',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Finish', onPress: () => handleCompleteWorkout() },
+      ],
+    );
   const formatTime = (timeInSeconds: number) => {
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
@@ -61,15 +76,21 @@ export function StartWorkoutPage() {
   };
 
   const handleCompleteWorkout = async () => {
+    console.log(activeUser.username, activeWorkout.wId);
     try {
-      await completeWorkout(activeUser.username, activeWorkout.wId);
+      await completeWorkout(activeUser.username, activeWorkout.workout.wId);
       dispatch(end());
-      console.log();
     } catch (error) {
       console.log(error);
     } finally {
       navigation.goBack();
     }
+  };
+
+  const handleCancelWorkout = () => {
+    console.log(activeWorkout);
+    dispatch(end());
+    navigation.goBack();
   };
 
   const ExerciseList = (props: IExerciseProps) => {
@@ -97,7 +118,9 @@ export function StartWorkoutPage() {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
               <Entypo name='dot-single' size={15} color='black' />
-              <Text style={{ fontSize: 13 }}>{props.exercise.sets} Sets</Text>
+              <Text style={{ fontSize: 13 }}>
+                {props.exercise.sets.length} Sets
+              </Text>
             </View>
             {someCompleted && (
               <Text
@@ -117,8 +140,25 @@ export function StartWorkoutPage() {
     );
   };
 
+  const createAlert = () =>
+    Alert.alert(
+      'Cancel Workout',
+      'Are you sure you want to exit? The progress will not be saved',
+      [
+        {
+          text: 'Resume',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'End', onPress: () => handleCancelWorkout() },
+      ],
+    );
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <TouchableOpacity onPress={createAlert} style={{ padding: 10 }}>
+        <Text style={{ fontSize: 15, fontWeight: '600' }}>Cancel</Text>
+      </TouchableOpacity>
       <ScrollView
         style={{ marginLeft: 20 }}
         contentContainerStyle={{ paddingBottom: 100 }}
@@ -143,7 +183,7 @@ export function StartWorkoutPage() {
       </ScrollView>
       <TouchableOpacity
         style={styles.stopButton}
-        onPress={handleCompleteWorkout}
+        onPress={createTwoButtonAlert}
       >
         <Entypo name='controller-stop' size={30} color='white' />
       </TouchableOpacity>
