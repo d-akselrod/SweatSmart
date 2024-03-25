@@ -26,19 +26,26 @@ public class WorkoutPlanController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddExercisesToWorkout(AddExercisesRequest request)
     {
-        var workoutPlans = request.exerciseIdList.Select(id => new WorkoutPlan
+        foreach (int id in request.exerciseIdList)
         {
-            WId = request.workoutId,
-            EId = id,
-            Sets = 3,
-            Reps = 10,
-            PercentageOfOneRepMax = 0
-        });
+            for (int set = 1; set <= 3; set++)
+            {
+                var workoutPlan = new WorkoutExercise
+                {
+                    WId = request.workoutId,
+                    EId = id,
+                    SetNumber = set,
+                    Weight = 80,
+                    Reps = 10,
+                    PercentageOfOneRepMax = .875f
+                };
+                await database.WorkoutExercises.AddAsync(workoutPlan);
+            }
+        }
 
-        await database.WorkoutPlans.AddRangeAsync(workoutPlans);
         await database.SaveChangesAsync();
 
-        return new APIResponse(200, null, null);
+        return APIResponse.Ok;
     }
 
     [Authorize]
