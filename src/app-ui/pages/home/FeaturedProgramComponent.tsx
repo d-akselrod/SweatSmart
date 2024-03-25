@@ -1,4 +1,5 @@
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -8,8 +9,7 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import {IFeaturedExercises, IFeaturedWorkout } from '../../typings/types';
-import { useNavigation } from '@react-navigation/native';
+import { IFeaturedExercises, IFeaturedWorkout } from '../../typings/types';
 
 interface IFeaturedProgram {
   workout: IFeaturedWorkout;
@@ -28,17 +28,17 @@ export function FeaturedProgramComponent(props: IFeaturedProgram) {
     navigation.navigate('FeaturedExerciseList', {
       workoutName: workout.name,
       id: workout.wId,
-      exercises: exercises[index]
+      exercises: exercises[index],
     });
   };
-  
+
   return (
     <Pressable
       style={[
         styles.container,
         { marginRight: index === workouts.length - 1 ? 15 : 0 },
       ]}
-      onPress = {() => handleNavigtion()}
+      onPress={() => handleNavigtion()}
     >
       <TouchableOpacity style={styles.play}>
         <Ionicons name='play' size={20} color='#e74341' />

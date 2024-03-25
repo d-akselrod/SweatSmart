@@ -17,8 +17,10 @@ import { AddWorkout } from './pages/home/AddWorkout';
 import { ExerciseDetailsPage } from './pages/home/ExerciseDetailsPage';
 import { ExerciseLogPage } from './pages/home/ExerciseLogPage';
 import { ExercisePage } from './pages/home/ExercisePage';
+import { FeaturedExercisesPage } from './pages/home/FeaturedExercisesPage';
 import { HomePage } from './pages/home/HomePage';
 import { StartWorkoutPage } from './pages/home/StartWorkoutPage';
+import { VideoDemoPage } from './pages/home/VideoDemoPage';
 import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
 import { LoginPage } from './pages/login/LoginPage';
 import { AddPreferencesPage } from './pages/onboarding/AddPreferencesPage';
@@ -38,7 +40,6 @@ import { SocialPage } from './pages/social/SocialPage';
 import { IUser } from './typings/types';
 import { EntryPage } from '../app-ui/pages/entry/EntryPage';
 import { debugstore, store } from '../app-ui/redux/store';
-import { FeaturedExercisesPage } from './pages/home/FeaturedExercisesPage';
 
 const debugRedux = false;
 
@@ -64,6 +65,14 @@ const HomeStack = () => (
       name='WorkoutExerciseList'
       component={WorkoutExercisesPage}
       options={{ headerShown: true }}
+    />
+    <Stack.Screen
+      name='VideoDemoPage'
+      component={VideoDemoPage}
+      options={{
+        headerShown: true,
+        title: 'Bench Press Demo',
+      }}
     />
     <Stack.Screen
       name='FeaturedExerciseList'

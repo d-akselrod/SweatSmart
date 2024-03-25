@@ -163,7 +163,10 @@ export function WorkoutExercisesPage() {
 
   const handleNavigation = (exercise: IWorkoutExercise) => {
     // @ts-ignore
-    navigation.navigate('ExerciseDetails', { exerciseData: exercise, wId: wId });
+    navigation.navigate('ExerciseDetails', {
+      exerciseData: exercise,
+      wId: wId,
+    });
   };
 
   const deleteExercise = async (eId: number) => {
@@ -231,7 +234,7 @@ export function WorkoutExercisesPage() {
     // @ts-ignore
     navigation.navigate('StartWorkout', { exercises: workoutExercises });
   };
-  
+
   return (
     <View>
       <Modal transparent={true} visible={visible}>

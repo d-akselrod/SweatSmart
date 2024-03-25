@@ -35,17 +35,13 @@ export function HomePage() {
   const [showAddPage, setShow] = useState(false);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const workoutView: string[] = [
-    'All Programs',
-    'Generated',
-    'Created By Me',
-  ];
+  const workoutView: string[] = ['All Programs', 'Generated', 'Created By Me'];
 
   const handleChangeView = (index: number) => {
     setChosenWorkoutIdx(index);
   };
 
-  console.log(workouts)
+  console.log(workouts);
   const showWorkoutView = () => {
     return workoutView.map((program, index) => {
       return (
@@ -145,7 +141,13 @@ export function HomePage() {
               {showWorkoutView()}
             </View>
             <FlatList
-              data={chosenWorkoutIdx == 0 ? workouts : chosenWorkoutIdx == 1 ? workouts.filter(val => val.isGenerated === 1) : workouts.filter(val => val.isGenerated === 0)}
+              data={
+                chosenWorkoutIdx == 0
+                  ? workouts
+                  : chosenWorkoutIdx == 1
+                  ? workouts.filter(val => val.isGenerated === 1)
+                  : workouts.filter(val => val.isGenerated === 0)
+              }
               renderItem={({ item, index }) => (
                 <WorkoutProgramComponent
                   workout={item}
@@ -181,7 +183,7 @@ export function HomePage() {
                   workout={item}
                   index={index}
                   workouts={featuredWorkouts}
-                  exercises = {featuredExercises}
+                  exercises={featuredExercises}
                 />
               )}
               horizontal

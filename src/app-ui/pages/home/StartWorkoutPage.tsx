@@ -18,8 +18,8 @@ import { ProgressBar } from './ProgressBar';
 import Timer from '../../components/Timer';
 import { end } from '../../redux/slices/workoutSlice';
 import { completeWorkout } from '../../service/WorkoutAPI';
-import { IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
 import { addSetToExercise } from '../../service/WorkoutPlanAPI';
+import { IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
@@ -154,7 +154,6 @@ export function StartWorkoutPage() {
         { text: 'End', onPress: () => handleCancelWorkout() },
       ],
     );
-  
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

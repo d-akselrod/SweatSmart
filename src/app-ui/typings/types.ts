@@ -34,7 +34,7 @@ export interface IWorkoutPlan {
 }
 
 export interface IFeaturedWorkout {
-  wId: number
+  wId: number;
   duration: number;
   name: string;
   numOfExercies: number;
@@ -42,7 +42,7 @@ export interface IFeaturedWorkout {
   type: string;
 }
 
-export interface IFeaturedExercises{
+export interface IFeaturedExercises {
   eId: number;
   muscleGroup: string;
   exerciseName: string;

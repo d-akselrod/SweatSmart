@@ -150,51 +150,60 @@ export function ExerciseLogPage() {
   };
 
   const addSet = async (reps: number, weight: number) => {
-    try{
-      const response = await addSetToExercise(activeWorkout.workout.wId, exercise.eId, reps, weight)
-      if(response.ok){
-        console.log("blessed")
+    try {
+      const response = await addSetToExercise(
+        activeWorkout.workout.wId,
+        exercise.eId,
+        reps,
+        weight,
+      );
+      if (response.ok) {
+        console.log('blessed');
+      } else {
+        console.log(response.status);
       }
-      else{
-        console.log(response.status)
-      }
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e)
-    }
-  }
-  
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={showModal}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps[focusedIdx-1]}</Text>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>
+            Reps: {reps[focusedIdx - 1]}
+          </Text>
           <Slider
             step={1}
             lowerLimit={1}
             maximumValue={30}
-            value={reps[focusedIdx-1]}
+            value={reps[focusedIdx - 1]}
             minimumTrackTintColor={'#be4949'}
-            onValueChange={val => setReps((prev: number[]) => {
-              const newArray = [...prev];
-              newArray[focusedIdx - 1] = val;
-              return newArray;
-            })}
+            onValueChange={val =>
+              setReps((prev: number[]) => {
+                const newArray = [...prev];
+                newArray[focusedIdx - 1] = val;
+                return newArray;
+              })
+            }
           />
           <Text style={{ fontSize: 17, fontWeight: '600' }}>
-            Weight: {weight[focusedIdx-1]}
+            Weight: {weight[focusedIdx - 1]}
           </Text>
           <Slider
             minimumTrackTintColor={'#be4949'}
             step={5}
             lowerLimit={5}
             maximumValue={200}
-            value={weight[focusedIdx-1]}
-            onValueChange={val => setWeight((prev: number[]) => {
-              const newArray = [...prev];
-              newArray[focusedIdx - 1] = val;
-              return newArray;
-            })}
+            value={weight[focusedIdx - 1]}
+            onValueChange={val =>
+              setWeight((prev: number[]) => {
+                const newArray = [...prev];
+                newArray[focusedIdx - 1] = val;
+                return newArray;
+              })
+            }
           />
           <Button title='Done' onPress={() => setShowModal(false)} />
         </View>
@@ -279,11 +288,11 @@ export function ExerciseLogPage() {
             <Pressable
               onPress={() => {
                 setNumOfSets(numOfSets + 1);
-                setReps((prev: number[]) => [...prev, prev[numOfSets-1]])
-                setWeight((prev: number[]) => [...prev, prev[numOfSets-1]])
+                setReps((prev: number[]) => [...prev, prev[numOfSets - 1]]);
+                setWeight((prev: number[]) => [...prev, prev[numOfSets - 1]]);
                 setFocusIdx(numOfSets + 1);
                 setCompleted(prev => [...prev, false]);
-                addSet(reps[numOfSets-1], weight[numOfSets-1])
+                addSet(reps[numOfSets - 1], weight[numOfSets - 1]);
               }}
               style={{
                 flexDirection: 'row',

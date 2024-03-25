@@ -45,13 +45,11 @@ export function FeaturedExercisesPage() {
   const navigation = useNavigation();
   const width = Dimensions.get('window').width;
   // @ts-ignore
-  const workoutName = route.params?.workoutName
+  const workoutName = route.params?.workoutName;
   // @ts-ignore
-  const exercises = route.params?.exercises
+  const exercises = route.params?.exercises;
   // @ts-ignore
-  const wId = route.params?.wId
-
- 
+  const wId = route.params?.wId;
 
   useEffect(() => {
     navigation.setOptions({
@@ -59,13 +57,15 @@ export function FeaturedExercisesPage() {
       headerBackTitle: 'Home',
     });
   }, []);
-  
+
   const handleNavigation = (exercise: IFeaturedExercises) => {
     // @ts-ignore
-    navigation.navigate('ExerciseDetails', { exerciseData: exercise, wId: wId });
+    navigation.navigate('ExerciseDetails', {
+      exerciseData: exercise,
+      wId: wId,
+    });
   };
 
- 
   const ExerciseList = (props: IExerciseProps) => (
     <View>
       <TouchableHighlight
@@ -91,7 +91,6 @@ export function FeaturedExercisesPage() {
       </TouchableHighlight>
     </View>
   );
-  
 
   const startWorkout = () => {
     const activeWorkout: IWorkout = {
@@ -111,8 +110,8 @@ export function FeaturedExercisesPage() {
       >
         <Text style={styles.header}>{exercises.length} Exercises</Text>
         {exercises.map((val: IFeaturedExercises, index: number) => (
-        <ExerciseList exercise={val} index={index} key={index} />
-      ))}
+          <ExerciseList exercise={val} index={index} key={index} />
+        ))}
       </ScrollView>
       <TouchableOpacity
         style={{
