@@ -280,7 +280,7 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
-    [HttpPut]
+    [HttpPut("AddSet")]
     public async Task<IActionResult> AddSet(Guid wId, int eId)
     {
         var workoutExercises = await database.WorkoutExercises.Where(we => we.WId == wId && we.EId == eId).ToListAsync();
@@ -321,7 +321,7 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
-    [HttpPut]
+    [HttpPut("UpdateSet")]
     public async Task<IActionResult> UpdateSet(Guid wId, int eId, int setNum, int? newReps, int? newWeight)
     {
         var workoutExercise = await database.WorkoutExercises.SingleOrDefaultAsync(we => we.WId == wId && we.EId == eId && we.SetNumber == setNum);
