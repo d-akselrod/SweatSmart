@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addLoggedExercise, end } from '../../redux/slices/workoutSlice';
+import { addSetToExercise } from '../../service/WorkoutPlanAPI';
 
 export function ExerciseLogPage() {
   const navigation = useNavigation();
@@ -33,15 +34,19 @@ export function ExerciseLogPage() {
   const [showModal, setShowModal] = useState(false);
   // @ts-ignore
   const exercise = route.params?.exerciseData;
-  const [reps, setReps] = useState(exercise.reps);
-  const [weight, setWeight] = useState(100);
+  const [reps, setReps] = useState(
+    exercise.sets.map((val: { reps: number; weight: number }) => val.reps),
+  );
+  const [weight, setWeight] = useState(
+    exercise.sets.map((val: { reps: number; weight: number }) => val.weight),
+  );
   const [completed, setCompleted] = useState<boolean[]>(
     activeWorkout.loggedExercises.hasOwnProperty(exercise.exerciseName)
       ? activeWorkout.loggedExercises[exercise.exerciseName]
-      : new Array(exercise.sets).fill(false),
+      : new Array(exercise.sets.length).fill(false),
   );
   const [focusedIdx, setFocusIdx] = useState<number>(1);
-  const [numOfSets, setNumOfSets] = useState(exercise.sets);
+  const [numOfSets, setNumOfSets] = useState(exercise.sets.length);
   const height = Dimensions.get('window').height;
   const SetDetailsComponent = (props: {
     setNumber: number;
@@ -108,8 +113,8 @@ export function ExerciseLogPage() {
       <SetDetailsComponent
         key={index}
         setNumber={index + 1}
-        reps={reps}
-        weight={weight}
+        reps={reps[index]}
+        weight={weight[index]}
       />
     ));
   };
@@ -143,29 +148,53 @@ export function ExerciseLogPage() {
     );
     navigation.goBack();
   };
+
+  const addSet = async (reps: number, weight: number) => {
+    try{
+      const response = await addSetToExercise(activeWorkout.workout.wId, exercise.eId, reps, weight)
+      if(response.ok){
+        console.log("blessed")
+      }
+      else{
+        console.log(response.status)
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={showModal}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps}</Text>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps[focusedIdx-1]}</Text>
           <Slider
             step={1}
             lowerLimit={1}
             maximumValue={30}
-            value={reps}
+            value={reps[focusedIdx-1]}
             minimumTrackTintColor={'#be4949'}
-            onValueChange={val => setReps(val)}
+            onValueChange={val => setReps((prev: number[]) => {
+              const newArray = [...prev];
+              newArray[focusedIdx - 1] = val;
+              return newArray;
+            })}
           />
           <Text style={{ fontSize: 17, fontWeight: '600' }}>
-            Weight: {weight}
+            Weight: {weight[focusedIdx-1]}
           </Text>
           <Slider
             minimumTrackTintColor={'#be4949'}
             step={5}
             lowerLimit={5}
             maximumValue={200}
-            value={weight}
-            onValueChange={val => setWeight(val)}
+            value={weight[focusedIdx-1]}
+            onValueChange={val => setWeight((prev: number[]) => {
+              const newArray = [...prev];
+              newArray[focusedIdx - 1] = val;
+              return newArray;
+            })}
           />
           <Button title='Done' onPress={() => setShowModal(false)} />
         </View>
@@ -240,7 +269,7 @@ export function ExerciseLogPage() {
             <View
               style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
             />
-            <Text>{exercise.sets} SETS</Text>
+            <Text>{exercise.sets.length} SETS</Text>
             <View
               style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
             />
@@ -250,8 +279,11 @@ export function ExerciseLogPage() {
             <Pressable
               onPress={() => {
                 setNumOfSets(numOfSets + 1);
+                setReps((prev: number[]) => [...prev, prev[numOfSets-1]])
+                setWeight((prev: number[]) => [...prev, prev[numOfSets-1]])
                 setFocusIdx(numOfSets + 1);
                 setCompleted(prev => [...prev, false]);
+                addSet(reps[numOfSets-1], weight[numOfSets-1])
               }}
               style={{
                 flexDirection: 'row',

@@ -23,6 +23,7 @@ import {
   Button,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { addSetToExercise, deleteSetFromExercise, updateSetOfExercise } from '../../service/WorkoutPlanAPI';
 
 export function ExerciseDetailsPage() {
   const navigation = useNavigation();
@@ -31,6 +32,8 @@ export function ExerciseDetailsPage() {
 
   // @ts-ignore
   const exercise = route.params?.exerciseData;
+  // @ts-ignore
+  const wId = route.params?.wId;
   const [completed, setCompleted] = useState<boolean[]>(
     new Array(exercise.sets.length).fill(false),
   );
@@ -40,11 +43,11 @@ export function ExerciseDetailsPage() {
   const [weight, setWeight] = useState(
     exercise.sets.map((val: { reps: number; weight: number }) => val.weight),
   );
+  
   const [showModal, setShowModal] = useState(false);
   const [focusedIdx, setFocusIdx] = useState<number>(1);
   const [numOfSets, setNumOfSets] = useState(exercise.sets.length);
   const height = Dimensions.get('window').height;
-  console.log(exercise.exerciseName);
   const SetDetailsComponent = (props: {
     setNumber: number;
     reps: number;
@@ -110,8 +113,8 @@ export function ExerciseDetailsPage() {
       <SetDetailsComponent
         key={index}
         setNumber={index + 1}
-        reps={reps}
-        weight={weight}
+        reps={reps[index]}
+        weight={weight[index]}
       />
     ));
   };
@@ -127,31 +130,104 @@ export function ExerciseDetailsPage() {
     });
   }, [completed]);
 
+  const addSet = async (reps: number, weight: number) => {
+    try{
+      const response = await addSetToExercise(wId, exercise.eId, reps, weight)
+      if(response.ok){
+        console.log("blessed")
+      }
+      else{
+        console.log(response.status)
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
+  const updateSet = async (reps: number, weight: number, setNum: number) => {
+    setShowModal(false)
+    try{
+      const response = await updateSetOfExercise(wId, exercise.eId, setNum, reps, weight)
+      if(response.ok){
+        console.log("blessed")
+      }
+      else{
+        console.log(response.status)
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+  
+  const deleteSet = () => {
+    setNumOfSets(numOfSets - 1);
+    setReps((prev: number[]) => {
+      const array = [...prev];
+      return array.filter((val, index) => index != focusedIdx-1)
+    })
+    setWeight((prev: number[]) => {
+      const array = [...prev];
+      return array.filter((val, index) => index != focusedIdx-1)
+    })
+    setShowModal(false)
+    deleteSetFromDB()
+  }
+  
+  const deleteSetFromDB = async () => {
+    try{
+      const response = await deleteSetFromExercise(wId, exercise.eId, focusedIdx);
+      if(response.ok){
+        console.log("blessed")
+      }
+      else{
+        console.log("could not delete set")
+      }
+    }
+    catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={showModal}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps}</Text>
+          <View style = {{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Text style={{ fontSize: 17, fontWeight: '600' }}>Reps: {reps[focusedIdx-1]}</Text>
+            <TouchableOpacity onPress = {() => deleteSet()}>
+              <MaterialIcons name="delete-outline" size={26} color="#be4949" />
+            </TouchableOpacity>
+          </View>
           <Slider
             step={1}
             lowerLimit={1}
             maximumValue={30}
-            value={reps}
+            value={reps[focusedIdx-1]}
             minimumTrackTintColor={'#be4949'}
-            onValueChange={val => setReps(val)}
+            onValueChange={val => setReps((prev: number[]) => {
+              const newArray = [...prev];
+              newArray[focusedIdx - 1] = val;
+              return newArray;
+            })}
           />
           <Text style={{ fontSize: 17, fontWeight: '600' }}>
-            Weight: {weight}
+            Weight: {weight[focusedIdx-1]}
           </Text>
           <Slider
             minimumTrackTintColor={'#be4949'}
             step={5}
             lowerLimit={5}
             maximumValue={200}
-            value={weight}
-            onValueChange={val => setWeight(val)}
+            value={weight[focusedIdx-1]}
+            onValueChange={val => setWeight((prev: number[]) => {
+              const newArray = [...prev];
+              newArray[focusedIdx - 1] = val;
+              return newArray;
+            })}
           />
-          <Button title='Done' onPress={() => setShowModal(false)} />
+          <Button title='Save' onPress={() => updateSet(reps[focusedIdx-1], weight[focusedIdx-1], focusedIdx)} />
         </View>
       </Modal>
       <ScrollView
@@ -224,7 +300,7 @@ export function ExerciseDetailsPage() {
             <View
               style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
             />
-            <Text>{exercise.sets} SETS</Text>
+            <Text>{exercise.sets.length} SETS</Text>
             <View
               style={{ width: '40%', height: 0.5, backgroundColor: 'black' }}
             />
@@ -234,8 +310,11 @@ export function ExerciseDetailsPage() {
             <Pressable
               onPress={() => {
                 setNumOfSets(numOfSets + 1);
+                setReps((prev: number[]) => [...prev, prev[numOfSets-1]])
+                setWeight((prev: number[]) => [...prev, prev[numOfSets-1]])
                 setFocusIdx(numOfSets + 1);
                 setCompleted(prev => [...prev, false]);
+                addSet(reps[numOfSets-1], weight[numOfSets-1])
               }}
               style={{
                 flexDirection: 'row',

@@ -281,7 +281,7 @@ public class WorkoutService : ControllerBase
 
     [Authorize]
     [HttpPut("AddSet")]
-    public async Task<IActionResult> AddSet(Guid wId, int eId)
+    public async Task<IActionResult> AddSet(Guid wId, int eId, int reps, int weight)
     {
         var workoutExercises = await database.WorkoutExercises.Where(we => we.WId == wId && we.EId == eId).ToListAsync();
 
@@ -295,7 +295,8 @@ public class WorkoutService : ControllerBase
             WId = wId,
             EId = eId,
             SetNumber = workoutExercises.Count + 1,
-            Reps = 5,
+            Reps = reps,
+            Weight = weight,
             PercentageOfOneRepMax = 0.875f,
         };
 

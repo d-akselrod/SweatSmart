@@ -162,9 +162,8 @@ export function WorkoutExercisesPage() {
   };
 
   const handleNavigation = (exercise: IWorkoutExercise) => {
-    console.log(exercise);
     // @ts-ignore
-    navigation.navigate('ExerciseDetails', { exerciseData: exercise });
+    navigation.navigate('ExerciseDetails', { exerciseData: exercise, wId: wId });
   };
 
   const deleteExercise = async (eId: number) => {
@@ -216,7 +215,6 @@ export function WorkoutExercisesPage() {
     const exerciseIds = workoutExercises.map(
       workoutExercise => workoutExercise.eId,
     );
-    console.log(exerciseIds);
     const filtered = exercises.filter(exercise => {
       return !exerciseIds.includes(exercise.eId);
     });
@@ -233,9 +231,7 @@ export function WorkoutExercisesPage() {
     // @ts-ignore
     navigation.navigate('StartWorkout', { exercises: workoutExercises });
   };
-
-  console.log(workoutExercises);
-
+  
   return (
     <View>
       <Modal transparent={true} visible={visible}>
