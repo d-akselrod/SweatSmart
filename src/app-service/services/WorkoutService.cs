@@ -305,7 +305,7 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete]
+    [HttpDelete("DeleteSet")]
     public async Task<IActionResult> RemoveSet(Guid wId, int eId, int setNum)
     {
         var workoutExercise = await database.WorkoutExercises.SingleOrDefaultAsync(we => we.WId == wId && we.EId == eId && we.SetNumber == setNum);
