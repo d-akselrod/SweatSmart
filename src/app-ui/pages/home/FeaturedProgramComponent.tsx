@@ -6,24 +6,39 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Pressable,
 } from 'react-native';
-import { IFeaturedWorkout } from '../../typings/types';
+import {IFeaturedExercises, IFeaturedWorkout } from '../../typings/types';
+import { useNavigation } from '@react-navigation/native';
 
 interface IFeaturedProgram {
   workout: IFeaturedWorkout;
   index: number;
   workouts: IFeaturedWorkout[];
+  exercises: IFeaturedExercises[][];
 }
 
 const width = Dimensions.get('window').width;
 export function FeaturedProgramComponent(props: IFeaturedProgram) {
-  const { workout, index, workouts } = props;
+  const { workout, index, workouts, exercises } = props;
+  const navigation = useNavigation();
+
+  const handleNavigtion = () => {
+    // @ts-ignore
+    navigation.navigate('FeaturedExerciseList', {
+      workoutName: workout.name,
+      id: workout.wId,
+      exercises: exercises[index]
+    });
+  };
+  
   return (
-    <View
+    <Pressable
       style={[
         styles.container,
         { marginRight: index === workouts.length - 1 ? 15 : 0 },
       ]}
+      onPress = {() => handleNavigtion()}
     >
       <TouchableOpacity style={styles.play}>
         <Ionicons name='play' size={20} color='#e74341' />
@@ -56,7 +71,7 @@ export function FeaturedProgramComponent(props: IFeaturedProgram) {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

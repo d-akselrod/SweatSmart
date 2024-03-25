@@ -22,6 +22,7 @@ export interface IWorkout {
   name?: string;
   date?: Date;
   duration?: number;
+  isGenerated?: number;
 }
 
 export interface IWorkoutPlan {
@@ -33,11 +34,21 @@ export interface IWorkoutPlan {
 }
 
 export interface IFeaturedWorkout {
+  wId: number
   duration: number;
   name: string;
   numOfExercies: number;
   image: any;
   type: string;
+}
+
+export interface IFeaturedExercises{
+  eId: number;
+  muscleGroup: string;
+  exerciseName: string;
+  targetMuscle: string;
+  level: string;
+  sets: { reps: number; weight: number }[];
 }
 
 export interface IExercise {

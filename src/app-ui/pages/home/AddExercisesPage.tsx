@@ -87,6 +87,7 @@ export function AddExercisesPage(props: IExerciseProps) {
           name: workoutName,
           date: new Date(),
           duration: Math.floor(Math.random() * 3600),
+          isGenerated: 0
         };
 
         const response = await postWorkout(activeUser.username, workout);

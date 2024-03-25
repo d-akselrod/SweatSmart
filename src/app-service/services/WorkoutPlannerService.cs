@@ -172,7 +172,8 @@ public class WorkoutPlannerService : ControllerBase
             WId = WId,
             name = workoutName,
             date = DateTime.Now,
-            duration = totalWorkoutTime
+            duration = totalWorkoutTime,
+            isGenerated = 1
         };
 
         await database.Workouts.AddAsync(newWorkout);

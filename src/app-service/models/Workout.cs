@@ -20,5 +20,8 @@ public class Workout
 
     [Column("Duration", TypeName = "int")]
     public int? duration { get; set; }
+    
+    [Column("isGenerated", TypeName = "int")]
+    public int? isGenerated { get; set; }
 
 }

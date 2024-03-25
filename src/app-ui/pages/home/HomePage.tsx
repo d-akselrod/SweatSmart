@@ -23,6 +23,7 @@ import { WorkoutProgramComponent } from './WorkoutProgramComponent';
 import { getWorkouts } from '../../service/WorkoutAPI';
 import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
+import { featuredExercises } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
 
@@ -36,7 +37,7 @@ export function HomePage() {
   const navigation = useNavigation();
   const workoutView: string[] = [
     'All Programs',
-    'AI generated',
+    'Generated',
     'Created By Me',
   ];
 
@@ -44,6 +45,7 @@ export function HomePage() {
     setChosenWorkoutIdx(index);
   };
 
+  console.log(workouts)
   const showWorkoutView = () => {
     return workoutView.map((program, index) => {
       return (
@@ -143,7 +145,7 @@ export function HomePage() {
               {showWorkoutView()}
             </View>
             <FlatList
-              data={workouts}
+              data={chosenWorkoutIdx == 0 ? workouts : chosenWorkoutIdx == 1 ? workouts.filter(val => val.isGenerated === 1) : workouts.filter(val => val.isGenerated === 0)}
               renderItem={({ item, index }) => (
                 <WorkoutProgramComponent
                   workout={item}
@@ -179,6 +181,7 @@ export function HomePage() {
                   workout={item}
                   index={index}
                   workouts={featuredWorkouts}
+                  exercises = {featuredExercises}
                 />
               )}
               horizontal
