@@ -4,12 +4,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { IWorkout } from '../../typings/types';
 //import { Picker } from '@react-native-picker/picker';
 
-export interface IWorkoutCardProps extends IWorkout {
-  [x: string]: any;
-  exercises: string[];
-  sets: number[];
-  reps: number[];
-  percentageOfOneRepMax: number[];
+export interface IWorkoutCardProps {
+  name: string;
+  date?: Date;
+  numOfExercises: number;
+  duration: number
 }
 
 export function WorkoutCard(props: IWorkoutCardProps) {
@@ -17,12 +16,8 @@ export function WorkoutCard(props: IWorkoutCardProps) {
     name,
     date,
     duration,
-    exercises = [],
-    sets = [],
-    reps = [],
-    percentageOfOneRepMax = [],
+    numOfExercises
   } = props;
-  const [expanded, setExpanded] = useState(false);
 
   const formattedDate =
     date instanceof Date
@@ -48,26 +43,10 @@ export function WorkoutCard(props: IWorkoutCardProps) {
               <Ionicons name='barbell-outline' size={14} color='grey' />
               <Text
                 style={styles.detailText}
-              >{`${exercises.length} exercises`}</Text>
+              >{`${numOfExercises} exercises`}</Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => setExpanded(!expanded)}
-            style={styles.expandButton}
-          >
-            <Ionicons
-              name={expanded ? 'ios-chevron-up' : 'ios-chevron-down'}
-              size={24}
-              color='#007AFF'
-            />
-          </TouchableOpacity>
         </View>
-        {expanded &&
-          exercises.map((exercise, index) => (
-            <Text key={index} style={styles.content}>
-              {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${percentageOfOneRepMax[index]}% of 1RM`}
-            </Text>
-          ))}
       </View>
     </View>
   );

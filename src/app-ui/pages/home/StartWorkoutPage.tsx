@@ -16,7 +16,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { ProgressBar } from './ProgressBar';
 import Timer from '../../components/Timer';
-import { end } from '../../redux/slices/workoutSlice';
+import { end, recordWorkout } from '../../redux/slices/workoutSlice';
 import { completeWorkout } from '../../service/WorkoutAPI';
 import { addSetToExercise } from '../../service/WorkoutPlanAPI';
 import { IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
@@ -80,7 +80,7 @@ export function StartWorkoutPage() {
     console.log(activeUser.username, activeWorkout.wId);
     try {
       await completeWorkout(activeUser.username, activeWorkout.workout.wId);
-      dispatch(end());
+      dispatch(recordWorkout({workout: activeWorkout.workout.wId, duration: seconds}));
     } catch (error) {
       console.log(error);
     } finally {

@@ -39,6 +39,7 @@ import {
   IWorkoutExercise,
 } from '../../typings/types';
 
+
 interface IExerciseProps {
   exercise: IWorkoutExercise;
   index: number;
@@ -61,6 +62,8 @@ export function WorkoutExercisesPage() {
   const width = Dimensions.get('window').width;
   const [visible, setVisibility] = useState(false);
   const [name, setName] = useState('');
+
+  console.log(activeWorkout)
 
   const createDeleteAlert = () =>
     Alert.alert(

@@ -163,7 +163,6 @@ export function AddExercisesPage(props: IExerciseProps) {
       <View style={styles.search}>
         <SearchBar
           placeholder={'Search'}
-          onSearch={() => {}}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={text => setSearch(text)}
