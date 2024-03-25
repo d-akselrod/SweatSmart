@@ -133,3 +133,13 @@ export const updateWorkoutName = (wId: string, newName: string) => {
     },
   );
 };
+
+export const getWorkoutByWId = (wId: string) => {
+  return fetch(`${API_URL}/WorkoutService/workout/${wId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};

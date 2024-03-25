@@ -7,7 +7,10 @@ import { StatisticsHeader } from './StatisticsHeader';
 import { IWorkoutCardProps, WorkoutCard } from './WorkoutCard';
 import { getExerciseByEid } from '../../service/ExerciseAPI';
 //import { getUserWorkoutByWid } from '../../service/UserWorkoutAPI';
-import { getCompletedWorkouts } from '../../service/WorkoutAPI';
+import {
+  getCompletedWorkouts,
+  getWorkoutByWId,
+} from '../../service/WorkoutAPI';
 import { getWorkoutPlanByWid } from '../../service/WorkoutPlanAPI';
 import { IUser, IWorkout } from '../../typings/types';
 
@@ -18,36 +21,31 @@ export function ProgressPage() {
   const [workouts, setWorkouts] = useState<IWorkoutCardProps[]>([]);
   const [workoutsCompleted, setWorkoutsCompleted] = useState<number>(0);
   const [workoutPlan, setWorkoutPlan] = useState<IWorkoutCardProps[]>([]);
-  const [joinedWorkouts, setJoinedWorkouts] = useState<IWorkoutCardProps[]>([]);
   const [totalCompletedExercises, setTotalCompletedExercises] =
     useState<number>(0);
 
-  useEffect(() => {
-    const loadWorkouts = async () => {
-      try {
-        const response = await getCompletedWorkouts(activeUser.username);
-        if (response.ok) {
-          const data = await response.json();
-          setWorkouts(data.body);
-        } else {
-          console.error(response);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    loadWorkouts();
-  }, [activeWorkout]);
-
-  const renderWorkouts = (duration: number, exercisesLogged: number, workout: string) => {
-    return <WorkoutCard duration = {duration} name = {workout} numOfExercises = {exercisesLogged}  />;
+  const renderWorkout = (
+    duration: number,
+    exercisesLogged: number,
+    wId: string,
+  ) => {
+    return (
+      <WorkoutCard
+        duration={duration}
+        wId={wId}
+        numOfExercises={exercisesLogged}
+      />
+    );
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatisticsHeader
-        workouts={workoutsCompleted}
-        exercises={totalCompletedExercises}
+        workouts={activeWorkout.previousWorkouts.length}
+        exercises={activeWorkout.previousWorkouts.reduce(
+          (curr: any, prev: any) => curr + prev.exercisesLogged,
+          0,
+        )}
       />
       <PastWorkoutsHeader
         username={activeUser.username}
@@ -58,7 +56,9 @@ export function ProgressPage() {
       />
       <FlatList
         data={activeWorkout.previousWorkouts}
-        renderItem={({ item }) => renderWorkouts(item.duration, item.exercisesLogged, item.workout)}
+        renderItem={({ item }) =>
+          renderWorkout(item.duration, item.exercisesLogged, item.workout)
+        }
       />
     </SafeAreaView>
   );

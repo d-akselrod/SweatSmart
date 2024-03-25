@@ -36,6 +36,20 @@ public class WorkoutService : ControllerBase
     }
 
     [Authorize]
+    [HttpGet("workout/{wId}")]
+    public async Task<IActionResult> GetWorkout(Guid wId)
+    {
+        var workout = await database.Workouts.SingleOrDefaultAsync(workout => workout.WId == wId);
+
+        if (workout == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        return new APIResponse(200, null, workout);
+    }
+
+    [Authorize]
     [HttpGet("{username}")]
     public async Task<IActionResult> GetWorkoutsByUsername(string username)
     {

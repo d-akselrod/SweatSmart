@@ -80,7 +80,12 @@ export function StartWorkoutPage() {
     console.log(activeUser.username, activeWorkout.wId);
     try {
       await completeWorkout(activeUser.username, activeWorkout.workout.wId);
-      dispatch(recordWorkout({workout: activeWorkout.workout.wId, duration: seconds}));
+      dispatch(
+        recordWorkout({
+          workout: activeWorkout.workout.wId,
+          duration: seconds,
+        }),
+      );
     } catch (error) {
       console.log(error);
     } finally {

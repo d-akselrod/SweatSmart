@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: 'gray',
+    backgroundColor: '#e0e0e0',
     marginRight: 10,
   },
   accountInfo: {
