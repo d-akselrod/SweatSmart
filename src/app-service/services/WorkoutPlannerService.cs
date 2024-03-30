@@ -36,9 +36,17 @@ public class WorkoutPlannerService : ControllerBase
     [HttpPost("SingularWorkout")]
     public async Task<IActionResult> GenerateSingularWorkout(GenerateWorkoutRequest body)
     {
+        var username = body.username;
+        var user = await database.Users.SingleOrDefaultAsync(u => encryptionHelper.Encrypt(username) == u.Username);
+
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
         var workoutExercises = await GenerateWorkout(body);
 
-        if (workoutExercises.Count == 0)
+        if (workoutExercises == null || workoutExercises.Count == 0)
         {
             return APIResponse.NotFound;
         }
@@ -52,6 +60,13 @@ public class WorkoutPlannerService : ControllerBase
     {
         var username = body.username;
         var frequency = body.frequency;
+
+        var user = await database.Users.SingleOrDefaultAsync(u => encryptionHelper.Encrypt(username) == u.Username);
+
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
 
         var workoutSplit = DetermineWorkoutSplit(frequency);
 
@@ -157,7 +172,8 @@ public class WorkoutPlannerService : ControllerBase
             WId = WId,
             name = workoutName,
             date = DateTime.Now,
-            duration = totalWorkoutTime
+            duration = totalWorkoutTime,
+            isGenerated = 1
         };
 
         await database.Workouts.AddAsync(newWorkout);
@@ -170,24 +186,28 @@ public class WorkoutPlannerService : ControllerBase
             Status = WorkoutStatus.NotStarted,
         };
 
-        await database.UserWorkout.AddAsync(workout);
+        await database.UserWorkouts.AddAsync(workout);
         await database.SaveChangesAsync();
 
         foreach (var exercise in workoutExercises)
         {
-            var workoutPlan = new WorkoutPlan
+            for (int set = 1; set <= exercise.Sets; set++)
             {
-                WId = WId,
-                EId = exercise.EId,
-                Sets = exercise.Sets,
-                Reps = exercise.Reps,
-                PercentageOfOneRepMax = percOneRM
-            };
-            database.WorkoutPlans.Add(workoutPlan);
+                var workoutExercise = new WorkoutExercise
+                {
+                    WId = WId,
+                    EId = exercise.EId,
+                    SetNumber = set,
+                    Reps = exercise.Reps,
+                    Weight = 80,
+                    PercentageOfOneRepMax = percOneRM
+                };
+
+                await database.WorkoutExercises.AddAsync(workoutExercise);
+            }
         }
 
         await database.SaveChangesAsync();
-
         return workoutExercises;
     }
 

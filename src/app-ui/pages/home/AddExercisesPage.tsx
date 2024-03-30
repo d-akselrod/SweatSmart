@@ -76,6 +76,8 @@ export function AddExercisesPage(props: IExerciseProps) {
     }
   };
 
+  console.log(workoutName);
+
   const addExercises = async () => {
     let workoutId: string | undefined = wId;
 
@@ -84,7 +86,8 @@ export function AddExercisesPage(props: IExerciseProps) {
         const workout = {
           name: workoutName,
           date: new Date(),
-          duration: 0,
+          duration: Math.floor(Math.random() * 3600),
+          isGenerated: 0,
         };
 
         const response = await postWorkout(activeUser.username, workout);
@@ -160,7 +163,6 @@ export function AddExercisesPage(props: IExerciseProps) {
       <View style={styles.search}>
         <SearchBar
           placeholder={'Search'}
-          onSearch={() => {}}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={text => setSearch(text)}

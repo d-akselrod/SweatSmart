@@ -11,11 +11,14 @@ import {
   ScrollView,
   TouchableOpacity,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { ProgressBar } from './ProgressBar';
 import Timer from '../../components/Timer';
-import { end } from '../../redux/slices/workoutSlice';
+import { end, recordWorkout } from '../../redux/slices/workoutSlice';
 import { completeWorkout } from '../../service/WorkoutAPI';
+import { addSetToExercise } from '../../service/WorkoutPlanAPI';
 import { IUser, IWorkout, IWorkoutExercise } from '../../typings/types';
 
 interface IExerciseProps {
@@ -24,10 +27,8 @@ interface IExerciseProps {
 }
 export function StartWorkoutPage() {
   const activeUser: IUser = useSelector((state: any) => state.user);
-  const activeWorkout: IWorkout = useSelector((state: any) => state.workout);
-
+  const activeWorkout: any = useSelector((state: any) => state.workout);
   const dispatch = useDispatch();
-
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
   const interval = useRef(0);
@@ -35,7 +36,6 @@ export function StartWorkoutPage() {
   const route = useRoute();
   // @ts-ignore
   const exercises = route.params?.exercises;
-
   useEffect(() => {
     if (isRunning) {
       interval.current = setInterval(() => {
@@ -45,6 +45,20 @@ export function StartWorkoutPage() {
       clearInterval(interval.current);
     }
   }, [isRunning]);
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      'Incomplete Workout',
+      'You have not logged all of your sets. Are you sure you want to finish?',
+      [
+        {
+          text: 'Resume',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Finish', onPress: () => handleCompleteWorkout() },
+      ],
+    );
   const formatTime = (timeInSeconds: number) => {
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
@@ -59,14 +73,19 @@ export function StartWorkoutPage() {
 
   const handleNavigation = (exercise: IWorkoutExercise) => {
     // @ts-ignore
-    navigation.navigate('ExerciseDetails', { exerciseData: exercise });
+    navigation.navigate('ExerciseLogger', { exerciseData: exercise });
   };
 
   const handleCompleteWorkout = async () => {
+    console.log(activeUser.username, activeWorkout.wId);
     try {
-      await completeWorkout(activeUser.username, activeWorkout.wId);
-      dispatch(end());
-      console.log();
+      await completeWorkout(activeUser.username, activeWorkout.workout.wId);
+      dispatch(
+        recordWorkout({
+          workout: activeWorkout.workout.wId,
+          duration: seconds,
+        }),
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -74,30 +93,78 @@ export function StartWorkoutPage() {
     }
   };
 
-  const ExerciseList = (props: IExerciseProps) => (
-    <TouchableHighlight
-      style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
-      activeOpacity={0.5}
-      underlayColor='#efefef'
-      onPress={() => handleNavigation(props.exercise)}
-    >
-      <View style={[styles.exerciseContainer]}>
-        <View style={{ gap: 5 }}>
-          <Text style={styles.exerciseName}>{props.exercise.exerciseName}</Text>
-          <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
-            <Entypo name='dot-single' size={15} color='black' />
-            <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>
+  const handleCancelWorkout = () => {
+    console.log(activeWorkout);
+    dispatch(end());
+    navigation.goBack();
+  };
+
+  const ExerciseList = (props: IExerciseProps) => {
+    const someCompleted = !activeWorkout.loggedExercises.hasOwnProperty(
+      props.exercise.exerciseName,
+    )
+      ? false
+      : activeWorkout.loggedExercises[props.exercise.exerciseName].every(
+          (val: boolean) => !val,
+        )
+      ? false
+      : true;
+    return (
+      <TouchableHighlight
+        style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
+        activeOpacity={0.5}
+        underlayColor='#efefef'
+        onPress={() => handleNavigation(props.exercise)}
+      >
+        <View style={[styles.exerciseContainer]}>
+          <View style={{ gap: 5 }}>
+            <Text style={styles.exerciseName}>
+              {props.exercise.exerciseName}
+            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
+              <Entypo name='dot-single' size={15} color='black' />
+              <Text style={{ fontSize: 13 }}>
+                {props.exercise.sets.length} Sets
+              </Text>
+            </View>
+            {someCompleted && (
+              <Text
+                style={{ fontSize: 13, fontWeight: '600', color: '#258a21' }}
+              >
+                {activeWorkout.loggedExercises[
+                  props.exercise.exerciseName
+                ].filter((val: boolean) => val).length + ' of '}
+                {activeWorkout.loggedExercises[props.exercise.exerciseName]
+                  .length + ' Logged'}
+              </Text>
+            )}
           </View>
+          <AntDesign name='ellipsis1' size={20} color='black' />
         </View>
-        <AntDesign name='ellipsis1' size={20} color='black' />
-      </View>
-    </TouchableHighlight>
-  );
+      </TouchableHighlight>
+    );
+  };
+
+  const createAlert = () =>
+    Alert.alert(
+      'Cancel Workout',
+      'Are you sure you want to exit? The progress will not be saved',
+      [
+        {
+          text: 'Resume',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'End', onPress: () => handleCancelWorkout() },
+      ],
+    );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <TouchableOpacity onPress={createAlert} style={{ padding: 10 }}>
+        <Text style={{ fontSize: 15, fontWeight: '600' }}>Cancel</Text>
+      </TouchableOpacity>
       <ScrollView
         style={{ marginLeft: 20 }}
         contentContainerStyle={{ paddingBottom: 100 }}
@@ -122,7 +189,7 @@ export function StartWorkoutPage() {
       </ScrollView>
       <TouchableOpacity
         style={styles.stopButton}
-        onPress={handleCompleteWorkout}
+        onPress={createTwoButtonAlert}
       >
         <Entypo name='controller-stop' size={30} color='white' />
       </TouchableOpacity>

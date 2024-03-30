@@ -15,4 +15,8 @@ public class Friendship
     [Required]
     [Column("friend2", TypeName = "VarChar(32)")]
     public string Friend2 { get; set; }
+
+    [Required]
+    [Column("state", TypeName = "Int")]
+    public int State { get; set; }
 }

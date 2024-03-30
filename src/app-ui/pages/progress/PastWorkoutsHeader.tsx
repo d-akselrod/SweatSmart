@@ -13,11 +13,6 @@ export function PastWorkoutsHeader({
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerTitle}>Past Workouts</Text>
-      <View style={styles.rightSection}>
-        <TouchableOpacity onPress={() => {}} style={styles.addButton}>
-          <Ionicons name='ios-add' size={24} color='red' />
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }

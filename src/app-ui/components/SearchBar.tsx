@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 interface ISearchBarProps extends TextInputProps {
-  onSearch: (query: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
 }
@@ -25,7 +24,7 @@ const cancelButton = () => (
 );
 
 export function SearchBar(props: ISearchBarProps) {
-  const { placeholder, onChangeText, onSearch, onFocus, onBlur } = props; // Destructuring the new props
+  const { placeholder, onChangeText, onFocus, onBlur } = props; // Destructuring the new props
 
   const [value, setValue] = React.useState('');
   const [isFocused, setIsFocused] = React.useState(false);

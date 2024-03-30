@@ -44,3 +44,16 @@ export const getExerciseByEid = (eid: number) => {
     },
   });
 };
+
+export const deleteExerciseFromWorkout = (wId: string, eId: number) => {
+  return fetch(
+    `${API_URL}/WorkoutService/DeleteExerciseFromWorkout?wId=${wId}&eId=${eId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: API_AUTH,
+      },
+    },
+  );
+};

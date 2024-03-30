@@ -1,37 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { getWorkoutByWId } from '../../service/WorkoutAPI';
 import { IWorkout } from '../../typings/types';
 //import { Picker } from '@react-native-picker/picker';
 
-export interface IWorkoutCardProps extends IWorkout {
-  [x: string]: any;
-  exercises: string[];
-  sets: number[];
-  reps: number[];
-  percentageOfOneRepMax: number[];
+export interface IWorkoutCardProps {
+  wId: string;
+  numOfExercises: number;
+  duration: number;
 }
 
 export function WorkoutCard(props: IWorkoutCardProps) {
-  const {
-    name,
-    date,
-    duration,
-    exercises = [],
-    sets = [],
-    reps = [],
-    percentageOfOneRepMax = [],
-  } = props;
-  const [expanded, setExpanded] = useState(false);
+  const { wId, duration, numOfExercises } = props;
+
+  const [workout, setWorkout] = useState<IWorkout>();
+
+  useEffect(() => {
+    const loadWorkoutData = async (wId: string) => {
+      try {
+        const response = await getWorkoutByWId(wId);
+        if (response.ok) {
+          const data = await response.json();
+          setWorkout(data.body as IWorkout);
+        } else {
+          console.log(response);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadWorkoutData(wId);
+  }, []);
 
   const formattedDate =
-    date instanceof Date
-      ? date.toLocaleDateString('en-US', {
+    workout?.date instanceof Date
+      ? workout?.date.toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric',
           year: 'numeric',
         })
       : '';
+
+  const name = workout?.name;
 
   return (
     <View style={styles.card}>
@@ -42,32 +54,18 @@ export function WorkoutCard(props: IWorkoutCardProps) {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.details}>
               <FontAwesome5 name='clock' size={14} color='grey' />
-              <Text style={styles.detailText}>{`${duration} min`}</Text>
+              <Text style={styles.detailText}>
+                {new Date(duration * 1000).toISOString().substr(11, 8)}
+              </Text>
             </View>
             <View style={styles.details}>
               <Ionicons name='barbell-outline' size={14} color='grey' />
               <Text
                 style={styles.detailText}
-              >{`${exercises.length} exercises`}</Text>
+              >{`${numOfExercises} exercises`}</Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => setExpanded(!expanded)}
-            style={styles.expandButton}
-          >
-            <Ionicons
-              name={expanded ? 'ios-chevron-up' : 'ios-chevron-down'}
-              size={24}
-              color='#007AFF'
-            />
-          </TouchableOpacity>
         </View>
-        {expanded &&
-          exercises.map((exercise, index) => (
-            <Text key={index} style={styles.content}>
-              {`${exercise} - ${sets[index]} sets of ${reps[index]} reps. Load: ${percentageOfOneRepMax[index]}% of 1RM`}
-            </Text>
-          ))}
       </View>
     </View>
   );
@@ -120,6 +118,6 @@ const styles = StyleSheet.create({
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '80%',
+    width: '100%',
   },
 });

@@ -9,3 +9,13 @@ export const getUserWorkoutByWid = (wid: string) => {
     },
   });
 };
+
+export const deleteWorkoutByWid = (wid: string) => {
+  return fetch(`${API_URL}/WorkoutService/Workout?wId=${wid}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: API_AUTH,
+    },
+  });
+};

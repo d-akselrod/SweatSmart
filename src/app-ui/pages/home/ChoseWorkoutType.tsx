@@ -36,7 +36,7 @@ export const ChoseWorkoutType = (props: IChoseWorkoutTypeProps) => {
         console.log('ERROR HAS OCCURED!');
       }
     } catch (e) {
-      console.error(e);
+      console.log('wrong');
     }
   };
 

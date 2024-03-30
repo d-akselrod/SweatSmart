@@ -15,9 +15,12 @@ import { ChatBotPage } from './pages/chatbot/ChatBotPage';
 import { AddExercisesPage } from './pages/home/AddExercisesPage';
 import { AddWorkout } from './pages/home/AddWorkout';
 import { ExerciseDetailsPage } from './pages/home/ExerciseDetailsPage';
+import { ExerciseLogPage } from './pages/home/ExerciseLogPage';
 import { ExercisePage } from './pages/home/ExercisePage';
+import { FeaturedExercisesPage } from './pages/home/FeaturedExercisesPage';
 import { HomePage } from './pages/home/HomePage';
 import { StartWorkoutPage } from './pages/home/StartWorkoutPage';
+import { VideoDemoPage } from './pages/home/VideoDemoPage';
 import { WorkoutExercisesPage } from './pages/home/WorkoutExercisesPage';
 import { LoginPage } from './pages/login/LoginPage';
 import { AddPreferencesPage } from './pages/onboarding/AddPreferencesPage';
@@ -64,6 +67,19 @@ const HomeStack = () => (
       options={{ headerShown: true }}
     />
     <Stack.Screen
+      name='VideoDemoPage'
+      component={VideoDemoPage}
+      options={{
+        headerShown: true,
+        title: 'Bench Press Demo',
+      }}
+    />
+    <Stack.Screen
+      name='FeaturedExerciseList'
+      component={FeaturedExercisesPage}
+      options={{ headerShown: true }}
+    />
+    <Stack.Screen
       name='WorkoutPage'
       component={AddWorkout}
       options={{
@@ -75,6 +91,11 @@ const HomeStack = () => (
     <Stack.Screen
       name='ExerciseDetails'
       component={ExerciseDetailsPage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='ExerciseLogger'
+      component={ExerciseLogPage}
       options={{ headerShown: false }}
     />
     <Stack.Screen

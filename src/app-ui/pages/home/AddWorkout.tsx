@@ -26,7 +26,6 @@ import { IExercise, IUser } from '../../typings/types';
 
 export function AddWorkout() {
   const activeUser: IUser = useSelector((state: any) => state.user);
-  const [name, setName] = useState('');
   const [option, setOption] = useState(0);
   const [workoutType, setWorkoutType] = useState(0);
   const [frequency, setFrequency] = useState<number>(0);
@@ -52,8 +51,6 @@ export function AddWorkout() {
     }
   };
 
-  
-
   useEffect(() => {
     const loadUserFrequency = async () => {
       try {
@@ -70,8 +67,8 @@ export function AddWorkout() {
         console.error(error);
       }
     };
-    
-    loadUserFrequency()
+
+    loadUserFrequency();
   }, []);
   const handleGenerateWorkoutPlan = async () => {
     try {
@@ -127,9 +124,9 @@ export function AddWorkout() {
           <AddExercisesPage
             exercises={exercises}
             close={() => handleClose()}
-            workoutName={name}
+            workoutName={'New Workout'}
             navigate={(wId: string, name: string) =>
-              handleNavigation(wId, name)
+              handleNavigation(wId, 'New Workout')
             }
           />
         )}
@@ -144,12 +141,6 @@ export function AddWorkout() {
       </Modal>
 
       <View style={styles.container}>
-        <Text style={styles.title}>Build a new workout</Text>
-        <TextInput
-          placeholder={'Name of workout'}
-          style={styles.input}
-          onChangeText={text => setName(text)}
-        />
         <Pressable
           style={[
             styles.weeklybutton,

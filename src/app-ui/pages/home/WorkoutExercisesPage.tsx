@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { useEffect, useRef, useState } from 'react';
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 import {
   useIsFocused,
   useNavigation,
@@ -15,13 +15,29 @@ import {
   TouchableOpacity,
   Modal,
   Dimensions,
+  Animated,
+  PanResponder,
+  Alert,
+  TextInput,
+  Button,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddExercisesPage } from './AddExercisesPage';
 import { StartWorkoutPage } from './StartWorkoutPage';
 import { start } from '../../redux/slices/workoutSlice';
-import { getAllExercises, getExercisesByWId } from '../../service/WorkoutAPI';
-import { IExercise, IWorkout, IWorkoutExercise } from '../../typings/types';
+import { deleteExerciseFromWorkout } from '../../service/ExerciseAPI';
+import { deleteWorkoutByWid } from '../../service/UserWorkoutAPI';
+import {
+  getAllExercises,
+  getExercisesByWId,
+  updateWorkoutName,
+} from '../../service/WorkoutAPI';
+import {
+  IExercise,
+  IUser,
+  IWorkout,
+  IWorkoutExercise,
+} from '../../typings/types';
 
 interface IExerciseProps {
   exercise: IWorkoutExercise;
@@ -29,7 +45,6 @@ interface IExerciseProps {
 }
 export function WorkoutExercisesPage() {
   const dispatch = useDispatch();
-
   const route = useRoute();
   const navigation = useNavigation();
   const [workoutExercises, setWorkoutExercises] = useState<IWorkoutExercise[]>(
@@ -37,21 +52,77 @@ export function WorkoutExercisesPage() {
   );
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const [showPage, setShow] = useState<boolean>(false);
-  const [showStartWorkout, setStartWorkout] = useState<boolean>(false);
+  const activeWorkout: any = useSelector((state: any) => state.workout);
   const isFocused = useIsFocused();
-
   // @ts-ignore
-  const workoutName = route.params?.workoutName;
+  const [workoutName, setWorkoutName] = useState(route.params?.workoutName);
   // @ts-ignore
   const wId = route.params?.id;
   const width = Dimensions.get('window').width;
+  const [visible, setVisibility] = useState(false);
+  const [name, setName] = useState('');
+
+  console.log(activeWorkout);
+
+  const createDeleteAlert = () =>
+    Alert.alert(
+      'Delete Workout',
+      'Are you sure you want to delete this workout?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Delete', onPress: () => deleteWorkout() },
+      ],
+    );
+
+  const changeWorkoutName = async () => {
+    setWorkoutName(name);
+    try {
+      const response = await updateWorkoutName(wId, name);
+      if (response.ok) {
+        setVisibility(false);
+      } else {
+        console.log('Not Working');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const deleteWorkout = async () => {
+    try {
+      const response = await deleteWorkoutByWid(wId);
+      if (response.ok) {
+        navigation.goBack();
+      } else {
+        console.log('Error deleting workout');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     navigation.setOptions({
       title: workoutName,
       headerBackTitle: 'Home',
+      headerRight: () => (
+        <View style={{ flexDirection: 'row', gap: 10, marginRight: 20 }}>
+          <TouchableOpacity onPress={() => setVisibility(true)}>
+            <AntDesign name='edit' size={24} color='black' />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={createDeleteAlert}>
+            <MaterialIcons name='delete-outline' size={24} color='black' />
+          </TouchableOpacity>
+        </View>
+      ),
     });
+  }, [workoutName]);
 
+  useEffect(() => {
     const getWorkoutExercises = async () => {
       try {
         const response = await getExercisesByWId(wId);
@@ -68,7 +139,7 @@ export function WorkoutExercisesPage() {
 
     getWorkoutExercises();
     getExercises();
-  }, [isFocused, showPage]);
+  }, [isFocused, showPage, name]);
 
   const getExercises = async () => {
     try {
@@ -93,11 +164,29 @@ export function WorkoutExercisesPage() {
   };
 
   const handleNavigation = (exercise: IWorkoutExercise) => {
-    console.log(exercise);
     // @ts-ignore
-    navigation.navigate('ExerciseDetails', { exerciseData: exercise });
+    navigation.navigate('ExerciseDetails', {
+      exerciseData: exercise,
+      wId: wId,
+    });
   };
 
+  const deleteExercise = async (eId: number) => {
+    const exercises = workoutExercises.filter(e => e.eId != eId);
+    setWorkoutExercises(exercises);
+    try {
+      const response = await deleteExerciseFromWorkout(wId, eId);
+      if (response.ok) {
+        return;
+      } else if (response.status == 404) {
+        setWorkoutExercises([]);
+      } else {
+        console.log('Couldnt delete exercise');
+      }
+    } catch (e) {
+      console.log('couldt delete');
+    }
+  };
   const ExerciseList = (props: IExerciseProps) => (
     <View>
       <TouchableHighlight
@@ -111,14 +200,17 @@ export function WorkoutExercisesPage() {
             <Text style={styles.exerciseName}>
               {props.exercise.exerciseName}
             </Text>
-            <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ fontSize: 13 }}>{props.exercise.sets} sets</Text>
+              <Text style={{ fontSize: 13 }}>{props.exercise.muscleGroup}</Text>
               <Entypo name='dot-single' size={15} color='black' />
-              <Text style={{ fontSize: 13 }}>{props.exercise.reps} reps</Text>
+              <Text style={{ fontSize: 13 }}>
+                {props.exercise.sets.length} Sets
+              </Text>
             </View>
           </View>
-          <AntDesign name='ellipsis1' size={20} color='black' />
+          <TouchableOpacity onPress={() => deleteExercise(props.exercise.eId)}>
+            <MaterialIcons name='delete-outline' size={24} color='black' />
+          </TouchableOpacity>
         </View>
       </TouchableHighlight>
     </View>
@@ -126,7 +218,7 @@ export function WorkoutExercisesPage() {
 
   const filterExercises = () => {
     const exerciseIds = workoutExercises.map(
-      workoutExercise => workoutExercise.exerciseId,
+      workoutExercise => workoutExercise.eId,
     );
     const filtered = exercises.filter(exercise => {
       return !exerciseIds.includes(exercise.eId);
@@ -139,7 +231,6 @@ export function WorkoutExercisesPage() {
     const activeWorkout: IWorkout = {
       wId: wId,
     };
-    console.log(activeWorkout);
     dispatch(start(activeWorkout));
 
     // @ts-ignore
@@ -148,8 +239,25 @@ export function WorkoutExercisesPage() {
 
   return (
     <View>
+      <Modal transparent={true} visible={visible}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={{ fontSize: 18, fontWeight: '600' }}>
+              New Workout Name
+            </Text>
+            <TextInput
+              style={styles.input}
+              placeholder='New Workout...'
+              onChangeText={(text: string) => setName(text)}
+              maxLength={12}
+              value={name}
+            />
+            <Button title='Submit' onPress={() => changeWorkoutName()} />
+          </View>
+        </View>
+      </Modal>
       <ScrollView
-        style={{ marginLeft: 20, height: '100%' }}
+        style={{ paddingLeft: 20, height: '100%' }}
         contentContainerStyle={{ paddingBottom: 70 }}
       >
         <Modal
@@ -235,5 +343,34 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 15,
     color: '#4d4d4d',
+  },
+  box: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    elevation: 5,
+    width: '60%',
+  },
+  input: {
+    width: '100%',
+    borderWidth: 0.5,
+    borderColor: 'gray',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
   },
 });

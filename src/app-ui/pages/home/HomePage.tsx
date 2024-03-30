@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   View,
@@ -22,6 +23,7 @@ import { WorkoutProgramComponent } from './WorkoutProgramComponent';
 import { getWorkouts } from '../../service/WorkoutAPI';
 import { workoutData } from '../../typings/ExerciseData';
 import { featuredWorkouts } from '../../typings/FeaturedWorkoutsData';
+import { featuredExercises } from '../../typings/FeaturedWorkoutsData';
 import { IUser } from '../../typings/types';
 import { IWorkout, IFeaturedWorkout } from '../../typings/types';
 
@@ -33,16 +35,13 @@ export function HomePage() {
   const [showAddPage, setShow] = useState(false);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const workoutView: string[] = [
-    'All Programs',
-    'AI generated',
-    'Created By Me',
-  ];
+  const workoutView: string[] = ['All Programs', 'Generated', 'Created By Me'];
 
   const handleChangeView = (index: number) => {
     setChosenWorkoutIdx(index);
   };
 
+  console.log(workouts);
   const showWorkoutView = () => {
     return workoutView.map((program, index) => {
       return (
@@ -120,7 +119,11 @@ export function HomePage() {
 
   return (
     <SafeAreaView>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
+      >
         <View style={{ gap: 20 }}>
           <Text
             style={{ fontSize: 30, fontWeight: '600', marginHorizontal: 15 }}
@@ -130,13 +133,21 @@ export function HomePage() {
           <View id={'my-programs'} style={styles.section}>
             <View style={[styles.myProgramsHeader, { marginHorizontal: 15 }]}>
               <Text style={styles.title}>My Programs</Text>
-              <AddProgramButton onPress={() => handleNavigation()} />
+              <Pressable>
+                <Text>View All</Text>
+              </Pressable>
             </View>
             <View style={[styles.selectionContainer, { marginHorizontal: 15 }]}>
               {showWorkoutView()}
             </View>
             <FlatList
-              data={workouts}
+              data={
+                chosenWorkoutIdx == 0
+                  ? workouts
+                  : chosenWorkoutIdx == 1
+                  ? workouts.filter(val => val.isGenerated === 1)
+                  : workouts.filter(val => val.isGenerated === 0)
+              }
               renderItem={({ item, index }) => (
                 <WorkoutProgramComponent
                   workout={item}
@@ -172,6 +183,7 @@ export function HomePage() {
                   workout={item}
                   index={index}
                   workouts={featuredWorkouts}
+                  exercises={featuredExercises}
                 />
               )}
               horizontal
@@ -205,6 +217,9 @@ export function HomePage() {
           </View>
         </View>
       </ScrollView>
+      <Pressable style={styles.addWorkout} onPress={() => handleNavigation()}>
+        <AntDesign name='plus' size={30} color='white' />
+      </Pressable>
     </SafeAreaView>
   );
 }
@@ -241,5 +256,17 @@ const styles = StyleSheet.create({
 
   categoriesContainer: {
     gap: 10,
+  },
+
+  addWorkout: {
+    width: 60,
+    height: 60,
+    position: 'absolute',
+    bottom: 10,
+    backgroundColor: '#715aad',
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });

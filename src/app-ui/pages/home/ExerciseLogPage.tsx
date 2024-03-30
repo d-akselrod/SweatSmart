@@ -22,33 +22,29 @@ import {
   Modal,
   Button,
 } from 'react-native';
-import { useSelector } from 'react-redux';
-import {
-  addSetToExercise,
-  deleteSetFromExercise,
-  updateSetOfExercise,
-} from '../../service/WorkoutPlanAPI';
+import { useDispatch, useSelector } from 'react-redux';
+import { addLoggedExercise, end } from '../../redux/slices/workoutSlice';
+import { addSetToExercise } from '../../service/WorkoutPlanAPI';
 
-export function ExerciseDetailsPage() {
+export function ExerciseLogPage() {
   const navigation = useNavigation();
   const route = useRoute();
   const activeWorkout: any = useSelector((state: any) => state.workout);
-
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   // @ts-ignore
   const exercise = route.params?.exerciseData;
-  // @ts-ignore
-  const wId = route.params?.wId;
-  const [completed, setCompleted] = useState<boolean[]>(
-    new Array(exercise.sets.length).fill(false),
-  );
   const [reps, setReps] = useState(
     exercise.sets.map((val: { reps: number; weight: number }) => val.reps),
   );
   const [weight, setWeight] = useState(
     exercise.sets.map((val: { reps: number; weight: number }) => val.weight),
   );
-
-  const [showModal, setShowModal] = useState(false);
+  const [completed, setCompleted] = useState<boolean[]>(
+    activeWorkout.loggedExercises.hasOwnProperty(exercise.exerciseName)
+      ? activeWorkout.loggedExercises[exercise.exerciseName]
+      : new Array(exercise.sets.length).fill(false),
+  );
   const [focusedIdx, setFocusIdx] = useState<number>(1);
   const [numOfSets, setNumOfSets] = useState(exercise.sets.length);
   const height = Dimensions.get('window').height;
@@ -134,26 +130,30 @@ export function ExerciseDetailsPage() {
     });
   }, [completed]);
 
-  const addSet = async (reps: number, weight: number) => {
-    try {
-      const response = await addSetToExercise(wId, exercise.eId, reps, weight);
-      if (response.ok) {
-        console.log('blessed');
-      } else {
-        console.log(response.status);
-      }
-    } catch (e) {
-      console.log(e);
+  const updateValueAtIndex = (index: number) => {
+    if (completed.every(val => val)) {
+      handleNavigation();
     }
+    const newArray: boolean[] = [...completed];
+    newArray[index] = true;
+    setCompleted(newArray);
   };
 
-  const updateSet = async (reps: number, weight: number, setNum: number) => {
-    setShowModal(false);
+  const handleNavigation = () => {
+    dispatch(
+      addLoggedExercise({
+        exercise: exercise.exerciseName,
+        isLoggedList: completed,
+      }),
+    );
+    navigation.goBack();
+  };
+
+  const addSet = async (reps: number, weight: number) => {
     try {
-      const response = await updateSetOfExercise(
-        wId,
+      const response = await addSetToExercise(
+        activeWorkout.workout.wId,
         exercise.eId,
-        setNum,
         reps,
         weight,
       );
@@ -167,55 +167,13 @@ export function ExerciseDetailsPage() {
     }
   };
 
-  const deleteSet = () => {
-    setNumOfSets(numOfSets - 1);
-    setReps((prev: number[]) => {
-      const array = [...prev];
-      return array.filter((val, index) => index != focusedIdx - 1);
-    });
-    setWeight((prev: number[]) => {
-      const array = [...prev];
-      return array.filter((val, index) => index != focusedIdx - 1);
-    });
-    setShowModal(false);
-    deleteSetFromDB();
-  };
-
-  const deleteSetFromDB = async () => {
-    try {
-      const response = await deleteSetFromExercise(
-        wId,
-        exercise.eId,
-        focusedIdx,
-      );
-      if (response.ok) {
-        console.log('blessed');
-      } else {
-        console.log('could not delete set');
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={showModal}>
         <View style={styles.modalContent}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Text style={{ fontSize: 17, fontWeight: '600' }}>
-              Reps: {reps[focusedIdx - 1]}
-            </Text>
-            <TouchableOpacity onPress={() => deleteSet()}>
-              <MaterialIcons name='delete-outline' size={26} color='#be4949' />
-            </TouchableOpacity>
-          </View>
+          <Text style={{ fontSize: 17, fontWeight: '600' }}>
+            Reps: {reps[focusedIdx - 1]}
+          </Text>
           <Slider
             step={1}
             lowerLimit={1}
@@ -247,16 +205,7 @@ export function ExerciseDetailsPage() {
               })
             }
           />
-          <Button
-            title='Save'
-            onPress={() =>
-              updateSet(
-                reps[focusedIdx - 1],
-                weight[focusedIdx - 1],
-                focusedIdx,
-              )
-            }
-          />
+          <Button title='Done' onPress={() => setShowModal(false)} />
         </View>
       </Modal>
       <ScrollView
@@ -270,7 +219,7 @@ export function ExerciseDetailsPage() {
             margin: 20,
           }}
         >
-          <Pressable onPress={() => navigation.goBack()}>
+          <Pressable onPress={() => handleNavigation()}>
             <AntDesign name='arrowleft' size={24} color='black' />
           </Pressable>
           <View style={{ gap: 10 }}>
@@ -364,6 +313,27 @@ export function ExerciseDetailsPage() {
           </View>
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={[
+          styles.button,
+          {
+            backgroundColor: completed.every(val => val) ? 'white' : '#be4949',
+            width: '40%',
+          },
+        ]}
+        onPress={() => updateValueAtIndex(focusedIdx - 1)}
+      >
+        <Text
+          style={{
+            color: completed.every(val => val) ? 'black' : 'white',
+            fontWeight: 'bold',
+            fontSize: 18,
+            padding: 10,
+          }}
+        >
+          {completed.every(val => val) ? 'Done' : 'Log Set'}
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

@@ -60,6 +60,11 @@ export function ExercisePage() {
     return array.filter(obj => obj.name.toLowerCase().includes(lowerCaseQuery));
   };
 
+  const navigateToVideo = () => {
+    // @ts-ignore
+    navigation.navigate('VideoDemoPage');
+  };
+
   const renderLetter = (exerciseName: string) => {
     if (exerciseName.charAt(0) !== letterCategory.current) {
       letterCategory.current = exerciseName.charAt(0);
@@ -86,7 +91,7 @@ export function ExercisePage() {
         style={{ borderBottomWidth: 0.4, borderColor: '#c2c2c2' }}
         activeOpacity={0.8}
         underlayColor='#efefef'
-        onPress={() => console.log('hi')}
+        onPress={navigateToVideo}
       >
         <View style={[styles.exerciseContainer]}>
           <View style={{ gap: 5 }}>
@@ -111,7 +116,6 @@ export function ExercisePage() {
       <View style={styles.search}>
         <SearchBar
           placeholder={'Search'}
-          onSearch={() => {}}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={text => setSearch(text)}
