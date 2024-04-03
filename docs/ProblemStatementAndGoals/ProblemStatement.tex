@@ -25,12 +25,13 @@
             \textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
             \midrule
             1 & Sep 25, 2023 & Daniel, Sam, Sophie, Jonathan & First draft of Document\\
+            1.1 & Apr 3, 2024 & Sophie & Update change from ML to standard algorithm\\
             \bottomrule
         \end{tabularx}
     \end{table}
     \section{Problem Statement}
 
-    In our current fast-paced world, it has become increasingly difficult for people of all fitness levels to maintain a healthy and active lifestyle without investing significant time into creating a plan and routine. Consequently, many individuals struggle to establish and follow personalized workout plans that match their experience, preferences, goals, and tight schedules. Market-available options often fail to provide adaptive and evolving workouts, leading to stagnation, reduced motivation, and boredom. Addressing these challenges, our team proposes the development of an AI-driven workout planner app.
+    In our current fast-paced world, it has become increasingly difficult for people of all fitness levels to maintain a healthy and active lifestyle without investing significant time into creating a plan and routine. Consequently, many individuals struggle to establish and follow personalized workout plans that match their experience, preferences, goals, and tight schedules. Market-available options often fail to provide adaptive and evolving workouts, leading to stagnation, reduced motivation, and boredom. Addressing these challenges, our team proposes the development of an evidence-based workout planner app.
 
     \subsection{Problem}
 
@@ -43,10 +44,7 @@
         \item Fitness goals
         \item Fitness experience level
         \item Workout preferences
-        \item Daily/weekly schedule and availability
-        \item Dietary preferences/restrictions and eating habits
-        \item Medical information
-        \item Questions/suggestions from users
+        \item Questions/prompts from users
     \end{itemize}
 
     \noindent\textbf{Outputs:}
@@ -55,7 +53,6 @@
         \item Recommended exercises with set counts
         \item Workout intensity and duration guidelines
         \item Progress monitoring and user-specific workout statistics
-        \item Nutritional and dietary suggestions
         \item Motivational features
         \item Tailored responses to user queries
     \end{itemize}
@@ -78,27 +75,27 @@
 
     \noindent \textbf{Software:}
     \begin{itemize}
-        \item The application employs machine learning and AI algorithms for user data processing and workout plan creation.
+        \item The application employs algorithms for user data processing and workout plan creation.
         \item Compatibility with Android and iOS platforms.
         \item Database servers to securely archive user profiles and workout blueprints; certain app-specific data is saved locally.
-        \item Integration capabilities with calendar apps and third-party health and fitness trackers for enhanced features.
     \end{itemize}
 
     \section{Goals}
 
     \begin{itemize}
-        \item \textbf{Ease of Use:} Ensure a user-friendly experience with an intuitive interface, facilitating smooth navigation, effortless modification of workout plans, and a comprehensive, responsive design.
-        \item \textbf{Personalized Workout Plans:} Design an AI capable of crafting individualized workout plans considering various user profile elements like age, weight, dietary constraints, medical history, progress, etc.
-        \item \textbf{Progress Tracking:} Equip users to monitor their progress to detect areas for enhancement and, ultimately, meet their fitness objectives.
-        \item \textbf{Advanced AI Interaction:} The AI model should be able to modify existing regimens based on users' history and progression.
+        \item \textbf{Personalized Workout Plans:} Generate individualized workout plans for users by considering various user profile elements like fitness level, fitness goals, time availability, equipment availability, progress, etc.
+        \item \textbf{Progress Tracking:} Allow users to monitor their progress to detect areas for enhancement and, ultimately, meet their fitness objectives.
+        \item \textbf{Live Workout Sessions:} Allow users to start a live workout session and track their progress as they complete sets of exercises. 
         \item \textbf{Virtual Personal Trainer Interaction:} Integrate a chatbot that functions as a personal trainer, allowing users to maintain round-the-clock communication with this bot, guiding them towards their fitness milestones.
+        \item \textbf{Ease of Use:} Ensure a user-friendly experience with an intuitive interface, facilitating smooth navigation, effortless modification of workout plans, and a comprehensive, responsive design.
     \end{itemize}
 
     \section{Stretch Goals}
 
     \begin{itemize}
         \item \textbf{Enhanced AI User Interaction:} Venture into superior natural language processing capabilities to foster improved user engagement with the AI, simulating real-life fitness coach dynamics.
-        \item \textbf{Sharing Platform:} Architect a robust platform where users can share their unique workout plans and connect with actual personal trainers.
+        \item \textbf{Advanced Workout Enhancement Algorithm:} The algorithm should be able to modify existing regimens based on users' history and progression to update a user's workout plans.
+        \item \textbf{Sharing Platform:} Architect a robust platform where users can connect with friends and share their progress and achievements.
         \item \textbf{Social and User Engagement:} Enrich the app with advanced social utilities, including user profiles, networking features, and challenge-posting capabilities to inspire and boost user motivation.
     \end{itemize}
 
