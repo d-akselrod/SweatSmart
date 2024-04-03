@@ -153,6 +153,8 @@
 			0 & Oct 6, 2023 & Sophie, Daniel, Sam, Jonathan & First draft\\
             \hline
             0.1 & Oct 20, 2023 & Sophie, Jonathan & Updated safety requirements that mitigate system hazards\\
+            \hline
+            1.0 & Apr 3, 2024 & Sam & Updated the document to align with new project direction and final submitted code.\\
 			\bottomrule
 		\end{tabularx}
 	\end{table}
@@ -164,8 +166,6 @@
 
 \subsection{Terminology}
 \begin{enumerate}
-    \item ML - machine learning
-    \item AI - Artificial Intelligence 
     \item Rep - short for repetition 
 \end{enumerate}
 
@@ -176,45 +176,33 @@
 The primary purpose of this document is to capture and define the functional and non-functional requirements of the SweatSmart app. It will serve as a comprehensive reference that outlines what the application will need to do. It provides a roadmap for the development of the application. Additionally, this document serves as a means of communication between project stakeholders, ensuring all team members have a clear understanding of the project’s scope and requirements. By providing a place for clear specification of requirements and constraints, the SRS document also supports quality assurance efforts.
 
 \subsection{Purpose of Project}
-The purpose of “SweatSmart,” the AI-Powered Workout Planner, is to develop a sophisticated mobile application that harnesses the capabilities of artificial intelligence (AI) and machine learning (ML) to revolutionize how individuals plan and manage their fitness routines. This project’s main goal is to address the growing demand for purpose-built health and fitness solutions that cater to users with a diverse set of fitness goals, experience levels, preferences, and backgrounds.
+The purpose of this document is to outline the functional and non-functional requirements for the SweatSmart app, focusing on evidence-based workout guidance. This document will act as a detailed guide for the app's development and an informative tool for stakeholders, ensuring a shared understanding of the project's scope. It will detail specifications and constraints, underpinning the quality assurance process and the project's commitment to an evidence-based approach, simplicity, and user accessibility.
 
 \subsection{Goals}
-The SweatSmart project is driven by a set of self-defined goals and objectives that shape its development and implementation. These goals reflect the project’s mission and the desired outcomes. The main project goals are listed as follows:
+The vision of SweatSmart is anchored in a set of deliberate objectives that guide its creation and rollout. These goals embody the app's essence and the outcomes it seeks to realize.
 
-\subsubsection{Personalization}
-The primary goal of the project is to deliver a highly personalized fitness experience to users of the SweatSmart application. Using AI and ML technologies, our team aims to create tailored and unique workout plans for each individual user. These plans should adapt to users’ individual progress, preferences, feedback, and evolving fitness goals.
-
-\subsubsection{Guidance and Support}
-The project aims to provide comprehensive guidance and support during workouts through the SweatSmart application, enhancing safety and effectiveness of the application during workouts.
-
-\subsubsection{Progress Tracking}
-SweatSmart aims to provide users with a wide range of tools to track their fitness progress over time. Enabling users to log completed workouts, record performance metrics, and visualize their fitness achievements.
-
-\subsubsection{Simplicity and User-Centered Design}
-Our team aims to deliver a user-friendly and intuitive experience with the SweatSmart application. The SweatSmart user interface will prioritize simplicity and ease-of-use so that users can navigate the app efficiently.
-
-\subsubsection{Reliability}
-This project strives to provide a robust and error-free application, operating without any critical errors leading to crashes or unexpected behavior.
-
-\subsubsection{Efficient Code and Documentation}
-Maintain clean and effective code while also providing comprehensive documentation.
-
-\subsubsection{Budget Adherence}
-Stay within the allotted budget of \$750 CAD.
+\begin{itemize}
+    \item \textbf{Evidence-Based Personalization:} We aim to set ourselves apart from other fitness solutions by offering workout plans founded on scientific evidence, tailored to each user's developmental journey and fitness aspirations.
+    \item \textbf{Guidance and Support:} We will deliver thorough workout guidance to ensure user safety and enhance the effectiveness of each session.
+    \item \textbf{Progress Tracking:} The app will enable users to log workouts, both app-generated and self-made, view workout history, and repeat saved workouts. This is an important goal as progress tracking and history helps people stay on top of their goals and ensures they do not overexert themselves.
+    \item \textbf{Simplicity and User-Centered Design:} SweatSmart is dedicated to providing an intuitively navigable interface, emphasizing straightforwardness to facilitate a straightforward user experience for people with limited technological experience.
+    \item \textbf{Reliability:} Our aim is to develop a dependable application, free from critical malfunctions that could impede the user's progress.
+    \item \textbf{Efficient Code and Documentation:} We prioritize maintaining best practices when it comes to coding standards and comprehensive documentation to underpin the app's structure and functionality.
+    \item \textbf{Budget Adherence:} Stay within the allotted budget (Section 4.3).
+\end{itemize}
 
 \subsection{Stakeholders}
 
 \subsubsection{Direct}
 \begin{itemize}
-  \item Beginners: Individuals with little to no experience in the fitness world.
-  \item Fitness enthusiasts: Individuals who are already dedicated to maintaining an active and healthy lifestyle.
-  \item Athletes: Competitive athletes seeking to optimize/improve their training regimens.
-  \item Health-Focused Individuals: People with specific health objectives, such as weight management, stress reduction, or injury rehabilitation, who require bespoke fitness plans to achieve these goals.
+  \item Beginners: Individuals with little to no experience in the fitness world and want a simple introduction to it.
+  \item Fitness enthusiasts: Individuals who are already dedicated to maintaining an active and healthy lifestyle and seek a workout logger and/or new workout ideas to keep them interested in fitness.
+  \item Athletes: Competitive athletes seeking to log and track their workout progress.
 \end{itemize}
 
 \subsubsection{Indirect}
 \begin{itemize}
-  \item Fitness Industry Experts: Professionals in the fitness industry who may indirectly or directly influence the app’s content and application through their industry expertise and research.
+  \item Fitness Industry Experts: Professionals in the fitness industry, including our supervisors, Stuart Philips and Bradley Currier, who play a key role in informing the decision-making behind the workout generation algorithm and the app as a whole.
   \item Fitness Equipment Manufacturers: Companies that produce fitness equipment may benefit from the application leading to an increase in users’ interest in fitness and related equipment.
   \item Local Fitness Facilities: Gyms, fitness centers, and local fitness trainers who may indirectly interact with users referred by the app or who engage with the fitness community fostered by the app.
 \end{itemize}
@@ -228,10 +216,11 @@ Stay within the allotted budget of \$750 CAD.
 
 \subsubsection{User Assumptions}
 \begin{itemize}
-  \item Users are consistently updating the application to view the latest updates and changes.
+  \item Users have varying levels of knowledge about fitness, engaging with the app in a variety of ways as a result.
   \item Users are assumed to have access to the internet at times when using certain features of the app.
   \item Users have basic knowledge of using mobile apps to navigate properly.
   \item Users use the app consistently for accurate fitness tracking and results.
+  \item Users have access to workout equipment or are interested in body-weight exercises. 
 \end{itemize}
 
 \subsection{Off-the-shelf Solutions}
@@ -245,38 +234,28 @@ Fitbod creates personalized training programs through an AI algorithm. It tracks
 \subsubsection{FitnessAI}
 FitnessAi is another AI-powered fitness application that creates personalized workouts based on workout history, personal goals, and fitness levels. An interesting feature from this app is the use of 3D animation to show proper form and the targeted muscles of specific exercises. [3]
 
-
 \section{System Description}
 
 \subsection{System Context}
 
 \subsubsection{Users}
-At the heart of the system lie the users of the application. Users are a diverse group of individuals and interact with the SweatSmart app to access workout plans, track progress, and receive guidance on their fitness journey. Users are further categorized in section 2.4 “Stakeholders” so we will not go into detail here, but it is important to mention users when discussing context.
+At the heart of the system lie the users of the application. Users are a diverse group of individuals and interact with the SweatSmart app to access workout plans, track progress, and receive guidance on their fitness journey. Users are further categorized in section 2.4 “Stakeholders” and in section 3.2 "User Characteristics", so we will not go into detail here, but it is important to mention users when discussing context.
 
-\subsubsection{Social Media Platforms}
+\subsubsection{Social Media Platforms (Future Consideration)}
 We recognize how important social media is for the average person’s fitness journey. SweatSmart will need to utilize this excellent resource to help motivate our users and promote the app in the process. Users should be able to easily share progress updates and workouts they enjoyed to social media sites like Instagram, X (formerly Twitter), and Facebook.
 
-\subsubsection{External Data Sources}
-SweatSmart will need to harness the power and information of external data sources to enrich its functionality and provide a comprehensive data set for its ML model. Resources like fitness blogs, articles, research papers, nutritional databases, and much more will help the application deliver up-to-date health and fitness information.
+\subsubsection{Kinesiology Experts}
+Our team will harness the knowledge behind our supervisors' research into fitness and resistance training to inform SweatSmart's evidence-based approach to workout generation and tracking. These experts will need to be consulted throughout the development process to ensure every aspect of our app makes sense in the context of exercise science.
 
 \subsubsection{Fitness Equipment and Wearables (Future Integration)}
 The current fitness market is full of wearable technologies that help track an extensive set of metrics to help people on their health and fitness journeys. Integration with wearable technology will allow for a more robust user experience with workouts seamlessly synchronized in real-time. Fitness equipment has also become more advanced, with features in equipment like free weights, stationary bikes, and treadmills, which enable users to accurately track their workouts. SweatSmart would see positive user engagement from integration with these devices.
 
 \subsection{User Characteristics}
-Users will have varying levels of fitness experience and knowledge. Users might be beginners at the gym who are looking to start their fitness journey, regular gym-goers who are looking to improve their workouts, or highly experienced fitness enthusiasts who would like to track their workouts. Users should have a basic understanding of how to use a smartphone or tablet. It is expected that users will already be familiar with downloading an application, opening an application, and navigating using a touch-screen device. It is important to note that this list is not comprehensive, but it helps illustrate the types of basic functions we expect our users to be familiar with before opening our application. Users will not require any formal training to be able to operate the system.
+Users will have varying levels of fitness experience and knowledge. Users might be beginners at the gym who are looking to start their fitness journey, regular gym-goers who are looking to easily track, update, or change up their workouts, or highly experienced fitness enthusiasts who would like to track their workouts. Users should have a basic understanding of how to use a smartphone or tablet. It is expected that users will already be familiar with downloading an application, opening an application, and navigating using a touch-screen device. It is important to note that this list is not comprehensive, but it helps illustrate the types of basic functions we expect our users to be familiar with before opening our application. Users will not require any formal training to be able to operate the system.
 
 \subsection{Problem Description}
-The fitness industry has seen a remarkable explosion in interest recently due to a variety of factors. However, many challenges still persist for individuals seeking effective fitness solutions despite the increase in popularity.
 
-\begin{enumerate}
-  \item One-Size-Fits-All Approach: Traditional fitness regimens often adopt this kind of approach, providing generic workout plans that do not consider the individuality of those seeking guidance.
-  \item Lack of Personalization: Many apps offer limited means of personalization, resulting in user disengagement due to plans that fail to align with each individual’s needs and goals.
-  \item Guidance Gaps: Users, namely beginners, frequently encounter gaps in guidance. This makes it challenging to understand proper exercise technique, safety measures, and what progress should look like.
-  \item Motivation and Accountability: Staying accountable and motivated on a fitness journey is difficult without support and commitment to some sort of community.
-  \item Complexity and Information Overload: Existing fitness apps and other solutions may overwhelm users with extensive data, metrics, and features, making the fitness experience too complex to be accessible.
-\end{enumerate}
-
-In summary, the current fitness landscape sees a lack of effective and personalized options for users, leading to less-than-ideal fitness outcomes and an overall lack of engagement.
+In our current fast-paced world, it has become increasingly difficult for people of all fitness levels to maintain a healthy and active lifestyle without investing significant time into creating a plan and routine. It does not help that self-proclaimed gym experts and "fitfluencers" have popped up on social media to over complicate the world of fitness even further, usually trying to sell expensive "solutions". Consequently, many individuals struggle to establish and follow personalized workout plans that match their experience, preferences, goals, and tight schedules. Market-available options often fail to provide adaptive and evolving workouts, leading to stagnation, reduced motivation, and boredom. Addressing these challenges, our team proposes the development of an evidence-based workout planner and logger app to assist individuals along their fitness journey. Our app seeks to simplify the fitness landscape for individuals trying to begin their fitness journey, emphasizing a strong evidence-base and an accessible design. 
 
 \subsection{Use Cases/Scenarios}
 
@@ -299,17 +278,19 @@ Users can start their live workout and add their weights, repetitions, and the n
 Users can sign out of their accounts.
 
 \subsubsection{Update Personal Information}
-Users will update personal information such as their weight, gender, age, etc. This will be used when a workout is generated by an AI.
+Users will update personal information such as their fitness goals, fitness experience, or available equipment etc. This will be used when a workout is generated by the evidence-based algorithm.
 
 \subsubsection{A Workout is Generated}
-A workout is generated from an AI after user input.
+A workout is generated from our evidence-based algorithm.
 
 \subsubsection{View Workout History}
-Users can view their workout history once their live workouts have been tracked.
+Users can view their workout history once their live workouts have been tracked and finished.
 
 \subsubsection{Communicate with a Chatbot Coach}
-Users can constantly chat with a virtual bot to get help related to fitness.
+Users can chat with a virtual bot to ask any fitness-related questions.
 
+\subsubsection{Users can Log their own Workouts}
+Users can use the app to log workouts they came up with themselves.
 
 \section{Constraints}
 
@@ -317,25 +298,20 @@ Users can constantly chat with a virtual bot to get help related to fitness.
 
 \subsubsection{User Data Validation}
 
-All user input data related to personal information (e.g., age, weight, height, gender) must adhere to predefined formats and ranges.
+All user input data related to personal information must adhere to predefined formats and ranges.
 
 \begin{itemize}
   \item Age: Must be an integer with a minimum value of at least 13 years.
-  \item Weight: A positive number.
-  \item Height: A positive number.
+  \item Experience Level: Must be either "Beginner", "Intermediate", or "Advanced".
+  \item Available Equipment: Must be either "None", "Dumbbells only", or "Full". 
+  \item Weekly Workout Frequency: Must be an integer between 1 and 7.
+  \item Maximum Workout Duration: Must be an integer great than 15. 
+  \item Fitness Goal: Must be either "General Health", "Strength", or "Endurance". 
 \end{itemize}
 
-\subsubsection{Workout Session Data}
+\subsubsection{Health and Safety Exercise Considerations}
 
-Users should be allowed to input a range for the duration of a workout session.
-
-\subsubsection{Workout Intensity}
-
-Fitness intensity of workouts should be categorized into predefined levels (e.g., Beginner, Intermediate, Advanced).
-
-\subsubsection{Health and Safety Exercise Restrictions}
-
-The system should restrict certain exercises or intensities for users with specific health conditions or preferences based on the input health profile.
+The system should contain a terms and conditions section to ensure users understand the safety risks that come with exercising and understand that our team takes no responsibility for user injury.
 
 \subsection{Timeline}
 
@@ -347,7 +323,7 @@ The SRS is to be completed by October 6, 2023.
 
 The hazard analysis is to be completed by October 20, 2023.
 
-\subsubsection{Verification and Validation (V&V)}
+\subsubsection{Verification and Validation (V\&V)}
 
 The VnV is to be completed by November 3, 2023.
 
@@ -357,15 +333,15 @@ The proof of concept is expected to be met by November 13, 2023.
 
 \subsubsection{Design Documentation}
 
-The Design documentation is to be completed by January 17, 2023.
+The Design documentation is to be completed by January 17, 2024.
 
-\subsubsection{V&V Report}
+\subsubsection{V\&V Report}
 
-The V&V report is to be completed by March 6, 2023.
+The V\&V report is to be completed by March 6, 2024.
 
 \subsubsection{Final Deliverable}
 
-The app is to be completed by March 18, 2023.
+The app is to be completed by March 18, 2024. The EXPO poster and video shall be completed by April 1, 2024. The final documentation is to be completed by April 4, 2024. 
 
 \subsection{Budget}
 
@@ -403,27 +379,30 @@ UA5: The user must agree to the terms and conditions agreement to create an acco
 \[AgreeToTerms(UserAgreement) \rightarrow AccountCreation \]
 \[ \forall UserAgreement: (UserAgreement = true) \Rightarrow (AccountCreation = true) \]
 
-\subsection{AI Workout Generation}
+\subsection{Evidence-Based Workout Generation}
 
-\parindent AI1: The system should generate personalized workout plans based on user input.
-\[GenerateWorkoutPlan(UserInput) \rightarrow WorkoutPlan \]
-\[ \forall UserInput: (UserInput \neq null) \Rightarrow (WorkoutPlan = true) \]\\
+\parindent EB1: The system should generate workout plans based on established exercise science principles.
+\[GenerateWorkoutPlan(ScienceBasedInput) \rightarrow WorkoutPlan \]
+\[ \forall ScienceBasedInput: (ScienceBasedInput \neq null) \Rightarrow (WorkoutPlan = true) \]\\
 
-AI2: The system should alter and revise user workout plans.
-\[AlterWorkoutPlan(WorkoutPlan, UserRequest) \rightarrow AlteredWorkoutPlan \]
-\[ \forall (WorkoutPlan, UserRequest): (WorkoutPlan \land UserRequest = true) \Rightarrow\] \[(AlteredWorkoutPlan = true) \]\\
+\parindent EB2: The system should allow users to adjust workout plans according to expert recommendations or their own preferences.
 
-AI3: The system should recursively train the model based on user progress.
-\[TrainModel(UserProgress, PreviousModel) \rightarrow UpdatedModel \]
-\[ \forall (UserProgress, PreviousModel): (UserProgress \land PreviousModel = true) \Rightarrow\] \[(UpdatedModel = true) \]\\
+\begin{align}
+\text{AdjustWorkoutPlan}(\text{WorkoutPlan}, \text{ExpertRecommendation}, \text{UserPreference}) &\rightarrow \text{AdjustedWorkoutPlan} \\
+\forall (\text{WorkoutPlan}, \text{ExpertRecommendation}, \text{UserPreference}): &\ (\text{WorkoutPlan} \land (\text{ExpertRecommendation} \lor \text{UserPreference})) \Rightarrow (\text{AdjustedWorkoutPlan} = \text{true})
+\end{align}
 
-AI4: The app shall have an AI chatbot that users can interact with.
-\[InteractWithChatBot(UserInput) \rightarrow ChatBotResponse \]
-\[ \forall UserInput: (UserInput \neq null) \Rightarrow (ChatBotResponse \neq null) \]\\
+EB3: The system should update the workout plans in line with the latest exercise science research.
+\[UpdateWorkoutPlan(LatestResearch, CurrentWorkoutPlan) \rightarrow UpdatedWorkoutPlan \]
+\[ \forall (LatestResearch, CurrentWorkoutPlan): (LatestResearch \land CurrentWorkoutPlan = true) \Rightarrow\] \[(UpdatedWorkoutPlan = true) \]\\
 
-AI5: The app shall provide messages during a user's workout, giving the user tips for their specified exercises.
-\[ProvideExerciseTips(UserWorkout) \rightarrow TipsProvided \]
-\[ \forall UserWorkout: (UserWorkout = true) \Rightarrow (TipsProvided = true) \]
+EB4: The system should provide interactive guidance that aligns with evidence-based fitness protocols.
+\[ProvideInteractiveGuidance(UserInteraction) \rightarrow GuidanceResponse \]
+\[ \forall UserInteraction: (UserInteraction \neq null) \Rightarrow (GuidanceResponse \neq null) \]\\
+
+EB5: The system should offer science-backed tips and instructions during workouts for optimal exercise execution.
+\[ProvideExerciseInstructions(UserWorkout) \rightarrow InstructionsProvided \]
+\[ \forall UserWorkout: (UserWorkout = true) \Rightarrow (InstructionsProvided = true) \]
 
 \subsection{User Workout Creation}
 UC1: The app shall allow users to link their calendar to plan their workouts around their schedule.
