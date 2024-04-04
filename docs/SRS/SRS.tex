@@ -385,40 +385,29 @@ UA5: The user must agree to the terms and conditions agreement to create an acco
 \[GenerateWorkoutPlan(ScienceBasedInput) \rightarrow WorkoutPlan \]
 \[ \forall ScienceBasedInput: (ScienceBasedInput \neq null) \Rightarrow (WorkoutPlan = true) \]\\
 
-\parindent EB2: The system should allow users to adjust workout plans according to expert recommendations or their own preferences.
+EB2: The system should allow users to adjust workout plans according to their own preferences.
+\[AdjustWorkoutPlan(WorkoutPlan, Preferences) \rightarrow AdjustedWorkoutPlan \]
+\[ \forall (WorkoutPlan, Preferences): (WorkoutPlan \land Preferences = true) \Rightarrow\] \[(AdjustedWorkoutPlan = true) \]\\
 
-\begin{align}
-\text{AdjustWorkoutPlan}(\text{WorkoutPlan}, \text{ExpertRecommendation}, \text{UserPreference}) &\rightarrow \text{AdjustedWorkoutPlan} \\
-\forall (\text{WorkoutPlan}, \text{ExpertRecommendation}, \text{UserPreference}): &\ (\text{WorkoutPlan} \land (\text{ExpertRecommendation} \lor \text{UserPreference})) \Rightarrow (\text{AdjustedWorkoutPlan} = \text{true})
-\end{align}
-
-EB3: The system should update the workout plans in line with the latest exercise science research.
-\[UpdateWorkoutPlan(LatestResearch, CurrentWorkoutPlan) \rightarrow UpdatedWorkoutPlan \]
-\[ \forall (LatestResearch, CurrentWorkoutPlan): (LatestResearch \land CurrentWorkoutPlan = true) \Rightarrow\] \[(UpdatedWorkoutPlan = true) \]\\
-
-EB4: The system should provide interactive guidance that aligns with evidence-based fitness protocols.
+EB3: The system should provide interactive guidance that aligns with evidence-based fitness protocols.
 \[ProvideInteractiveGuidance(UserInteraction) \rightarrow GuidanceResponse \]
 \[ \forall UserInteraction: (UserInteraction \neq null) \Rightarrow (GuidanceResponse \neq null) \]\\
 
-EB5: The system should offer science-backed tips and instructions during workouts for optimal exercise execution.
+EB4: The system should offer science-backed tips and instructions during workouts for optimal exercise execution.
 \[ProvideExerciseInstructions(UserWorkout) \rightarrow InstructionsProvided \]
 \[ \forall UserWorkout: (UserWorkout = true) \Rightarrow (InstructionsProvided = true) \]
 
 \subsection{User Workout Creation}
-UC1: The app shall allow users to link their calendar to plan their workouts around their schedule.
-\[LinkCalendar(User, Calendar) \rightarrow LinkedCalendar \]
-\[ \forall (User, Calendar): (User \neq null \land Calendar \neq null) \Rightarrow (LinkedCalendar = true) \]
+UC1: The system shall generate a workout plan based on the user's desired weekly workout frequency.
+\[GeneratePlanBasedOnFrequency(User, WeeklyFrequency) \rightarrow GeneratedWorkoutPlan \]
+\[ \forall (User, WeeklyFrequency): (User \neq null \land WeeklyFrequency \neq null) \Rightarrow (GeneratedWorkoutPlan = true) \]
 \\
 
-UC2: The app shall allow users to rate their workouts after completion.
-\[RateWorkout(User, Workout, Rating) \rightarrow WorkoutRating \]
-\[ \forall (User, Workout, Rating):(User \neq null \land Workout \neq null \land Rating \in [1,5]) \Rightarrow (WorkoutRating = true) \]\\
-
-UC3: The app shall allow users to design and save their own custom workouts tailored to their preferences.
+UC2: The app shall allow users to design and save their own custom workouts tailored to their preferences.
 \[CreateCustomWorkout(User, Preferences) \rightarrow CustomWorkout \]
 \[ \forall (User, Preferences):(User \neq null \land Preferences \neq null) \Rightarrow (CustomWorkout = true) \]\\
 
-UC4: The system should list all exercises.
+UC3: The system should list all exercises.
 \[ListExercises() \rightarrow ExerciseList \]
 \[ \forall : () \Rightarrow (ExerciseList \neq null) \]
 
@@ -443,21 +432,13 @@ AF1: The app should allow users to begin/engage in a planned workout while track
 \[TrackLiveWorkout(User, PlannedWorkout) \rightarrow LiveTracking \]
 \[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveTracking = true) \]\\
 
-AF2: The app shall be able to push notifications.
-\[PushNotification(User, NotificationContent) \rightarrow NotificationPushed \]
-\[ \forall (User, NotificationContent): (User \neq null \land NotificationContent \neq null) \Rightarrow\] \[(NotificationPushed = true) \]\\
-
-AF3: The app allows users to start planned workouts and follow along live.
+AF2: The app allows users to start planned workouts and follow along live.
 \[StartLiveWorkout(User, PlannedWorkout) \rightarrow LiveWorkoutSession \]
 \[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveWorkoutSession = true) \]\\
 
-AF4: The app allows users to download workouts for offline access.
+AF3: The app allows users to download workouts for offline access.
 \[DownloadWorkout(User, SelectedWorkout) \rightarrow OfflineWorkout \]
 \[ \forall (User, SelectedWorkout): (User \neq null \land SelectedWorkout \neq null) \Rightarrow (OfflineWorkout = true) \]\\
-
-AF5: The app shall allow users to share information from the application to social media.
-\[ShareInfo(User, Information) \rightarrow InfoShared \]
-\[ \forall (User, Information): (User \neq null \land Information \neq null) \Rightarrow (InfoShared = true) \]
 
 \section{Non-functional Requirements}
 
@@ -498,12 +479,6 @@ AF5: The app shall allow users to share information from the application to soci
 \item LER1: Users shall not require external resources to navigate the application; everything they need to know to use the app should be taught in-app.
 \end{itemize}
 
-\subsubsection{Understandability and Politeness Requirements}
-\begin{itemize}
-\item UPR1: The system should provide a tutorial for first-time users.
-\item UPR2: The application shall contain an FAQ to answer expected questions about the application.
-\end{itemize}
-
 \subsubsection{Accessibility Requirements}
 \begin{itemize}
 \item ACR1: The system will follow Apple’s design guidelines regarding accessible applications.
@@ -523,13 +498,6 @@ AF5: The app shall allow users to share information from the application to soci
 \item OER2: The system shall be able to run on an iOS phone.
 \item OER3: The system shall allow the audio output to be transmitted through the device’s speakers or a connected Bluetooth device.
 \item OER4: The system should connect to the internet for back-end services.
-\end{itemize}
-
-\subsection{Maintainability and Support Requirements}
-\begin{itemize}
-\item MSR1: The system shall automatically detect, log, and report any errors or system failures to the development and support team without requiring user intervention.
-\item MSR2: The system shall incorporate an accessible user feedback mechanism to enable users to easily report issues.
-\item MSR3: The system shall support periodic, backward-compatible software updates, notifying users of availability and enabling convenient download and installation while providing information about the changes.
 \end{itemize}
 
 \subsection{Compliance Requirements}
@@ -554,23 +522,21 @@ AF5: The app shall allow users to share information from the application to soci
 \begin{itemize}
     \item INR1: Sensitive data shall be restricted from the users of the app.
     \item INR2: Data between the app and the server should be encrypted when an API call is made.
-    \item INR3: The system should regularly back up data automatically to prevent data loss in the event of database failures
-    \item INR4: unstored data should be stored locally if the data cannot be updated
+    \item INR3: The system should regularly back up data automatically to prevent data loss in the event of database failures.
+    \item INR4: Unstored data should be stored locally if the data cannot be updated.
     \item INR5: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.
     \item INR6: The system must have a mechanism to store the user's progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
-    \item INR7: The system should display clear and prominent warnings to users regarding exercise safety
-    \item INR8: The AI model system should be constantly updated with accurate practices and the data should be reviewed
+    \item INR7: The system should display clear and prominent warnings to users regarding exercise safety.
 \end{itemize}
 
 \subsubsection{Privacy Requirements}
 \begin{itemize}
-    \item PRR1: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access
+    \item PRR1: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access.
 \end{itemize}
 
 \subsubsection{Error Handling Requirements}
 \begin{itemize}
-    \item EHR1: The system should have robust error handling that doesn't reveal sensitive system information to users in error messages
-    \item EHR2: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures
+    \item EHR1: The system should have robust error handling that doesn't reveal sensitive system information to users in error messages.
 \end{itemize}
 
 \section{Likely Changes}
@@ -597,68 +563,60 @@ AF5: The app shall allow users to share information from the application to soci
 Table 1 and Table 2 show the dependencies between the functional requirements. A requirement in the first column that is dependent on a requirement in the first row is marked by an 'X'.
 
 
-\afterpage{
 \begin{landscape}
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
  \hline
-   & AI1 & AI2 & AI3 & AI4 & AI5 & UC1 & UC2 & UC3 & UC4 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 & AF4 & AF5\\
+   & UA1 & UA2 & UA3 & UA4 & UA5 & EB1 & EB2 & EB3 & EB4 & UC1 & UC2 & UC3 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 \\
  \hline
- UA1 & & & & & & & & & & & & & & & & & & 
+ UA1 & & & & & & & & & & & & & & & & & & \\
  \hline
- UA2 & & & & & & & & & & & & & & & & & & 
+ UA2 & X & & & & & & & & & & & & & & & & & \\
  \hline
- UA3 & & & & & & & & & & & & X & & & & & & 
+ UA3 & & X & & & & & & & & & & & & & X & & & \\
  \hline
- UA4 & & & & & & & & & & & & & & & & & & 
+ UA4 & & & & & & & & & & & & & & & & & & \\
  \hline
- UA5 & & & & & & & & & & & & & & & & & & 
+ UA5 & X & & & & & & & & & & & & & & & & & \\
  \hline
- AI1 & & & & & & & & & & & & & & & & & & 
+ EB1 & & & & & & & & & & X & & & & & X & & & \\
  \hline
- AI2 & X & & & & & & & & & & & & & & & & & 
+ EB2 & & & & & & & & & & & X & & & & X & & & \\
  \hline
- AI3 & & & & & & & X & & & & & X & & & & & & 
+ EB3 & & & & & & & & & & & & & & & & X & & \\
  \hline
- AI4 & & & & & & & & & & & & & & & & & & 
+ EB4 & & & & & & & & & & & & & & & & X & & \\
  \hline
- AI5 & & & & & & & & & & & & & & & & & & 
+ UC1 & & & & & & & & & & & & & & & & & X & \\
  \hline
- UC1 & & & & & & & & & & & & & & & & & & 
+ UC2 & & & & & & & & & & & & X & & & X & & & \\
  \hline
- UC2 & & & & & & & & & & & & & & & X & & & 
+ UC3 & & & & & & & & & & & & & & & X & & & \\
  \hline
- UC3 & & & & & & & & & & & & X & & & & & & 
+ WH1 & & & & & & & & & & & & & & & X & & & \\
  \hline
- UC4 & & & & & & & & & & & & & & & & & & 
+ WH2 & & & & & & & & & & & & & X & & X & & & \\
  \hline
- WH1 & & & & & & & & & & & & & & & & & & 
+ DB1 & & & X & & & & & & & & & & & & & & & \\
  \hline
- WH2 & & & & & & & & & & & & X & & & & & & 
+ AF1 & & & & & & & & X & X & & & & & & & & X & \\
  \hline
- DB1 & & & & & & & & & & & & & & & & & & 
+ AF2 & & & & & & & & & & X & & & & & & & & \\
  \hline
- AF1 & & & & & & X & & & & & & & & & & & & 
+ AF3 & & & & & & & & & & & & & & & & & & X \\
  \hline
- AF2 & & & & & & & & & & & & & & & & & & 
- \hline
- AF3 & & & & & & & & & & & & & & & & & & 
- \hline
- AF4 & & & & & & & & & & & & & & & & & & 
- \hline
- AF5 & & & & & & & & & & & & & & & & & & 
-\hline
 \end{tabular}
-\caption{Traceability Matrix Showing the Mappings Between Functional Requirements Cont.}
+\caption{Traceability Matrix Showing the Mappings Between Functional Requirements}
 \label{Table:A_trace}
 \end{table}
 
 \end{landscape}
+
 }
 
-\begin{table}
+\begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
  \hline
@@ -674,15 +632,13 @@ Table 1 and Table 2 show the dependencies between the functional requirements. A
  \hline
  UA5 & X & & & & \\
  \hline
- AI1 & & & & & \\
+ EB1 & & & & & \\
  \hline
- AI2 & & & & & \\
+ EB2 & & & X & & \\
  \hline
- AI3 & & & & & \\
+ EB3 & & & & & \\
  \hline
- AI4 & & & & & \\
- \hline
- AI5 & & & & & \\
+ EB4 & & & & & \\
  \hline
  UC1 & & & & & \\
  \hline
@@ -690,27 +646,23 @@ Table 1 and Table 2 show the dependencies between the functional requirements. A
  \hline
  UC3 & & & & & \\
  \hline
- UC4 & & & & &  \\
- \hline
- WH1 & & & & &  \\
+ WH1 & & & & & \\
  \hline
  WH2 & & & & & \\
  \hline
- DB1 & & & & &  \\
+ DB1 & & & X & & \\
  \hline
  AF1 & & & & & \\
  \hline
  AF2 & & & & & \\
  \hline
  AF3 & & & & & \\
- \hline
- AF4 & & & & & \\
- \hline
- AF5 & & & & & \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Mappings Between Functional Requirements}
+\label{Table:B_trace}
 \end{table}
+
 
 
 \section{Development Plan}
@@ -723,8 +675,8 @@ In this initial phase, we will focus on implementing the core features required 
 
 \begin{itemize}
     \item User account management (UA1 - UA5)
-    \item AI Workout Generation (AI1 - AI5)
-    \item User Workout Creation (UC1 - UC4)
+    \item Evidence-Based Workout Generation (EB1 - EB4)
+    \item User Workout Creation (UC1 - UC3)
 \end{itemize}
 
 \subsection{Phase 2: User Experience Enhancement}
@@ -734,7 +686,7 @@ During this phase, we will concentrate on improving the user experience by addre
 \begin{itemize}
 \item Implementing appearance and styling requirements (APR1 - APR5, STR1 - STR3)
 \item Enhancing usability and personalization (EUR1 - EUR2, PER1 - PER2)
-\item Implementing learning, understandability, and politeness requirements (LER1, UPR1 - UPR2)
+\item Implementing learning requirements (LER1)
 \end{itemize}
 
 \subsection{Phase 3: Performance and Accessibility}
@@ -752,7 +704,7 @@ In this phase, we will ensure that the app meets performance, accessibility, and
 The final phase will focus on security and compliance with relevant regulations. Key tasks involve:
 
 \begin{itemize}
-\item Implementing security measures (SECR1 - SECR6)
+\item Implementing integrity requirements (INR1 - INR7)
 \item Ensuring compliance with data protection laws and user consent (COMR1 - COMR4)
 \item Addressing safety and health recommendations (COMR5 - COMR6)
 \end{itemize}
