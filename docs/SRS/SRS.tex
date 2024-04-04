@@ -162,6 +162,8 @@
 
 ~\newpage
 
+\pagenumbering{arabic}
+
 \section{Reference Material}
 
 \subsection{Terminology}
@@ -428,14 +430,13 @@ UC2: The app shall allow users to design and save their own custom workouts tail
 \\
 
 UC3: The system should list all exercises.
-\[ListExercises() \rightarrow ExerciseList \]
-\[ \forall : () \Rightarrow (ExerciseList \neq null) \]
+\[ \forall  (Exercise:Exercises | Exercise \in ExerciseList) \]
 \textit{Rationale:} Providing a comprehensive list of exercises within the system serves as a valuable repository from which users can choose to create varied and targeted workout routines, ensuring a diverse and adaptable exercise regimen.
 
 \subsection{Workout History}
 WH1: The app shall display a user’s workout history.
 \[DisplayHistory(User) \rightarrow History \]
-\[ \forall User: (User \neq null) \Rightarrow (History \neq null) \]
+\[ \forall User: (User \neq null \wedge WorkoutPlan \neq null) \Rightarrow (History \neq null) \]
 \textit{Rationale:} Providing users with access to their workout history enables them to track progress over time, gain insights into their fitness journey, and maintain motivation by reflecting on past achievements and areas for improvement.
 \\
 
@@ -453,7 +454,7 @@ DB1: The app shall have a database to store user account information, workout pl
 \textit{Rationale:} A central database to store user-related data is fundamental for the app's operation. It ensures that all user interactions, preferences, and history are persistently saved and can be efficiently retrieved, thus providing a seamless and personalized user experience.
 
 \subsection{Additional Features}
-AF1: The app should allow users to begin/engage in a planned workout while tracking the workout live throughout.
+AF1: The app should allow users to track their completion of exercises when completing a workout through a live workout session.
 \[TrackLiveWorkout(User, PlannedWorkout) \rightarrow LiveTracking \]
 \[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveTracking = true) \]
 \textit{Rationale:} The feature of live workout tracking immerses users in their fitness routine by providing real-time data. This immediate feedback is invaluable for maintaining correct form, pacing, and motivation throughout the exercise session.
@@ -478,11 +479,11 @@ AF3: The app allows users to download workouts for offline access.
 \begin{itemize}
 \item APR1: The app shall have an intuitive and user-friendly interface with minimalist design.\\
 \textit{Rationale:} A minimalist and intuitive interface design is crucial for enhancing user engagement and reducing the learning curve, thus providing a streamlined and focused user experience.
-\item APR2: The app shall be able to adapt to a variety of screen sizes and aspect ratios.\\
+\item APR2: The app shall be compatible with the standard phone aspect ratio, 9:16.\\
 \textit{Rationale:} Ensuring the app’s compatibility with different device screens guarantees a consistent and accessible user experience across a wide range of mobile devices.
 \item APR3: The app shall provide visual feedback whenever a user action takes place.\\
 \textit{Rationale:} Providing visual feedback for user interactions reinforces the app's responsiveness and guides the user through successful command executions and error notifications.
-\item APR4: The app shall load data at a reasonable time so there are no noticeable delays for users.\\
+\item APR4: The app shall load data at a time no more than 500 ms so there are no noticeable delays for users.\\
 \textit{Rationale:} Fast loading times are imperative to maintain user attention and prevent frustration, thereby contributing to a smoother, more efficient user experience.
 \item APR5: The app shall only support portrait mode.\\
 \textit{Rationale:} Supporting only portrait mode can simplify the design and development process, ensuring optimal usability in common scenarios where the app is likely to be used, such as one-handed operation during workouts.
