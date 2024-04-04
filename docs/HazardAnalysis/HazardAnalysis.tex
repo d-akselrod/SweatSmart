@@ -29,167 +29,175 @@
 
 \begin{document}
 
-    \maketitle
-    \thispagestyle{empty}
+\maketitle
+\thispagestyle{empty}
 
-    ~\newpage
+~\newpage
 
-    \pagenumbering{roman}
+\pagenumbering{roman}
 
-    \begin{table}[hp]
-        \centering
-        \caption{Revision History} \label{TblRevisionHistory}
-        \begin{tabularx}{\textwidth}{lllX}
-            \toprule
-            \textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-            \midrule
-            0 & Oct 20, 2023 & Sam, Sophie, Daniel, Jonathan & First draft\\
-            \bottomrule
-        \end{tabularx}
-    \end{table}
+\begin{table}[hp]
+	\centering
+    \caption{Revision History} \label{TblRevisionHistory}
+	\begin{tabularx}{\textwidth}{lllX}
+		\toprule
+		\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+		\midrule
+			0 & Oct 20, 2023 & Sam, Sophie, Daniel, Jonathan & First draft\\
+            1 & Apr 4, 2024 & Sophie & TA and peer review revisions\\
+		\bottomrule
+	\end{tabularx}
+\end{table}
 
-    ~\newpage
+~\newpage
 
-    \tableofcontents
+\tableofcontents
 
-    ~\newpage
+~\newpage
 
-    \pagenumbering{arabic}
+\pagenumbering{arabic}
 
-    \section{Introduction}
+\section{Introduction}
 
-    SweatSmart is an AI powered fitness application that generates workout plans with the aim to help users start or maintain their fitness journey. This system, like every system design, must ensure that all safety requirements are met. This document outlines the system boundaries and components in the scope of the hazard analysis for this system. A Failure Mode and Effect Analysis (FMEA) has been created to outline possible failures and how to deal with them to ensure safety of the system.
+SweatSmart is an AI powered fitness application that generates workout plans with the aim to help users start or maintain their fitness journey. This system, like every system design, must ensure that all safety requirements are met. This document outlines the system boundaries and components in the scope of the hazard analysis for this system. A Failure Mode and Effect Analysis (FMEA) has been created to outline possible failures and how to deal with them to ensure safety of the system. 
 
-    \section{Scope and Purpose of Hazard Analysis}
-    The hazard analysis for SweatSmart serves a crucial role in ensuring the safety, reliability, and security of the application. In its scope, we comprehensively examine the system's boundaries and components, critical assumptions, user interactions, additional safety requirements, and an Effect Analysis that could potentially pose risks to users or impact the application's functionality. The primary purpose is to not only guarantee the safety of the users, but also enhance their overall experience when using the system. This can be achieved by identifying and mitigating potential hazards, aligning with relevant safety standards and regulations, reducing risks, and providing a user-friendly environment. By conducting this analysis, we instill confidence in our stakeholders, promote transparency, and demonstrate our commitment to ensuring the safety and security of our users.
+\section{Scope and Purpose of Hazard Analysis}
+The hazard analysis for SweatSmart serves a crucial role in ensuring the safety, reliability, and security of the application. In its scope, we comprehensively examine the system's boundaries and components, critical assumptions, user interactions, additional safety requirements, and an Effect Analysis that could potentially pose risks to users or impact the application's functionality. The primary purpose is to not only guarantee the safety of the users, but also enhance their overall experience when using the system. This can be achieved by identifying and mitigating potential hazards, aligning with relevant safety standards and regulations, reducing risks, and providing a user-friendly environment. By conducting this analysis, we instill confidence in our stakeholders, promote transparency, and demonstrate our commitment to ensuring the safety and security of our users.
 
-    \section{System Boundaries and Components}
+\section{System Boundaries and Components}
 
-    \subsection{System Boundaries}
-    \subsubsection{User Interface Boundary} This is the boundary between the user and the system. It's where the user interacts with the app on their iOS device.
-    \subsubsection{Application Boundary} This encompasses the mobile app itself, including its local storage, local processing, and any embedded AI models that might run on the device.
-    \subsubsection{Network Boundary} This is the boundary between the mobile app and the backend system hosted on Azure. It includes the internet and any APIs or services the app communicates with.
-    \subsubsection{Backend Boundary} This is the boundary around the Azure-hosted backend. It includes the servers, databases, AI processing units, and other backend components.
+\subsection{System Boundaries}
+\subsubsection{User Interface Boundary} This is the boundary between the user and the system. It's where the user interacts with the app on their iOS device.
+\subsubsection{Application Boundary} This encompasses the mobile app itself, including its local storage, local processing, and any embedded AI models that might run on the device.
+\subsubsection{Network Boundary} This is the boundary between the mobile app and the backend system hosted on Azure. It includes the internet and any APIs or services the app communicates with.
+\subsubsection{Backend Boundary} This is the boundary around the Azure-hosted backend. It includes the servers, databases, AI processing units, and other backend components.
 
 
-    \subsection{System Components - Mobile App}
-    \subsubsection{User Interface} The screens, buttons, and other UI elements that users interact with.
-    \subsubsection{Local Storage} Where user preferences, cached data, and runtime memory is stored
-    \subsubsection{API Client} Making network requests to the backend, handling responses, and managing errors.
+\subsection{System Components - Mobile App}
+\subsubsection{User Interface} The screens, buttons, and other UI elements that users interact with.
+\subsubsection{Local Storage} Where user preferences, cached data, and runtime memory is stored
+\subsubsection{API Client} Making network requests to the backend, handling responses, and managing errors.
 
-    \subsection{System Components - Backend System (Azure)}
-    \subsubsection{App Service} Backend hosted web-application on Azure
-    \subsubsection{Azure KeyVault} Stores secret environment variables for correct configuration
-    \subsubsection{SQL Server} Hosts an SQL Database and manages connections/security
-    \subsubsection{SQL Database} Stores application data retaining to certain user/fitness info
-    \subsubsection{Authentication \& Authorization Service} Ensures that only registered and authorized users can access endpoints using JWT authorization.
-    \subsubsection{AI Service} AI Model for generating/updating workouts
-    Notification Service: Manages and sends notifications to users
+\subsection{System Components - Backend System (Azure)}
+\subsubsection{App Service} Backend hosted web-application on Azure
+\subsubsection{Azure KeyVault} Stores secret environment variables for correct configuration
+\subsubsection{SQL Server} Hosts an SQL Database and manages connections/security
+\subsubsection{SQL Database} Stores application data retaining to certain user/fitness info
+\subsubsection{Authentication \& Authorization Service} Ensures that only registered and authorized users can access endpoints using JWT authorization.
 
-    \section{Critical Assumptions}
-    \subsection{Azure is secure and safe}
-    We are using Azure as our backend system database. We are assuming that it is a safe platform that cannot be hacked into. Thus, failures relating to the failure of the application itself will not be considered.
+\section{Critical Assumptions}
+\subsection{Azure is Secure and Safe} 
+We are using Azure as our backend system database. We are assuming that it is a safe platform that cannot be hacked into. Thus, failures relating to the failure of the application itself will not be considered. 
+\subsection{Internet Connection}
+Users will always have reliable internet access on the device they are using.
+\subsection{Stable Device}
+The user's device is compatible with the app and possesses the necessary hardware capabilities and system requirements to effectively run the SweatSmart application.
+\subsection{User Compliance}
+Users will accurately input personal preferences and goals and follow recommended exercise guidelines.
+\subsection{User Education}
+Users will read and understand the terms and conditions of the app to ensure safe practice of workout exercises.
 
-    \section{Failure Modes and Effects Analysis}
+\section{Failure Modes and Effects Analysis}
 
-    The Failure Modes and Effects Analysis (FMEA) was used to identify hazards within the system to mitigate them accordingly with safety and security requirements. The FMEA table can be found below.
+The Failure Modes and Effects Analysis (FMEA) was used to identify hazards within the system to mitigate them accordingly with safety and security requirements. The FMEA table can be found below. 
 
-    \renewcommand{\arraystretch}{1.5}
-    \begin{longtable}{|p{1.7cm}|p{1.7cm} p{2.4cm} p{2.4cm} p{3.5cm} p{1.6cm} c|}
-        \hline
-        \multicolumn{1}{|c|}{Component} & \multicolumn{1}{p{1.5cm}}{Failure Modes} & \multicolumn{1}{c}{Effects of Failure} & \multicolumn{1}{c}{Causes of Failure} & \multicolumn{1}{c}{Recommended action} & \multicolumn{1}{c}{SR} & \multicolumn{1}{c|}{Ref.}\\
-        \hline
-        Profile & Account not created & User unable to access core app functionality & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display error message and prompt user to try again \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR1 \end{enumerate} & H1-1\\
-        \hline
-        & User unable to log in & User unable to access their existing account and application data & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Login credentials not stored properly in database \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Provide option for user to reset their credentials \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H1-2\\
-        \cline{2-7}
-        & User unable to update preferences & Workout generation will not be effectively personalized & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database update failure \item Front-end functionality failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display detailed error message to user \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR1 \end{enumerate} & H1-3\\
-        \cline{2-7}
-        & User workout history is not updated & User will not be able to see their progress & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Upon database failure, store data locally until database failure is resolved. Regularly attempt to upload data to minimize time data is stored locally \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR4 \end{enumerate} & H1-4\\
-        \cline{2-7}
-        & User account unintentionally deleted & Complete loss of account information & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Databases should be regularly and automatically backed up with the opportunity to rollback changes given a database failure. \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H1-5\\
-        \cline{2-7}
-        & User preferences unintentionally deleted & Complete loss of user profile characteristics and fitness goals & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Refer to H1-5 \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H1-6\\
-        \cline{2-7}
-        & Database contains duplicate accounts & Inconsistency in user data & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Account authentication errors \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Backend validation to ensure no duplicate primary keys \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR5 \end{enumerate} & H1-7\\
-        \hline
-        Workout Planning & System does not generate a workout plan according to user profile characteristics & User left without core feature of the app: a generated workout plan & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item AI Algorithm failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display detailed error message and allow them to try again \item Review data set for more accurate data to train AI model \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR1 \end{enumerate} & H2-1\\
-        \hline
-        Live Workout & User unable to begin workout & User cannot view instructions and guidance for their workout & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item App closes unexpectedly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Refer to H5-1a \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR2 \item INR4 \end{enumerate} & H3-1\\
-        \cline{2-7}
-        & Live workout unexpectedly quits & User must stop their workout & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item App closes unexpectedly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display a detailed error message. Store progress as workout progresses so progress is not lost. Using stored progress, allow users to resume workout once system is back up \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR6 \end{enumerate} & H3-2\\
-        \hline
-        Workouts & User given inaccurate advice for an exercise & Potential user injury & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item AI model trained on inaccurate data \item Chatbot given too much leeway for workout instruction \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item All data input into the training data set will be extensively reviewed and researched to ensure best fitness practices are followed \item Ensure users are sufficiently warned and provided with guidance for best practices regarding how exercise should feel (e.g. if there is pain, stop) \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR7 \item INR8 \end{enumerate} & H4-1\\
-        \cline{2-7}
-        & System does not save workout & Progress tracking unavailable for relevant workout & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \item App crashes unexpectedly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Refer to H1-4. \item Refer to H5-1a \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR4 \end{enumerate} & H4-2\\
-        \hline
-        General & Application closes unexpectedly & User briefly unable to access app, potential data loss & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item User device loses power \item Server instability \item User device unable to support \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Store unsaved data locally until application is reopened \item Refer to H5-1a \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR4 \end{enumerate} & H5-1\\
-        \cline{2-7}
-        & User data released without permission & Privacy violation & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Implement effective data encryption protocols; update protocols regularly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item PRR1 \end{enumerate} & H5-2\\
-        \cline{2-7}
-        & Data unintentionally deleted & Application data lost & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Refer to H1-5. \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H5-3\\
-        \hline
-        \caption{FMEA table}
-    \end{longtable}
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|p{1.7cm}|p{1.7cm} p{2.4cm} p{2.4cm} p{3.5cm} p{1.6cm} c|}
+ \hline 
+ \multicolumn{1}{|c|}{Component} & \multicolumn{1}{p{1.5cm}}{Failure Modes} & \multicolumn{1}{c}{Effects of Failure} & \multicolumn{1}{c}{Causes of Failure} & \multicolumn{1}{c}{Recommended action} & \multicolumn{1}{c}{SR} & \multicolumn{1}{c|}{Ref.}\\
+ \hline
+ Profile & Account not created & User unable to access core app functionality & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display error message and prompt user to try again \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR1 \end{enumerate} & H1-1\\
+ \cline{2-7}
+  & User unable to log in & User unable to access their existing account and application data & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Login credentials not stored properly in database \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Provide option for user to reset their credentials \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H1-2\\
+ \cline{2-7}
+  & User unable to update preferences & Workout generation will not be effectively personalized & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database update failure \item Front-end functionality failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display detailed error message to user \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR1 \end{enumerate} & H1-3\\
+  \cline{2-7}
+  & User workout history is not updated & User will not be able to see their progress & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Upon database failure, store data locally until database failure is resolved. Regularly attempt to upload data to minimize time data is stored locally \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR4 \end{enumerate} & H1-4\\
+  \cline{2-7}
+  & User account unintentionally deleted & Complete loss of account information & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Databases should be regularly and automatically backed up with the opportunity to rollback changes given a database failure \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H1-5\\
+  \cline{2-7}
+  & User preferences unintentionally deleted & Complete loss of user profile characteristics and fitness goals & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Databases should be regularly and automatically backed up with the opportunity to rollback changes given a database failure. \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H1-6\\
+  \cline{2-7}
+  & Database contains duplicate accounts & Inconsistency in user data & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Account authentication errors \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Backend validation to ensure no duplicate primary keys \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR5 \end{enumerate} & H1-7\\
+  \hline
+  Workout Planning & System does not generate a workout plan according to user profile characteristics & User left without core feature of the app: a generated workout plan & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Algorithm failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display detailed error message and allow them to try again \item Review design flow of algorithm  \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR1 \end{enumerate} & H2-1\\
+  \hline
+  Live Workout & User unable to begin workout & User cannot view instructions and guidance for their workout & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item App closes unexpectedly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Store unsaved data locally until application is reopened \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item EHR2 \item INR4 \end{enumerate} & H3-1\\
+  \cline{2-7}
+  & Live workout unexpectedly quits & User must stop their workout & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item App closes unexpectedly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Display a detailed error message. Store progress as workout progresses so progress is not lost. Using stored progress, allow users to resume workout once system is back up \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR6 \end{enumerate} & H3-2\\
+  \hline
+  Workouts & User given inaccurate advice for an exercise & Potential user injury & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Chatbot given too much leeway for workout instruction \item Unclear instructions and/or visuals in exercise description \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item All data in the exercise database will be extensively reviewed and researched to ensure best fitness practices are followed \item Ensure users are sufficiently warned and provided with guidance for proper form and technique when exercises are performed, regarding how exercise should look and feel (e.g. if there is pain, stop) \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR7 \item INR8 \end{enumerate} & H4-1\\
+  \cline{2-7}
+  & System does not save workout & Progress tracking unavailable for relevant workout & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \item App crashes unexpectedly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Upon database failure, store data locally until database failure is resolved. Regularly attempt to upload data to minimize time data is stored locally \item Store unsaved data locally until application is reopened \end{enumerate}& \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR4 \end{enumerate} & H4-2\\
+  \hline
+  General & Application closes unexpectedly & User briefly unable to access app, potential data loss & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item User device loses power \item Server instability  \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Store unsaved data locally until application is reopened  \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR4 \end{enumerate} & H5-1\\
+  \cline{2-7}
+  & User data released without permission & Privacy violation & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Implement effective data encryption protocols; update protocols regularly \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item PRR1 \end{enumerate} & H5-2\\
+  \cline{2-7}
+  & Data unintentionally deleted & Application data lost & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep]\item Database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item Databases should be regularly and automatically backed up with the opportunity to rollback changes given a database failure \end{enumerate} & \vspace*{-\baselineskip}\begin{enumerate}[label=\alph*., left=0pt, nosep] \item INR3 \end{enumerate} & H5-3\\
+\hline
+\caption{FMEA table}
+\end{longtable}
 
-    \section{Safety and Security Requirements}
+\section{Safety and Security Requirements}
 
-    Requirements written in bold are new requirements that were not included in revision 0 of the SRS, but have been added to mitigate the hazards.
+Requirements written in bold are new requirements that were not included in revision 0 of the SRS, but have been added to mitigate the hazards.
 
-    \subsection{Access Requirements}
-    \begin{itemize}
-        \item ACR1: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
-        \item ACR2: Users shall authenticate themselves with their credentials securely.
-        \item ACR3: Users will only have access to data and features for which they are authorized.
-    \end{itemize}
+\subsection{Access Requirements}
+\begin{itemize}
+    \item ACR1: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
+    \item ACR2: Users shall authenticate themselves with their credentials securely.
+    \item ACR3: Users will only have access to data and features for which they are authorized.
+\end{itemize}
 
-    \subsection{Integrity Requirements}
-    \begin{itemize}
-        \item INR1: Sensitive data shall be restricted from the users of the app.
-        \item INR2: Data between the app and the server should be encrypted when an API call is made.
-        \item INR3: The system should regularly back up data automatically to prevent data loss in the event of database failures.
-        \item INR4: Unstored data should be stored locally if the data cannot be updated.
-        \item INR5: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.
-        \item INR6: The system must have a mechanism to store the user's progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
-        \item INR7: The system should display clear and prominent warnings to users regarding exercise safety.
-        \item INR8: The AI model system should be constantly updated with accurate practices and the data should be reviewed.
-    \end{itemize}
+\subsection{Integrity Requirements}
+\begin{itemize}
+    \item INR1: Sensitive data shall be restricted from the users of the app.
+    \item INR2: Data between the app and the server should be encrypted when an API call is made.
+    \item INR3: The system should regularly back up data automatically to prevent data loss in the event of database failures.
+    \item INR4: Unstored data should be stored locally if the data cannot be updated.
+    \item INR5: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.
+    \item INR6: The system must have a mechanism to store the user's progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
+    \item INR7: The system should display clear and prominent warnings to users regarding exercise safety.
+    \item INR8: The AI model system should be constantly updated with accurate practices and the data should be reviewed.
+\end{itemize}
 
-    \subsection{Privacy Requirements}
-    \begin{itemize}
-        \item PRR1: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access
-    \end{itemize}
+\subsection{Privacy Requirements}
+\begin{itemize}
+    \item PRR1: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access
+\end{itemize}
 
-    \subsection{Error Handling Requirements}
-    \begin{itemize}
-        \item EHR1: The system should have robust error handling that doesn't reveal sensitive system information to users in error messages
-        \item EHR2: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures
-    \end{itemize}
+\subsection{Error Handling Requirements}
+\begin{itemize}
+    \item EHR1: The system should have robust error handling that doesn't reveal sensitive system information to users in error messages
+    \item EHR2: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures
+\end{itemize}
 
-    \section{Roadmap}
+\section{Roadmap}
 
-    \subsection*{7.1 During Capstone Timeline}
+\subsection*{7.1 During Capstone Timeline}
     The following requirements will be implemented during the current project timeline
-    \begin{itemize}
-        \item ACR1
-        \item ACR2
-        \item ACR3
-        \item INR1
-        \item INR2
-        \item INR5
-        \item SECR6
-        \item PRR1
-        \item EHR1
-    \end{itemize}
+\begin{itemize}
+    \item ACR1
+    \item ACR2
+    \item ACR3
+    \item INR1
+    \item INR2
+    \item INR5
+    \item SECR6
+    \item PRR1
+    \item EHR1
+\end{itemize}
 
-    \subsection*{7.2 Future Timeline}
-    The following requirements are to be left for future implementation
-    \begin{itemize}
-        \item INR3
-        \item INR4
-        \item INR6
-        \item INR7
-        \item INR8
-        \item EHR2
-    \end{itemize}
+\subsection*{7.2 Future Timeline}
+The following requirements are to be left for future implementation
+\begin{itemize}
+    \item INR3
+    \item INR4
+    \item INR6
+    \item INR7
+    \item INR8
+    \item EHR2
+\end{itemize}
+
 \end{document}
