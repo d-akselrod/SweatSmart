@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import userReducer from '../redux/slices/userSlice';
+import workoutReducer from '../redux/slices/workoutSlice';
 
 const logger = createLogger({
   collapsed: false,
@@ -18,5 +19,6 @@ export const debugstore = configureStore({
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    workout: workoutReducer,
   },
 });

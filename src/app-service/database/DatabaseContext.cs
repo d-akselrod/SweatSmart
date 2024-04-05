@@ -15,9 +15,15 @@ public class DatabaseContext : DbContext
             .HasKey(uw => new { uw.UId, uw.WId });
         modelBuilder.Entity<WorkoutPlan>()
             .HasKey(wp => new { wp.WId, wp.EId });
+        modelBuilder.Entity<Friendship>()
+            .HasKey(f => new { f.Friend1, f.Friend2 });
+        modelBuilder.Entity<WorkoutExercise>()
+            .HasKey(wp => new { wp.WId, wp.EId, wp.SetNumber });
     }
 
     public DbSet<User> Users { get; set; }
+
+    public DbSet<Friendship> Friends { get; set; }
     public DbSet<PhysicalAttributes> PhysicalAttributes { get; set; }
 
     public DbSet<Workout> Workouts { get; set; }
@@ -28,5 +34,10 @@ public class DatabaseContext : DbContext
 
     public DbSet<WorkoutPlan> WorkoutPlans { get; set; }
 
+    public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
+
+
     public DbSet<FitnessGoals> FitnessGoals { get; set; }
+
+    public DbSet<UserPreferences> UserPreferences { get; set; }
 }

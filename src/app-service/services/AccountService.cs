@@ -26,7 +26,7 @@ public class AccountService : ControllerBase
     public AccountService(DatabaseContext database, IConfiguration configuration)
     {
         this.database = database;
-        userController = new UserController(database);
+        userController = new UserController(database, configuration);
 
         var encryptionKey = configuration["EncryptionKey"];
         encryptionHelper = new EncryptionHelper(encryptionKey);
@@ -63,9 +63,17 @@ public class AccountService : ControllerBase
             return new APIResponse(404, "Account not found", null);
         }
 
-        return HashPassword(password) == user.Password
-            ? new APIResponse(200, null, user)
-            : new APIResponse(401, "Incorrect Password", null);
+        if (HashPassword(password) == user.Password)
+        {
+            var decryptedUser = new User
+            {
+                Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+                Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+                Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+            };
+            return new APIResponse(200, null, decryptedUser);
+        }
+        return new APIResponse(401, "Incorrect Password", null);
     }
 
     [Authorize]
@@ -86,14 +94,89 @@ public class AccountService : ControllerBase
             return new APIResponse(409, "Username already exists", null);
         }
 
-        var newUser = new User
+        var decryptedUser = new User
+        {
+            Email = email,
+            Username = username,
+        };
+
+        var encryptedUser = new User
         {
             Email = encryptionHelper.Encrypt(email),
             Username = encryptionHelper.Encrypt(username),
             Password = HashPassword(password)
         };
 
-        await userController.AddUser(newUser);
-        return new APIResponse(200, null, newUser);
+        await userController.AddUser(encryptedUser);
+        return new APIResponse(200, null, decryptedUser);
+    }
+
+    [Authorize]
+    [HttpPut("Update/{username}/Username")]
+    public async Task<IActionResult> UpdateUserByUsername(string username, string newUsername)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        user.Username = encryptionHelper.Encrypt(newUsername);
+        await database.SaveChangesAsync();
+
+        var decryptedUser = new User
+        {
+            Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+            Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+            Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+        };
+
+        return new APIResponse(200, null, decryptedUser);
+    }
+
+    [Authorize]
+    [HttpPut("Update/{username}/Email")]
+    public async Task<IActionResult> UpdateEmailByUsername(string username, string newEmail)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        user.Email = encryptionHelper.Encrypt(newEmail);
+        await database.SaveChangesAsync();
+
+        var decryptedUser = new User
+        {
+            Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+            Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+            Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+        };
+
+        return new APIResponse(200, null, decryptedUser);
+    }
+
+    [Authorize]
+    [HttpPut("Update/{username}/Name")]
+    public async Task<IActionResult> UpdateNameByUsername(string username, string newName)
+    {
+        var user = await database.Users.SingleOrDefaultAsync(user => user.Username == encryptionHelper.Encrypt(username));
+        if (user == null)
+        {
+            return APIResponse.NotFound;
+        }
+
+        user.Name = encryptionHelper.Encrypt(newName);
+        await database.SaveChangesAsync();
+
+        var decryptedUser = new User
+        {
+            Name = !string.IsNullOrEmpty(user.Name) ? encryptionHelper.Decrypt(user.Name) : null,
+            Email = user.Email != null ? encryptionHelper.Decrypt(user.Email) : null,
+            Username = user.Username != null ? encryptionHelper.Decrypt(user.Username) : null,
+        };
+
+        return new APIResponse(200, null, decryptedUser);
     }
 }

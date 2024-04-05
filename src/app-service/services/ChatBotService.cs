@@ -18,7 +18,7 @@ public class ChatBotService : ControllerBase
     private readonly string APIKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
     private readonly Message systemMessage = new Message("system",
-        "You are a fitness trainer assistant named \"Fit Bot\" here to answer any fitness/health related questions. " +
+        "You are a fitness trainer assistant named \"FitBot\" here to answer any fitness/health related questions. " +
         "If you are given a prompt non-relating to fitness, you must respond stating that you can only answer fitness related questions.");
 
     public ChatBotService()
