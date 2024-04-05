@@ -38,6 +38,7 @@
             \textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
             \midrule
             0 & Nov 3, 2023 & Sophie, Daniel, Sam, Jonathan & First draft\\
+            1 & April 4, 2024 & Sophie, Daniel, Sam, Jonathan & Major Revision 1\\
             \bottomrule
         \end{tabularx}
     \end{table}
@@ -266,21 +267,21 @@
 
         How test will be performed: The program will run given the specific inputs. Ensure the user is redirected to the login page. Check the database to make sure account information is stored.
 
-        \item{\textbf{STF-UA-2: Missing registration data}\\}
-
-        Description: A user cannot create a new account with incomplete registration information.
-
-        Control:  Functional, Dynamic, Manual.
-
-        Initial State: User does not have an existing account; user is on registration page.
-
-        Input: User does not provide email, and/or username, and/or a password and clicks the register button.
-
-        Output: User account is not created and account information is not stored in the database; the app displays an error message prompting the user to provide the missing information.
-
-        Test Case Derivation: User registration should not be created if the registration information is incomplete. A username, an email and a password must be imputed for a user registration to be considered. A new account should not be created if one or more of the inputs is missing.
-
-        How test will be performed: The program will run with one or more inputs missing. Ensure the app displays an error message and prompts for corrections. Check the database to make sure account information is not stored.
+        \item{\textbf{STF-UA-2/4: Missing Registration Data and Terms and Conditions Agreement}\\}
+        
+        Description: A user cannot create a new account with incomplete registration information or without agreeing to the terms and conditions.
+        
+        Control: Functional, Dynamic, Manual.
+        
+        Initial State: User does not have an existing account; user is on the registration page.
+        
+        Input: User attempts to register without providing complete information (missing email, and/or username, and/or password) or without agreeing to the terms and conditions.
+        
+        Output: User account is not created, and the user is informed of the missing information and/or the necessity to agree to the terms and conditions before proceeding.
+        
+        Test Case Derivation: The system must validate that all required fields are completed and that the user has agreed to the terms and conditions as part of the registration process. Incomplete information or lack of agreement prevents account creation to ensure data integrity and user consent.
+        
+        How test will be performed: The system is tested with various combinations of incomplete registration data and with/without agreement to the terms and conditions. The test verifies that the system correctly prevents account creation and informs the user of the specific action needed to proceed.
 
         \item{\textbf{STF-UA-3: Unsuccessful registration using existing username}\\}
 
@@ -298,23 +299,7 @@
 
         How test will be performed: The program will run given the specific inputs. Ensure the app displays an error message and prompts for corrections. Check the database to make sure account information is not stored and there are no duplicate usernames.
 
-        \item{\textbf{STF-UA-4: Terms and conditions agreement}\\}
-
-        Description: The app restricts account creation until the user agrees to the terms and conditions.
-
-        Control: Functional, Dynamic, Manual.
-
-        Initial State: User does not have an existing account; user is on registration page.
-
-        Input: User provides valid email, available username, valid password, does not agree to terms and conditions clause and clicks the register button.
-
-        Output: User account is not created and account information is not stored in the database; user is prompted with an error message saying that the user must agree to the terms and conditions clause.
-
-        Test Case Derivation: User registration is not successful if a user does not agree to the terms and conditions agreement. Even if a user has valid registration credentials (i.e. valid email, username, and password), an account cannot be created until the user agrees to the terms and conditions.
-
-        How test will be performed: The program will run given valid registration information but without agreeing to the terms and conditions. Ensure the user is prompted with an error message to agree to the clause. Check the database to make sure account information is not stored.
-
-        \item{\textbf{STF-UA-5: Successful login}\\}
+        \item{\textbf{STF-UA-4: Successful login}\\}
 
         Description: A user, with an existing account, can successfully log into their account using their account information.
 
@@ -330,7 +315,7 @@
 
         How test will be performed: The program will run given the valid user login credentials. Ensure the user gains access to their account and can access the app’s core features. Check that the user is redirected to the homepage.
 
-        \item{\textbf{STF-UA-6: Unsuccessful login using unregistered username or email}\\}
+        \item{\textbf{STF-UA-5: Unsuccessful login using unregistered username or email}\\}
 
         Description: A user with an invalid username or email cannot log into the app.
 
@@ -346,7 +331,7 @@
 
         How test will be performed: The program will run given the invalid username or email. Ensure the user is not logged into the app and cannot access the app’s core features.
 
-        \item{\textbf{STF-UA-7: Unsuccessful login with wrong password}\\}
+        \item{\textbf{STF-UA-6: Unsuccessful login with wrong password}\\}
 
         Description: A user tries to log into their account with the wrong password.
 
@@ -362,7 +347,7 @@
 
         How test will be performed: The program will run given the invalid username or email. Ensure the user is not logged into the app and cannot access the app’s core features.
 
-        \item{\textbf{STF-UA-8: Successful logout}\\}
+        \item{\textbf{STF-UA-7: Successful logout}\\}
 
         Description: A user, who is already logged into their account, can successfully log out of their account.
 
@@ -378,7 +363,7 @@
 
         How test will be performed: The program will run given the specific input. Ensure the user is successfully logged out and redirected as expected.
 
-        \item{\textbf{STF-UA-9: Update profile information}\\}
+        \item{\textbf{STF-UA-8: Update profile information}\\}
 
         Description: A user can update their profile information, including their physical attributes and fitness goals, and their changes will be saved.
 
@@ -609,28 +594,47 @@
 
     \end{enumerate}
 
-    \subsubsection{Database}
-    This section covers the database functional requirements (section 5.5 in the SRS).
+\subsubsection{Database Functionality Testing}
+This section outlines the detailed testing approach for verifying the database functionality of the SweatSmart application, ensuring robustness, reliability, and performance.
 
-    \begin{enumerate}
+\begin{enumerate}
 
-        \item{\textbf{STF-DB-1: Database functionality}\\}
+    \item{\textbf{STF-DB-1: Database Connection Verification}\\}
 
-        Description: All information saved on the app by a user, including user account information, workout plans, user feedback, and workout history is stored in the database
+    Description: Verify the system’s capability to establish a connection with the database successfully.
 
-        Control: Functional, Dynamic, Manual, Automatic.
+    Control: Functional, Dynamic, Automated.
 
-        Initial State: User interacts with app.
+    Initial State: The system is initialized and ready to connect to the database.
 
-        Input: The app retrieves and displays user account information, workout plans, user feedback, and workout history.
+    Input: Automated test script to initiate a database connection.
 
-        Output: The app correctly stores, retrieves, and displays user account information, workout plans, user feedback, and workout history.
+    Output: The system successfully connects to the database without errors.
 
-        Test Case Derivation: The database should always accurately store, retrieve and display the proper information.
+    Test Case Derivation: Ensuring the system can establish a connection with the database is fundamental for all database operations. This test verifies that the application's configuration and network connectivity are correctly set up to communicate with the database.
 
-        How test will be performed: Tester will manually access the app’s features to update, retrieve and display user-related data. The app automatically retrieves and displays the data requested by the user. Combine manual verification and automatic database operations to ensure that the database functionality is correct.
+    How test will be performed: Utilize an automated testing tool or script that attempts to connect to the database. The test is considered successful if the connection is established without errors, indicating that the application is correctly configured for database access.
 
-    \end{enumerate}
+    \item{\textbf{STF-DB-2: Data Persistence and Retrieval}\\}
+
+    Description: Ensure that the application can successfully save, update, and retrieve data from the database.
+
+    Control: Functional, Dynamic, Manual/Automated.
+
+    Initial State: The system is connected to the database.
+
+    Input: Predefined data entries to be saved, updated, and retrieved via the application.
+
+    Output: The system correctly saves, updates, and retrieves data, matching the predefined entries.
+
+    Test Case Derivation: This test case validates that the system correctly implements CRUD (Create, Read, Update, Delete) operations, ensuring data integrity and reliability.
+
+    How test will be performed: Execute a series of automated or manual tests that perform CRUD operations through the application's interface. Verify that all operations are executed as expected by comparing input data with the data retrieved from the database.
+
+\end{enumerate}
+
+By splitting the database functionality testing into specific test cases, the V&V plan provides a clear and structured approach to validating each essential aspect of the system’s interaction with the database. This ensures a higher
+
 
     \subsubsection{Additional Features}
     This section covers the additional features functional requirements (section 5.6 in the SRS).
@@ -1259,7 +1263,7 @@
 
     \begin{enumerate}
 
-        \item {\textbf{STN-ACR-1: Strong Password Restrictions}}
+        \item {\textbf{STN-ACSR-1: Strong Password Restrictions}}
 
         Description: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
 
@@ -1274,22 +1278,44 @@
         How test will be performed: Testers will attempt to register or change passwords using weak and strong password examples and verify that only strong passwords are accepted.
 
 
-        \item{\textbf{STN-ACR-2: Authentication Credentials}}
+        \item{\textbf{STN-ACS-2: Authentication Credentials}}
 
-        Description:  Users shall authenticate themselves with their credentials securely.
+        \begin{enumerate}
+                \item{\textbf{STN-ACS-2A: Successful Authentication}\\}
+        
+                Description: Verify that users with valid credentials are successfully authenticated and granted access.
+        
+                Control: Functional, Dynamic, Manual.
+        
+                Initial State: User is not logged in and is on the login page.
+        
+                Input: Valid user credentials (username and password).
+        
+                Output: Authentication is successful, and the user is granted access to their account.
+        
+                Test Case Derivation: Ensures that users with correct credentials can access their accounts without issues, reflecting the system's ability to verify and grant access appropriately.
+        
+                How test will be performed: Manual testing will be conducted where testers input valid credentials into the login form. The test is considered successful if the system authenticates the user and grants access to their account, transitioning to the user's dashboard or home page.
+        
+                \item{\textbf{STN-ACS-2B: Denied Authentication}\\}
+        
+                Description: Ensure that access is denied for users with invalid credentials, protecting against unauthorized access.
+        
+                Control: Functional, Dynamic, Manual.
+        
+                Initial State: User is not logged in and is on the login page.
+        
+                Input: Invalid user credentials (username and password).
+        
+                Output: Authentication fails, and access to the account is denied with an appropriate error message.
+        
+                Test Case Derivation: Validates the system's security measures to prevent unauthorized access by denying entry to users with incorrect credentials.
+        
+                How test will be performed: Manual testing will be employed where testers enter invalid or incorrect credentials into the login form. The test is considered successful if the system correctly identifies the authentication attempt as unauthorized, denies access, and provides a clear error message to the user.
+            \end{enumerate}
 
-        Type: Functional, dynamic, manual.
 
-        Initial State: User is at the login page.
-
-        Input/Condition: User inputs their credentials.
-
-        Output/Result: Successful login with valid credentials; unsuccessful login with invalid credentials.
-
-        How test will be performed: Testers will use valid and invalid credentials to ensure proper authentication.
-
-
-        \item{\textbf{STN-ACR-3: Authorized Data Access}}
+        \item{\textbf{STN-ACS-3: Authorized Data Access}}
 
         Description: Users will only have access to data and features for which they are authorized.
 
@@ -1569,7 +1595,7 @@
     \subsection{Usability Survey Questions}
 
     \begin{enumerate}
-        \item On a scale of 1 to 10, how intuitive did you find the app's interface?
+        \item On a scale of 1 to 10, how intuitive did you find the app's interface? (1 being not intuitive at all, 10 being very intuitive)
         \item Did you experience any noticeable delays or lag when using the app? (Options: Always, Often, Sometimes, Rarely, Never)
         \item Were you able to easily navigate and understand the app's various pages and features?
         \item How would you rate the app's visual appearance and design consistency? (Options: Excellent, Good, Average, Below Average, Poor)
@@ -1580,6 +1606,7 @@
         \item Did you encounter any issues or difficulties when trying to customize or personalize your app settings?
         \item How consistent do you feel terminology and required interactions stayed throughout your navigation of the app on a scale of 1 to 10? (1 being very inconsistent, 10 being very consistent)
     \end{enumerate}
+
 
     \newpage{}
     \section*{Appendix --- Reflection}
