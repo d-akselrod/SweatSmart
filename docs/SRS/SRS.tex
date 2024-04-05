@@ -153,6 +153,8 @@
 			0 & Oct 6, 2023 & Sophie, Daniel, Sam, Jonathan & First draft\\
             \hline
             0.1 & Oct 20, 2023 & Sophie, Jonathan & Updated safety requirements that mitigate system hazards\\
+            \hline
+            1.0 & Apr 3, 2024 & Sam & Updated the document to align with new project direction and final submitted code.\\
 			\bottomrule
 		\end{tabularx}
 	\end{table}
@@ -160,12 +162,12 @@
 
 ~\newpage
 
+\pagenumbering{arabic}
+
 \section{Reference Material}
 
 \subsection{Terminology}
 \begin{enumerate}
-    \item ML - machine learning
-    \item AI - Artificial Intelligence 
     \item Rep - short for repetition 
 \end{enumerate}
 
@@ -176,45 +178,33 @@
 The primary purpose of this document is to capture and define the functional and non-functional requirements of the SweatSmart app. It will serve as a comprehensive reference that outlines what the application will need to do. It provides a roadmap for the development of the application. Additionally, this document serves as a means of communication between project stakeholders, ensuring all team members have a clear understanding of the project’s scope and requirements. By providing a place for clear specification of requirements and constraints, the SRS document also supports quality assurance efforts.
 
 \subsection{Purpose of Project}
-The purpose of “SweatSmart,” the AI-Powered Workout Planner, is to develop a sophisticated mobile application that harnesses the capabilities of artificial intelligence (AI) and machine learning (ML) to revolutionize how individuals plan and manage their fitness routines. This project’s main goal is to address the growing demand for purpose-built health and fitness solutions that cater to users with a diverse set of fitness goals, experience levels, preferences, and backgrounds.
+The purpose of this document is to outline the functional and non-functional requirements for the SweatSmart app, focusing on evidence-based workout guidance. This document will act as a detailed guide for the app's development and an informative tool for stakeholders, ensuring a shared understanding of the project's scope. It will detail specifications and constraints, underpinning the quality assurance process and the project's commitment to an evidence-based approach, simplicity, and user accessibility.
 
 \subsection{Goals}
-The SweatSmart project is driven by a set of self-defined goals and objectives that shape its development and implementation. These goals reflect the project’s mission and the desired outcomes. The main project goals are listed as follows:
+The vision of SweatSmart is anchored in a set of deliberate objectives that guide its creation and rollout. These goals embody the app's essence and the outcomes it seeks to realize.
 
-\subsubsection{Personalization}
-The primary goal of the project is to deliver a highly personalized fitness experience to users of the SweatSmart application. Using AI and ML technologies, our team aims to create tailored and unique workout plans for each individual user. These plans should adapt to users’ individual progress, preferences, feedback, and evolving fitness goals.
-
-\subsubsection{Guidance and Support}
-The project aims to provide comprehensive guidance and support during workouts through the SweatSmart application, enhancing safety and effectiveness of the application during workouts.
-
-\subsubsection{Progress Tracking}
-SweatSmart aims to provide users with a wide range of tools to track their fitness progress over time. Enabling users to log completed workouts, record performance metrics, and visualize their fitness achievements.
-
-\subsubsection{Simplicity and User-Centered Design}
-Our team aims to deliver a user-friendly and intuitive experience with the SweatSmart application. The SweatSmart user interface will prioritize simplicity and ease-of-use so that users can navigate the app efficiently.
-
-\subsubsection{Reliability}
-This project strives to provide a robust and error-free application, operating without any critical errors leading to crashes or unexpected behavior.
-
-\subsubsection{Efficient Code and Documentation}
-Maintain clean and effective code while also providing comprehensive documentation.
-
-\subsubsection{Budget Adherence}
-Stay within the allotted budget of \$750 CAD.
+\begin{itemize}
+    \item \textbf{Evidence-Based Personalization:} We aim to set ourselves apart from other fitness solutions by offering workout plans founded on scientific evidence, tailored to each user's developmental journey and fitness aspirations.
+    \item \textbf{Guidance and Support:} We will deliver thorough workout guidance to ensure user safety and enhance the effectiveness of each session.
+    \item \textbf{Progress Tracking:} The app will enable users to log workouts, both app-generated and self-made, view workout history, and repeat saved workouts. This is an important goal as progress tracking and history helps people stay on top of their goals and ensures they do not overexert themselves.
+    \item \textbf{Simplicity and User-Centered Design:} SweatSmart is dedicated to providing an intuitively navigable interface, emphasizing straightforwardness to facilitate a straightforward user experience for people with limited technological experience.
+    \item \textbf{Reliability:} Our aim is to develop a dependable application, free from critical malfunctions that could impede the user's progress.
+    \item \textbf{Efficient Code and Documentation:} We prioritize maintaining best practices when it comes to coding standards and comprehensive documentation to underpin the app's structure and functionality.
+    \item \textbf{Budget Adherence:} Stay within the allotted budget (Section 4.3).
+\end{itemize}
 
 \subsection{Stakeholders}
 
 \subsubsection{Direct}
 \begin{itemize}
-  \item Beginners: Individuals with little to no experience in the fitness world.
-  \item Fitness enthusiasts: Individuals who are already dedicated to maintaining an active and healthy lifestyle.
-  \item Athletes: Competitive athletes seeking to optimize/improve their training regimens.
-  \item Health-Focused Individuals: People with specific health objectives, such as weight management, stress reduction, or injury rehabilitation, who require bespoke fitness plans to achieve these goals.
+  \item Beginners: Individuals with little to no experience in the fitness world and want a simple introduction to it.
+  \item Fitness enthusiasts: Individuals who are already dedicated to maintaining an active and healthy lifestyle and seek a workout logger and/or new workout ideas to keep them interested in fitness.
+  \item Athletes: Competitive athletes seeking to log and track their workout progress.
 \end{itemize}
 
 \subsubsection{Indirect}
 \begin{itemize}
-  \item Fitness Industry Experts: Professionals in the fitness industry who may indirectly or directly influence the app’s content and application through their industry expertise and research.
+  \item Fitness Industry Experts: Professionals in the fitness industry, including our supervisors, Stuart Philips and Bradley Currier, who play a key role in informing the decision-making behind the workout generation algorithm and the app as a whole.
   \item Fitness Equipment Manufacturers: Companies that produce fitness equipment may benefit from the application leading to an increase in users’ interest in fitness and related equipment.
   \item Local Fitness Facilities: Gyms, fitness centers, and local fitness trainers who may indirectly interact with users referred by the app or who engage with the fitness community fostered by the app.
 \end{itemize}
@@ -228,10 +218,11 @@ Stay within the allotted budget of \$750 CAD.
 
 \subsubsection{User Assumptions}
 \begin{itemize}
-  \item Users are consistently updating the application to view the latest updates and changes.
+  \item Users have varying levels of knowledge about fitness, engaging with the app in a variety of ways as a result.
   \item Users are assumed to have access to the internet at times when using certain features of the app.
   \item Users have basic knowledge of using mobile apps to navigate properly.
   \item Users use the app consistently for accurate fitness tracking and results.
+  \item Users have access to workout equipment or are interested in body-weight exercises. 
 \end{itemize}
 
 \subsection{Off-the-shelf Solutions}
@@ -245,38 +236,28 @@ Fitbod creates personalized training programs through an AI algorithm. It tracks
 \subsubsection{FitnessAI}
 FitnessAi is another AI-powered fitness application that creates personalized workouts based on workout history, personal goals, and fitness levels. An interesting feature from this app is the use of 3D animation to show proper form and the targeted muscles of specific exercises. [3]
 
-
 \section{System Description}
 
 \subsection{System Context}
 
 \subsubsection{Users}
-At the heart of the system lie the users of the application. Users are a diverse group of individuals and interact with the SweatSmart app to access workout plans, track progress, and receive guidance on their fitness journey. Users are further categorized in section 2.4 “Stakeholders” so we will not go into detail here, but it is important to mention users when discussing context.
+At the heart of the system lie the users of the application. Users are a diverse group of individuals and interact with the SweatSmart app to access workout plans, track progress, and receive guidance on their fitness journey. Users are further categorized in section 2.4 “Stakeholders” and in section 3.2 "User Characteristics", so we will not go into detail here, but it is important to mention users when discussing context.
 
-\subsubsection{Social Media Platforms}
+\subsubsection{Social Media Platforms (Future Consideration)}
 We recognize how important social media is for the average person’s fitness journey. SweatSmart will need to utilize this excellent resource to help motivate our users and promote the app in the process. Users should be able to easily share progress updates and workouts they enjoyed to social media sites like Instagram, X (formerly Twitter), and Facebook.
 
-\subsubsection{External Data Sources}
-SweatSmart will need to harness the power and information of external data sources to enrich its functionality and provide a comprehensive data set for its ML model. Resources like fitness blogs, articles, research papers, nutritional databases, and much more will help the application deliver up-to-date health and fitness information.
+\subsubsection{Kinesiology Experts}
+Our team will harness the knowledge behind our supervisors' research into fitness and resistance training to inform SweatSmart's evidence-based approach to workout generation and tracking. These experts will need to be consulted throughout the development process to ensure every aspect of our app makes sense in the context of exercise science.
 
 \subsubsection{Fitness Equipment and Wearables (Future Integration)}
 The current fitness market is full of wearable technologies that help track an extensive set of metrics to help people on their health and fitness journeys. Integration with wearable technology will allow for a more robust user experience with workouts seamlessly synchronized in real-time. Fitness equipment has also become more advanced, with features in equipment like free weights, stationary bikes, and treadmills, which enable users to accurately track their workouts. SweatSmart would see positive user engagement from integration with these devices.
 
 \subsection{User Characteristics}
-Users will have varying levels of fitness experience and knowledge. Users might be beginners at the gym who are looking to start their fitness journey, regular gym-goers who are looking to improve their workouts, or highly experienced fitness enthusiasts who would like to track their workouts. Users should have a basic understanding of how to use a smartphone or tablet. It is expected that users will already be familiar with downloading an application, opening an application, and navigating using a touch-screen device. It is important to note that this list is not comprehensive, but it helps illustrate the types of basic functions we expect our users to be familiar with before opening our application. Users will not require any formal training to be able to operate the system.
+Users will have varying levels of fitness experience and knowledge. Users might be beginners at the gym who are looking to start their fitness journey, regular gym-goers who are looking to easily track, update, or change up their workouts, or highly experienced fitness enthusiasts who would like to track their workouts. Users should have a basic understanding of how to use a smartphone or tablet. It is expected that users will already be familiar with downloading an application, opening an application, and navigating using a touch-screen device. It is important to note that this list is not comprehensive, but it helps illustrate the types of basic functions we expect our users to be familiar with before opening our application. Users will not require any formal training to be able to operate the system.
 
 \subsection{Problem Description}
-The fitness industry has seen a remarkable explosion in interest recently due to a variety of factors. However, many challenges still persist for individuals seeking effective fitness solutions despite the increase in popularity.
 
-\begin{enumerate}
-  \item One-Size-Fits-All Approach: Traditional fitness regimens often adopt this kind of approach, providing generic workout plans that do not consider the individuality of those seeking guidance.
-  \item Lack of Personalization: Many apps offer limited means of personalization, resulting in user disengagement due to plans that fail to align with each individual’s needs and goals.
-  \item Guidance Gaps: Users, namely beginners, frequently encounter gaps in guidance. This makes it challenging to understand proper exercise technique, safety measures, and what progress should look like.
-  \item Motivation and Accountability: Staying accountable and motivated on a fitness journey is difficult without support and commitment to some sort of community.
-  \item Complexity and Information Overload: Existing fitness apps and other solutions may overwhelm users with extensive data, metrics, and features, making the fitness experience too complex to be accessible.
-\end{enumerate}
-
-In summary, the current fitness landscape sees a lack of effective and personalized options for users, leading to less-than-ideal fitness outcomes and an overall lack of engagement.
+In our current fast-paced world, it has become increasingly difficult for people of all fitness levels to maintain a healthy and active lifestyle without investing significant time into creating a plan and routine. It does not help that self-proclaimed gym experts and "fitfluencers" have popped up on social media to over complicate the world of fitness even further, usually trying to sell expensive "solutions". Consequently, many individuals struggle to establish and follow personalized workout plans that match their experience, preferences, goals, and tight schedules. Market-available options often fail to provide adaptive and evolving workouts, leading to stagnation, reduced motivation, and boredom. Addressing these challenges, our team proposes the development of an evidence-based workout planner and logger app to assist individuals along their fitness journey. Our app seeks to simplify the fitness landscape for individuals trying to begin their fitness journey, emphasizing a strong evidence-base and an accessible design. 
 
 \subsection{Use Cases/Scenarios}
 
@@ -299,17 +280,19 @@ Users can start their live workout and add their weights, repetitions, and the n
 Users can sign out of their accounts.
 
 \subsubsection{Update Personal Information}
-Users will update personal information such as their weight, gender, age, etc. This will be used when a workout is generated by an AI.
+Users will update personal information such as their fitness goals, fitness experience, or available equipment etc. This will be used when a workout is generated by the evidence-based algorithm.
 
 \subsubsection{A Workout is Generated}
-A workout is generated from an AI after user input.
+A workout is generated from our evidence-based algorithm.
 
 \subsubsection{View Workout History}
-Users can view their workout history once their live workouts have been tracked.
+Users can view their workout history once their live workouts have been tracked and finished.
 
 \subsubsection{Communicate with a Chatbot Coach}
-Users can constantly chat with a virtual bot to get help related to fitness.
+Users can chat with a virtual bot to ask any fitness-related questions.
 
+\subsubsection{Users can Log their own Workouts}
+Users can use the app to log workouts they came up with themselves.
 
 \section{Constraints}
 
@@ -317,25 +300,20 @@ Users can constantly chat with a virtual bot to get help related to fitness.
 
 \subsubsection{User Data Validation}
 
-All user input data related to personal information (e.g., age, weight, height, gender) must adhere to predefined formats and ranges.
+All user input data related to personal information must adhere to predefined formats and ranges.
 
 \begin{itemize}
   \item Age: Must be an integer with a minimum value of at least 13 years.
-  \item Weight: A positive number.
-  \item Height: A positive number.
+  \item Experience Level: Must be either "Beginner", "Intermediate", or "Advanced".
+  \item Available Equipment: Must be either "None", "Dumbbells only", or "Full". 
+  \item Weekly Workout Frequency: Must be an integer between 1 and 7.
+  \item Maximum Workout Duration: Must be an integer great than 15. 
+  \item Fitness Goal: Must be either "General Health", "Strength", or "Endurance". 
 \end{itemize}
 
-\subsubsection{Workout Session Data}
+\subsubsection{Health and Safety Exercise Considerations}
 
-Users should be allowed to input a range for the duration of a workout session.
-
-\subsubsection{Workout Intensity}
-
-Fitness intensity of workouts should be categorized into predefined levels (e.g., Beginner, Intermediate, Advanced).
-
-\subsubsection{Health and Safety Exercise Restrictions}
-
-The system should restrict certain exercises or intensities for users with specific health conditions or preferences based on the input health profile.
+The system should contain a terms and conditions section to ensure users understand the safety risks that come with exercising and understand that our team takes no responsibility for user injury.
 
 \subsection{Timeline}
 
@@ -347,7 +325,7 @@ The SRS is to be completed by October 6, 2023.
 
 The hazard analysis is to be completed by October 20, 2023.
 
-\subsubsection{Verification and Validation (V&V)}
+\subsubsection{Verification and Validation (V\&V)}
 
 The VnV is to be completed by November 3, 2023.
 
@@ -357,15 +335,15 @@ The proof of concept is expected to be met by November 13, 2023.
 
 \subsubsection{Design Documentation}
 
-The Design documentation is to be completed by January 17, 2023.
+The Design documentation is to be completed by January 17, 2024.
 
-\subsubsection{V&V Report}
+\subsubsection{V\&V Report}
 
-The V&V report is to be completed by March 6, 2023.
+The V\&V report is to be completed by March 6, 2024.
 
 \subsubsection{Final Deliverable}
 
-The app is to be completed by March 18, 2023.
+The app is to be completed by March 18, 2024. The EXPO poster and video shall be completed by April 1, 2024. The final documentation is to be completed by April 4, 2024. 
 
 \subsection{Budget}
 
@@ -384,73 +362,88 @@ The budget allocated for cloud services is \$100 CAD.
 \parindent UA1: The app allows users to register an account using basic information.
 \[Register(UserInfo) \rightarrow Account \]
 \[ \forall UserInfo: (UserInfo \neq null) \Rightarrow (Account = true) \]\\
+\textit{Rationale:} A user registration system is essential for a personalized experience. By collecting basic information, the app can create unique profiles for security, customization, and content personalization, laying the groundwork for all future interactions.
+\\
 
 UA2: The app shall allow users to log in/log out of their account.
 \[LogIn(UserCredentials) \rightarrow Session \]
 \[ \forall UserCredentials: (UserCredentials \neq null) \Rightarrow (Session = true) \]
 \[=LogOut(Session) \rightarrow \neg Session \]
 \[ \forall Session: (Session = true) \Rightarrow (\neg Session = true) \]\\
+\textit{Rationale:} The login/logout functionality is critical for user privacy and data security. It ensures that personal and sensitive data remain confidential and accessible only to the authenticated user, safeguarding against unauthorized access.
+\\
 
 UA3: The app shall allow users to create and update their profile on their account.
 \[UpdateProfile(UserInput) \rightarrow UpdatedProfile \]
 \[ \forall UserInput: (UserInput = true) \Rightarrow (UpdatedProfile = true) \]\\
+\textit{Rationale:} Users' ability to create and modify their profiles allows for a tailored app experience that can evolve with the user’s changing fitness goals and preferences, ensuring ongoing personalization and engagement.
+\\
 
 UA4: The app must present the user with a terms and conditions agreement upon user registration.
 \[PresentTerms(UserRegistration) \rightarrow TermsPresented \]
 \[ \forall UserRegistration: (UserRegistration = true) \Rightarrow (TermsPresented = true) \]\\
+\textit{Rationale:} Presenting terms and conditions during registration fulfills legal obligations and informs users of their rights and responsibilities, ensuring transparency and protecting the developers legally.
+\\
 
 UA5: The user must agree to the terms and conditions agreement to create an account.
 \[AgreeToTerms(UserAgreement) \rightarrow AccountCreation \]
 \[ \forall UserAgreement: (UserAgreement = true) \Rightarrow (AccountCreation = true) \]
-
-\subsection{AI Workout Generation}
-
-\parindent AI1: The system should generate personalized workout plans based on user input.
-\[GenerateWorkoutPlan(UserInput) \rightarrow WorkoutPlan \]
-\[ \forall UserInput: (UserInput \neq null) \Rightarrow (WorkoutPlan = true) \]\\
-
-AI2: The system should alter and revise user workout plans.
-\[AlterWorkoutPlan(WorkoutPlan, UserRequest) \rightarrow AlteredWorkoutPlan \]
-\[ \forall (WorkoutPlan, UserRequest): (WorkoutPlan \land UserRequest = true) \Rightarrow\] \[(AlteredWorkoutPlan = true) \]\\
-
-AI3: The system should recursively train the model based on user progress.
-\[TrainModel(UserProgress, PreviousModel) \rightarrow UpdatedModel \]
-\[ \forall (UserProgress, PreviousModel): (UserProgress \land PreviousModel = true) \Rightarrow\] \[(UpdatedModel = true) \]\\
-
-AI4: The app shall have an AI chatbot that users can interact with.
-\[InteractWithChatBot(UserInput) \rightarrow ChatBotResponse \]
-\[ \forall UserInput: (UserInput \neq null) \Rightarrow (ChatBotResponse \neq null) \]\\
-
-AI5: The app shall provide messages during a user's workout, giving the user tips for their specified exercises.
-\[ProvideExerciseTips(UserWorkout) \rightarrow TipsProvided \]
-\[ \forall UserWorkout: (UserWorkout = true) \Rightarrow (TipsProvided = true) \]
-
-\subsection{User Workout Creation}
-UC1: The app shall allow users to link their calendar to plan their workouts around their schedule.
-\[LinkCalendar(User, Calendar) \rightarrow LinkedCalendar \]
-\[ \forall (User, Calendar): (User \neq null \land Calendar \neq null) \Rightarrow (LinkedCalendar = true) \]
+\textit{Rationale:} Requiring agreement to terms and conditions ensures a clear contractual relationship between the user and the app, which is pivotal for informed consent and compliance with data protection regulations.
 \\
 
-UC2: The app shall allow users to rate their workouts after completion.
-\[RateWorkout(User, Workout, Rating) \rightarrow WorkoutRating \]
-\[ \forall (User, Workout, Rating):(User \neq null \land Workout \neq null \land Rating \in [1,5]) \Rightarrow (WorkoutRating = true) \]\\
+\subsection{Evidence-Based Workout Generation}
 
-UC3: The app shall allow users to design and save their own custom workouts tailored to their preferences.
+\parindent EB1: The system should generate workout plans based on established exercise science principles.
+\[GenerateWorkoutPlan(ScienceBasedInput) \rightarrow WorkoutPlan \]
+\[ \forall ScienceBasedInput: (ScienceBasedInput \neq null) \Rightarrow (WorkoutPlan = true) \]
+\textit{Rationale:} Leveraging established exercise science principles to generate workout plans ensures that the recommendations are credible, safe, and effective. This approach aligns the application with scientific standards, enhancing the trust and reliability perceived by users.
+\\
+
+EB2: The system should allow users to adjust workout plans according to their own preferences.
+\[AdjustWorkoutPlan(WorkoutPlan, Preferences) \rightarrow AdjustedWorkoutPlan \]
+\[ \forall (WorkoutPlan, Preferences): (WorkoutPlan \land Preferences = true) \Rightarrow\] \[(AdjustedWorkoutPlan = true) \]
+\textit{Rationale:} Allowing users to adjust workout plans based on their preferences empowers them to tailor their fitness journey to their individual needs, increasing the likelihood of continued use and adherence to the workout regimen.
+\\
+
+EB3: The system should provide interactive guidance that aligns with evidence-based fitness protocols.
+\[ProvideInteractiveGuidance(UserInteraction) \rightarrow GuidanceResponse \]
+\[ \forall UserInteraction: (UserInteraction \neq null) \Rightarrow (GuidanceResponse \neq null) \]
+\textit{Rationale:} Providing interactive guidance helps to simulate a personal training experience, offering users real-time, evidence-based feedback that can help improve their workout effectiveness and safety.
+\\
+
+EB4: The system should offer science-backed tips and instructions during workouts for optimal exercise execution.
+\[ProvideExerciseInstructions(UserWorkout) \rightarrow InstructionsProvided \]
+\[ \forall UserWorkout: (UserWorkout = true) \Rightarrow (InstructionsProvided = true) \]
+\textit{Rationale:} Science-backed tips and instructions during workouts help users perform exercises correctly, maximizing benefits and minimizing the risk of injury. This educative aspect of the app promotes better exercise habits and informs users about the rationale behind each exercise.
+
+\subsection{User Workout Creation}
+UC1: The system shall generate a workout plan based on the user's desired weekly workout frequency.
+\[GeneratePlanBasedOnFrequency(User, WeeklyFrequency) \rightarrow GeneratedWorkoutPlan \]
+\[ \forall (User, WeeklyFrequency): (User \neq null \land WeeklyFrequency \neq null) \Rightarrow (GeneratedWorkoutPlan = true) \]
+\textit{Rationale:} Customizing workout plans according to the user's weekly availability fosters a flexible approach to fitness that can accommodate varied lifestyles and commitments, thus promoting regular exercise habits.
+\\
+
+UC2: The app shall allow users to design and save their own custom workouts tailored to their preferences.
 \[CreateCustomWorkout(User, Preferences) \rightarrow CustomWorkout \]
-\[ \forall (User, Preferences):(User \neq null \land Preferences \neq null) \Rightarrow (CustomWorkout = true) \]\\
+\[ \forall (User, Preferences):(User \neq null \land Preferences \neq null) \Rightarrow (CustomWorkout = true) \]
+\textit{Rationale:} The ability for users to design and save their own workouts caters to individual exercise preferences and goals, providing a personalized fitness experience that can enhance motivation and user satisfaction.
+\\
 
-UC4: The system should list all exercises.
-\[ListExercises() \rightarrow ExerciseList \]
-\[ \forall : () \Rightarrow (ExerciseList \neq null) \]
+UC3: The system should list all exercises.
+\[ \forall  (Exercise:Exercises | Exercise \in ExerciseList) \]
+\textit{Rationale:} Providing a comprehensive list of exercises within the system serves as a valuable repository from which users can choose to create varied and targeted workout routines, ensuring a diverse and adaptable exercise regimen.
 
 \subsection{Workout History}
 WH1: The app shall display a user’s workout history.
 \[DisplayHistory(User) \rightarrow History \]
-\[ \forall User: (User \neq null) \Rightarrow (History \neq null) \]\\
+\[ \forall User: (User \neq null \wedge WorkoutPlan \neq null) \Rightarrow (History \neq null) \]
+\textit{Rationale:} Providing users with access to their workout history enables them to track progress over time, gain insights into their fitness journey, and maintain motivation by reflecting on past achievements and areas for improvement.
+\\
 
 WH2: The app saves a completed workout.
 \[SaveCompletedWorkout(User, CompletedWorkout) \rightarrow SavedWorkout \]
 \[ \forall (User, CompletedWorkout): (User \neq null \land CompletedWorkout = true) \Rightarrow (SavedWorkout = true) \]
+\textit{Rationale:} The ability to save completed workouts is essential for tracking the user’s progress and adherence to their fitness plan. This feature underpins the app's capability to analyze trends and provide meaningful feedback to the user.
 
 \subsection{Database}
 DB1: The app shall have a database to store user account information, workout plans, user feedback, and workout history.
@@ -458,27 +451,25 @@ DB1: The app shall have a database to store user account information, workout pl
 \[ \forall (UserAccount, WorkoutPlan, UserFeedback, WorkoutHistory):\] 
 \[(UserAccount \neq null \land WorkoutPlan \neq null \land UserFeedback \neq null \land WorkoutHistory \neq null) \\
 \Rightarrow\] \[(StoredData = true) \]
+\textit{Rationale:} A central database to store user-related data is fundamental for the app's operation. It ensures that all user interactions, preferences, and history are persistently saved and can be efficiently retrieved, thus providing a seamless and personalized user experience.
 
 \subsection{Additional Features}
-AF1: The app should allow users to begin/engage in a planned workout while tracking the workout live throughout.
+AF1: The app should allow users to track their completion of exercises when completing a workout through a live workout session.
 \[TrackLiveWorkout(User, PlannedWorkout) \rightarrow LiveTracking \]
-\[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveTracking = true) \]\\
+\[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveTracking = true) \]
+\textit{Rationale:} The feature of live workout tracking immerses users in their fitness routine by providing real-time data. This immediate feedback is invaluable for maintaining correct form, pacing, and motivation throughout the exercise session.
+\\
 
-AF2: The app shall be able to push notifications.
-\[PushNotification(User, NotificationContent) \rightarrow NotificationPushed \]
-\[ \forall (User, NotificationContent): (User \neq null \land NotificationContent \neq null) \Rightarrow\] \[(NotificationPushed = true) \]\\
-
-AF3: The app allows users to start planned workouts and follow along live.
+AF2: The app allows users to start planned workouts and follow along live.
 \[StartLiveWorkout(User, PlannedWorkout) \rightarrow LiveWorkoutSession \]
-\[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveWorkoutSession = true) \]\\
+\[ \forall (User, PlannedWorkout): (User \neq null \land PlannedWorkout = true) \Rightarrow (LiveWorkoutSession = true) \]
+\textit{Rationale:} Allowing users to start and follow a planned workout facilitates a structured exercise session. This feature assists in ensuring that workouts are completed as intended, contributing to the user’s consistency and progression in fitness.
+\\
 
-AF4: The app allows users to download workouts for offline access.
+AF3: The app allows users to download workouts for offline access.
 \[DownloadWorkout(User, SelectedWorkout) \rightarrow OfflineWorkout \]
-\[ \forall (User, SelectedWorkout): (User \neq null \land SelectedWorkout \neq null) \Rightarrow (OfflineWorkout = true) \]\\
-
-AF5: The app shall allow users to share information from the application to social media.
-\[ShareInfo(User, Information) \rightarrow InfoShared \]
-\[ \forall (User, Information): (User \neq null \land Information \neq null) \Rightarrow (InfoShared = true) \]
+\[ \forall (User, SelectedWorkout): (User \neq null \land SelectedWorkout \neq null) \Rightarrow (OfflineWorkout = true) \]
+\textit{Rationale:} The capability to download workouts for offline use adds flexibility to the app, allowing users to stay on track with their fitness goals regardless of internet connectivity, which is particularly useful for users with an unpredictable or mobile lifestyle.\\
 
 \section{Non-functional Requirements}
 
@@ -486,200 +477,278 @@ AF5: The app shall allow users to share information from the application to soci
 
 \subsubsection{Appearance Requirements}
 \begin{itemize}
-\item APR1: The app shall have an intuitive and user-friendly interface with minimalist design.
-\item APR2: The app shall be able to adapt to a variety of screen sizes and aspect ratios.
-\item APR3: The app shall provide visual feedback whenever a user action takes place.
-\item APR4: The app shall load data at a reasonable time so there are no noticeable delays for users.
-\item APR5: The app shall only support portrait mode.
+\item APR1: The app shall have an intuitive and user-friendly interface with minimalist design.\\
+\textit{Rationale:} A minimalist and intuitive interface design is crucial for enhancing user engagement and reducing the learning curve, thus providing a streamlined and focused user experience.
+\item APR2: The app shall be compatible with the standard phone aspect ratio, 9:16.\\
+\textit{Rationale:} Ensuring the app’s compatibility with different device screens guarantees a consistent and accessible user experience across a wide range of mobile devices.
+\item APR3: The app shall provide visual feedback whenever a user action takes place.\\
+\textit{Rationale:} Providing visual feedback for user interactions reinforces the app's responsiveness and guides the user through successful command executions and error notifications.
+\item APR4: The app shall load data at a time no more than 500 ms so there are no noticeable delays for users.\\
+\textit{Rationale:} Fast loading times are imperative to maintain user attention and prevent frustration, thereby contributing to a smoother, more efficient user experience.
+\item APR5: The app shall only support portrait mode.\\
+\textit{Rationale:} Supporting only portrait mode can simplify the design and development process, ensuring optimal usability in common scenarios where the app is likely to be used, such as one-handed operation during workouts.
 \end{itemize}
 
 \subsubsection{Styling Requirements}
 \begin{itemize}
-\item STR1: The app should have consistent styling and design throughout by using the same colour palette.
-\item STR2: The application’s styling should be modern and similar to iOS apps.
-\item STR3: The styling should be visually appealing and align with the app’s logo or theme.
+\item STR1: The app should have consistent styling and design throughout by using the same colour palette.\\
+\textit{Rationale:} Utilizing a consistent colour palette and design elements throughout the app reinforces brand identity and enhances the user's navigational experience by providing a cohesive visual language.
+\item STR2: The application’s styling should be modern and similar to iOS apps.\\
+\textit{Rationale:} Adopting a modern styling approach, in line with iOS app aesthetics, leverages familiar user interface patterns for iOS users, promoting an intuitive and seamless user experience.
+\item STR3: The styling should be visually appealing and align with the app’s logo or theme.\\
+\textit{Rationale:} Ensuring that the app's styling complements its logo and theme is crucial for creating a harmonious and attractive visual experience, which can significantly contribute to user engagement and brand recognition.
 \end{itemize}
 
 \subsection{Usability and Human Requirements}
 
 \subsubsection{Ease of Use Requirements}
 \begin{itemize}
-\item EUR1: The system shall be intuitive such that new users can quickly understand basic functions and commands by using intuitive icons.
-\item EUR2: The user interface elements, terminology, and interactions should remain consistent throughout the application’s various pages.
+\item EUR1: The system shall be intuitive such that new users can quickly understand basic functions and commands by using intuitive icons.\\
+\textit{Rationale:} An intuitive interface with clear icons reduces the learning curve for new users, ensuring that they can quickly become proficient in using the app without frustration, thus enhancing user retention and satisfaction.
+\item EUR2: The user interface elements, terminology, and interactions should remain consistent throughout the application’s various pages.\\
+\textit{Rationale:} Consistency in UI elements and terminology across the app helps users form reliable expectations about how to interact with the app, reducing confusion and improving overall usability.
 \end{itemize}
 
 \subsubsection{Personalization Requirements}
 \begin{itemize}
-\item PER1: The app will support local date/time formats based on the user’s device settings.
-\item PER2: The app shall stay consistent with the personalization settings on the user’s device regarding display and font.
+\item PER1: The app will support local date/time formats based on the user’s device settings.\\
+\textit{Rationale:} Adapting to the local date and time formats of the user's device settings personalizes the user experience, making it more relevant and easier to understand, thereby enhancing user engagement.
+\item PER2: The app shall stay consistent with the personalization settings on the user’s device regarding display and font.\\
+\textit{Rationale:} Aligning the app’s display and font settings with the user’s device personalization preferences ensures a seamless experience that respects the user's choices and accessibility needs.
 \end{itemize}
 
 \subsubsection{Learning Requirements}
 \begin{itemize}
-\item LER1: Users shall not require external resources to navigate the application; everything they need to know to use the app should be taught in-app.
-\end{itemize}
-
-\subsubsection{Understandability and Politeness Requirements}
-\begin{itemize}
-\item UPR1: The system should provide a tutorial for first-time users.
-\item UPR2: The application shall contain an FAQ to answer expected questions about the application.
+\item LER1: Users shall not require external resources to navigate the application; everything they need to know to use the app should be taught in-app.\\
+\textit{Rationale:} Providing users with the necessary tools and information within the app to learn its functionalities ensures a self-sufficient user experience, reducing the need for external support and increasing user autonomy.
 \end{itemize}
 
 \subsubsection{Accessibility Requirements}
 \begin{itemize}
-\item ACR1: The system will follow Apple’s design guidelines regarding accessible applications.
+\item ACR1: The system will follow Apple’s design guidelines regarding accessible applications.\\
+\textit{Rationale:} Following Apple’s accessibility guidelines ensures that the application is usable by people with a wide range of physical and cognitive abilities, promoting inclusivity and expanding the app's user base. This commitment to accessibility not only aligns with legal and ethical standards but also enhances user satisfaction and app usability.
 \end{itemize}
 
 \subsection{Performance Requirements}
 \begin{itemize}
-\item PR1: The system shall be capable of handling a minimum of 1000 simultaneous users and processing 200 transactions per minute while maintaining performance standards.
-\item PR2: The system shall achieve a minimum of 99.9\% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.
-\item PR3: The system shall support a data throughput of at least 200 Mbps to ensure data transmission between the server and users is seamless and efficient under peak usage.
-\item PR4: The system shall deliver a response time of no more than 2 seconds for 99\% of the transaction processed under standard operating conditions.
+\item PR1: The system shall be capable of handling a minimum of 1000 simultaneous users and processing 200 transactions per minute while maintaining performance standards.\\
+\textit{Rationale:} Ensuring the system can support a significant number of simultaneous users and transactions is essential for maintaining a smooth and reliable user experience, preventing system overloads during peak usage times, and fostering user trust in the app’s performance.
+\item PR2: The system shall achieve a minimum of 99.9\% availability, ensuring services are accessible to users at all times, excluding scheduled maintenance windows.\\
+\textit{Rationale:} A high availability rate minimizes downtime and ensures that users can access the app’s services when needed, which is crucial for user retention and satisfaction, especially for an app designed to be part of daily routines.
+\item PR3: The system shall support a data throughput of at least 200 Mbps to ensure data transmission between the server and users is seamless and efficient under peak usage.\\
+\textit{Rationale:} Supporting a high data throughput rate is necessary to handle the volume of information exchanged between the server and users efficiently, ensuring that app interactions are fast and seamless, even under heavy user load.
+\item PR4: The system shall deliver a response time of no more than 2 seconds for 99\% of the transaction processed under standard operating conditions.\\
+\textit{Rationale:} A fast response time is critical for a positive user experience, reducing wait times and making the app feel more responsive and reliable, which is particularly important for retaining users and encouraging frequent use.
 \end{itemize}
 
 \subsection{Operational and Environment Requirements}
 \begin{itemize}
-\item OER1: The system shall be able to be used in a gym/workout facility or home workout room.
-\item OER2: The system shall be able to run on an iOS phone.
-\item OER3: The system shall allow the audio output to be transmitted through the device’s speakers or a connected Bluetooth device.
-\item OER4: The system should connect to the internet for back-end services.
-\end{itemize}
-
-\subsection{Maintainability and Support Requirements}
-\begin{itemize}
-\item MSR1: The system shall automatically detect, log, and report any errors or system failures to the development and support team without requiring user intervention.
-\item MSR2: The system shall incorporate an accessible user feedback mechanism to enable users to easily report issues.
-\item MSR3: The system shall support periodic, backward-compatible software updates, notifying users of availability and enabling convenient download and installation while providing information about the changes.
+\item OER1: The system shall be able to be used in a gym/workout facility or home workout room.\\
+\textit{Rationale:} Ensuring the app's functionality across various environments, such as gyms, workout facilities, or home workout rooms, maximizes its utility and accessibility, allowing users to maintain their fitness routines in diverse settings without compromise.
+\item OER2: The system shall be able to run on an iOS phone.\\
+\textit{Rationale:} Designing the system to run on iOS phones leverages the widespread popularity and advanced capabilities of these devices, ensuring a broad user base can access and benefit from the app's features.
+\item OER3: The system shall allow the audio output to be transmitted through the device’s speakers or a connected Bluetooth device.\\
+\textit{Rationale:} Providing users with the ability to use the device’s speakers or connect to Bluetooth devices for audio output enhances the app's flexibility and usability, catering to personal preferences for audio during workouts.
+\item OER4: The system should connect to the internet for back-end services.\\
+\textit{Rationale:} Requiring an internet connection for accessing back-end services ensures that the app can offer dynamic, updated content and sync user data across devices, contributing to a seamless and enriched user experience.
 \end{itemize}
 
 \subsection{Compliance Requirements}
 \begin{itemize}
-\item COMR1: The application will adhere to all data protection laws in the region(s) it operates within.
-\item COMR2: The informed consent of users shall be obtained before collecting and processing their personal data.
-\item COMR3: Robust security measures will be put in place to safeguard user data.
-\item COMR4: The application will be transparent about its data collection.
-\item COMR5: The app shall always recommend safe and proven fitness guidance and information.
-\item COMR6: The system must state that the application is not responsible for any injuries or accidents resulting from its use.
+\item COMR1: The application will adhere to all data protection laws in the region(s) it operates within.\\
+\textit{Rationale:} Compliance with local and international data protection laws is crucial for legal operation, building user trust, and safeguarding against penalties or lawsuits, thereby ensuring the app's longevity and credibility.
+\item COMR2: The informed consent of users shall be obtained before collecting and processing their personal data.\\
+\textit{Rationale:} Securing informed consent before collecting personal data respects user privacy and autonomy, aligning with ethical standards and legal requirements, and fostering a transparent relationship between the app and its users.
+\item COMR3: Robust security measures will be put in place to safeguard user data.\\
+\textit{Rationale:} Strong security measures protect sensitive user information from unauthorized access, data breaches, and cyber threats, thus ensuring user trust and app integrity.
+\item COMR4: The application will be transparent about its data collection.\\
+\textit{Rationale:} Being transparent about the nature, purpose, and scope of data collection helps in maintaining an open and trustworthy relationship with users, encouraging their continued engagement with the app.
+\item COMR5: The app shall always recommend safe and proven fitness guidance and information.\\
+\textit{Rationale:} Recommending only safe and scientifically validated fitness information underpins the app's reliability and effectiveness, contributing to user safety and positive health outcomes.
+\item COMR6: The system must state that the application is not responsible for any injuries or accidents resulting from its use.\\
+\textit{Rationale:} A clear disclaimer regarding the non-liability of the app for injuries or accidents arising from its use is essential for legal protection and informs users of their responsibility in following the provided fitness guidance safely.
 \end{itemize}
 
 \subsection{Security Requirements}
 \subsubsection{Access Requirements}
+
 \begin{itemize}
-    \item ACR1: The app shall enforce strong password restrictions to ensure users are properly protecting their own data.
-    \item ACR2: Users shall authenticate themselves with their credentials securely.
-    \item ACR3: Users will only have access to data and features for which they are authorized.
+    \item \textbf{ACR1: Strong Password Restrictions}\\
+    The app shall enforce strong password restrictions to ensure users are properly protecting their own data.\\
+    \textit{Rationale:} Implementing strong password policies is a fundamental aspect of securing user accounts and personal data from unauthorized access, thereby enhancing overall app security and user trust.
+
+    \item \textbf{ACR2: Secure User Authentication}\\
+    Users shall authenticate themselves with their credentials securely.\\
+    \textit{Rationale:} Secure authentication mechanisms prevent potential security breaches, ensuring that only authorized users can access their accounts and personal information, which is critical for maintaining privacy and security.
+
+    \item \textbf{ACR3: Authorization for Access}\\
+    Users will only have access to data and features for which they are authorized.\\
+    \textit{Rationale:} Limiting user access to authorized data and features prevents misuse and unauthorized data access, upholding the principles of least privilege and ensuring data integrity and confidentiality.
 \end{itemize}
+
 
 \subsubsection{Integrity Requirements}
+
 \begin{itemize}
-    \item INR1: Sensitive data shall be restricted from the users of the app.
-    \item INR2: Data between the app and the server should be encrypted when an API call is made.
-    \item INR3: The system should regularly back up data automatically to prevent data loss in the event of database failures
-    \item INR4: unstored data should be stored locally if the data cannot be updated
-    \item INR5: The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.
-    \item INR6: The system must have a mechanism to store the user's progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.
-    \item INR7: The system should display clear and prominent warnings to users regarding exercise safety
-    \item INR8: The AI model system should be constantly updated with accurate practices and the data should be reviewed
+    \item \textbf{INR1: Restriction of Sensitive Data}\\
+    Sensitive data shall be restricted from the users of the app.\\
+    \textit{Rationale:} Limiting access to sensitive data ensures user privacy and trust are maintained, preventing unauthorized access and potential data breaches.
+    
+    \item \textbf{INR2: Encryption of Data in Transit}\\
+    Data between the app and the server should be encrypted when an API call is made.\\
+    \textit{Rationale:} Encrypting data during transmission protects it from interception by unauthorized parties, ensuring data integrity and confidentiality.
+    
+    \item \textbf{INR3: Regular Data Backups}\\
+    The system should regularly back up data automatically to prevent data loss in the event of database failures.\\
+    \textit{Rationale:} Routine backups safeguard against data loss, ensuring that critical information can be restored and that the app remains operational after unforeseen failures.
+    
+    \item \textbf{INR4: Local Storage of Unsynced Data}\\
+    Unstored data should be stored locally if the data cannot be updated.\\
+    \textit{Rationale:} Storing unsynced data locally prevents loss of user progress due to connectivity issues, enhancing user experience by providing resilience and reliability.
+    
+    \item \textbf{INR5: Backend Validation for Data Uniqueness}\\
+    The system must incorporate backend validation to enforce the uniqueness of primary keys associated with user accounts in the database.\\
+    \textit{Rationale:} Ensuring the uniqueness of primary keys prevents data corruption and conflicts within the database, maintaining the integrity and reliability of user account information.
+    
+    \item \textbf{INR6: Progress Preservation Mechanism}\\
+    The system must have a mechanism to store the user's progress when completing a live workout, allowing them to resume their workout from the point of interruption when the application is reopened.\\
+    \textit{Rationale:} Preserving and allowing the resumption of workout progress enhances user satisfaction by providing a seamless and uninterrupted fitness experience.
+    
+    \item \textbf{INR7: Clear Warnings About Exercise Safety}\\
+    The system should display clear and prominent warnings to users regarding exercise safety.\\
+    \textit{Rationale:} Promoting exercise safety through clear warnings helps prevent injuries and reinforces the app’s commitment to user well-being.
 \end{itemize}
 
+
 \subsubsection{Privacy Requirements}
+
 \begin{itemize}
-    \item PRR1: Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access
+    \item \textbf{PRR1: Encryption of Sensitive Data}\\
+    Sensitive data should be encrypted both in transit and at rest to protect it from unauthorized access.\\
+    \textit{Rationale:} Encrypting sensitive data at all times ensures the highest level of security, protecting user information from potential cyber threats and unauthorized access, thereby maintaining user trust.
 \end{itemize}
 
 \subsubsection{Error Handling Requirements}
+
 \begin{itemize}
-    \item EHR1: The system should have robust error handling that doesn't reveal sensitive system information to users in error messages
-    \item EHR2: The system should include a user feedback mechanism, allowing users to report issues, including unexpected application closures
+    \item \textbf{EHR1: Robust Error Handling}\\
+    The system should have robust error handling that doesn't reveal sensitive system information to users in error messages.\\
+    \textit{Rationale:} Implementing comprehensive error handling prevents the exposure of sensitive system details that could be exploited by malicious entities, enhancing the overall security posture of the application.
 \end{itemize}
 
 \section{Likely Changes}
+
 \begin{itemize}
-    \item LC1: The application may need to adapt to future versions of iOS to ensure compatibility and leverage new features.
-    \item LC2: The integration of new APIs or third-party services to enhance functionality, such as adding a new payment gateway or integrating a new workout tracking device.
-    \item LC3: Refinements in the UI/UX based on user feedback and usability testing may be required post-launch.
-    \item LC4: The addition of new features or screens to accommodate evolving user needs and market trends, such as incorporating a new workout trend or social sharing capabilities.
-    \item LC5: As the user base grows, enhancing the backend infrastructure to manage increased load, reducing latency, and ensuring smooth user experiences.
-    \item LC6: Changes in data protection laws or health app regulations may require adjustments in data handling and user privacy features.
-    \item LC7: Inclusion of new features or modification of existing ones to stay competitive and meet user demands.
+    \item \textbf{LC1: Adaptation to New iOS Versions}\\
+    The application may need to adapt to future versions of iOS to ensure compatibility and leverage new features.\\
+    \textit{Rationale:} Staying updated with the latest iOS versions ensures the app remains functional and attractive to users, taking advantage of new technologies and improvements offered by the platform.
+    
+    \item \textbf{LC2: Integration of New APIs or Services}\\
+    The integration of new APIs or third-party services to enhance functionality, such as adding a new payment gateway or integrating a new workout tracking device.\\
+    \textit{Rationale:} Expanding the app’s capabilities through additional APIs or services can provide users with new features and better integration with external devices, enriching the user experience.
+    
+    \item \textbf{LC3: UI/UX Refinements}\\
+    Refinements in the UI/UX based on user feedback and usability testing may be required post-launch.\\
+    \textit{Rationale:} Continuous improvement of the UI/UX is essential for meeting user expectations and addressing any usability challenges, ensuring the app remains competitive and user-friendly.
+    
+    \item \textbf{LC4: New Features or Screens}\\
+    The addition of new features or screens to accommodate evolving user needs and market trends, such as incorporating a new workout trend or social sharing capabilities.\\
+    \textit{Rationale:} Adapting to changing user needs and market trends keeps the app relevant and engaging, encouraging ongoing user interaction and satisfaction.
+    
+    \item \textbf{LC5: Backend Infrastructure Enhancement}\\
+    As the user base grows, enhancing the backend infrastructure to manage increased load, reducing latency, and ensuring smooth user experiences.\\
+    \textit{Rationale:} Scalability of the backend infrastructure is vital for maintaining performance and reliability as the number of users increases, ensuring a seamless experience for all.
+    
+    \item \textbf{LC6: Data Protection and Privacy Adjustments}\\
+    Changes in data protection laws or health app regulations may require adjustments in data handling and user privacy features.\\
+    \textit{Rationale:} Compliance with legal and regulatory changes is essential for operational legality and protecting user data, reflecting the app’s commitment to privacy and security.
+    
+    \item \textbf{LC7: Inclusion of New Features or Modifications}\\
+    Inclusion of new features or modification of existing ones to stay competitive and meet user demands.\\
+    \textit{Rationale:} Continuously evolving the app through new features or modifications ensures it meets current user expectations and market demands, driving growth and user engagement.
 \end{itemize}
 
+
 \section{Unlikely Changes}
+
 \begin{itemize}
-    \item UL1: The basic functionality and core features of the app, such as tracking workouts and providing workout plans, are fundamental and unlikely to change drastically.
-    \item UL2: The primary target audience, being fitness enthusiasts, gym-goers, is unlikely to change.
-    \item UL3: The platform choice (iOS) given that the styling, design, and functionalities, are deeply integrated with iOS features.
-    \item UL4: The programming languages and core technologies used in development are unlikely to change unless a significant technological shift happens.
+    \item \textbf{UL1: Core Functionality and Features}\\
+    The basic functionality and core features of the app, such as tracking workouts and providing workout plans, are fundamental and unlikely to change drastically.\\
+    \textit{Rationale:} The central premise and utility of the app are defined by its ability to track workouts and generate fitness plans. These features are integral to the app's identity and purpose, making significant changes to them unlikely without altering the app's fundamental value proposition.
+
+    \item \textbf{UL2: Target Audience}\\
+    The primary target audience, being fitness enthusiasts and gym-goers, is unlikely to change.\\
+    \textit{Rationale:} The app is specifically designed to meet the needs and interests of individuals committed to fitness, which constitutes its core user base. While the app may expand its appeal to a broader audience over time, the core target audience is expected to remain constant due to the app's specialized focus.
+
+    \item \textbf{UL3: Platform Choice (iOS)}\\
+    The platform choice (iOS) given that the styling, design, and functionalities are deeply integrated with iOS features.\\
+    \textit{Rationale:} The decision to build and optimize the app for iOS is based on leveraging the specific advantages and features of the iOS platform. Unless there's a strategic shift in market focus or platform capabilities, this foundational choice is unlikely to change.
+
+    \item \textbf{UL4: Development Technologies}\\
+    The programming languages and core technologies used in development are unlikely to change unless a significant technological shift happens.\\
+    \textit{Rationale:} The selection of development languages and technologies is based on current best practices, team expertise, and platform requirements. Significant changes to these choices would likely only occur in response to major advancements in technology or shifts in the development landscape.
 \end{itemize}
+
 
 
 \section{Traceability Matrices}
 Table 1 and Table 2 show the dependencies between the functional requirements. A requirement in the first column that is dependent on a requirement in the first row is marked by an 'X'.
 
 
-\afterpage{
 \begin{landscape}
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
  \hline
-   & AI1 & AI2 & AI3 & AI4 & AI5 & UC1 & UC2 & UC3 & UC4 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 & AF4 & AF5\\
+   & UA1 & UA2 & UA3 & UA4 & UA5 & EB1 & EB2 & EB3 & EB4 & UC1 & UC2 & UC3 & WH1 & WH2 & DB1 & AF1 & AF2 & AF3 \\
  \hline
- UA1 & & & & & & & & & & & & & & & & & & 
+ UA1 & & & & & & & & & & & & & & & & & & \\
  \hline
- UA2 & & & & & & & & & & & & & & & & & & 
+ UA2 & X & & & & & & & & & & & & & & & & & \\
  \hline
- UA3 & & & & & & & & & & & & X & & & & & & 
+ UA3 & & X & & & & & & & & & & & & & X & & & \\
  \hline
- UA4 & & & & & & & & & & & & & & & & & & 
+ UA4 & & & & & & & & & & & & & & & & & & \\
  \hline
- UA5 & & & & & & & & & & & & & & & & & & 
+ UA5 & X & & & & & & & & & & & & & & & & & \\
  \hline
- AI1 & & & & & & & & & & & & & & & & & & 
+ EB1 & & & & & & & & & & X & & & & & X & & & \\
  \hline
- AI2 & X & & & & & & & & & & & & & & & & & 
+ EB2 & & & & & & & & & & & X & & & & X & & & \\
  \hline
- AI3 & & & & & & & X & & & & & X & & & & & & 
+ EB3 & & & & & & & & & & & & & & & & X & & \\
  \hline
- AI4 & & & & & & & & & & & & & & & & & & 
+ EB4 & & & & & & & & & & & & & & & & X & & \\
  \hline
- AI5 & & & & & & & & & & & & & & & & & & 
+ UC1 & & & & & & & & & & & & & & & & & X & \\
  \hline
- UC1 & & & & & & & & & & & & & & & & & & 
+ UC2 & & & & & & & & & & & & X & & & X & & & \\
  \hline
- UC2 & & & & & & & & & & & & & & & X & & & 
+ UC3 & & & & & & & & & & & & & & & X & & & \\
  \hline
- UC3 & & & & & & & & & & & & X & & & & & & 
+ WH1 & & & & & & & & & & & & & & & X & & & \\
  \hline
- UC4 & & & & & & & & & & & & & & & & & & 
+ WH2 & & & & & & & & & & & & & X & & X & & & \\
  \hline
- WH1 & & & & & & & & & & & & & & & & & & 
+ DB1 & & & X & & & & & & & & & & & & & & & \\
  \hline
- WH2 & & & & & & & & & & & & X & & & & & & 
+ AF1 & & & & & & & & X & X & & & & & & & & X & \\
  \hline
- DB1 & & & & & & & & & & & & & & & & & & 
+ AF2 & & & & & & & & & & X & & & & & & & & \\
  \hline
- AF1 & & & & & & X & & & & & & & & & & & & 
+ AF3 & & & & & & & & & & & & & & & & & & X \\
  \hline
- AF2 & & & & & & & & & & & & & & & & & & 
- \hline
- AF3 & & & & & & & & & & & & & & & & & & 
- \hline
- AF4 & & & & & & & & & & & & & & & & & & 
- \hline
- AF5 & & & & & & & & & & & & & & & & & & 
-\hline
 \end{tabular}
-\caption{Traceability Matrix Showing the Mappings Between Functional Requirements Cont.}
+\caption{Traceability Matrix Showing the Mappings Between Functional Requirements}
 \label{Table:A_trace}
 \end{table}
 
 \end{landscape}
+
 }
 
-\begin{table}
+\begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
  \hline
@@ -695,15 +764,13 @@ Table 1 and Table 2 show the dependencies between the functional requirements. A
  \hline
  UA5 & X & & & & \\
  \hline
- AI1 & & & & & \\
+ EB1 & & & & & \\
  \hline
- AI2 & & & & & \\
+ EB2 & & & X & & \\
  \hline
- AI3 & & & & & \\
+ EB3 & & & & & \\
  \hline
- AI4 & & & & & \\
- \hline
- AI5 & & & & & \\
+ EB4 & & & & & \\
  \hline
  UC1 & & & & & \\
  \hline
@@ -711,27 +778,23 @@ Table 1 and Table 2 show the dependencies between the functional requirements. A
  \hline
  UC3 & & & & & \\
  \hline
- UC4 & & & & &  \\
- \hline
- WH1 & & & & &  \\
+ WH1 & & & & & \\
  \hline
  WH2 & & & & & \\
  \hline
- DB1 & & & & &  \\
+ DB1 & & & X & & \\
  \hline
  AF1 & & & & & \\
  \hline
  AF2 & & & & & \\
  \hline
  AF3 & & & & & \\
- \hline
- AF4 & & & & & \\
- \hline
- AF5 & & & & & \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Mappings Between Functional Requirements}
+\label{Table:B_trace}
 \end{table}
+
 
 
 \section{Development Plan}
@@ -744,8 +807,8 @@ In this initial phase, we will focus on implementing the core features required 
 
 \begin{itemize}
     \item User account management (UA1 - UA5)
-    \item AI Workout Generation (AI1 - AI5)
-    \item User Workout Creation (UC1 - UC4)
+    \item Evidence-Based Workout Generation (EB1 - EB4)
+    \item User Workout Creation (UC1 - UC3)
 \end{itemize}
 
 \subsection{Phase 2: User Experience Enhancement}
@@ -755,7 +818,7 @@ During this phase, we will concentrate on improving the user experience by addre
 \begin{itemize}
 \item Implementing appearance and styling requirements (APR1 - APR5, STR1 - STR3)
 \item Enhancing usability and personalization (EUR1 - EUR2, PER1 - PER2)
-\item Implementing learning, understandability, and politeness requirements (LER1, UPR1 - UPR2)
+\item Implementing learning requirements (LER1)
 \end{itemize}
 
 \subsection{Phase 3: Performance and Accessibility}
@@ -773,7 +836,7 @@ In this phase, we will ensure that the app meets performance, accessibility, and
 The final phase will focus on security and compliance with relevant regulations. Key tasks involve:
 
 \begin{itemize}
-\item Implementing security measures (SECR1 - SECR6)
+\item Implementing integrity requirements (INR1 - INR7)
 \item Ensuring compliance with data protection laws and user consent (COMR1 - COMR4)
 \item Addressing safety and health recommendations (COMR5 - COMR6)
 \end{itemize}

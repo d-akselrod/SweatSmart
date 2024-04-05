@@ -32,7 +32,22 @@ supervisor (if present), and from user testers.}
 from the supervisor shaped your project.  In particular, you should highlight the 
 supervisor's response to your Rev 0 demonstration to them.}
 
-\subsection{SRS and Hazard Analysis}
+\subsection{Software Requirements Specification (SRS)}
+Post-Rev 0, significant refinements were made to the SRS document. Early feedback pointed towards the necessity for a more user-centric approach, which led us to pivot from an AI model to an evidence-based algorithm for workout generation. The SRS was updated to reflect this fundamental change, focusing on the accuracy and reliability of the workout data provided.
+
+Incorporating insights from kinesiology experts, the SRS was restructured to emphasize simplicity and evidence-based practices over predictive machine learning, aligning the app's core functionalities more closely with scientifically-backed fitness principles. This shift in approach resulted in the enhancement of user profiles, allowing for more personalized and adaptable workout plans.
+
+\subsection{Hazard Analysis}
+The Hazard Analysis document underwent a comprehensive update to assess the risks associated with the new direction of our project. With the transition to evidence-based content, we meticulously reviewed potential hazards related to incorrect workout information, user data security, and the physical safety of our users.
+
+We integrated robust validation mechanisms to safeguard against the dissemination of harmful fitness advice and implemented more stringent security protocols for user data. Our revised hazard analysis also stressed the importance of educating users on safe workout practices to mitigate the risk of injury, a concern that was repeatedly echoed by our project supervisor.
+
+\subsection{Supervisor Feedback Integration}
+Feedback from our supervisor was especially influential after the Rev 0 demo. Our supervisor emphasized the need for workouts tailored to individual capabilities and the potential risks associated with generic fitness plans. This led us to refine our algorithm to accommodate user feedback and physiological data more effectively.
+
+Moreover, the supervisor's insights into the healthcare implications of resistance training propelled us to prioritize user health outcomes in our design considerations. This translated into a heightened focus on workout variety, recovery, and adaptability within the app.
+
+In conclusion, the iterative feedback process not only optimized the SweatSmart app for better performance but also aligned it more closely with the end-users' health and fitness objectives.
 
 \subsection{Design and Design Documentation}
 
@@ -40,44 +55,122 @@ supervisor's response to your Rev 0 demonstration to them.}
 
 \section{Design Iteration (LO11)}
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
+This section details the journey of our design process from the initial concept to the final implementation of SweatSmart, highlighting key pivots and refinements along the way.
 
-\section{Design Decisions (LO12)}
+\subsection{Initial Concept and Vision}
+Our project commenced with the goal of harnessing artificial intelligence to generate personalized workout plans. However, the first iteration of our design faced significant challenges, particularly in terms of data availability and the broad scope of our target audience.
 
-\plt{Reflect and justify your design decisions.  How did limitations,
- assumptions, and constraints influence your decisions?}
+\subsection{Incorporating Expert Guidance}
+The turning point in our design process came with the involvement of our supervisors, Dr. Stuart Philips and PhD candidate Bradley Currier. Their insights into exercise science and the kinesiology landscape prompted a shift towards an evidence-based approach, moving away from a predictive AI model to one grounded in established fitness principles.
+
+\subsection{Refining Our Target Audience}
+Feedback from our supervisors led to a redefinition of our target audience. We transitioned our focus from seasoned gym-goers to individuals new to working out or those who had been disengaged from regular exercise. This pivot embraced the notion that simplicity and accessibility are key in fostering a consistent fitness routine.
+
+\subsection{Feature Evolution}
+Subsequent design iterations saw the introduction and enhancement of several key features:
+
+\begin{itemize}
+  \item \textbf{Workout Generation:} Developed to deliver simple, evidence-based workout plans tailored to user-inputted goals and available resources.
+  \item \textbf{Workout History:} Enabled users to track their progress and ensure safe advancement in their fitness journey.
+  \item \textbf{Live Workout Tracking:} Allowed for real-time logging of workout activities, enriching the user's interactive experience with the app.
+  \item \textbf{FitBot:} Our fitness chatbot was designed to provide quick and accurate responses to user inquiries.
+  \item \textbf{Social Networking:} A feature aimed at fostering motivation through community engagement and social accountability.
+\end{itemize}
+
+\subsection{Usability Enhancements}
+User-centered design was paramount, leading us to conduct thorough usability testing with kin experts. The feedback obtained from these sessions was invaluable in identifying and implementing user interface improvements and additional features, which significantly enhanced the overall user experience.
+
+\subsection{Looking Forward}
+While our project timeline constrained the extent of our feature set, the feedback and testing phase highlighted several areas for potential expansion. Future iterations could include progress visualization, a rewards system, and more comprehensive home screen functionality to drive user engagement and retention.
+
+\subsection{Conclusion}
+The evolution of SweatSmart's design is a testament to the power of collaboration, user feedback, and agility in the development process. The final design stands as a user-friendly, evidence-based fitness app that simplifies the workout experience while remaining adaptable and scientifically informed.
+
+% End of Design Iteration section
+
+\section{Design Decisions}
+
+Throughout the development of SweatSmart, our design decisions were critically informed by a combination of project constraints, assumptions, and user-centered design principles. This section explains how these factors shaped the final product.
+
+\paragraph{Embracing Constraints}
+\begin{itemize}
+    \item Our initial ambition to employ an AI-driven model for workout generation was limited by the constraints of data availability and project timeline. This led to a pivot towards an evidence-based approach, grounded in established exercise science.
+    \item The feedback from our supervisor, Dr. Stuart Philips, and his insights on fitness simplicity, directly influenced the simplification of the app’s functionalities, aligning with the needs of our target audience — individuals new to fitness.
+\end{itemize}
+
+\paragraph{Navigating Assumptions}
+\begin{itemize}
+    \item We assumed our users required a degree of customization in their workout plans. This was validated through usability testing and incorporated into the design as adjustable workout parameters.
+    \item It was presumed that integrating social features for community engagement would enhance user retention, an assumption that was borne out during the user feedback sessions.
+\end{itemize}
+
+\paragraph{Constraints as Direction}
+\begin{itemize}
+    \item Limitations in technical expertise necessitated the choice of a more familiar tech stack, which proved to be efficient for rapid development and allowed for a greater focus on user experience.
+    \item Budgetary constraints led to prioritizing the most impactful features that could be implemented without compromising quality.
+\end{itemize}
+
+\paragraph{Reflection}
+In retrospect, the limitations, assumptions, and constraints we faced were not merely obstacles but also important in channeling our efforts towards a more focused and pragmatic development process. These factors and our iterative design approach facilitated the creation of SweatSmart as an accessible, evidence-based fitness tool tailored to novice users seeking simplicity in their workout routines.
+
+\paragraph{Future Work}
+While our project has reached its conclusion for this phase, the insights gained from the constraints we navigated lay the groundwork for future enhancements and adaptations of the app. We acknowledge that as new technologies emerge and user needs evolve, so too must our application.
 
 \section{Economic Considerations (LO23)}
 
-\plt{Is there a market for your product? What would be involved in marketing your 
-product? What is your estimate of the cost to produce a version that you could 
-sell?  What would you charge for your product?  How many units would you have to 
-sell to make money? If your product isn't something that would be sold, like an 
-open source project, how would you go about attracting users?  How many potential 
-users currently exist?}
+The market for fitness applications is both vast and competitive, with a significant portion of smartphone users seeking digital solutions to achieve their fitness goals. SweatSmart distinguishes itself through its evidence-based approach, targeting users new to fitness or returning after a hiatus. This unique selling proposition (USP) opens up a niche market segment that prioritizes simplicity, scientific backing, and personalized fitness plans over the more generic, one-size-fits-all solutions.
+
+\subsection{Marketing Strategy}
+
+Marketing SweatSmart will involve a mix of digital marketing tactics, including search engine optimization (SEO), social media campaigns, influencer partnerships, and targeted ads. These efforts will be aimed at raising awareness, generating interest, and driving downloads. Additionally, leveraging app store optimization (ASO) will be crucial for improving the app’s visibility in app stores. Leaning into the social aspect of the app would also be a quick way to penetrate population-dense areas where workout clubs are common. 
+
+\subsection{User Acquisition and Open Source Considerations}
+
+For products like SweatSmart, attracting users is as crucial as direct sales. Strategies for user acquisition will focus on offering compelling content, engaging community features, and seamless user experiences. Should SweatSmart explore an open-source model, the focus would shift towards building a community around the project, encouraging contributions, and enhancing the app’s features and scalability through collaborative development.
+
+In conclusion, the economic viability of SweatSmart hinges on strategic market positioning, effective user acquisition efforts, and the ongoing development of features that meet the evolving needs of our target demographic. With careful planning and execution, SweatSmart is poised to make a significant impact in the fitness app market.
 
 \section{Reflection on Project Management (LO24)}
 
-\plt{This question focuses on processes and tools used for project management.}
+Project management played a pivotal role in the development and eventual success of SweatSmart. This section delves into the comparison between our initial project management plan and the actual practices we adopted, highlighting what worked, what didn't, and how we plan to approach future projects differently.
 
 \subsection{How Does Your Project Management Compare to Your Development Plan}
 
-\plt{Did you follow your Development plan, with respect to the team meeting plan, 
-team communication plan, team member roles and workflow plan.  Did you use the 
-technology you planned on using?}
+Our development plan outlined a comprehensive strategy for team meetings, communication, roles, workflow, and technology use. We aspired to a weekly meeting schedule, daily updates through a designated communication platform, clearly defined roles, a Kanban workflow, and the adoption of specific technologies for development and project management.
+
+In practice, we largely adhered to our meeting and communication plans, which facilitated effective team collaboration and timely updates. The role definitions and workflow plan were instrumental in ensuring tasks were completed efficiently. However, we encountered challenges in strictly following the Kanban methodology due to unforeseen complexities in certain tasks, requiring us to adapt our workflow dynamically.
+
+Regarding technology, while we intended to use a specific stack, practical considerations and emerging needs led us to explore additional tools and platforms, enhancing our capability to address project requirements more effectively.
 
 \subsection{What Went Well?}
 
-\plt{What went well for your project management in terms of processes and 
-technology?}
+Several aspects of our project management process contributed positively to the development of SweatSmart:
+
+\begin{itemize}
+    \item \textbf{Effective Communication:} Our team communication plan, utilizing a mix of synchronous and asynchronous tools, ensured that all team members were consistently informed and engaged.
+    \item \textbf{Flexibility in Tool Adoption:} The willingness to adapt and adopt new technologies as project needs evolved played a crucial role in overcoming technical challenges.
+\end{itemize}
 
 \subsection{What Went Wrong?}
 
-\plt{What went wrong in terms of processes and technology?}
+Despite careful planning, we encountered several challenges:
 
-\subsection{What Would you Do Differently Next Time?}
+\begin{itemize}
+    \item \textbf{Workflow Adherence:} Sticking rigidly to our Kanban workflow was challenging, particularly when unexpected task complexities arose, leading to some delays.
+    \item \textbf{Technology Learning Curve:} The adoption of new tools, although ultimately beneficial, initially slowed progress due to the learning curve involved.
+    \item \textbf{Underestimation of Tasks:} Certain development tasks were underestimated in complexity and duration, impacting our project timeline.
+\end{itemize}
 
-\plt{What will you do differently for your next project?}
+\subsection{What Would You Do Differently Next Time?}
+
+Reflecting on our experiences, we would approach future projects with several adjustments:
+
+\begin{itemize}
+    \item \textbf{Enhanced Flexibility in Workflow:} Implementing a more flexible workflow approach to better accommodate the dynamic nature of software development tasks.
+    \item \textbf{Proactive Skill Development:} Encouraging team members to familiarize themselves with potential new technologies earlier in the project lifecycle to mitigate slowdowns.
+    \item \textbf{More Realistic Task Estimations:} Adopting a more conservative approach in task estimation to account for unforeseen complexities and ensure more accurate project timelines.
+\end{itemize}
+
+These reflections on project management underscore the importance of flexibility, communication, and continuous learning in the successful execution of technology projects.
 
 \end{document}
