@@ -1,17 +1,33 @@
 # SweatSmart
 
-Developer Names: Daniel Akselrod, Sophie Fillion, Jonathan Avraham, Sam McDonald
+## Developers
+- Daniel Akselrod
+- Sophie Fillion
+- Jonathan Avraham
+- Sam McDonald
 
-Date of project start: September 13, 2023
+## Project Start Date
+September 13, 2023
 
-This project is an AI-powered fitness app in collaboration with Dr. Stuart Philips and Ph.D. candidate Bradley Currier from the McMaster Kinesiology department. Together, we are developing and evidence-based solution to help people get involved in resistance training. The application will provide personalized workout plans for users.
+## Overview
+SweatSmart is an evidence-based fitness application developed in collaboration with Dr. Stuart Philips and Ph.D. candidate Bradley Currier from the McMaster Kinesiology department. Our aim is to simplify the world of fitness through personalized resistance training plans, tailored to the needs of each user.
 
-The folders and files for this project are as follows:
+## Repository Structure
+- `.github/workflows` - Contains CI/CD pipelines for automated testing and deployment.
+- `docs` - Documentation detailing project design, setup instructions, and user guides.
+- `refs` - Reference materials including academic papers and resource links.
+- `scripts` - Scripts for code formatting and other automation tasks.
+- `src` - The main source code directory for the application.
+- `test` - Automated test cases to ensure application reliability and performance.
+- `SweatSmart.sln` - The solution file for the .NET project setup.
 
-.github/workflows - CI/CD implementation
-docs - Documentation for the project
-refs - Reference material used for the project, including papers
-scripts - Formatters configuration
-src - Source code
-test - Test cases
-SweatSmart.sln - dotnet solution file
+## Getting Started
+For instructions on setting up the project, refer to the `docs` directory.
+
+## Contributions
+We welcome contributions from the community. Please refer to our contribution guidelines before making a pull request.
+
+## Acknowledgments
+A special thanks to our project advisors Dr. Stuart Philips and Bradley Currier for their invaluable guidance and support throughout the development process.
+
+For more detailed information on each component of the project, please navigate to the corresponding directories.
