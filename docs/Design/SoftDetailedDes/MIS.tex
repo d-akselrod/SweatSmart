@@ -57,7 +57,7 @@ urlcolor=cyan          % color of external links
 			\toprule
 			\textbf{Revision Version} & \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 			\midrule
-			0 & January 17, 2024 & Sam, Sophie, Jonathan, Daniel & First draft of Document\\
+			1 & April 4, 2024 & Sam, Sophie, Jonathan, Daniel & Second draft of Document\\
 			\bottomrule
 		\end{tabularx}
         \caption{Revision History} \label{TblRevisionHistory}
@@ -73,7 +73,7 @@ urlcolor=cyan          % color of external links
   \midrule 
   M & Module \\
   MG & Module Guide \\
-  MIS & Management Information System \\
+  IMS & Information Management System \\
   R & Requirement\\
   SRS & Software Requirements Specification\\
   \progname & Explanation of program name\\
@@ -198,9 +198,9 @@ M1 uses the Data Management Module (M3) for storing and retrieving user data. It
 \hline
 createUser & username: String, password: String & Bool & UserAlreadyExistsException \\
 authenticateUser & username: String, password: String & Bool & AuthenticationException \\
-updateUser & username: String, UserProfile: User & Bool & UserNotFoundException \\
-deleteUser & username: String & Bool & UserNotFoundException \\
-getUserProfile & username: String & UserProfileData & UserNotFoundException \\
+updateUser & username: String, UserProfile: User & Bool & UserProfileNotFound \\
+deleteUser & username: String & Bool & UserProfileNotFound \\
+getUserProfile & username: String & UserProfileData & UserProfileNotFound \\
 \hline
 \end{tabular}
 \end{center}
@@ -282,12 +282,13 @@ Returns the UserProfileData for the given username from userDatabase.
 This module (M2) is used to generate workouts for a user based on some personal information. It will take in certain characteristics and goals from the user and then use it to generate a workout that can be used. It will return a workout list filled with exercises with the number of sets and reps corresponding to each, and the time it takes to complete it. 
 
 \subsection{Uses}
-M2 plays a pivotal role within the broader Management Information System (MIS) by seamlessly integrating with various modules to enhance the fitness experience for users. Leveraging the data stored in the User Profile Module, M2 tailors workout recommendations based on individual characteristics, goals, and preferences. The Data Management Module assists in the storage and retrieval of workout data, enabling the module to refine future recommendations and track user progress. Through the User Interaction Module, M2 provides an intuitive interface for users to input information and receive personalized workout plans, ensuring a user-friendly experience.
+M2 plays a pivotal role within the broader Information Management System (IMS) by seamlessly integrating with various modules to enhance the fitness experience for users. Leveraging the data stored in the User Profile Module, M2 tailors workout recommendations based on individual characteristics, goals, and preferences. The Data Management Module assists in the storage and retrieval of workout data, enabling the module to refine future recommendations and track user progress. Through the User Interaction Module, M2 provides an intuitive interface for users to input information and receive personalized workout plans, ensuring a user-friendly experience.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+No Exported Constants
+
 
 \subsubsection{Exported Access Programs}
 
@@ -339,12 +340,13 @@ Returns a workout list filled with exercises, each specifying the number of sets
 This module (M3) acts as a data storage, where all data posts, retrievals, and other management operations are completed. It will make sure that the data is served correctly and efficiently whether it may be user or workout data. 
 
 \subsection{Uses}
-The Data Management module (M3) within the Management Information System (MIS) serves as the backbone for efficient storage and retrieval of critical information, encompassing both user and workout data. This module seamlessly integrates with other components to ensure the seamless functioning of the entire system. The Workout Generator Module leverages M3 to store generated workout data, enabling the module to refine future recommendations and track user progress. The Chatbot System Module benefits from M3 by accessing historical user interactions, enhancing the chatbot's ability to provide personalized responses. 
+The Data Management module (M3) within the Information Management System (IMS) serves as the backbone for efficient storage and retrieval of critical information, encompassing both user and workout data. This module seamlessly integrates with other components to ensure the seamless functioning of the entire system. The Workout Generator Module leverages M3 to store generated workout data, enabling the module to refine future recommendations and track user progress. The Chatbot System Module benefits from M3 by accessing historical user interactions, enhancing the chatbot's ability to provide personalized responses. 
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+No Exported Constants
+
 
 \subsubsection{Exported Access Programs}
 
@@ -401,7 +403,7 @@ Returns the user profile data associated with the provided username.
 \item exception: Raises UserProfileNotFoundException if the specified user profile is not found.
 \end{itemize}
 
-\noindent storeWorkoutData(workout):
+\noindent storeWorkoutData(workout, username):
 \begin{itemize}
 \item transition: Stores the provided workout data in the workoutData map.
 \item output: N/A
@@ -416,7 +418,7 @@ Returns a list of workout data associated with the provided username.
 \item exception: Raises UserProfileNotFoundException if the specified user profile is not found.
 \end{itemize}
 
-\noindent storeChatbotInteractionData(interaction):
+\noindent storeChatbotInteractionData(interaction, username):
 \begin{itemize}
 \item transition: Stores the provided chatbot interaction data in the chatbotInteractionData map.
 \item output: N/A
@@ -441,13 +443,21 @@ N/A
 \subsection{Module}
 This module showcases the user interface and interaction of the application. Through the use of inputs including buttons, text fields, or scrolling, users can interact with the interface in order to achieve the software's functionalities. 
 
+\begin{itemize}
+    \item Homepage: Upon launching SweatSmart, users are greeted with a clean and intuitive homepage. Here, they can view their personalized workout plans, track their progress, and explore various fitness resources.
+    \item Workout Planner: Within the application, users can access the workout planner interface. This interface allows them to select specific exercises, set repetitions and sets, and customize their workout routines according to their fitness goals.
+    \item Progress Tracker: SweatSmart provides a progress tracker interface where users can monitor their fitness journey over time. Visual representations such as charts or graphs display their improvements in strength, endurance, and overall performance.
+\end{itemize}
+
+
 \subsection{Uses}
-The User Interaction module (M4) serves as the gateway for users to interact with the Management Information System (MIS). It seamlessly integrates with other modules to facilitate user engagement. Linked with the User Profile Module, it provides a user-friendly interface for inputting personal information and preferences. This module collaborates with the Workout Generator Module, allowing users to input characteristics and goals, receiving personalized workout plans. In conjunction with the Chatbot System Module, it enables dynamic back-and-forth messaging, answering fitness-related queries. The Data Management Module ensures efficient handling of user inputs, optimizing the overall user experience and contributing to the MIS cohesive functionality.
+The User Interaction module (M4) serves as the gateway for users to interact with the Information Management System (IMS). It seamlessly integrates with other modules to facilitate user engagement. Linked with the User Profile Module, it provides a user-friendly interface for inputting personal information and preferences. This module collaborates with the Workout Generator Module, allowing users to input characteristics and goals, receiving personalized workout plans. In conjunction with the Chatbot System Module, it enables dynamic back-and-forth messaging, answering fitness-related queries. The Data Management Module ensures efficient handling of user inputs, optimizing the overall user experience and contributing to the MIS cohesive functionality.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+No Exported Constants
+
 
 \subsubsection{Exported Access Programs}
 
@@ -514,12 +524,13 @@ N/A
 This module is used to understand user satisfaction by taking in user feedback. The user feedback is collected, processed, and served in order to provide the user with improvements and other workout insights by generating reports. 
 
 \subsection{Uses}
-The Reporting and Feedback module (M5) is integral to the Management Information System, focusing on user satisfaction and system enhancement. It collaborates with the User Interaction Module to collect and process user feedback. The Data Management Module efficiently stores and retrieves feedback data. Teaming up with the Workout Generator Module, it generates reports for users, providing insights into their progress and suggesting improvements. The Chatbot System Module benefits from this feedback loop, refining responses. Overall, M5 plays a vital role in maintaining user satisfaction, fostering system improvements, and creating a responsive MIS.
+The Reporting and Feedback module (M5) is integral to the Information Management System (IMS), focusing on user satisfaction and system enhancement. It collaborates with the User Interaction Module to collect and process user feedback. The Data Management Module efficiently stores and retrieves feedback data. Teaming up with the Workout Generator Module, it generates reports for users, providing insights into their progress and suggesting improvements. The Chatbot System Module benefits from this feedback loop, refining responses. Overall, M5 plays a vital role in maintaining user satisfaction, fostering system improvements, and creating a responsive MIS.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+No Exported Constants
+
 
 \subsubsection{Exported Access Programs}
 
@@ -591,12 +602,13 @@ This module (M6) serves the user by answering any fitness-related questions or g
  
 
 \subsection{Uses}
-M6 within the Management Information System (MIS) represents a vital component dedicated to facilitating user engagement and support in the fitness journey. Operating collaboratively with other modules, M6 is designed to answer fitness-related inquiries and guide users toward their health and wellness goals. Through the fully-automated Conversational User Interface (CUI), this module enables seamless interactions between users and an online chatbot, fostering dynamic and informative back-and-forth messaging. Users input messages to the system, seeking advice, information, or assistance in their fitness endeavors.
+M6 within the Information Management System (IMS) represents a vital component dedicated to facilitating user engagement and support in the fitness journey. Operating collaboratively with other modules, M6 is designed to answer fitness-related inquiries and guide users toward their health and wellness goals. Through the fully-automated Conversational User Interface (CUI), this module enables seamless interactions between users and an online chatbot, fostering dynamic and informative back-and-forth messaging. Users input messages to the system, seeking advice, information, or assistance in their fitness endeavors.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+No Exported Constants
+
 
 \subsubsection{Exported Access Programs}
 
@@ -655,12 +667,13 @@ Returns a list of chatbot interactions for the specified user profile.
 This module selects the best algorithm that should be used to generate workouts. Through real-time data and analytics for the user, the module will choose and compare algorithms in which a workout will be generated that best suits the user's needs. 
 
 \subsection{Uses}
-The Algorithm Selection module (M7) is a crucial component in the Management Information System, dedicated to optimizing workout generation. Operating in real-time, this module assesses user data and analytics to select the most suitable algorithm for generating workouts. By comparing algorithms dynamically, it ensures that the generated workout aligns precisely with the user's needs. Collaborating with the Data Management Module for real-time data access, the Algorithm Selection Module enhances the effectiveness of the Workout Generator Module. This module plays a pivotal role in adapting workout recommendations based on evolving user profiles and preferences, contributing to the overall personalization and efficiency of the fitness management system.
+The Algorithm Selection module (M7) is a crucial component in the Information Management System (IMS), dedicated to optimizing workout generation. Operating in real-time, this module assesses user data and analytics to select the most suitable algorithm for generating workouts. By comparing algorithms dynamically, it ensures that the generated workout aligns precisely with the user's needs. Collaborating with the Data Management Module for real-time data access, the Algorithm Selection Module enhances the effectiveness of the Workout Generator Module. This module plays a pivotal role in adapting workout recommendations based on evolving user profiles and preferences, contributing to the overall personalization and efficiency of the fitness management system.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+No Exported Constants
+
 
 \subsubsection{Exported Access Programs}
 
