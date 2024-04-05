@@ -37,8 +37,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Mar. 6, 2024 & 1.0 & first draft of document\\
-\bottomrule
+Mar. 6, 2024 & 0 & first draft of document\\
+April 4, 2024 & 1 & revision 1 changes
 \end{tabularx}
 
 ~\newpage
@@ -53,8 +53,6 @@ Mar. 6, 2024 & 1.0 & first draft of document\\
   T & Test\\
   \bottomrule
 \end{tabular}\\
-
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
 
 \newpage
 
@@ -277,7 +275,7 @@ Mar. 6, 2024 & 1.0 & first draft of document\\
 \subsubsection{STN-ACR-1: Strong Password Restrictions}
 \begin{itemize}
     \item Evaluation: Ensure that the app enforces strong password restrictions to protect user data.
-    \item Test Method: Attempt to register or change passwords using weak and strong examples and verify acceptance criteria.
+    \item Test Method: Attempt to register or change passwords using weak and strong examples and verify acceptance criteria with the use of a regular expression.
     \item Expected Outcome: Only strong passwords are accepted.
     \item Input: Attempting to register or change passwords using weak and strong examples.
 \end{itemize}
